@@ -1,0 +1,9 @@
+<%= javascript_include_tag 'event' %>
+
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to 'カレンダー', events_path %></li>
+  <li class="active">イベント</li>
+</ol>
+
+<%= render 'form_event', mode: 'edit' %>

@@ -1,0 +1,147 @@
+<%= javascript_include_tag 'event' %>
+<%= javascript_include_tag 'resource/ja' %>
+
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%= link_to 'メニュー', main_path %></li>
+      <!-- <li><a href="#">基準情報</a></li> -->
+      <!-- <li><a href="#">セキュリティ管理</a></li> -->
+      <li class="active">カレンダー</li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-2 col-md-offset-6">
+    <h3><span class="label label-default">氏名：　<%= session['selected_user_name'] %></span></h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <input type='text' class="form-control" id="goto-date-input" name="goto-date-input" placeholder="YYYY/MM/DD" >
+  </div>
+  <div class="col-md-1">
+    <button id="goto-date-button" class="btn btn-default" type="button">Goto</button>
+  </div>
+
+  <div class="col-md-2 col-md-offset-3">
+    <h4>役員G：　<%= get_shozoku(session['selected_user']) %></h4>
+  </div>
+
+  <div class="col-md-1 col-md-offset-1">
+    <%# button_to '社員選択', %>
+    <button class="btn btn-default" id="search_user">社員選択</button>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="spacer">
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <table id="event_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+      <thead>
+      <tr>
+        <th></th>
+        <th>開始時刻</th>
+        <th>終了時刻</th>
+        <th>状態</th>
+        <th>場所／用件</th>
+        <th>JOB No.</th>
+        <th>工程名</th>
+        <th>工数</th>
+        <th>計上</th>
+      </tr>
+      </thead>
+
+      <tbody>
+<% @events.each do |event| %>
+      <tr>
+        <td><%= event.id %></td>
+        <td><%= event.開始 %></td>
+        <td><%= event.終了 %></td>
+        <td><%= event.状態名 %></td>
+        <td><%= event.場所名 %></td>
+        <td><%= event.JOB %></td>
+        <td><%= event.工程名 %></td>
+        <td><%= event.工数 %></td>
+        <td><%= event.計上 %></td>
+      </tr>
+<% end %>
+
+
+      <%# @events.each do |event| %>
+      <%# render partial: 'table_row', locals: {event: event} %>
+      <%# end %>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <%= link_to "新規イベント", new_event_path %>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="spacer">
+    </div>
+  </div>
+</div>
+<legend></legend>
+<div class="row">
+  <div class="col-md-12">
+    <div id="calendar"></div>
+  </div>
+</div>
+
+<%= form_for :user, url: change_user_events_path  do |f| %>
+    <%# render 'select_user_modal' %>
+    <div class="modal fade" id="select_user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">社員選択</h4>
+          </div>
+          <div class="modal-body">
+            <%# Render the new person form (passing modal => true to enable remote => true) %>
+
+            <table id="user_table" class="table table-striped table-bordered table-hover" cellspacing="0">
+              <thead>
+              <tr>
+                <th>社員番号</th>
+                <th>氏名</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <% @shains.each do |shain| %>
+                  <tr>
+                    <td><%= shain.連携用社員番号 %></td>
+                    <td><%= shain.氏名 %></td>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"  id="koutei_sentaku_ok">　ＯＫ　</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="hidden" name="selected_user" id="selected_user"/>
+    <input type="hidden" name="selected_user_name" id="selected_user_name"/>
+<% end %>
