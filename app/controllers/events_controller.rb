@@ -11,7 +11,7 @@ class EventsController < ApplicationController
     # @user = User.all
     @shains = Shainmaster.all
   end
-  
+   
   def edit
     init
   end
@@ -102,14 +102,14 @@ class EventsController < ApplicationController
   def ajax
    case params[:id]
      when "event_状態コード"
-       joutai = Joutaimaster.find_by 状態コード: params[:event_状態コード]
+       joutai = Joutaimaster.find_by 状態コード: params[:event_joutai_code]
        joutai_name = joutai.try(:状態名)
        data = {joutai_name: joutai_name}
        respond_to do |format|
          format.json { render json: data}
        end
      when "event_場所コード"
-       basho = Bashomaster.find_by 場所コード: params[:event_場所コード]
+       basho = Bashomaster.find_by 場所コード: params[:event_basho_code]
        basho_name = basho.try(:場所名)
        data = {basho_name: basho_name}
        respond_to do |format|

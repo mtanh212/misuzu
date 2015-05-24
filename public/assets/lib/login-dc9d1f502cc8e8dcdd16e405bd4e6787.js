@@ -1,0 +1,1 @@
+$(document).ready(function(){$("#changePass").click(function(){console.log("clicked"),window.location.replace("login/edit")})}),$(function(){$("input[maxlength]").maxlength()});

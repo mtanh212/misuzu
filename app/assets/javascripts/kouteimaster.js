@@ -129,10 +129,10 @@ $(function(){
     //var url_path = $(location).attr('pathname');
     $('#kouteimaster_所属コード').keydown( function(e) {
         if (e.keyCode == 9 && !e.shiftKey) {
-            var kouteimaster_所属コード = $('#kouteimaster_所属コード').val();
+            var kouteimaster_shozoku_code = $('#kouteimaster_所属コード').val();
             jQuery.ajax({
                 url: '/kouteimasters/ajax',
-                data: {id: 'kouteimaster_所属コード',kouteimaster_所属コード: kouteimaster_所属コード},
+                data: {id: 'kouteimaster_所属コード',kouteimaster_shozoku_code: kouteimaster_shozoku_code},
                 type: "POST",
                 // processData: false,
                 // contentType: 'application/json',

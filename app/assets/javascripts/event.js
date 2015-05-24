@@ -280,12 +280,12 @@ $(function () {
 
 // keydown trigger
 $(function(){
-    $('#event_状態コード').keydown( function(e) {
+    $("#event_状態コード").keydown( function(e) {
         if (e.keyCode == 9 && !e.shiftKey) {
-            var event_状態コード = $('#event_状態コード').val();
+            var event_joutai = $("#event_状態コード").val();
             jQuery.ajax({
                 url: '/events/ajax',
-                data: {id: 'event_状態コード',event_状態コード: event_状態コード},
+                data: {id: "event_状態コード",event_joutai_code: event_joutai},
                 type: "POST",
                 // processData: false,
                 // contentType: 'application/json',
@@ -302,10 +302,10 @@ $(function(){
 
     $('#event_場所コード').keydown( function(e) {
         if (e.keyCode == 9 && !e.shiftKey) {
-            var event_場所コード = $('#event_場所コード').val();
+            var event_basho_code = $('#event_場所コード').val();
             jQuery.ajax({
                 url: '/events/ajax',
-                data: {id: 'event_場所コード',event_場所コード: event_場所コード},
+                data: {id: 'event_場所コード',event_basho_code: event_basho_code},
                 type: "POST",
                 // processData: false,
                 // contentType: 'application/json',
@@ -322,10 +322,10 @@ $(function(){
 
     $('#event_工程コード').keydown( function(e) {
         if (e.keyCode == 9 && !e.shiftKey) {
-            var event_工程コード = $('#event_工程コード').val();
+            var event_koutei_code = $('#event_工程コード').val();
             jQuery.ajax({
                 url: '/events/ajax',
-                data: {id: 'event_工程コード',event_工程コード: event_工程コード},
+                data: {id: 'event_工程コード',event_koutei_code: event_koutei_code},
                 type: "POST",
                 // processData: false,
                 // contentType: 'application/json',

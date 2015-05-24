@@ -52,7 +52,7 @@
         <th></th>
         <th>開始時刻</th>
         <th>終了時刻</th>
-        <th>状態</th>
+        <!--<th>状態</th>-->
         <th>場所／用件</th>
         <th>JOB No.</th>
         <th>工程名</th>
@@ -62,19 +62,19 @@
       </thead>
 
       <tbody>
-<% @events.each do |event| %>
-      <tr>
-        <td><%= event.id %></td>
-        <td><%= event.開始 %></td>
-        <td><%= event.終了 %></td>
-        <td><%= event.状態名 %></td>
-        <td><%= event.場所名 %></td>
-        <td><%= event.JOB %></td>
-        <td><%= event.工程名 %></td>
-        <td><%= event.工数 %></td>
-        <td><%= event.計上 %></td>
-      </tr>
-<% end %>
+      <% @events.each do |event| %>
+          <tr>
+            <td><%= event.id %></td>
+            <td><%= event.開始 %></td>
+            <td><%= event.終了 %></td>
+            <td><%# event.状態名 %></td>
+            <td><%= event.場所名 %></td>
+            <td><%= event.JOB %></td>
+            <td><%= event.工程名 %></td>
+            <td><%= event.工数 %></td>
+            <td><%= event.計上 %></td>
+          </tr>
+      <% end %>
 
 
       <%# @events.each do |event| %>
@@ -86,11 +86,11 @@
 
 </div>
 
-  <div class="row">
-    <div class="col-md-2">
-      <%= link_to "新規イベント", new_event_path %>
-    </div>
+<div class="row">
+  <div class="col-md-2">
+    <%= link_to "新規イベント", new_event_path %>
   </div>
+</div>
 
 <div class="row">
   <div class="col-md-12">

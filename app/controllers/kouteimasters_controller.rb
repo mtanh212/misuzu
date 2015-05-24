@@ -90,7 +90,7 @@ class KouteimastersController < ApplicationController
   def ajax
     case params[:id]
       when "kouteimaster_所属コード"
-        shozoku = Shozokumaster.find_by 所属コード: params[:kouteimaster_所属コード]
+        shozoku = Shozokumaster.find_by 所属コード: params[:kouteimaster_shozoku_code]
         shozoku_name = shozoku.try(:所属名)
         data = {shozoku_name: shozoku_name}
         respond_to do |format|

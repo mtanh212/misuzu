@@ -164,7 +164,9 @@ Create a seeds.rb on db folder and write insert code to auto insert data to tabl
 `kill -9 processid`
 
 ##Precompile production mode
-`RAILS_EVN=production rake assets:precompile`
+`RAILS_EVN=production rake assets:precompile`  
+or  
+`rake assets:precompile --trace RAILS_ENV=production`
 
 ##heroku
 ```
