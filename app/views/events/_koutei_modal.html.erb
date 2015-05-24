@@ -12,10 +12,10 @@
             <span>所属:</span>
           </div>
           <div class="col-md-2">
-            <span><%= @kouteis[0].所属コード %></span>
+            <span><%= @kouteis[0].try(:所属コード) %></span>
           </div>
           <div class="col-md-2">
-            <span><%= @kouteis[0].所属名 %></span>
+            <span><%= @kouteis[0].try(:所属名) %></span>
           </div>
         </div>
         <div class="spacer"></div>
