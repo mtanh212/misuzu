@@ -177,3 +177,13 @@ git add .
 git commit -am "Make it better"  
 git push heroku master  
 ```
+
+database  
+```
+heroku addons
+heroku config
+heroku pg
+heroku run rake db:migrate
+heroku run rake db:seed
+heroku pg:psql
+```
