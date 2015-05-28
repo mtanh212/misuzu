@@ -18,19 +18,28 @@
     <th>SUB</th>
     <th>場所区分</th>
     <th>会社コード</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
   </thead>
 
   <tbody>
-  <% @bashos.each do |basho| %>
-      <tr id="basho<%= basho.id %>">
+  <% @bashomasters.each do |basho| %>
+      <tr id="bashomaster_<%= basho.id %>">
         <td><%= basho.社員番号 %></td>
         <td><%= basho.場所コード %></td>
         <td><%= basho.場所名カナ %></td>
         <td><%= basho.SUB %></td>
         <td><%= basho.場所区分 %></td>
         <td><%= basho.会社コード %></td>
+        <td><%= link_to '詳細', basho %></td>
+        <td><%= link_to '編集', edit_bashomaster_path(basho) %></td>
+        <td><%= link_to '削除', basho, remote: true, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
+
       </tr>
   <% end %>
   </tbody>
 </table>
+
+<%= link_to '新規', new_bashomaster_path %>

@@ -1,0 +1,11 @@
+<%= javascript_include_tag 'shain' %>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to '社員マスタ', shainmasters_path %></li>
+  <li class="active">編集</li>
+</ol>
+
+<%= render 'form'  %>
+
+<%= link_to '詳細', @shain %> |
+<%= link_to '戻る', shainmasters_path %>

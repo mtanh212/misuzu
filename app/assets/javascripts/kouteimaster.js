@@ -1,20 +1,26 @@
 //$(document).ready(function(){
 $(function(){
 
-  oTable = $('#kouteimaster').DataTable({
-    "pagingType": "full_numbers",
-    "scrollX": true,
-    "scrollCollapse": true,
-    "oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
-    },
-    "columnDefs": [
-      {
-        "targets": [3,4,5],
-        "width": '15px'
-      }
-    ]
-  });
+    oTable = $('#kouteimaster').DataTable({
+        "pagingType": "full_numbers",
+        "scrollX": true,
+        "scrollCollapse": true,
+        "oLanguage":{
+            "sUrl": "../../assets/resource/dataTable_ja.txt"
+        },
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [ 3,4,5 ]},
+            {
+                "targets": [3,4,5],
+                "width": '15px'
+            }
+        ],
+        "columnDefs": [ {
+            "targets"  : 'no-sort',
+            "orderable": false
+        }]
+
+    });
 
 	//選択された行を判断
 	$('#kouteimaster tbody').on( 'click', 'tr', function () {

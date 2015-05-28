@@ -1,0 +1,69 @@
+<%= form_for @bashomaster, html:{class: 'form-horizontal', role: :form, 'data-model' => 'bashomaster'} do |f| %>
+  <% if @bashomaster.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @bashomaster.errors.count %> エラーが発生しました:</h2>
+      <ul>
+      <% @bashomaster.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    
+    <div class="spacer"></div>
+    
+  <div class="form-group">
+    <%= f.label :社員番号, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :社員番号, class: 'form-control', maxlength: 10 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :場所コード, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :場所コード, class: 'form-control', maxlength: 10 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :場所名, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :場所名, class: 'form-control' %>
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <%= f.label :場所名カナ, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :場所名カナ, class: 'form-control' %>
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <%= f.label :SUB, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :SUB, class: 'form-control' %>
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <%= f.label :場所区分, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :場所区分, class: 'form-control' %>
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <%= f.label :会社コード, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :会社コード, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-2 col-sm-offset-2">
+      <%= f.submit '　登録　', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

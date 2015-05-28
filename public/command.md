@@ -169,21 +169,37 @@ or
 `rake assets:precompile --trace RAILS_ENV=production`
 
 ##heroku
-```
-heroku login  
-heroku git:clone -a misuzu  
-cd misuzu  
-git add .  
-git commit -am "Make it better"  
-git push heroku master  
-```
 
-database  
-```
-heroku addons
-heroku config
-heroku pg
-heroku run rake db:migrate
-heroku run rake db:seed
-heroku pg:psql
-```
+`heroku login`  
+`heroku git:clone -a misuzu`  
+`cd misuzu`    
+
+after change source ->  
+
+`git add . ` 
+`git commit -am "Make it better"`  
+`git push heroku master`  
+
+
+**database**  
+
+`heroku addons`  
+`heroku config`  
+`heroku pg`  
+`heroku run rake db:migrate`  
+`heroku run rake db:seed`  
+`heroku pg:psql`  
+`heorku logs`
+
+
+##Apache
+`sudo gem install passenger`  
+`passenger-install-apache2-module`
+
+**Open and edit httpd**  
+`Duc:misuzu duc$ sudo pico -e /etc/apache2/httpd.conf`  
+`Duc:misuzu duc$ sudo open -e /etc/apache2/httpd.conf`
+
+`sudo apachectl restart`  
+`sudo apachectl start`  
+`sudo apachectl stop`  

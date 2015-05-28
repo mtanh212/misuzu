@@ -18,19 +18,28 @@
     <th>所属コード</th>
     <th>直間区分</th>
     <th>役職コード</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
   </thead>
 
   <tbody>
   <% @shains.each do |shain| %>
-      <tr id="shain_<%= shain.id %>">
-      <td><%= shain.社員番号 %></td>
+      <tr id="shainmaster_<%= shain.id %>">
+        <td><%= shain.社員番号 %></td>
         <td><%= shain.連携用社員番号 %></td>
         <td><%= shain.氏名 %></td>
         <td><%= shain.所属コード %></td>
         <td><%= shain.直間区分 %></td>
         <td><%= shain.役職コード %></td>
+        <td><%= link_to '詳細', shain %></td>
+        <td><%= link_to '編集', edit_shainmaster_path(shain) %></td>
+        <td><%= link_to '削除', shain, remote: true, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
+
       </tr>
   <% end %>
   </tbody>
 </table>
+
+<%= link_to '新規', new_shainmaster_path %>

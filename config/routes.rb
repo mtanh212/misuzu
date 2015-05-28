@@ -1,16 +1,16 @@
 Jpt::Application.routes.draw do
 
-  resources :shainmasters, only: [:index] do
+  resources :shainmasters do
     
   end
   
-  resources :shozokumasters, only: [:index] do
+  resources :shozokumasters do
     
   end
-  resources :joutaimasters, only: [:index] do
+  resources :joutaimasters do
     
   end
-resources :bashomasters, only: [:index] do
+resources :bashomasters do
     
   end
 
