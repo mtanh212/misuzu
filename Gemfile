@@ -11,6 +11,9 @@ gem 'passenger', '>= 5.0.4'
 
 # gem 'puma'
 
+# for avarta 
+gem 'paperclip'
+
 gem 'sass-rails', '~> 4.0.3'
 gem 'sprockets', '2.11.0'
 

@@ -10,6 +10,8 @@ class EventsController < ApplicationController
     @events = Event.binding_event_by_change_user(session['selected_user'])
     # @user = User.all
     @shains = Shainmaster.all
+    
+    @user = User.find 6
   end
    
   def edit

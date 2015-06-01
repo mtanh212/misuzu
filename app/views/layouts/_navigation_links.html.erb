@@ -7,8 +7,12 @@
 
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
+            <% @user = User.find_by 担当者コード: session['user_id'] %>
+            <% if !@user.nil? %>
+                <li><%= image_tag @user.avatar.url(:thumb) %></li>
+            <% end %>
             <li><a href="#"> <%= session['user'] %></a></li>
-            <% if !session['user'].nil? and session['user'].empty? %>
+            <% if !session['user'].nil? && session['user'].empty? %>
                 <li><%= link_to 'ログイン', root_path %></li>
             <% else %>
                 <li><%= link_to 'ログアウト', root_path %></li>
