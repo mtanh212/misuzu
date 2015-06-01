@@ -11,7 +11,6 @@ class EventsController < ApplicationController
     # @user = User.all
     @shains = Shainmaster.all
     
-    @user = User.find 6
   end
    
   def edit
