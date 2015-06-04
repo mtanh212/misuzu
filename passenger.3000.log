@@ -1,0 +1,16 @@
+[ 2015-06-04 12:12:56.2614 82349/0x7fff7c98f300 age/Wat/Main.cpp:1264 ]: Starting PassengerAgent watchdog...
+[ 2015-06-04 12:12:56.2900 82351/0x7fff7c98f300 age/Hel/Main.cpp:944 ]: Starting PassengerAgent server...
+[ 2015-06-04 12:12:56.2909 82351/0x7fff7c98f300 age/Hel/Main.cpp:237 ]: PassengerAgent server running in multi-application mode.
+[ 2015-06-04 12:12:56.2996 82351/0x7fff7c98f300 age/Hel/Main.cpp:698 ]: PassengerAgent server online, PID 82351
+[ 2015-06-04 12:12:56.3099 82353/0x7fff7c98f300 age/Log/Main.cpp:442 ]: Starting PassengerAgent logger...
+[ 2015-06-04 12:12:56.3112 82353/0x7fff7c98f300 age/Log/Main.cpp:323 ]: PassengerAgent logger online, PID 82353
+App 82371 stdout: 
+App 82391 stdout: 
+App 82436 stdout: 
+App 82437 stdout: 
+App 82439 stdout: 
+App 82442 stdout: 
+App 82443 stdout: 
+[ 2015-06-04 12:18:29.5563 82351/0x109439000 age/Hel/Main.cpp:785 ]: Disconnecting long-running connections for process 82439, application /Users/duc/Dropbox/Apps/Heroku/misuzu/public (development)#default
+[ 2015-06-04 12:18:29.8078 82351/0x109439000 age/Hel/Main.cpp:785 ]: Disconnecting long-running connections for process 82442, application /Users/duc/Dropbox/Apps/Heroku/misuzu/public (development)#default
+[ 2015-06-04 12:18:30.1475 82351/0x109439000 age/Hel/Main.cpp:785 ]: Disconnecting long-running connections for process 82443, application /Users/duc/Dropbox/Apps/Heroku/misuzu/public (development)#default
