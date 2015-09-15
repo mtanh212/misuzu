@@ -30,10 +30,13 @@
 // require bootstrap-datetimepicker.ja.js
 
 //= require bootstrap-maxlength.js
-//= require kouteimasters.js.coffee
 //= require moment
 //= require moment/ja
 //= require bootstrap-datetimepicker
-//= require fullcalendar
+//= require fullcalendar.min
+//= require jquery.qtip.min.js
+//= require scheduler.min.js
+//= require gcal.js
+//= require bootstrap-colorpicker
 
 // require_tree .

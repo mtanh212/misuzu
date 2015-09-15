@@ -11,20 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150529070411) do
+ActiveRecord::Schema.define(version: 20150914035813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "employer", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "position"
-    t.string   "office"
-    t.integer  "age"
-    t.date     "start_date"
-    t.decimal  "salary"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "JOBマスタ", force: :cascade do |t|
+    t.string   "job番号"
+    t.string   "job名"
+    t.date     "開始日"
+    t.date     "終了日"
+    t.string   "ユーザ番号"
+    t.string   "ユーザ名"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
@@ -38,8 +38,25 @@ ActiveRecord::Schema.define(version: 20150529070411) do
     t.string   "工程コード"
     t.string   "工数"
     t.string   "計上"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "shainmaster_id"
+    t.integer  "joutaimaster_id"
+    t.integer  "bashomaster_id"
+    t.integer  "kouteimaster_id"
+    t.string   "所在コード"
+    t.integer  "shozai_id"
+    t.integer  "jobmaster_id"
+    t.text     "comment"
+    t.string   "帰社区分"
+  end
+
+  create_table "jpt_holiday_msts", force: :cascade do |t|
+    t.date     "event_date"
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "作業場所マスタ", force: :cascade do |t|
@@ -50,7 +67,6 @@ ActiveRecord::Schema.define(version: 20150529070411) do
   end
 
   create_table "場所マスタ", force: :cascade do |t|
-    t.string   "社員番号"
     t.string   "場所コード"
     t.string   "場所名"
     t.string   "場所名カナ"
@@ -65,11 +81,12 @@ ActiveRecord::Schema.define(version: 20150529070411) do
     t.string   "所属コード"
     t.string   "工程コード"
     t.string   "工程名"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "shozokumaster_id"
   end
 
-  create_table "役職テープル", force: :cascade do |t|
+  create_table "役職テーブル", force: :cascade do |t|
     t.string   "役職コード"
     t.string   "役職名"
     t.datetime "created_at", null: false
@@ -77,10 +94,10 @@ ActiveRecord::Schema.define(version: 20150529070411) do
   end
 
   create_table "所在マスタ", force: :cascade do |t|
-    t.string   "所在コード",      limit: 255
-    t.string   "所在名",        limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "所在コード"
+    t.string   "所在名"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "所属マスタ", force: :cascade do |t|
@@ -96,11 +113,12 @@ ActiveRecord::Schema.define(version: 20150529070411) do
     t.string   "パスワード",               limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",               limit: 50
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.integer  "shainmaster_id"
+    t.boolean  "admin",                           default: false
   end
 
   create_table "状態マスタ", force: :cascade do |t|
@@ -123,8 +141,10 @@ ActiveRecord::Schema.define(version: 20150529070411) do
     t.string   "所属コード"
     t.string   "直間区分"
     t.string   "役職コード"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "shozokumaster_id"
+    t.integer  "yakushokumaster_id"
   end
 
 end

@@ -35,7 +35,7 @@
         <td><%= shain.役職コード %></td>
         <td><%= link_to '詳細', shain %></td>
         <td><%= link_to '編集', edit_shainmaster_path(shain) %></td>
-        <td><%= link_to '削除', shain, remote: true, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
+        <td><%= link_to '削除', shain, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
 
       </tr>
   <% end %>

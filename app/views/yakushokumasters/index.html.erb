@@ -1,0 +1,37 @@
+<%= javascript_include_tag 'yakushoku' %>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <!-- <li><a href="#">基準情報</a></li> -->
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li class="active">役職テーブル</li>
+</ol>
+
+<!-- <h1>工程マスタ</h1> -->
+
+<table id="yakushoku_table" class="table table-striped table-bordered table-hover" cellspacing="0">
+
+  <thead>
+  <tr>
+    <th>役職コード</th>
+    <th>役職名</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @yakushokumasters.each do |yakushoku| %>
+      <tr id="yakushoku_<%= yakushoku.id %>">
+        <td><%= yakushoku.役職コード %></td>
+        <td><%= yakushoku.役職名 %></td>
+        <td><%= link_to '詳細', yakushoku %></td>
+        <td><%= link_to '編集', edit_yakushokumaster_path(yakushoku) %></td>
+        <td><%= link_to '削除', yakushoku,  method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to '新規', new_yakushokumaster_path %>

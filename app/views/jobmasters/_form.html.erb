@@ -1,0 +1,57 @@
+<%= form_for @jobmaster, html:{class: 'form-horizontal', role: :form, 'data-model' => 'jobmaster'} do |f| %>
+
+        <% if @jobmaster.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@jobmaster.errors.count, "") %> エラーが発生します。</h2>
+
+      <ul>
+      <% @jobmaster.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :JOB番号, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :job番号, class: 'form-control', maxlength:10 %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :JOB名, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :job名, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :開始日, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :開始日, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :終了日, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :終了日, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :ユーザ番号, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :ユーザ番号, class: 'form-control', maxlength:10 %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :ユーザ名, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :ユーザ名, class: 'form-control', maxlength:10 %>
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <div class="col-sm-2 col-sm-offset-2">
+      <%= f.submit '　登録　', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

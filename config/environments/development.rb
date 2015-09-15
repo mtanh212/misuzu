@@ -32,4 +32,7 @@ Jpt::Application.configure do
   config.assets.debug = true
 
   I18n.enforce_available_locales = true
+
+  config.serve_static_files = true
+  config.active_record.raise_in_transactional_callbacks = true
 end

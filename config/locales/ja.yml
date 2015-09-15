@@ -199,3 +199,14 @@ ja:
   activerecord:
     errors:
       <<: *errors
+  app:
+    delete_confirm: 削除で宜しいでしょうか。
+    flash:
+      new_success: 新規作成出来ました。
+      update_success: 更新成功出来ました。
+      login_field: 正しい情報で入力してください。
+      login_new: 担当者コードが正しくないです。
+      login_existing: ユーザーが既に登録されました。
+      access_denied: あなたはアクセス権限ではありません！
+    login:
+      let_login: ログインしてください。

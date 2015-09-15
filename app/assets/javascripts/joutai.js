@@ -1,7 +1,7 @@
 // init search table
 $(function() {
     oTable = $('#joutaimaster').DataTable({
-        "pagingType": "simple_numbers"
+        "pagingType": "full_numbers"
         , "oLanguage": {
             "sUrl": "../../assets/resource/dataTable_ja.txt"
         }
@@ -17,4 +17,9 @@ $(function() {
             "orderable": false
         }]
     });
+});
+
+//colorpicker
+$(function(){
+    $('#joutaimaster_色').colorpicker();
 });

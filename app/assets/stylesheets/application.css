@@ -19,6 +19,8 @@
 
  *= require bootstrap-datetimepicker.css
  *= require fullcalendar
-
+ *= require jquery.qtip.min.css
+ *= require scheduler.min.css
+ *= require bootstrap-colorpicker.css
  * require_tree .
 */

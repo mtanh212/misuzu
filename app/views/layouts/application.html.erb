@@ -10,22 +10,16 @@
 	</head>
 
 	<body>
-		<%= render :partial => 'layouts/navigation_links' %>
+    <%= render 'layouts/navigation_links' %>
 
-		<div class="container-fluid" style="margin-top: 70px">
-			<div class="row-fluid">
-				<%= yield %>
-			</div>
-		</div>
+    <div class="container-fluid" style="margin-top: 70px">
+      <div class="row-fluid">
+        <%= render 'share/messages' %>
+        <%= yield %>
+      </div>
+    </div>
 
-	<div style="margin-top: 20px">
-
-		<legend></legend>
-		<footer>
-			<p align="left" style="text-align: center;">Copyright(c) ジュピター電算機システム株式会社 ALL rights reserved. </p>
-		</footer>
-	</div>
-
-	</body>
+    <%= render 'layouts/footer' %>
+    </body>
 
 </html>

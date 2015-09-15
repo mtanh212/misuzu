@@ -39,7 +39,7 @@
         <td><%= joutai.勤怠使用区分 %></td>
         <td><%= link_to '詳細', joutai %></td>
         <td><%= link_to '編集', edit_joutaimaster_path(joutai) %></td>
-        <td><%= link_to '削除', joutai, remote: true, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
+        <td><%= link_to '削除', joutai, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
 
       </tr>
   <% end %>

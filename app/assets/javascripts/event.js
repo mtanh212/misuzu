@@ -2,18 +2,95 @@
  * Created by cmc on 18/03/2015.
  */
 
+//calendar init
 $(function(){
-    $('#calendar').fullCalendar(
-        {
-            events: '/events.json',
-            header: {
-                left:   'title',
-                //center: 'month,basicWeek,basicDay prevYear,nextYear',
-                center: 'month,agendaWeek,agendaDay prevYear,nextYear',
-                right:  'today prev,next'
+    var firstHour = new Date().getUTCHours();
+    $.getJSON('/events', function(data) {
+        $('#calendar').fullCalendar(
+            {
+                firstHour: '09:00',
+                businessHours:{
+                    start: '09:00', // a start time (09am in this example)
+                    end: '18:00', // an end time (6pm in this example)
+
+                    dow: [ 1, 2, 3, 4, 5 ]
+                    // days of week. an array of zero-based day of week integers (0=Sunday)
+                    // (Monday-Freeday in this example)
+                },
+                firstDay: 1,
+                editable: true,
+                aspectRatio: 1.5,
+                resourceAreaWidth: '30%',
+                slotLabelFormat: ['HH : mm'],
+                scrollTime: '09:00',
+                minTime: '09:00:00',
+                maxTime: '23:00:00',
+                eventOverlap: false,
+                googleCalendarApiKey: 'AIzaSyDOeA5aJ29drd5dSAqv1TW8Dvy2zkYdsdk',
+                eventSources: [
+                    {
+                        googleCalendarId: 'en.japanese#holiday@group.v.calendar.google.com',
+                        color: 'green'
+                    }
+                    //,{
+                    //    googleCalendarId: 'en.vietnamese#holiday@group.v.calendar.google.com',
+                    //    color: 'blue'
+                    //}
+                ],
+                schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+                defaultView: 'timelineDay',
+                events: data.events,
+                //events: '/events.json',
+                header: {
+                    left:   'title',
+                    center: 'month,agendaWeek,agendaDay prevYear,nextYear timelineDay,timelineThreeDays',
+                    right:  'today prev,next'
+                },
+                views: {
+                    timelineThreeDays: {
+                        type: 'timeline',
+                        duration: { days: 3 }
+                    }
+                },
+                eventRender: function(event, element, view) {
+                    element.qtip({
+                        content: event.description
+                    });
+                },
+                //resourceGroupField: 'shozoku',
+                resourceColumns: [
+                {
+                    //group: true,
+                    labelText: '所属',
+                    field: 'shozoku'  
+                },
+                {
+                    //group: true,
+                    labelText: '役職',
+                    field: 'yakushoku'  
+                },
+                {
+                    labelText: '社員名',
+                    field: 'shain'
+                },
+                {
+                    labelText: '状態',
+                    field: 'joutai'
+                }
+                ]
+                ,resources: data.shains
             }
-        }
-    );
+        );
+        
+        //add jpt holiday
+        $('#calendar').fullCalendar('addEventSource',data.holidays);
+    });
+    
+});
+
+// readjust sizing after font load
+$(window).on('load', function() {
+    $('#calendar').fullCalendar('render');
 });
 
 //date field click handler
@@ -55,7 +132,6 @@ $(function(){
         date_input = $('#goto-date-input').val();
         date = moment(date_input);
         $('#calendar').fullCalendar('gotoDate',date);
-
     });
     
     $('#search_user').click(function(){
@@ -72,6 +148,23 @@ $(function(){
     
     $('#koutei_search').click(function(){
         $('#koutei_search_modal').modal('show');
+    });
+    
+    $('#shozai_search').click(function(){
+        $('#shozai_search_modal').modal('show');
+    });
+    
+    $('#job_search').click(function(){
+        $('#job_search_modal').modal('show');
+    });
+    
+    $('#shujitu').click(function(){
+        start_time = moment().format("YYYY/MM/DD");
+        end_time = start_time + " 18:00"
+        start_time += " 09:00"
+        $('#event_開始').val(start_time);
+        $('#event_終了').val(end_time);
+        
     });
     
 });
@@ -105,9 +198,23 @@ $(function(){
             "sUrl": "../../assets/resource/dataTable_ja.txt"
         }
     });
+    
+    oShozaiTable = $('#shozai_table').DataTable({
+        "pagingType": "simple_numbers"
+        ,"oLanguage":{
+            "sUrl": "../../assets/resource/dataTable_ja.txt"
+        }
+    });
+
+    oJobTable = $('#job_table').DataTable({
+        "pagingType": "simple_numbers"
+        ,"oLanguage":{
+            "sUrl": "../../assets/resource/dataTable_ja.txt"
+        }
+    });
 
     oEventTable = $('#event_table').DataTable({
-        "pagingType": "simple_numbers"
+        "pagingType": "full_numbers"
         ,"oLanguage":{
             "sUrl": "../../assets/resource/dataTable_ja.txt"
         }
@@ -202,7 +309,26 @@ $(function(){
             $(this).addClass('success');
         }
 
+        //check if that day missing
+        if (d[0] == "30"){
+            $('#event_場所コード').prop( "disabled", true );
+            $('#event_JOB').prop( "disabled", true );
+            $('#event_工程コード').prop( "disabled", true );
+            $('#basho_search').prop( "disabled", true );
+            $('#koutei_search').prop( "disabled", true );
+            
+        }else{
+            $('#event_場所コード').prop( "disabled", false );
+            $('#event_JOB').prop( "disabled", false );
+            $('#event_工程コード').prop( "disabled", false );
+            $('#basho_search').prop( "disabled", false );
+            $('#koutei_search').prop( "disabled", false );
+            
+        }
+
+
     } );
+    
     //工程選択された行を判断
     $('#koutei_table tbody').on( 'click', 'tr', function () {
 
@@ -222,7 +348,47 @@ $(function(){
             $(this).addClass('selected');
             $(this).addClass('success');
         }
+        
+    } );
+    
+    //工程選択された行を判断
+    $('#shozai_table tbody').on( 'click', 'tr', function () {
 
+        var d = oShozaiTable.row(this).data();
+        $('#event_所在コード').val(d[0]);
+        $('#shozai_name').text(d[1]);
+
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+            $(this).removeClass('success');
+        }
+        else {
+            oShozaiTable.$('tr.selected').removeClass('selected');
+            oShozaiTable.$('tr.success').removeClass('success');
+            $(this).addClass('selected');
+            $(this).addClass('success');
+        }
+        
+    } );
+
+    //工程選択された行を判断
+    $('#job_table tbody').on( 'click', 'tr', function () {
+
+        var d = oJobTable.row(this).data();
+        $('#event_JOB').val(d[0]);
+        $('#job_name').text(d[1]);
+
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+            $(this).removeClass('success');
+        }
+        else {
+            oJobTable.$('tr.selected').removeClass('selected');
+            oJobTable.$('tr.success').removeClass('success');
+            $(this).addClass('selected');
+            $(this).addClass('success');
+        }
+        
     } );
 
 });
@@ -335,6 +501,27 @@ $(function(){
                 },
                 failure: function() {
                     console.log("event_工程コード keydown Unsuccessful");
+                }
+            });
+        }
+    });
+
+
+    $('#event_JOB').keydown( function(e) {
+        if (e.keyCode == 9 && !e.shiftKey) {
+            var event_job_code = $('#event_JOB').val();
+            jQuery.ajax({
+                url: '/events/ajax',
+                data: {id: 'event_job',event_job_code: event_job_code},
+                type: "POST",
+                // processData: false,
+                // contentType: 'application/json',
+                success: function(data) {
+                    $('#job_name').text(data.job_name);
+                    console.log("getAjax job_name:"+ data.job_name);
+                },
+                failure: function() {
+                    console.log("event_job番号 keydown Unsuccessful");
                 }
             });
         }

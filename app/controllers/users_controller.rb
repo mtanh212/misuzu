@@ -1,19 +1,21 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  respond_to :js
+  
   # GET /users
   # GET /users.json
   def index
+    @users = User.all
   end
 
   def login
-    session['user'] = ''
-    session['user_id'] = ''
+    reset_session
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    
   end
 
   # GET /users/new
@@ -31,74 +33,74 @@ class UsersController < ApplicationController
     case params[:commit]
       when '登録'
         @user = User.new(user_params)
-        respond_to do |format|
-          if @user.save
-            Rails.logger.info 'User created'
-            format.html { redirect_to login_users_url, notice: '新規成功出来ました。' }
-          else
-            Rails.logger.info 'User uncreated'
-            format.html { render 'new' }
-            # format.json { render json: @user.errors, status: :unprocessable_entity }
-            # format.js { render json: @user.errors, status: :unprocessable_entity }
-            # format.js { render 'show' }
-          end
+        
+        if user_params[:担当者コード].in?(User.pluck(:担当者コード))
+          flash[:alert] = t "app.flash.login_existing"
+          # respond_with @user, location: new_user_url
+          redirect_to :back
+          return
         end
+        
+        if !user_params[:担当者コード].in?(Shainmaster.pluck(:連携用社員番号))
+          flash[:alert] = t "app.flash.login_new" 
+          # respond_with @user, location: new_user_url
+          redirect_to :back
+          return
+        end
+        
+        @user.shainmaster = Shainmaster.find_by 社員番号: user_params[:担当者コード]
+        flash[:notice] = t "app.flash.new_success" if @user.save
+        respond_with @user, location: login_users_url
+        
       when 'ログイン'
-        @user = User.where('担当者コード = ? AND パスワード = ?',params[:user][:担当者コード].downcase,params[:user][:パスワード]).first
 
-        respond_to do |format|
-          if @user.nil?
-            Rails.logger.info 'login unsuccess'
-            flash.now[:notice] = "社員番号とパスワードを正しく入力してください。"
-            # Create an error message and re-render the signin form.
-            format.html {render action: 'login', notice: 'unsuccess'}
-          else
-            # Sign the user in and redirect to the user's show page.
-            Rails.logger.info 'login success'
-            # format.html { redirect_to main_shozais_url }
-            session['user'] = @user.担当者名称
-            session['user_id'] = @user.担当者コード
-            session['selected_user'] = @user.担当者コード
-            session['selected_user_name'] = @user.担当者名称
-            format.html { redirect_to events_url }
-          end
+        # if ENV['admin_user'] == params[:user][:担当者コード].downcase  
+        #   if ENV['admin_password'] == params[:user][:パスワード]
+        #     @user = User.find_or_create_by 担当者コード: ENV['admin_user'], admin: true
+        #     @user.shainmaster = Shainmaster.find_or_create_by 社員番号: ENV['admin_user'], 連携用社員番号: ENV['admin_user'], 氏名: 'admin'
+        #     @user.shainmaster.shozokumaster = Shozokumaster.take
+        #     @user.shainmaster.yakushokumaster = Yakushokumaster.take
+        #     @user.save
+        #     @user.shainmaster.save
+        #   end
+        # else
+        #   @user = User.where('担当者コード = ? AND パスワード = ?',params[:user][:担当者コード].downcase,params[:user][:パスワード]).first
+        # end
+
+        if ENV['admin_user'] == params[:user][:担当者コード].downcase && ENV['admin_password'] == params[:user][:パスワード]
+          session[:user] = ENV['admin_user']
+          session[:current_user_id] = ENV['admin_user']
+          redirect_to users_url
+          return
+        end
+
+
+        @user = User.where('担当者コード = ? AND パスワード = ?',params[:user][:担当者コード].downcase,params[:user][:パスワード]).first
+        
+        if @user.nil?
+          flash.now[:alert] = t "app.flash.login_field"
+          render "login"
+        else
+          session[:user] = @user.id
+          session[:current_user_id] = @user.id
+          session[:selected_shain] = @user.shainmaster.id
+          respond_with @user, location: events_url
         end
     end
-    # @user = User.new(user_params)
-
-    # respond_to do |format|
-    #   if @user.save
-    #     format.html { redirect_to @user, notice: 'User was successfully created.' }
-    #     format.json { render action: 'show', status: :created, location: @user }
-    #   else
-    #     format.html { render action: 'new' }
-    #     format.json { render json: @user.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = t "app.flash.update_success" if @user.update user_params
+    respond_with @user
   end
 
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
-    end
+    respond_with @user
   end
 
   def change_pass
@@ -113,11 +115,11 @@ class UsersController < ApplicationController
         redirect_to root_url
       else
         flash.now[:error] = '新パスワードともう一度パスワードが異なります。'
-        render 'change_pass'
+        render :change_pass
       end
     else
       respond_to do |format|
-        format.html {redirect_to action: 'change_pass'}
+        format.html {redirect_to action: :change_pass}
       end
     end
   end
@@ -130,6 +132,6 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:担当者コード, :担当者名称, :パスワード, :avatar)
+    params.require(:user).permit(:担当者コード, :担当者名称, :パスワード, :avatar, :admin)
   end
 end

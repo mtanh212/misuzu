@@ -12,21 +12,14 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-2 col-md-offset-6">
-    <h3><span class="label label-default">氏名：　<%= session['selected_user_name'] %></span></h3>
+  <div class="col-md-2 col-md-offset-5">
+    <h3><span class="label label-default">氏名：　<%= Shainmaster.find(session[:selected_shain]).try :氏名 %></span></h3>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-2">
-    <input type='text' class="form-control" id="goto-date-input" name="goto-date-input" placeholder="YYYY/MM/DD" >
-  </div>
-  <div class="col-md-1">
-    <button id="goto-date-button" class="btn btn-default" type="button">Goto</button>
-  </div>
-
-  <div class="col-md-2 col-md-offset-3">
-    <h4>役員G：　<%= get_shozoku(session['selected_user']) %></h4>
+  <div class="col-md-2 col-md-offset-5">
+    <h4><%= Shainmaster.find(session[:selected_shain]).yakushokumaster.try :役職名 %></h4>
   </div>
 
   <div class="col-md-1 col-md-offset-1">
@@ -52,8 +45,8 @@
         <th></th>
         <th>開始時刻</th>
         <th>終了時刻</th>
-        <!--<th>状態</th>-->
-        <th>場所／用件</th>
+        <th>所在</th>
+        <th>場所</th>
         <th>JOB No.</th>
         <th>工程名</th>
         <th>工数</th>
@@ -67,12 +60,14 @@
             <td><%= event.id %></td>
             <td><%= event.開始 %></td>
             <td><%= event.終了 %></td>
-            <!--<td><%# event.状態名 %></td>-->
-            <td><%= event.場所名 %></td>
+            <td><%= event.shozai.try :所在名 %></td>
+            <!--<td><%# event.場所名 %></td>-->
+            <td><%= event.bashomaster.try :場所名 %></td>
             <td><%= event.JOB %></td>
-            <td><%= event.工程名 %></td>
+            <td><%= event.kouteimaster.try :工程名 %></td>
             <td><%= event.工数 %></td>
             <td><%= event.計上 %></td>
+            <!--<td><%# event.joutaimaster.状態名 %></td>-->
           </tr>
       <% end %>
 
@@ -98,7 +93,18 @@
     </div>
   </div>
 </div>
+
 <legend></legend>
+
+<div class="row">
+  <div class="col-md-2">
+    <input type='text' class="form-control" id="goto-date-input" name="goto-date-input" placeholder="YYYY/MM/DD" >
+  </div>
+  <div class="col-md-1">
+    <button id="goto-date-button" class="btn btn-default" type="button">Goto</button>
+  </div>
+</div>
+<div class="spacer"></div>
 <div class="row">
   <div class="col-md-12">
     <div id="calendar"></div>
@@ -145,3 +151,5 @@
     <input type="hidden" name="selected_user" id="selected_user"/>
     <input type="hidden" name="selected_user_name" id="selected_user_name"/>
 <% end %>
+
+<div id="calendar1"></div>

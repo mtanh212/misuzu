@@ -1,7 +1,9 @@
 class BashomastersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_bashomaster, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
+  respond_to :js
+  
   def index
     @bashomasters = Bashomaster.all
   end
@@ -21,58 +23,18 @@ class BashomastersController < ApplicationController
 
   def create
     @bashomaster = Bashomaster.new(bashomaster_params)
-
-    # if !param_valid
-    #   Rails.logger.info 'Param check error'
-    #   @errors = ["所属コードが間違っています。"]
-    #   respond_to do |format|
-    #     format.html {render action: 'new'}
-    #   end
-    #   return
-    # end
-
-    respond_to do |format|
-      if @bashomaster.save
-        format.html { redirect_to @bashomaster, notice: '新規成功出来ました。' }
-        format.json { render action: 'show', status: :created, location: @bashomaster }
-        format.js { render action: 'show', status: :created, location: @bashomaster }
-      else
-        format.html { render 'new'}
-        format.json { render json: @bashomaster.errors, status: :unprocessable_entity }
-        format.js { render json: @bashomaster.errors, status: :unprocessable_entity }
-        # format.js { render 'show' }
-      end
-    end
+    flash[:notice] = "Basho was created successfuly." if @bashomaster.save
+    respond_with @bashomaster
   end
 
   def update
-    # if !param_valid
-    #   Rails.logger.info 'Param check error'
-    #   @errors = ["所属コードが間違っています。"]
-    #   respond_to do |format|
-    #     format.html {render action: 'edit'}
-    #   end
-    #   return
-    # end
-    respond_to do |format|
-      if @bashomaster.update(bashomaster_params)
-        format.html { redirect_to bashomasters_url, notice: '更新成功できました。' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @bashomaster.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:notice] = "Basho was update successfuly" if @bashomaster.update bashomaster_params
+    respond_with @bashomaster
   end
 
   def destroy
     @bashomaster.destroy
-    respond_to do |format|
-      format.html { redirect_to bashomasters_url }
-      format.json { head :no_content }
-      format.js {}
-    end
-
+    respond_with @bashomaster, location: bashomasters_url
   end
 
   private

@@ -3,8 +3,8 @@ $(function(){
 
     oTable = $('#kouteimaster').DataTable({
         "pagingType": "full_numbers",
-        "scrollX": true,
-        "scrollCollapse": true,
+        //"scrollX": true,
+        //"scrollCollapse": true,
         "oLanguage":{
             "sUrl": "../../assets/resource/dataTable_ja.txt"
         },
@@ -40,7 +40,7 @@ $(function(){
     
     //init shozoku modal table
     oShozokuTable = $('#shozoku_search_table').DataTable({
-        "pagingType": "simple_numbers"
+        "pagingType": "full_numbers"
         ,"oLanguage":{
             "sUrl": "../../assets/resource/dataTable_ja.txt"
         }

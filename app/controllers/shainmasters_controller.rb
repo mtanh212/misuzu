@@ -1,6 +1,9 @@
 class ShainmastersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_shainmaster, only: [:show, :edit, :update, :destroy]
+  before_action :set_reference, only: [:new, :edit, :create, :update]
+  load_and_authorize_resource
+  respond_to :js
   
   def index
     @shains = Shainmaster.all
@@ -20,58 +23,27 @@ class ShainmastersController < ApplicationController
   
   def create
     @shainmaster = Shainmaster.new(shainmaster_params)
-
-    # if !param_valid
-    #   Rails.logger.info 'Param check error'
-    #   @errors = ["所属コードが間違っています。"]
-    #   respond_to do |format|
-    #     format.html {render action: 'new'}
-    #   end
-    #   return
-    # end
-
-    respond_to do |format|
-      if @shainmaster.save
-        format.html { redirect_to @shainmaster, notice: '新規成功出来ました。' }
-        format.json { render action: 'show', status: :created, location: @shainmaster }
-        format.js { render action: 'show', status: :created, location: @shainmaster }
-      else
-        format.html { render 'new'}
-        format.json { render json: @shainmaster.errors, status: :unprocessable_entity }
-        format.js { render json: @shainmaster.errors, status: :unprocessable_entity }
-        # format.js { render 'show' }
-      end
-    end
+    @shainmaster.shozokumaster = Shozokumaster.find_by 所属コード: shainmaster_params[:所属コード]
+    @shainmaster.yakushokumaster = Yakushokumaster.find_by 役職コード: shainmaster_params[:役職コード]
+    
+    flash[:notice] = t "app.flash.new_success" if @shainmaster.save 
+    respond_with @shainmaster
+    
   end
   
   def update
-    # if !param_valid
-    #   Rails.logger.info 'Param check error'
-    #   @errors = ["所属コードが間違っています。"]
-    #   respond_to do |format|
-    #     format.html {render action: 'edit'}
-    #   end
-    #   return
-    # end
-    respond_to do |format|
-      if @shainmaster.update(shainmaster_params)
-        format.html { redirect_to shainmasters_url, notice: '更新成功できました。' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @shainmaster.errors, status: :unprocessable_entity }
-      end
-    end
+    @shainmaster.shozokumaster = Shozokumaster.find_by 所属コード: shainmaster_params[:所属コード]
+    @shainmaster.yakushokumaster = Yakushokumaster.find_by 役職コード: shainmaster_params[:役職コード]
+    flash[:notice] = t "app.flash.update_success" if @shainmaster.update shainmaster_params
+    respond_with @shainmaster
+    
   end
   
   def destroy
+    session[:selected_shain] = Shainmaster.take.id if @shainmaster.id == session[:selected_shain]
     @shainmaster.destroy
-    respond_to do |format|
-      format.html { redirect_to shainmasters_url }
-      format.json { head :no_content }
-      format.js {}
-    end
-
+    respond_with @shainmaster, location: shainmasters_url
+    
   end
   
 private
@@ -83,4 +55,10 @@ private
   def set_shainmaster
     @shainmaster = Shainmaster.find(params[:id])
   end
+
+  def set_reference
+    @shozokus = Shozokumaster.all
+    @yakushokus = Yakushokumaster.all
+  end
+
 end

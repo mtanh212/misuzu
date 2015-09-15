@@ -27,7 +27,7 @@
         <td><%= shozoku.所属名 %></td>
         <td><%= link_to '詳細', shozoku %></td>
         <td><%= link_to '編集', edit_shozokumaster_path(shozoku) %></td>
-        <td><%= link_to '削除', shozoku, remote: true, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
+        <td><%= link_to '削除', shozoku, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
       </tr>
   <% end %>
   </tbody>

@@ -8,6 +8,9 @@ Bundler.require(:default, Rails.env)
 
 module Jpt
   class Application < Rails::Application
+    # Use the responders controller from the responders gem
+    config.app_generators.scaffold_controller :responders_controller
+
 
     config.generators do |g|
 

@@ -1,0 +1,12 @@
+<%= javascript_include_tag 'jpt_holiday_msts' %>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to 'ジュピター休日', jpt_holiday_msts_path %></li>
+  <li class="active">編集</li>
+</ol>
+
+
+<%= render 'form' %>
+
+<%= link_to '詳細', @jpt_holiday_mst %> |
+<%= link_to '戻る', jpt_holiday_msts_path %>

@@ -1,7 +1,9 @@
 class ShozokumastersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_shozokumaster, only: [:show, :edit, :update, :destroy]
-
+  load_and_authorize_resource
+  respond_to :js
+  
   def index
     @shozokumasters = Shozokumaster.all
   end
@@ -20,58 +22,23 @@ class ShozokumastersController < ApplicationController
 
   def create
     @shozokumaster = Shozokumaster.new(shozokumaster_params)
+    
+    flash[:notice] = t "app.flash.new_success" if @shozokumaster.save
+    respond_with @shozokumaster
 
-    # if !param_valid
-    #   Rails.logger.info 'Param check error'
-    #   @errors = ["所属コードが間違っています。"]
-    #   respond_to do |format|
-    #     format.html {render action: 'new'}
-    #   end
-    #   return
-    # end
-
-    respond_to do |format|
-      if @shozokumaster.save
-        format.html { redirect_to @shozokumaster, notice: '新規成功出来ました。' }
-        format.json { render action: 'show', status: :created, location: @shozokumaster }
-        format.js { render action: 'show', status: :created, location: @shozokumaster }
-      else
-        format.html { render 'new'}
-        format.json { render json: @shozokumaster.errors, status: :unprocessable_entity }
-        format.js { render json: @shozokumaster.errors, status: :unprocessable_entity }
-        # format.js { render 'show' }
-      end
-    end
   end
 
   def update
-    # if !param_valid
-    #   Rails.logger.info 'Param check error'
-    #   @errors = ["所属コードが間違っています。"]
-    #   respond_to do |format|
-    #     format.html {render action: 'edit'}
-    #   end
-    #   return
-    # end
-    respond_to do |format|
-      if @shozokumaster.update(shozokumaster_params)
-        format.html { redirect_to shozokumasters_url, notice: '更新成功できました。' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @shozokumaster.errors, status: :unprocessable_entity }
-      end
-    end
+    
+    flash[:notice] = t "app.flash.update_success" if @shozokumaster.update shozokumaster_params
+    respond_with @shozokumaster
+    
   end
 
   def destroy
     @shozokumaster.destroy
-    respond_to do |format|
-      format.html { redirect_to shozokumasters_url }
-      format.json { head :no_content }
-      format.js {}
-    end
-
+    respond_with @shozokumaster, location: shozokumasters_url
+    
   end
 
   private

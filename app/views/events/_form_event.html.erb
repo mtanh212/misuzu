@@ -9,134 +9,166 @@
           </ul>
         </div>
     <% end %>
-    
-    <!-- Error for check params-->
-    <% if @errors.any? %>
-        <div id="error_explanation">
-          <h2>パラムエラーが発生しました：</h2>
-          <ul>
-            <% @errors.each do |msg| %>
-                <li><%= msg %></li>
-            <% end  %>
-          </ul>
-        </div>
-    <% end %>
 
     <div class="spacer"></div>
-
-
-    <div class="form-group">
-      <%= f.label :社員番号, class: 'col-sm-2 control-label' %>
-      <div class="col-sm-2">
-        <%= f.text_field :社員番号, class: 'form-control', value: session['user_id'] %>
-      </div>
-      
-      <% if mode != 'new' %>
-          <% if @event.計上 == '済'%>
-            <%= f.label :計上, class: 'col-sm-2 control-label' %>
-            <!--<div class="col-sm-2">-->
-              <%# f.text_field :計上, class: 'form-control' %>
-              <span class="col-sm-1 control-label"><%= @event.計上 %>　　　　</span>
-            <!--</div>-->
-              <% end %>
-      <% end  %>
-      
-      <span id="shainbango" class="help-block"></span>
-    </div>    
-    
-    <div class="form-group">
-      <%= f.label :開始, class: 'col-sm-2 control-label' %>
-      <div class="col-md-2">
-          <%= f.text_field :開始, class: 'form-control' %>
-      </div>
-      
-      <span id="start_date" class="help-block"></span>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :終了, class: 'col-sm-2 control-label' %>
-      
-      <div class="col-md-2">
-        <%= f.text_field :終了, class: 'form-control' %>
-      </div>
-      
-      <span id="end_date" class="help-block"></span>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :状態, class: 'col-sm-2 control-label' %>
-      <div class="col-sm-2">
-        <%= f.text_field :状態コード, class: 'form-control' %>
-      </div>
-      <div class="col-md-1">
-        <button class="btn btn-default" id="joutai_search" type="button">
-          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-        </button>
-      </div>
-        <span id="joutai_name"><%= @hash_param[:joutai_name] %></span>
-      <span class="help-block"></span>
-    </div>
-    
-    <div class="form-group">
-      <%= f.label :場所, class: 'col-sm-2 control-label' %>
-      <div class="col-sm-2">
-        <%= f.text_field :場所コード, class: 'form-control' %>
-      </div>
-      <div class="col-md-1">
-        <button class="btn btn-default" id="basho_search" type="button">
-          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-        </button>
-      </div>
-      <span id="basho_name"><%= @hash_param[:basho_name] %></span>
-      <span class="help-block"></span>
-    </div>
-    
-    <div class="form-group">
-      <%= f.label :JOB, class: 'col-sm-2 control-label' %>
-      <div class="col-sm-2">
-        <%= f.text_field :JOB, class: 'form-control' %>
-      </div>
-      <span class="help-block"></span>
-    </div>
-    
-    <%= f.hidden_field :所属コード, class: 'form-control' %>
-    
-    <div class="form-group">
-      <%= f.label :工程, class: 'col-sm-2 control-label' %>
-      <div class="col-sm-2">
-        <%= f.text_field :工程コード, class: 'form-control' %>
-      </div>
-      <div class="col-md-1">
-        <button class="btn btn-default" id="koutei_search" type="button">
-          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-        </button>
-      </div>
-      <span id="koutei_name"><%= @hash_param[:koutei_name] %></span>
-      <span class="help-block"></span>
-    </div>
-    
-    <div class="form-group">
-      <%= f.label :工数, class: 'col-sm-2 control-label' %>
-      <div class="col-sm-2">
-        <%= f.text_field :工数, class: 'form-control' %>
-      </div>
-      <span class="help-block"></span>
-    </div>
-    
-    <% if session['selected_user'] == session['user_id'] && @event.計上 != '済' %>
-        <div class="form-group">
-          <div class="col-sm-1 col-sm-offset-2">
-            <%= f.submit '　登録　', class: 'btn btn-primary' %>
-          </div>
-          <% if mode == 'edit' %>
-              <div class="col-sm-1">
-                <%= f.submit '　削除　', class: 'btn btn-default' %>
-              </div>
-          <% end %>
+    <!-- column 1-->
+    <div class="col-md-7">
+      <div class="form-group">
+        <%= f.label :社員番号, class: 'col-md-2 control-label' %>
+        <div class="col-md-2">
+          <%= f.text_field :社員番号, class: 'form-control' %>
         </div>
-    <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :状態, class: 'col-md-2 control-label' %>
+        <div class="col-md-2">
+          <%= f.text_field :状態コード, class: 'form-control' %>
+        </div>
+        <div class="col-md-1">
+          <button class="btn btn-default" id="joutai_search" type="button">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="col-md-6">
+          <span id="joutai_name" class="help-block"><%= @event.joutaimaster.try :状態名 %></span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :所在, class: 'col-md-2 control-label' %>
+        <div class="col-md-2">
+          <%= f.text_field :所在コード, class: 'form-control' %>
+        </div>
+        <div class="col-md-1">
+          <button class="btn btn-default" id="shozai_search" type="button">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="col-md-3">
+          <span id="shozai_name" class="help-block"><%= @event.shozai.try :所在名 %></span>
+        </div>
+        <%= f.label :帰社区分, class: 'col-md-2 control-label' %>
+        <div class="col-md-2">
+          <% kubun = %w(帰社 直帰 連続).prepend('') %>
+          <%= select(:event, :帰社区分, kubun, {}, {class: 'form-control input-sm'}) %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :場所, class: 'col-md-2 control-label' %>
+        <div class="col-md-2">
+          <%= f.text_field :場所コード, class: 'form-control' %>
+        </div>
+        <div class="col-md-1">
+          <button class="btn btn-default" id="basho_search" type="button">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="col-md-6">
+          <span id="basho_name" class="help-block"><%= @event.bashomaster.try :場所名 %></span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :JOB, class: 'col-md-2 control-label' %>
+        <div class="col-md-2">
+          <%= f.text_field :JOB, class: 'form-control' %>
+        </div>
+        <div class="col-md-1">
+          <button class="btn btn-default" id="job_search" type="button">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="col-md-6">
+          <span id="job_name" class="help-block"><%= @event.jobmaster.try :job名 %></span>
+        </div>
+      </div>
+
+      <%= f.hidden_field :所属コード, class: 'form-control', value: get_shozoku(session[:user]).所属コード %>
+
+      <div class="form-group">
+        <%= f.label :工程, class: 'col-md-2 control-label' %>
+        <div class="col-md-2">
+          <%= f.text_field :工程コード, class: 'form-control' %>
+        </div>
+        <div class="col-md-1">
+          <button class="btn btn-default" id="koutei_search" type="button">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div class="col-md-6">
+          <span id="koutei_name" class="help-block"><%= @event.kouteimaster.try :工程名 %></span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :工数, class: 'col-md-2 control-label' %>
+        <% array_value = []
+           i = 0
+           until i > 10 do
+             array_value.append([i,i])
+             i += 0.25
+           end
+        %>
+        <div class="col-md-2">
+          <%= select(:event, :工数, array_value, {}, {class: 'form-control input-sm'}) %>
+        </div>
+        <span class="help-block">h　(単位：時間)</span>
+      </div>
+      <%if mode == 'new' %>
+          <div class="form-group">
+            <div class="col-md-1 col-md-offset-7">
+              <%= f.submit '　登録　', class: 'btn btn-primary' %>
+            </div>
+          </div>
+      <%end %>
+
+      <% if session[:selected_shain] == User.find(session[:user]).shainmaster.id && @event.計上 != '済' && mode == 'edit' %>
+          <div class="form-group">
+            <div class="col-md-1 col-md-offset-7">
+              <%= f.submit '　登録　', class: 'btn btn-primary' %>
+            </div>
+            <div class="col-md-1 col-md-offset-1">
+              <%= f.submit '　削除　', class: 'btn btn-default' %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+
+    <!-- colume 2-->
+    <div class="col-md-5">
+      <div class="form-group">
+        <%= f.label :開始, class: 'col-md-3 control-label' %>
+        <div class="col-md-5">
+          <%= f.text_field :開始, class: 'form-control' %>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-default" id="shujitu" type="button">
+            <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :終了, class: 'col-md-3 control-label' %>
+        <div class="col-md-5">
+          <%= f.text_field :終了, class: 'form-control' %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= f.label :コメント, class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <%= f.text_area :comment, class: 'form-control', size: '100x10' %>
+        </div>
+
+      </div>
+    </div>
+
 <% end %>
 
-<%= render 'joutai_modal' %>
-<%= render 'basho_modal' %>
-<%= render 'koutei_modal' %>
+<%= render 'share/joutai_modal' %>
+<%= render 'share/basho_modal' %>
+<%= render 'share/koutei_modal' %>
+<%= render 'share/shozai_modal' %>
+<%= render 'share/job_modal' %>
+</div>

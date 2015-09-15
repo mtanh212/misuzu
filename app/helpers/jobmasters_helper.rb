@@ -1,0 +1,2 @@
+module JobmastersHelper
+end
