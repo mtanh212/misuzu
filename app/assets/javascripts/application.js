@@ -15,7 +15,8 @@
 
 //= require jquery-2.1.1.min.js
 //= require jquery_ujs
-//= require bootstrap.min.js
+//= require bootstrap-sprockets
+// require bootstrap.min.js
 
 //= require jquery.dataTables.min.js
 //= require dataTables.bootstrap.js
