@@ -4,4 +4,5 @@ class Jobmaster < ActiveRecord::Base
   validates :job番号, :job名, presence: true
   
   has_many :events
+  belongs_to :kaishamaster
 end

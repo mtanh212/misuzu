@@ -7,15 +7,17 @@ class EventsController < ApplicationController
   include EventsHelper
   
   def index
-    @all_events = Event.all
+    @all_events = Event.where("Date(開始) = ?", Date.today.to_s(:db))
     begin
       @events = Shainmaster.find(session[:selected_shain]).events.order(開始: :desc)
     rescue
       @events = Shainmaster.take.events
     end
     @shains = Shainmaster.order(:所属コード,:役職コード,:社員番号).all
-    
     @holidays = JptHolidayMst.all 
+    
+    # 不在状態の社員
+    check_user_status()
     
     # @shain_names = @shains.select :id, :title
     # respond_with(@shain_names) do |format|
@@ -28,17 +30,27 @@ class EventsController < ApplicationController
   end
    
   def edit
+    # @event.build_joutaimaster if @event.joutaimaster.nil?
   end
   
   def new
-    shainbango = User.find(session[:user]).shainmaster.社員番号
-    @event = Event.new(社員番号: shainbango)
+    # shainbango = User.find(session[:user]).shainmaster.shain_no
+    @event = Event.new shain_no: Shainmaster.find(session[:selected_shain]).shain_no
+    # @event.build_joutaimaster
   end
   
   def create
     @event = User.find(session[:user]).shainmaster.events.new event_params
     set_fkey @event, event_params
+
     flash[:notice] = t 'app.flash.new_success' if @event.save
+
+    # if @event.save
+    #   flash[:notice] = t 'app.flash.new_success' 
+    # else
+    #   @event.build_joutaimaster
+    # end
+    
     respond_with @event, location: events_url
   end
 
@@ -51,20 +63,34 @@ class EventsController < ApplicationController
       when '　登録　'
         set_fkey @event, event_params
         flash[:notice] = t 'app.flash.update_success' if @event.update event_params
+        # joutai = Joutaimaster.find_by code: event_params[:状態コード]
+        # joutai.update color: params['input-backgroud-color'], text_color: params['input-text-color']
         respond_with @event, location: events_url
     end
   end
-  
-  def change_user
-    session[:selected_shain] = Shainmaster.find_by(社員番号: params[:selected_user]).id
-    respond_with @event, location: events_url
+
+  def custom
+    case params[:commit]
+      when '帰宅'
+        event = kitaku()
+        respond_with event, location: root_url
+      when '　ＯＫ　'
+        session[:selected_shain] = Shainmaster.find_by(社員番号: params[:selected_user]).id
+        respond_with @event, location: events_url
+      when '勤務'
+        redirect_to kintais_url
+      when '経費'
+        redirect_to keihis_url
+    end
   end
-  
+
   def ajax
    case params[:id]
      when "event_状態コード"
-       joutai_name = Joutaimaster.find_by(状態コード: params[:event_joutai_code]).try(:状態名)
-       data = {joutai_name: joutai_name}
+       joutai = Joutaimaster.find_by(状態コード: params[:event_joutai_code])
+       # event= [{id: '1', resourceId: 'b', start: '2015-08-07 10:00:00', end: '2015-08-07 14:00:00', title: joutai.name }]
+       # data = {joutai_name: joutai.name, event: event, event_color: joutai.color, event_text_color: joutai.text_color}
+       data = {joutai_name: joutai.name}
        respond_to do |format|
          format.json { render json: data}
        end
@@ -100,11 +126,12 @@ private
     @shozais = Shozai.all
     @bashos = Bashomaster.all
     @joutais = Joutaimaster.all
-    @kouteis = User.find(session[:user]).shainmaster.shozokumaster.kouteimasters
+    # @kouteis = User.find(session[:user]).shainmaster.shozokumaster.kouteimasters
+    @kouteis = Shainmaster.find(session[:selected_shain]).shozokumaster.kouteimasters
   end
 
 # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:社員番号, :開始, :終了, :状態コード, :場所コード, :JOB, :所属コード, :工程コード, :工数, :計上, :所在コード, :comment, :帰社区分)
+    params.require(:event).permit(:社員番号, :開始, :終了, :状態コード, :場所コード, :JOB, :所属コード, :工程コード, :工数, :計上, :所在コード, :comment, :帰社区分) 
   end
 end

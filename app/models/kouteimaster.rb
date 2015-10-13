@@ -10,5 +10,6 @@ class Kouteimaster < ActiveRecord::Base
   alias_attribute :code, :工程コード
   alias_attribute :name, :工程名
 
+  delegate :code, to: :shozokumaster, prefix: true, allow_nil: true
   delegate :name, to: :shozokumaster, prefix: true, allow_nil: true
 end

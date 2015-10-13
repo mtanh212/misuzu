@@ -1,6 +1,6 @@
 class BashomastersController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_bashomaster, only: [:show, :edit, :update, :destroy]
+  before_action :set_bashomaster, only: [:new, :create, :show, :edit, :update, :destroy]
   load_and_authorize_resource
   respond_to :js
   
@@ -23,12 +23,14 @@ class BashomastersController < ApplicationController
 
   def create
     @bashomaster = Bashomaster.new(bashomaster_params)
-    flash[:notice] = "Basho was created successfuly." if @bashomaster.save
+    @bashomaster.kaishamaster = Kaishamaster.find_by code: bashomaster_params[:会社コード]
+    flash[:notice] = t "app.flash.new_success" if @bashomaster.save
     respond_with @bashomaster
   end
 
   def update
-    flash[:notice] = "Basho was update successfuly" if @bashomaster.update bashomaster_params
+    @bashomaster.kaishamaster = Kaishamaster.find_by code: bashomaster_params[:会社コード]
+    flash[:notice] = t "app.flash.update_success" if @bashomaster.update bashomaster_params
     respond_with @bashomaster
   end
 
@@ -37,6 +39,17 @@ class BashomastersController < ApplicationController
     respond_with @bashomaster, location: bashomasters_url
   end
 
+  def ajax
+    case params[:focus_field]
+      when "bashomaster_会社コード"
+        kaisha_name = Kaishamaster.find_by(code: params[:kaisha_code]).try :name
+        data = {kaisha_name: kaisha_name}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+    end
+  end
+    
   private
 
   def bashomaster_params
@@ -45,5 +58,7 @@ class BashomastersController < ApplicationController
 
   def set_bashomaster
     @bashomaster = Bashomaster.find(params[:id])
+    @kaishamasters = Kaishamaster.all
   end
+  
 end

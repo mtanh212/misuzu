@@ -1,6 +1,7 @@
 <%= javascript_include_tag 'event' %>
 <%= javascript_include_tag 'resource/ja' %>
 
+<%= form_for :user, url: custom_events_path  do |f| %>
 <div class="row">
   <div class="col-md-12">
     <ol class="breadcrumb">
@@ -12,8 +13,19 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-2 col-md-offset-5">
+  <div class="col-md-2">
+    <div class="btn-group" role="group" aria-label="...">
+      <%= f.submit '勤務', class: 'btn btn-default', id:'kintai'%>
+      <%= f.submit '経費', class: 'btn btn-default', id:'keihi'%>
+    </div>
+  </div>
+  <div class="col-md-2 col-md-offset-3">
     <h3><span class="label label-default">氏名：　<%= Shainmaster.find(session[:selected_shain]).try :氏名 %></span></h3>
+  </div>
+  <div class="col-md-2 col-md-offset-3" align="right">
+    <div class="btn-group" role="group" aria-label="...">
+      <%= f.submit '帰宅', class: 'btn btn-default', id:'kitaku-button'%>
+    </div>
   </div>
 </div>
 
@@ -24,9 +36,9 @@
 
   <div class="col-md-1 col-md-offset-1">
     <%# button_to '社員選択', %>
-    <button class="btn btn-default" id="search_user">社員選択</button>
+    <button type="button" class="btn btn-default" id="search_user">社員選択</button>
   </div>
-
+  
 </div>
 
 <div class="row">
@@ -45,7 +57,7 @@
         <th></th>
         <th>開始時刻</th>
         <th>終了時刻</th>
-        <th>所在</th>
+        <th>状態</th>
         <th>場所</th>
         <th>JOB No.</th>
         <th>工程名</th>
@@ -60,9 +72,16 @@
             <td><%= event.id %></td>
             <td><%= event.開始 %></td>
             <td><%= event.終了 %></td>
-            <td><%= event.shozai.try :所在名 %></td>
+            <td><%= event.joutaimaster.try :name %></td>
+            <!--<td><%= event.shozai.try :所在名 %></td>-->
             <!--<td><%# event.場所名 %></td>-->
-            <td><%= event.bashomaster.try :場所名 %></td>
+            <% 
+               if event.bashomaster
+                 basho_name = event.bashomaster.name
+                 basho_name = event.bashomaster.kaisha_name if event.bashomaster.場所区分 == '2' 
+               end
+            %>
+            <td><%= basho_name %></td>
             <td><%= event.JOB %></td>
             <td><%= event.kouteimaster.try :工程名 %></td>
             <td><%= event.工数 %></td>
@@ -98,20 +117,34 @@
 
 <div class="row">
   <div class="col-md-2">
-    <input type='text' class="form-control" id="goto-date-input" name="goto-date-input" placeholder="YYYY/MM/DD" >
+    <div class="input-group">
+      <input type='text' class="form-control" id="goto-date-input" name="goto-date-input">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" id="toggle-calendar-goto">
+          <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+        </button>
+      </span>
+    </div>
   </div>
   <div class="col-md-1">
-    <button id="goto-date-button" class="btn btn-default" type="button">Goto</button>
+    <button id="goto-date-button" class="btn btn-default" type="button">Go!</button>
   </div>
-</div>
-<div class="spacer"></div>
-<div class="row">
-  <div class="col-md-12">
-    <div id="calendar"></div>
+  <div class="col-md-2 col-md-offset-2" align="right">
+    <div class="btn-group" role="group" aria-label="...">
+      <button id="month-view" type="button" class="btn btn-default">月</button>
+      <button id="day-view" type="button" class="btn btn-default">日</button>
+    </div>
   </div>
 </div>
 
-<%= form_for :user, url: change_user_events_path  do |f| %>
+<div class="spacer"></div>
+<div class="row">
+  <div class="col-md-12">
+    <div id="calendar-month-view"></div>
+    <div id="calendar-timeline"></div>
+  </div>
+</div>
+
     <%# render 'select_user_modal' %>
     <div class="modal fade" id="select_user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -142,7 +175,7 @@
             </table>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary"  id="koutei_sentaku_ok">　ＯＫ　</button>
+            <%= f.submit '　ＯＫ　', class: 'btn btn-default', id:'koutei_sentaku_ok'%>
             <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
           </div>
         </div>
@@ -151,5 +184,3 @@
     <input type="hidden" name="selected_user" id="selected_user"/>
     <input type="hidden" name="selected_user_name" id="selected_user_name"/>
 <% end %>
-
-<div id="calendar1"></div>

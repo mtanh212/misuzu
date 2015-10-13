@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   # @todo record not found
   # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   # rescue_from User::NotAuthorized, with: :user_not_authorized
-
+  
   private
   
   # Finds the User with the ID stored in the session with the key

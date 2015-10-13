@@ -116,6 +116,7 @@
         </div>
         <span class="help-block">h　(単位：時間)</span>
       </div>
+      <!--<div style="height: 100px"></div>-->
       <%if mode == 'new' %>
           <div class="form-group">
             <div class="col-md-1 col-md-offset-7">
@@ -124,7 +125,8 @@
           </div>
       <%end %>
 
-      <% if session[:selected_shain] == User.find(session[:user]).shainmaster.id && @event.計上 != '済' && mode == 'edit' %>
+      <%# if session[:selected_shain] == User.find(session[:user]).shainmaster.id && @event.計上 != '済' && mode == 'edit' %>
+      <% if @event.計上 != '済' && mode == 'edit' %>
           <div class="form-group">
             <div class="col-md-1 col-md-offset-7">
               <%= f.submit '　登録　', class: 'btn btn-primary' %>
@@ -140,8 +142,8 @@
     <div class="col-md-5">
       <div class="form-group">
         <%= f.label :開始, class: 'col-md-3 control-label' %>
-        <div class="col-md-5">
-          <%= f.text_field :開始, class: 'form-control' %>
+        <div class="col-md-6">
+          <%= f.datetime_select :開始, class: 'form-control' %>
         </div>
         <div class="col-md-2">
           <button class="btn btn-default" id="shujitu" type="button">
@@ -151,19 +153,84 @@
       </div>
       <div class="form-group">
         <%= f.label :終了, class: 'col-md-3 control-label' %>
-        <div class="col-md-5">
-          <%= f.text_field :終了, class: 'form-control' %>
+        <div class="col-md-6">
+          <%= f.datetime_select :終了, class: 'form-control' %>
         </div>
       </div>
       <div class="form-group">
         <%= f.label :コメント, class: 'col-md-3 control-label' %>
         <div class="col-md-9">
-          <%= f.text_area :comment, class: 'form-control', size: '100x10' %>
+          <%= f.text_area :comment, class: 'form-control', size: '100x2' %>
         </div>
-
       </div>
-    </div>
-
+      
+      <!--panel preview-->
+      <!--<div class="panel panel-default" id="preview-panel">-->
+        <!--<div class="panel-heading">-->
+          <!--<h3 class="panel-title">エベント背景色と文字色変更のプリビュー</h3>-->
+        <!--</div>-->
+        <!--<div class="panel-body">-->
+          <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+            <!--&lt;!&ndash;<div id="calendar-preview"></div>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--<div class="form-group">-->
+            <!--<div class="col-md-5 col-md-offset-4">-->
+              <!--<div id="preview-backgroud" class="panel panel-default">-->
+                <!--<p id="preview-text" style="align-content: center">松本と昼ごはん</p>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<%= f.fields_for :joutaimaster do |joutai_form| %>-->
+          <!--<div class="form-group">-->
+            <!--<div class="col-md-3" align="right">-->
+              <!--<%= joutai_form.text_field :color, class: 'form-control'%>-->
+            <!--</div>-->
+            <!--<div class="col-md-2" align="right">-->
+              <!--<a href="#" class="btn btn-default" id="change-background-color" data-color-format="hex" data-color="rgb(255, 255, 255)">背景色</a>-->
+            <!--</div>-->
+            <!--<div class="col-md-3 col-md-offset-1" align="right">-->
+              <!--<%= joutai_form.text_field :text_color, class: 'form-control' %>-->
+            <!--</div>-->
+            <!--<div class="col-md-2">-->
+              <!--<a href="#" class="btn btn-default" id="change-text-color" data-color-format="hex" data-color="rgb(255, 255, 255)">文字色</a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+              <% end %>
+      </div>  
+      
+      <!--<div class="panel panel-default">-->
+        <!--<div class="panel-heading">-->
+          <!--<h3 class="panel-title">エベント背景色と文字色変更のプリビュー</h3>-->
+        <!--</div>-->
+        <!--<div class="panel-body">-->
+          <!--<div class="form-group">-->
+            <!--<div id="calendar-preview"></div>-->
+          <!--</div>-->
+          <!--<div class="form-group">-->
+            <!--<div class="col-md-5 col-md-offset-4">-->
+              <!--<div id="preview-backgroud" class="panel panel-default">-->
+                <!--<p id="preview-text" style="align-content: center">松本と昼ごはん</p>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="form-group">-->
+            <!--<div class="col-md-3" align="right">-->
+              <!--<%= text_field_tag 'input-backgroud-color','', class: 'form-control' %>-->
+            <!--</div>-->
+            <!--<div class="col-md-2" align="right">-->
+              <!--<a href="#" class="btn btn-default" id="change-background-color" data-color-format="hex" data-color="rgb(255, 255, 255)">背景色</a>-->
+            <!--</div>-->
+            <!--<div class="col-md-3 col-md-offset-1" align="right">-->
+              <!--<%= text_field_tag 'input-text-color', '',class: 'form-control' %>-->
+            <!--</div>-->
+            <!--<div class="col-md-2">-->
+              <!--<a href="#" class="btn btn-default" id="change-text-color" data-color-format="hex" data-color="rgb(255, 255, 255)">文字色</a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      
 <% end %>
 
 <%= render 'share/joutai_modal' %>
@@ -171,4 +238,3 @@
 <%= render 'share/koutei_modal' %>
 <%= render 'share/shozai_modal' %>
 <%= render 'share/job_modal' %>
-</div>

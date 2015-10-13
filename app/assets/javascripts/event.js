@@ -4,66 +4,110 @@
 
 //calendar init
 $(function(){
-    var firstHour = new Date().getUTCHours();
+    //var firstHour = new Date().getUTCHours();
+    var scroll = -1,
+        viewNames = ['agendaWeek', 'agendaDay', 'timelineDay'];
     $.getJSON('/events', function(data) {
-        $('#calendar').fullCalendar(
+        $('#calendar-month-view').fullCalendar(
             {
-                firstHour: '09:00',
+                //height: 1287,
+                //height: 1500,
+                //firstHour: '09:00',
                 businessHours:{
-                    start: '09:00', // a start time (09am in this example)
-                    end: '18:00', // an end time (6pm in this example)
+                    start: '09:00:00', // a start time (09am in this example)
+                    end: '18:00:00', // an end time (6pm in this example)
 
-                    dow: [ 1, 2, 3, 4, 5 ]
+                    dow: [1, 2, 3, 4, 5]
                     // days of week. an array of zero-based day of week integers (0=Sunday)
                     // (Monday-Freeday in this example)
                 },
                 firstDay: 1,
-                editable: true,
-                aspectRatio: 1.5,
-                resourceAreaWidth: '30%',
+                //editable: true,
+                //aspectRatio: 1.5,
+                //resourceAreaWidth: '30%',
                 slotLabelFormat: ['HH : mm'],
-                scrollTime: '09:00',
+                scrollTime: '09:00:00',
+                //slotDuration: moment.duration(0.5, 'hours'),
                 minTime: '09:00:00',
-                maxTime: '23:00:00',
-                eventOverlap: false,
+                //maxTime: '23:00:00',
+                //eventOverlap: false,
                 googleCalendarApiKey: 'AIzaSyDOeA5aJ29drd5dSAqv1TW8Dvy2zkYdsdk',
                 eventSources: [
                     {
                         googleCalendarId: 'en.japanese#holiday@group.v.calendar.google.com',
                         color: 'green'
                     }
-                    //,{
-                    //    googleCalendarId: 'en.vietnamese#holiday@group.v.calendar.google.com',
-                    //    color: 'blue'
-                    //}
+                    ,{
+                        googleCalendarId: 'en.vietnamese#holiday@group.v.calendar.google.com',
+                        color: 'blue'
+                    }
                 ],
                 schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+                //defaultView: 'timelineDay',
+                events: data.my_events,
+                //events: '/events.json',
+                header: {
+                    left:   'title',
+                    center: 'month,agendaWeek,agendaDay prevYear,nextYear',
+                    right:  'today prev,next'
+                },
+                //eventRender: function(event, element, view) {
+                //    element.qtip({
+                //        content: event.description
+                //    });
+                //},
+            }
+        );
+        
+        $('#calendar-timeline').fullCalendar(
+            {
+                //height: 1287,
+                height: 1400,
+                //firstHour: '09:00',
+                businessHours:{
+                    start: '09:00:00', // a start time (09am in this example)
+                    end: '18:00:00', // an end time (6pm in this example)
+
+                    dow: [1, 2, 3, 4, 5]
+                    // days of week. an array of zero-based day of week integers (0=Sunday)
+                    // (Monday-Freeday in this example)
+                },
+                firstDay: 1,
+                //editable: true,
+                //aspectRatio: 1.5,
+                resourceAreaWidth: '30%',
+                slotLabelFormat: ['HH : mm'],
+                scrollTime: '09:00:00',
+                //slotDuration: moment.duration(0.5, 'hours'),
+                //minTime: '09:00:00',
+                //maxTime: '23:00:00',
+                eventOverlap: false,
                 defaultView: 'timelineDay',
                 events: data.events,
                 //events: '/events.json',
                 header: {
                     left:   'title',
-                    center: 'month,agendaWeek,agendaDay prevYear,nextYear timelineDay,timelineThreeDays',
+                    //center: 'prevYear,nextYear timelineDay,timelineThreeDays',
                     right:  'today prev,next'
                 },
-                views: {
-                    timelineThreeDays: {
-                        type: 'timeline',
-                        duration: { days: 3 }
-                    }
-                },
-                eventRender: function(event, element, view) {
-                    element.qtip({
-                        content: event.description
-                    });
-                },
-                //resourceGroupField: 'shozoku',
+                //views: {
+                //    timelineThreeDays: {
+                //        type: 'timeline',
+                //        duration: { days: 3 }
+                //    }
+                //},
+                //eventRender: function(event, element, view) {
+                //    element.qtip({
+                //        content: event.description
+                //    });
+                //},
+                resourceGroupField: 'shozoku',
                 resourceColumns: [
-                {
+                //{
                     //group: true,
-                    labelText: '所属',
-                    field: 'shozoku'  
-                },
+                    //labelText: '所属',
+                    //field: 'shozoku'  
+                //},
                 {
                     //group: true,
                     labelText: '役職',
@@ -83,14 +127,36 @@ $(function(){
         );
         
         //add jpt holiday
-        $('#calendar').fullCalendar('addEventSource',data.holidays);
+        $('#calendar-month-view').fullCalendar('addEventSource',data.holidays);
+        
     });
     
 });
 
 // readjust sizing after font load
 $(window).on('load', function() {
-    $('#calendar').fullCalendar('render');
+    $('#calendar-timeline').fullCalendar('render');
+    $('#goto-date-input').val(moment().format('YYYY/MM/DD'));
+
+});
+
+//toggle_calendar
+$(function () {
+
+    $('#toggle-calendar-goto').click(function () {
+        $('#goto-date-input').data("DateTimePicker").toggle();
+
+    });
+
+    $('#開始').click(function () {
+        $('#event_開始').data("DateTimePicker").toggle();
+    });
+    
+    $('#終了').click(function () {
+        $('#event_終了').data("DateTimePicker").toggle();
+
+    });
+
 });
 
 //date field click handler
@@ -100,18 +166,41 @@ $(function () {
         format: 'YYYY/MM/DD',
         widgetPositioning: {
             horizontal: 'left'
-        },
-        showTodayButton: true
-    });
-    //date_goto.showTodayButton(true);
-    $('#event_開始').datetimepicker({
-        format: 'YYYY/MM/DD HH:m'
+        }
         ,showTodayButton: true
+        ,showClear: true
+        //,daysOfWeekDisabled:[0,6]
+        ,calendarWeeks: true,
+        keyBinds: false,
+        focusOnShow: false
+
+    });
+    
+    $('#event_開始').datetimepicker({
+        format: 'YYYY/MM/DD HH:mm',
+        showClear: true,
+        showTodayButton: true,
+        sideBySide: true,
+        //,daysOfWeekDisabled:[0,6]
+        calendarWeeks: true,
+        //allowInputToggle: true,
+        toolbarPlacement: 'top',
+        keyBinds: false,
+        focusOnShow: false
     });
     
     $('#event_終了').datetimepicker({
-        format: 'YYYY/MM/DD HH:m'
-        ,showTodayButton: true
+        format: 'YYYY/MM/DD HH:mm',
+        showTodayButton: true,
+        showClear: true,
+        sideBySide: true,
+        //daysOfWeekDisabled:[0,6],
+        calendarWeeks: true,
+        //allowInputToggle: true,
+        toolbarPlacement: 'top',
+        keyBinds: false,
+        focusOnShow: false
+
 
     });
 
@@ -131,7 +220,8 @@ $(function(){
         //$('#calendar').fullCalendar('next');
         date_input = $('#goto-date-input').val();
         date = moment(date_input);
-        $('#calendar').fullCalendar('gotoDate',date);
+        $('#calendar-month-view').fullCalendar('gotoDate',date);
+        $('#calendar-timeline').fullCalendar('gotoDate',date);
     });
     
     $('#search_user').click(function(){
@@ -157,16 +247,49 @@ $(function(){
     $('#job_search').click(function(){
         $('#job_search_modal').modal('show');
     });
+
+    $('#shujitu').click(function() {
+        start_form_time = $('#event_開始').val();
+        end_form_time = $('#event_終了').val();
+
+        var start_time, end_time
+
+        if (start_form_time == "" && end_form_time == "") {
+            start_time = moment().format("YYYY-MM-DD");
+            end_time = start_time + " 18:00"
+            start_time += " 09:00"
+            $('#event_開始').val(start_time);
+            $('#event_終了').val(end_time);
+            return;
+        }
+
+        if (start_form_time != "") {
+            start_time = start_form_time.substring(0, 10) + " 09:00";
+            end_time = start_form_time.substring(0, 10) + " 18:00";
+        } else {
+            start_time = end_form_time.substring(0, 10) + " 09:00";
+            end_time = end_form_time.substring(0, 10) + " 18:00";
+        }
     
-    $('#shujitu').click(function(){
-        start_time = moment().format("YYYY/MM/DD");
-        end_time = start_time + " 18:00"
-        start_time += " 09:00"
+        
         $('#event_開始').val(start_time);
         $('#event_終了').val(end_time);
-        
+
     });
     
+    //month day switch view
+    $('#month-view').click(function(){
+        $('#calendar-timeline').hide();
+        $('#calendar-month-view').show();
+        $('#calendar-month-view').fullCalendar('render');
+
+    });
+    
+    $('#day-view').click(function(){
+        $('#calendar-month-view').hide();
+        $('#calendar-timeline').show();
+    });
+
 });
 
 // init search table
@@ -214,42 +337,32 @@ $(function(){
     });
 
     oEventTable = $('#event_table').DataTable({
-        "pagingType": "full_numbers"
-        ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
-        }
-        ,"aoColumnDefs": [
-            {
-            "aTargets": [0],
-            "mRender": function (data, type, full) {
+        "pagingType": "full_numbers",
+        "oLanguage":{"sUrl": "../../assets/resource/dataTable_ja.txt"},
+        "aoColumnDefs": [
+            {"aTargets": [0], "mRender": function (data, type, full) {
                 return '<a href="/events/' + data + '/edit">詳細</a>';
                 }
             },
-            {
-            "aTargets": [1,2],
-            "mRender": function (data, type, full) {
-                var time_format = moment(data, 'YYYY-MM-DD HH:mm').format('YYYY/MM/DD HH:mm');
+            {"aTargets": [1,2], "mRender": function (data, type, full) {
+                var time_format = moment(data, 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm');
                 if (time_format !== 'Invalid date'){
                     return time_format;
                     }else return '';
-                
                 }
-            }
-            ,{ "bSortable": false, "aTargets": [ 0 ]}
-            ,{
-                "targets": [ 0 ],
-                //"visible": false,
-                "searchable": false
-            }
-
-        ]
-        , 
+            },
+            { "bSortable": false, "aTargets": [ 0 ]},
+            {"targets": [ 0 ],"searchable": false}
+            //{"targets": [1,2], "width": '11%'},
+            //{"targets": [0], "width": '3%'},
+            //{"targets": [7,8], "width": '6%'},
+            //{"targets": [5], "width": '8%'}
+        ],
         "order": [],
-        "columnDefs": [ {
-            "targets"  : 'no-sort',
-            "orderable": false
-        }]
-
+        "columnDefs": [ 
+            {"targets" : 'no-sort', "orderable": false}
+        ],
+        "autoWidth": true
     });
 
     //選択された行を判断
@@ -458,11 +571,55 @@ $(function(){
                 success: function(data) {
                     $('#joutai_name').text(data.joutai_name);
                     console.log("getAjax joutai_name:"+ data.joutai_name);
+                    
+                    //preview calendar
+                    //$('#calendar-preview').fullCalendar(
+                    //    {
+                    //        now: '2015-08-07',
+                    //        height: 170,
+                    //        businessHours:{
+                    //            start: '09:00:00', // a start time (09am in this example)
+                    //            end: '18:00:00', // an end time (6pm in this example)
+                    //
+                    //            dow: [1, 2, 3, 4, 5]
+                    //            // days of week. an array of zero-based day of week integers (0=Sunday)
+                    //            // (Monday-Freeday in this example)
+                    //        },
+                    //        resourceAreaWidth: '20%',
+                    //        slotLabelFormat: ['HH : mm'],
+                    //        scrollTime: '09:00:00',
+                    //        eventOverlap: false,
+                    //        defaultView: 'timelineDay',
+                    //        events: data.event,
+                    //        eventTextColor: data.event_text_color,
+                    //        eventColor: data.event_color,
+                    //        resourceLabelText: '社員',
+                    //        resources: [
+                    //            { id: 'a', title: '松本' },
+                    //            { id: 'b', title: 'Duc'}
+                    //        ],
+                    //        header: {
+                    //            left:   '',
+                    //            center: '',
+                    //            right:  ''
+                    //
+                    //        }
+                    //    }
+                    //);
+                    
+                    //$("#preview-text").text(data.joutai_name);
+                    //$("#preview-text").css('color', data.event_text_color);
+                    //$('#preview-backgroud').css("background-color", data.event_color);
+                    //$("#event_joutaimaster_attributes_color").val(data.event_color);
+                    //$("#event_joutaimaster_attributes_text_color").val(data.event_text_color);
+                    //$('#preview-panel').show();
+                    //$(".fc-toolbar").hide();
                 },
                 failure: function() {
                     console.log("event_状態コード keydown Unsuccessful");
                 }
             });
+            
         }
     });
 
@@ -529,8 +686,31 @@ $(function(){
 
 });
 
-//Add maxlength display
 $(function(){
+//Add maxlength display
     $('input[maxlength]').maxlength();
 
+    //calendar hide show
+    $('#calendar-month-view').hide();
+    $('#calendar-timeline').show();
+
+////colorpicker added
+//    $('#preview-panel').hide();
+//
+//    $('#change-background-color').colorpicker().on('changeColor', function(ev){
+//        $('#preview-backgroud').css("background-color", ev.color.toHex());
+//        $('#event_joutaimaster_attributes_color').val(ev.color.toHex());
+//    });
+//    
+//    $('#change-text-color').colorpicker().on('changeColor', function(ev){
+//        $('#preview-text').css("color", ev.color.toHex());
+//        $('#event_joutaimaster_attributes_text_color').val(ev.color.toHex());
+//    });
+//
+////binding preview when load
+////    $("#preview-text").text($('#joutai_name').val());
+//    $("#preview-text").css('color', $("#event_joutaimaster_attributes_text_color").val());
+//    $('#preview-backgroud').css("background-color", $("#event_joutaimaster_attributes_color").val());
+    
 });
+

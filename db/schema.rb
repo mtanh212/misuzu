@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914035813) do
+ActiveRecord::Schema.define(version: 20151012024657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,8 +23,9 @@ ActiveRecord::Schema.define(version: 20150914035813) do
     t.date     "終了日"
     t.string   "ユーザ番号"
     t.string   "ユーザ名"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "kaishamaster_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -59,6 +60,78 @@ ActiveRecord::Schema.define(version: 20150914035813) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "keihi_bodies", force: :cascade do |t|
+    t.integer  "申請番号"
+    t.integer  "行番号"
+    t.datetime "日付"
+    t.string   "社員番号"
+    t.string   "相手先"
+    t.string   "機関名"
+    t.string   "発"
+    t.string   "着"
+    t.integer  "発着kubun"
+    t.decimal  "交通費"
+    t.decimal  "日当"
+    t.decimal  "宿泊費"
+    t.decimal  "その他"
+    t.string   "JOB"
+    t.text     "備考"
+    t.integer  "領収書kubun"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "keihi_heads", force: :cascade do |t|
+    t.integer  "申請番号"
+    t.datetime "日付"
+    t.string   "社員番号"
+    t.string   "承認者"
+    t.decimal  "交通費合計"
+    t.decimal  "日当合計"
+    t.decimal  "宿泊費合計"
+    t.decimal  "その他合計"
+    t.decimal  "旅費合計"
+    t.decimal  "仮払金"
+    t.decimal  "合計"
+    t.decimal  "支給品"
+    t.decimal  "過不足"
+    t.integer  "承認kubun"
+    t.datetime "清算予定日"
+    t.datetime "清算日"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kintais", force: :cascade do |t|
+    t.date     "日付"
+    t.string   "曜日"
+    t.string   "勤務タイプ"
+    t.datetime "出勤時刻"
+    t.datetime "退社時刻"
+    t.decimal  "実労働時間"
+    t.decimal  "遅刻時間"
+    t.decimal  "早退時間"
+    t.decimal  "普通残業時間"
+    t.decimal  "深夜残業時間"
+    t.decimal  "普通保守時間"
+    t.decimal  "深夜保守時間"
+    t.decimal  "保守携帯回数"
+    t.integer  "状態1"
+    t.integer  "状態2"
+    t.integer  "状態3"
+    t.text     "備考"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "会社マスタ", force: :cascade do |t|
+    t.string   "会社コード"
+    t.string   "会社名"
+    t.text     "備考"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "作業場所マスタ", force: :cascade do |t|
     t.string   "作業場所コード",    limit: 255
     t.string   "作業場所名",      limit: 255
@@ -73,8 +146,9 @@ ActiveRecord::Schema.define(version: 20150914035813) do
     t.string   "SUB"
     t.string   "場所区分"
     t.string   "会社コード"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "kaishamaster_id"
   end
 
   create_table "工程マスタ", force: :cascade do |t|
@@ -98,11 +172,20 @@ ActiveRecord::Schema.define(version: 20150914035813) do
     t.string   "所在名"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "背景色"
+    t.string   "文字色"
   end
 
   create_table "所属マスタ", force: :cascade do |t|
     t.string   "所属コード"
     t.string   "所属名"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "承認者マスタ", force: :cascade do |t|
+    t.string   "申請者"
+    t.string   "承認者"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -130,8 +213,9 @@ ActiveRecord::Schema.define(version: 20150914035813) do
     t.string   "色"
     t.string   "WEB使用区分"
     t.string   "勤怠使用区分"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "文字色",        default: "#EFEFEF"
   end
 
   create_table "社員マスタ", force: :cascade do |t|

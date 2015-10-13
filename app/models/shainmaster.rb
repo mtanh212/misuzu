@@ -10,4 +10,13 @@ class Shainmaster < ActiveRecord::Base
   belongs_to :yakushokumaster
   
   alias_attribute :title, :氏名
+  alias_attribute :shain_no, :社員番号
+
+  def events
+    super || build_events
+  end
+
+  def user
+    super || build_user
+  end
 end

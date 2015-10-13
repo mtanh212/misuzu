@@ -1,0 +1,4 @@
+$(function(){
+    //$('#kintai-event').DataTable();
+    
+});

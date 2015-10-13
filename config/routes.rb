@@ -3,12 +3,24 @@ Jpt::Application.routes.draw do
 
   resources :events, only: [:index, :new, :create, :edit, :update] do
 		collection do
-			post :change_user
+			post :custom
 			post :ajax
 		end
 	end
 	
   resources :kouteimasters do
+    collection do
+      post :ajax
+    end
+  end
+  
+  resources :bashomasters do
+    collection do
+      post :ajax
+    end
+  end
+  
+  resources :jobmasters do
     collection do
       post :ajax
     end
@@ -22,10 +34,18 @@ Jpt::Application.routes.draw do
     end
   end
   
-  resources :employers, :yakushokumasters,:jobmasters, :shainmasters,  :shozokumasters, :joutaimasters, :bashomasters,
-	 :shozais, :jpt_holiday_msts
+  resources :employers, :yakushokumasters, :shainmasters,  :shozokumasters, :joutaimasters,
+	 :shozais, :jpt_holiday_msts, :kaishamasters
 
 
+  resources :kintais, only: [:index] do
+
+  end
+  
+  resources :keihis, only: [:index] do
+
+  end
+end
 
 	# Example of regular route:
 
@@ -87,4 +107,3 @@ Jpt::Application.routes.draw do
 	#     # (app/controllers/admin/products_controller.rb)
 	#     resources :products
 	#   end
-end

@@ -44,7 +44,7 @@ class JoutaimastersController < ApplicationController
   private
 
   def joutaimaster_params
-    params.require(:joutaimaster).permit(:状態コード, :状態名, :状態区分, :勤怠状態名, :マーク, :色, :WEB使用区分, :勤怠使用区分)
+    params.require(:joutaimaster).permit(:状態コード, :状態名, :状態区分, :勤怠状態名, :マーク, :色, :text_color, :WEB使用区分, :勤怠使用区分)
   end
 
   def set_joutaimaster

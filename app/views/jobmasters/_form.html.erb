@@ -41,6 +41,14 @@
     <div class="col-sm-2">
       <%= f.text_field :ユーザ番号, class: 'form-control', maxlength:10 %>
     </div>
+    <div class="col-md-1">
+      <button class="btn btn-default" id="kaisha-search" type="button">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </button>
+    </div>
+    <span id="kaisha-name" class="help-block"><%= @jobmaster.kaishamaster.try :name unless @jobmaster.kaishamaster.nil? %></span>
+
+
   </div>
   <div class="form-group">
     <%= f.label :ユーザ名, class: 'col-sm-2 control-label' %>
@@ -55,3 +63,5 @@
     </div>
   </div>
 <% end %>
+
+<%= render 'share/kaisha_modal' %>

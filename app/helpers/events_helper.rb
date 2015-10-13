@@ -42,4 +42,30 @@ module EventsHelper
     
   end
   
+  def check_user_status
+    Shainmaster.all.each do |shain|
+      if shain.events.where("Date(開始) = ?", Date.current).count == 0
+        event_start_datetime = Date.current.to_s + " 09:00"
+        event_end_datetime = Date.current.to_s + " 18:00"
+        event = Event.new(社員番号: shain.社員番号, 状態コード: '0', 開始: event_start_datetime, 終了: event_end_datetime)
+        event.joutaimaster = Joutaimaster.find_by(状態コード: '0')
+        event.shainmaster = shain
+        event.save
+      end
+    end
+  end
+  
+  def kitaku
+    # shain = User.find(session[:user]).shainmaster
+    shain = Shainmaster.find session[:selected_shain]
+    
+    # event_search = shain.events.where("Date(終了) = ?",Date.today.to_s(:db))
+    # .events.where("Date(終了) = ?", Time.now)
+
+    end_time = Date.today.to_s(:db) << ' 18:00'
+    event = Event.create(shain_no: shain.shain_no, start_time: Time.now, end_time: end_time, joutai_code: '99')
+    event.shainmaster = shain
+    event.joutaimaster = Joutaimaster.find_by(code: '99')
+    event.save
+  end
 end
