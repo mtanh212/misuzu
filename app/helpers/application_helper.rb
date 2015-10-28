@@ -29,6 +29,15 @@ module ActionView
               @template.content_tag(:span, @template.content_tag(:button, @template.content_tag(:span,"", class: "glyphicon glyphicon-calendar", "aria-hidden" => true), :class => "btn btn-default", id: "#{method}", type: "button") ,:class => "input-group-btn")
         end
       end
+
+      def text_field_search(method, options = {}, html_options = {})
+        existing_text_field = @object.send(method)
+        @template.content_tag(:div, :class => "input-group") do
+          text_field(method, :value => existing_text_field, :class => "form-control") +
+              @template.content_tag(:span, @template.content_tag(:span, "", :class => "glyphicon glyphicon-search") ,:class => "input-group-addon search-click")
+        end
+      end
+
     end
   end
 end

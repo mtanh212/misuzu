@@ -10,4 +10,6 @@ class User < ActiveRecord::Base
 
   belongs_to :shainmaster
   
+  alias_attribute :name, :担当者名称
+  
 end

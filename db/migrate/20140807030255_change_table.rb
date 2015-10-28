@@ -1,5 +1,5 @@
 class ChangeTable < ActiveRecord::Migration
-  def change
+  def up
     create_table :担当者マスタ do |t|
       t.string :担当者コード
       t.string :担当者名称
@@ -7,5 +7,9 @@ class ChangeTable < ActiveRecord::Migration
 
       t.timestamps
     end
+  end
+  
+  def down
+    drop_table :担当者マスタ
   end
 end

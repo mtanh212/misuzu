@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012024657) do
+ActiveRecord::Schema.define(version: 20151016073825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,41 +61,43 @@ ActiveRecord::Schema.define(version: 20151012024657) do
   end
 
   create_table "keihi_bodies", force: :cascade do |t|
-    t.integer  "申請番号"
-    t.integer  "行番号"
+    t.string   "申請番号"
+    t.string   "行番号"
     t.datetime "日付"
     t.string   "社員番号"
     t.string   "相手先"
     t.string   "機関名"
     t.string   "発"
     t.string   "着"
-    t.integer  "発着kubun"
-    t.decimal  "交通費"
-    t.decimal  "日当"
-    t.decimal  "宿泊費"
-    t.decimal  "その他"
+    t.string   "発着kubun"
+    t.string   "交通費"
+    t.string   "日当"
+    t.string   "宿泊費"
+    t.string   "その他"
     t.string   "JOB"
     t.text     "備考"
-    t.integer  "領収書kubun"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "領収書kubun"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "keihihead_id"
   end
 
   create_table "keihi_heads", force: :cascade do |t|
-    t.integer  "申請番号"
+    t.string   "申請番号"
     t.datetime "日付"
     t.string   "社員番号"
+    t.string   "申請者"
+    t.string   "交通費合計"
+    t.string   "日当合計"
+    t.string   "宿泊費合計"
+    t.string   "その他合計"
+    t.string   "旅費合計"
+    t.string   "仮払金"
+    t.string   "合計"
+    t.string   "支給品"
+    t.string   "過不足"
+    t.string   "承認kubun"
     t.string   "承認者"
-    t.decimal  "交通費合計"
-    t.decimal  "日当合計"
-    t.decimal  "宿泊費合計"
-    t.decimal  "その他合計"
-    t.decimal  "旅費合計"
-    t.decimal  "仮払金"
-    t.decimal  "合計"
-    t.decimal  "支給品"
-    t.decimal  "過不足"
-    t.integer  "承認kubun"
     t.datetime "清算予定日"
     t.datetime "清算日"
     t.datetime "created_at", null: false
@@ -108,17 +110,17 @@ ActiveRecord::Schema.define(version: 20151012024657) do
     t.string   "勤務タイプ"
     t.datetime "出勤時刻"
     t.datetime "退社時刻"
-    t.decimal  "実労働時間"
-    t.decimal  "遅刻時間"
-    t.decimal  "早退時間"
-    t.decimal  "普通残業時間"
-    t.decimal  "深夜残業時間"
-    t.decimal  "普通保守時間"
-    t.decimal  "深夜保守時間"
-    t.decimal  "保守携帯回数"
-    t.integer  "状態1"
-    t.integer  "状態2"
-    t.integer  "状態3"
+    t.string   "実労働時間"
+    t.string   "遅刻時間"
+    t.string   "早退時間"
+    t.string   "普通残業時間"
+    t.string   "深夜残業時間"
+    t.string   "普通保守時間"
+    t.string   "深夜保守時間"
+    t.string   "保守携帯回数"
+    t.string   "状態1"
+    t.string   "状態2"
+    t.string   "状態3"
     t.text     "備考"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

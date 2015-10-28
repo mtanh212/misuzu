@@ -17,7 +17,7 @@ class EventsController < ApplicationController
     @holidays = JptHolidayMst.all 
     
     # 不在状態の社員
-    check_user_status()
+    # check_user_status()
     
     # @shain_names = @shains.select :id, :title
     # respond_with(@shain_names) do |format|
@@ -80,7 +80,8 @@ class EventsController < ApplicationController
       when '勤務'
         redirect_to kintais_url
       when '経費'
-        redirect_to keihis_url
+        # redirect_to keihis_url
+        redirect_to new_keihihead_url
     end
   end
 

@@ -42,7 +42,7 @@ Jpt::Application.routes.draw do
 
   end
   
-  resources :keihis, only: [:index] do
+  resources :keihiheads do
 
   end
 end

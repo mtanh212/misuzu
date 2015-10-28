@@ -1,0 +1,21 @@
+<tr>
+  <td><%= f.text_field :日付, class: 'form-control', size: 4   %></td>
+  <td><%= f.text_field :相手先, class: 'form-control', size: 4    %></td>
+  <td><%= f.text_field :機関名, class: 'form-control', size: 4    %></td>
+  <td><%= f.text_field :発, class: 'form-control', size: 4  %></td>
+  <td><%= f.text_field :着, class: 'form-control', size: 4  %></td>
+  <td><%= f.text_field :交通費, class: 'form-control koutsuhi', size: 3  %></td>
+  <td><%= f.text_field :日当, class: 'form-control nittou', size: 3    %></td>
+  <td><%= f.text_field :宿泊費, class: 'form-control shukuhaku', size: 3    %></td>
+  <td><%= f.text_field :その他, class: 'form-control sonotha', size: 3    %></td>
+  <td><%= f.text_field :JOB, class: 'form-control', size: 4    %></td>
+  <td><%= f.text_field :備考, class: 'form-control'  %></td>
+  <td><%= f.check_box :領収書kubun, class: 'form-control'  %></td>
+
+  <%= f.hidden_field :shinsheino, class:'shinsheino' %>
+  <%= f.hidden_field :line_no, class:'line-no' %>
+  <%= f.hidden_field :_destroy, class: 'check-remove' %>
+
+  <td><%= link_to "#", '#', class: "remove_row" %></td>
+
+</tr>

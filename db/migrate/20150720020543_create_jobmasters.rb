@@ -1,5 +1,5 @@
 class CreateJobmasters < ActiveRecord::Migration
-  def change
+  def up
     create_table :JOBマスタ do |t|
       t.string :job番号
       t.string :job名
@@ -10,5 +10,8 @@ class CreateJobmasters < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+  end
+  def down
+    drop_table :JOBマスタ
   end
 end

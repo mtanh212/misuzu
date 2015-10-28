@@ -1,5 +1,5 @@
 class CreateShainmaster < ActiveRecord::Migration
-  def change
+  def up
     create_table :社員マスタ do |t|
       t.string :社員番号
       t.string :連携用社員番号
@@ -9,5 +9,8 @@ class CreateShainmaster < ActiveRecord::Migration
       t.string :役職コード
       t.timestamps null: false
     end
+  end
+  def down
+    drop_table :社員マスタ
   end
 end
