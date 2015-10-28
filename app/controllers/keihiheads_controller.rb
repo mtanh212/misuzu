@@ -12,7 +12,8 @@ class KeihiheadsController < ApplicationController
 
   def new
     @keihi = Keihihead.new
-    shinsheino = Keihihead.maximum(:id) + 1
+    shinsheino = 1
+    shinsheino = Keihihead.maximum(:id) + 1 if Keihihead.exists?
     @keihi.shinsheino = shinsheino
     @kaishamasters = Kaishamaster.all
     @keihi.keihibodys.build
