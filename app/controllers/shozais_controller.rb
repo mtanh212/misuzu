@@ -42,6 +42,6 @@ class ShozaisController < ApplicationController
     end
 
     def shozai_params
-      params.require(:shozai).permit(:所在コード, :所在名)
+      params.require(:shozai).permit(:所在コード, :所在名, :background_color, :text_color)
     end
 end

@@ -23,7 +23,7 @@ $(function(){
                 },
                 firstDay: 1,
                 //editable: true,
-                //aspectRatio: 1.5,
+                //aspectRatio: 1.5,/
                 //resourceAreaWidth: '30%',
                 slotLabelFormat: ['HH : mm'],
                 scrollTime: '09:00:00',
@@ -75,7 +75,7 @@ $(function(){
                 firstDay: 1,
                 //editable: true,
                 //aspectRatio: 1.5,
-                resourceAreaWidth: '30%',
+                resourceAreaWidth: '35%',
                 slotLabelFormat: ['HH : mm'],
                 scrollTime: '09:00:00',
                 //slotDuration: moment.duration(0.5, 'hours'),
@@ -85,11 +85,11 @@ $(function(){
                 defaultView: 'timelineDay',
                 events: data.events,
                 //events: '/events.json',
-                header: {
-                    left:   'title',
+                //header: {
+                    //left:   'title',
                     //center: 'prevYear,nextYear timelineDay,timelineThreeDays',
-                    right:  'today prev,next'
-                },
+                    //right:  'today prev,next'
+                //},
                 //views: {
                 //    timelineThreeDays: {
                 //        type: 'timeline',
@@ -111,15 +111,56 @@ $(function(){
                 {
                     //group: true,
                     labelText: '役職',
-                    field: 'yakushoku'  
+                    field: 'yakushoku',
+                    width: 90,
+                    render: function(resources, el) {
+                        el.css('background-color', '#0070a3');
+                    }
+
                 },
                 {
                     labelText: '社員名',
-                    field: 'shain'
+                    field: 'shain',
+                    width: 70,
+                    render: function(resources, el) {
+                        el.css('background-color', 'seagreen');
+                    }
+
+                },
+                {
+                    labelText: '内線',
+                    field: 'linenum',
+                    width: 25,
+                    render: function(resources, el) {
+                        el.css('background-color', '#adadad');
+                    }
                 },
                 {
                     labelText: '状態',
-                    field: 'joutai'
+                    field: 'joutai',
+                    width: 25,
+                    render: function(resources, el) {
+                            el.css('background-color', resources.background_color);
+                            el.css('color', resources.text_color);
+                    }
+                },
+                {
+                    labelText: '伝言',
+                    field: 'dengon',
+                    width: 25,
+                    render: function(resources, el) {
+                        el.css('background-color', '#adadad');
+                    }
+
+                },
+                {
+                    labelText: '回覧',
+                    field: 'kairan',
+                    width: 25,
+                    render: function(resources, el) {
+                        el.css('background-color', '#adadad');
+                    }
+
                 }
                 ]
                 ,resources: data.shains

@@ -81,6 +81,7 @@ class UsersController < ApplicationController
           flash.now[:alert] = t "app.flash.login_field"
           render "login"
         else
+          # todo store session
           session[:user] = @user.id
           session[:current_user_id] = @user.id
           session[:selected_shain] = @user.shainmaster.id

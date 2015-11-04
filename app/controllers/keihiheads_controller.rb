@@ -1,10 +1,11 @@
 class KeihiheadsController < ApplicationController
   before_action :set_keihi, only: [:show, :edit, :update, :destroy]
+  before_action :set_modal, only: [:new, :edit, :update, :destroy]
 
   respond_to :js
 
   def index
-    
+
   end
 
   def show
@@ -15,20 +16,18 @@ class KeihiheadsController < ApplicationController
     shinsheino = 1
     shinsheino = Keihihead.maximum(:id) + 1 if Keihihead.exists?
     @keihi.shinsheino = shinsheino
-    @kaishamasters = Kaishamaster.all
     @keihi.keihibodys.build
+
     respond_with(@keihi)
   end
 
   def edit
-
     @keihi.keihibodys.build
-
   end
 
   def create
     case params[:commit]
-      when "経費データ検索"
+      when '経費データ検索'
         @keihi = Keihihead.find_by(shinsheino: keihi_params[:shinsheino])
         if @keihi
           redirect_to edit_keihihead_url(@keihi)
@@ -40,33 +39,41 @@ class KeihiheadsController < ApplicationController
           # respond_with(@keihi, location: keihi_url(@keihi))
         end
 
-      when "登　録"
+      when '登　録'
         @keihi = Keihihead.new(keihi_params)
         flash[:notice] = t 'app.flash.new_success' if @keihi.save
         # respond_with(@keihi, location: keihis_url)
-      redirect_to new_keihihead_url
+        redirect_to new_keihihead_url
     end
+
   end
 
   def update
-    if params[:commit] == "経費データ検索"
-      redirect_to :back
-      return
+    case params[:commit]
+      when '登　録'
+        flash[:notice] = t "app.flash.update_success" if @keihi.update(keihi_params)
+        # respond_with(@keihi)
+        redirect_to new_keihihead_url
+      when '削　除'
+        flash[:notice] = t "app.flash.delete_success" if @keihi.destroy
+        respond_with @keihi, location: new_keihihead_url
     end
-    flash[:notice] = t "app.flash.update_success" if @keihi.update(keihi_params)
-    # respond_with(@keihi)
-    redirect_to new_keihihead_url
   end
 
   def destroy
     @keihi.destroy
-    respond_with(@keihi)
+    respond_with(@keihi, location: new_keihihead_url)
   end
 
   private
   def set_keihi
     @keihi = Keihihead.find(params[:id])
+  end
+  
+  def set_modal
     @kaishamasters = Kaishamaster.all
+    @kikans = Kikan.all
+    @ekis = Eki.all
   end
 
   def keihi_params

@@ -205,6 +205,7 @@ ja:
       record_not_found: 該当情報が見つかりませんでした！
       new_success: 新規作成出来ました。
       update_success: 更新成功出来ました。
+      delete_success: 削除成功出来ました。
       login_field: 正しい情報で入力してください。
       login_new: 担当者コードが正しくないです。
       login_existing: ユーザーが既に登録されました。

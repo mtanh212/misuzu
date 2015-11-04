@@ -9,7 +9,7 @@ class EventsController < ApplicationController
   def index
     @all_events = Event.where("Date(開始) = ?", Date.today.to_s(:db))
     begin
-      @events = Shainmaster.find(session[:selected_shain]).events.order(開始: :desc)
+      @events = Shainmaster.find(session[:selected_shain]).events.where("Date(開始) >= ?", (Date.today - 1.month).to_s(:db)).order(開始: :desc)
     rescue
       @events = Shainmaster.take.events
     end
@@ -71,9 +71,49 @@ class EventsController < ApplicationController
 
   def custom
     case params[:commit]
+      when '出社'
+        shozai = Shozai.find_by name: '出社'
+        shain = User.find(session[:user]).shainmaster
+        shain.shozai = shozai if shozai
+        shain.save
+        redirect_to events_url
+        
+      when '会議'
+        shozai = Shozai.find_by name: '会議'
+        shain = User.find(session[:user]).shainmaster
+        shain.shozai = shozai if shozai
+        shain.save
+        redirect_to events_url
+
+      when '出張'
+        shozai = Shozai.find_by name: '出張'
+        shain = User.find(session[:user]).shainmaster
+        shain.shozai = shozai if shozai
+        shain.save
+        redirect_to events_url
+
+      when '代休'
+        shozai = Shozai.find_by name: '代休'
+        shain = User.find(session[:user]).shainmaster
+        shain.shozai = shozai if shozai
+        shain.save
+        redirect_to events_url
+
+      when '外出'
+        shozai = Shozai.find_by name: '外出'
+        shain = User.find(session[:user]).shainmaster
+        shain.shozai = shozai if shozai
+        shain.save
+        redirect_to events_url
       when '帰宅'
-        event = kitaku()
-        respond_with event, location: root_url
+        # event = kitaku()
+        # respond_with event, location: root_url
+        shozai = Shozai.find_by name: '帰宅'
+        shain = User.find(session[:user]).shainmaster
+        shain.shozai = shozai if shozai
+        shain.save
+        redirect_to events_url
+
       when '　ＯＫ　'
         session[:selected_shain] = Shainmaster.find_by(社員番号: params[:selected_user]).id
         respond_with @event, location: events_url
@@ -133,6 +173,7 @@ private
 
 # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:社員番号, :開始, :終了, :状態コード, :場所コード, :JOB, :所属コード, :工程コード, :工数, :計上, :所在コード, :comment, :帰社区分) 
+    params.require(:event).permit(:社員番号, :開始, :終了, :状態コード, :場所コード, :JOB, :所属コード, :工程コード, :工数, 
+                                  :計上, :所在コード, :comment, :帰社区分) 
   end
 end

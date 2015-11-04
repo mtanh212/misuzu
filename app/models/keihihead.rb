@@ -5,4 +5,8 @@ class Keihihead < ActiveRecord::Base
                                 allow_destroy: true,
                                 reject_if: :all_blank
   alias_attribute :shinsheino, :申請番号
+  
+  after_destroy {|record|
+    Keihibody.destroy(record.keihibodys.pluck(:id))
+  }
 end

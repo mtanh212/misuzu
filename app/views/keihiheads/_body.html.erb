@@ -1,10 +1,12 @@
+<div class="editor-datetime">
+
 <table id="keihi-table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
   <thead>
   <tr>
     <th rowspan="2">日付</th>
     <th rowspan="2">相手先名</th>
 
-    <th colspan="6">　旅　費　交　通　費　</th>
+    <th colspan="5">　旅　費　交　通　費　</th>
 
     <th rowspan="2">その他</th>
     <th rowspan="2">JobNo</th>
@@ -14,8 +16,8 @@
   </tr>
   <tr>
     <th>機関名</th>
-    <th>発</th>
-    <th>着</th>
+    <th>発/着</th>
+    <!--<th>着</th>-->
     <th>交通費</th>
     <th>日当</th>
     <th>宿泊費</th>
@@ -29,6 +31,7 @@
 </table>
 <%= link_to_add_row "行追加", f, :keihibodys %>
 
+</div>
 
 <%# f.fields_for :keihibodys do |body| %>
     <%# render 'keihibody_fields', f: body %>

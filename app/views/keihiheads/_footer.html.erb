@@ -1,3 +1,4 @@
+
 <div class="spacer"></div>
 <div class="form-group">
   <%= f.label '小　計' %>
@@ -23,9 +24,12 @@
   <%= f.text_field :合計, size:2, class: 'form-control' %>
   <%= f.check_box :承認kubun %>
   <%= f.label :承認要求 %>
-  <%= f.label :清算予定日 %>
-  <%= f.text_field :清算予定日, size:6, class: 'form-control' %>
-  <%= f.label '　　　　　　　　　　　　　　　　　　　　　　　　　' %>
   <%= f.label :承認 %>
   <%= f.text_field :承認者, size:2, class: 'form-control' %>
+
+  <div class="editor-datetime">
+    <%= f.label :清算予定日 %>
+    <%# f.text_field :清算予定日, size:6, class: 'form-control' %>
+    <%= f.date_select :清算予定日, size:6, class: 'form-control' %>
+  </div>
 </div>

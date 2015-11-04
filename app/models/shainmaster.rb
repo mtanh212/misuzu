@@ -6,6 +6,7 @@ class Shainmaster < ActiveRecord::Base
   
   has_many :events, dependent: :destroy
   has_one :user, dependent: :destroy
+  belongs_to :shozai
   belongs_to :shozokumaster
   belongs_to :yakushokumaster
   

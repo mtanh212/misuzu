@@ -5,4 +5,6 @@ class Jobmaster < ActiveRecord::Base
   
   has_many :events
   belongs_to :kaishamaster
+  
+  alias_attribute :job_name, :job名
 end

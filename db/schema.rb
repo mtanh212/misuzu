@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151016073825) do
+ActiveRecord::Schema.define(version: 20151103153340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,10 +172,10 @@ ActiveRecord::Schema.define(version: 20151016073825) do
   create_table "所在マスタ", force: :cascade do |t|
     t.string   "所在コード"
     t.string   "所在名"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string   "背景色"
     t.string   "文字色"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "所属マスタ", force: :cascade do |t|
@@ -206,6 +206,14 @@ ActiveRecord::Schema.define(version: 20151016073825) do
     t.boolean  "admin",                           default: false
   end
 
+  create_table "機関マスタ", force: :cascade do |t|
+    t.string   "機関コード"
+    t.string   "機関名"
+    t.text     "備考"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "状態マスタ", force: :cascade do |t|
     t.string   "状態コード"
     t.string   "状態名"
@@ -231,6 +239,17 @@ ActiveRecord::Schema.define(version: 20151016073825) do
     t.datetime "updated_at",         null: false
     t.integer  "shozokumaster_id"
     t.integer  "yakushokumaster_id"
+    t.string   "内線電話番号"
+    t.string   "伝言件数"
+    t.string   "回覧件数"
+    t.integer  "shozai_id"
+  end
+
+  create_table "駅マスタ", force: :cascade do |t|
+    t.string   "駅コード"
+    t.string   "駅名"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

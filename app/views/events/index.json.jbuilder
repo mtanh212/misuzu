@@ -14,7 +14,8 @@ json.events @all_events do |event|
       kisha_flag = '　△'
   end
   title =''
-  title = event.joutaimaster.try(:name) << kisha_flag if event.joutaimaster
+  # title = event.joutaimaster.try(:name) << kisha_flag if event.joutaimaster
+  title = event.jobmaster.try(:job_name) << kisha_flag if event.joutaimaster
   json.title title
   json.start event.try(:start_time)
   json.end event.try(:end_time)
@@ -43,14 +44,26 @@ json.shains @shains do |shain|
   json.extract! shain, :id
   json.shain shain.try(:氏名)
   # json.joutai shain.events.first.shozai.try(:所在名) if shain.events.first
-  event = shain.events.where("開始 < ? AND 終了 > ?",Time.now, Time.now).first
+  # event = shain.events.where("開始 < ? AND 終了 > ?",Time.now, Time.now).first
   joutai = ''
-  joutai = event.shozai.try(:name) if event
+  # joutai = event.shozai.try(:name) if event
+  joutai = shain.shozai.try :name if shain.shozai
   json.joutai joutai
   
   # json.joutai shain.events.where("開始 < ? AND 終了 > ?", Time.now, Time.now).first.joutaimaster.try(:状態名) if shain.events.where("開始 < ? AND 終了 > ?",Time.now, Time.now).first
   json.shozoku shain.shozokumaster.try(:所属名) if shain.shozokumaster
+  json.linenum shain.try :内線電話番号
   json.yakushoku shain.yakushokumaster.try(:役職名) if shain.yakushokumaster
+  json.dengon shain.try :伝言件数
+  json.kairan shain.try :回覧件数
+  background_color = ''
+  background_color = shain.shozai.try :background_color if shain.shozai
+  json.background_color background_color
+  
+  text_color = ''
+  text_color = shain.shozai.try :text_color if shain.shozai
+  json.text_color text_color
+  
   # json.eventColor shain.events.first.joutaimaster.色 if shain.events.first
 end
 

@@ -12,6 +12,8 @@
     <tr>
       <th>所在コード</th>
       <th>所在名</th>
+      <th>背景色</th>
+      <th>文字色</th>
       <th></th>
       <th></th>
       <th></th>
@@ -23,6 +25,8 @@
       <tr id="shozai_<%= shozai.id %>">
         <td><%= shozai.所在コード %></td>
         <td><%= shozai.所在名 %></td>
+        <td><%= shozai.background_color %></td>
+        <td><%= shozai.text_color %></td>
         <td><%= link_to '詳細', shozai %></td>
         <td><%= link_to '編集', edit_shozai_path(shozai) %></td>
         <td><%= link_to '削除', shozai, method: :delete, data: { confirm: '削除でよろしいですが?' } %></td>
