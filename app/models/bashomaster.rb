@@ -22,6 +22,15 @@ class Bashomaster < ActiveRecord::Base
       # creates a user for each row in the CSV file
       Bashomaster.create! row.to_hash
     end
+
+    # reset foreign key
+    unless Kaishamaster.count == 0
+      Bashomaster.all.each do |basho|
+        basho.kaishamaster = Kaishamaster.find_by(会社コード: basho.会社コード)
+        basho.save
+      end
+    end
+    
   end
 
 end
