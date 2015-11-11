@@ -1,11 +1,11 @@
 // init search table
 $(function() {
-    //oTable = $('#keihi-table').DataTable({
-    //    "pagingType": "full_numbers"
-    //    , "oLanguage": {
-    //        "sUrl": "../../assets/resource/dataTable_ja.txt"
-    //    },
-    //    "scrollX": true
+    oTable = $('#keihi-table-show').DataTable({
+        "pagingType": "full_numbers"
+        , "oLanguage": {
+            "sUrl": "../../assets/resource/dataTable_ja.txt"
+        },
+        "scrollX": true
     //, "aoColumnDefs": [
     //    {"bSortable": false, "aTargets": [6, 7, 8]},
     //    {
@@ -18,7 +18,8 @@ $(function() {
     //    "orderable": false
     //}]
 
-    //});
+    });
+    
     oKaisha_search_modal = $('#kaisha-table-modal').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{

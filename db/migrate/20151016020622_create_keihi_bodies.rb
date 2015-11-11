@@ -3,7 +3,7 @@ class CreateKeihiBodies < ActiveRecord::Migration
     create_table :keihi_bodies do |t|
       t.string :申請番号
       t.string :行番号
-      t.datetime :日付
+      t.date :日付
       t.string :社員番号
       t.string :相手先
       t.string :機関名
@@ -18,11 +18,12 @@ class CreateKeihiBodies < ActiveRecord::Migration
       t.text :備考
       t.string :領収書kubun
       t.timestamps null: false
+      t.references :keihihead
     end
-    add_reference :keihi_bodies, :keihihead
+    # add_reference :keihi_bodies, :keihihead
   end
   def down
-    remove_reference :keihi_bodies, :keihihead
+    # remove_reference :keihi_bodies, :keihihead
     drop_table :keihi_bodies
   end
 end

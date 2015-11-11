@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20151103153340) do
   create_table "keihi_bodies", force: :cascade do |t|
     t.string   "申請番号"
     t.string   "行番号"
-    t.datetime "日付"
+    t.date     "日付"
     t.string   "社員番号"
     t.string   "相手先"
     t.string   "機関名"
