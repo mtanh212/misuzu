@@ -49,7 +49,15 @@ class BashomastersController < ApplicationController
         end
     end
   end
-    
+
+  def import
+    Bashomaster.delete_all
+    Bashomaster.reset_pk_sequence
+    Bashomaster.import(params[:file])
+    notice = t 'app.flash.import_csv'
+    redirect_to :back, notice: notice
+  end
+  
   private
 
   def bashomaster_params

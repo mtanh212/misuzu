@@ -1,9 +1,11 @@
 <%= javascript_include_tag 'keihi' %>
 <%= javascript_include_tag 'keihis' %>
+
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
   <li><%= link_to 'カレンダー', events_path %></li>
-  <li class="active">経費</li>
+  <li><%= link_to '経費・新規', new_keihihead_path %></li>
+  <li class="active">経費・承認要求</li>
 </ol>
 
-<%= render 'form' %>
+<h1>承認要求情報で、追加編集削除できない！ 作成中</h1>

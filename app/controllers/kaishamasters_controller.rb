@@ -36,6 +36,14 @@ class KaishamastersController < ApplicationController
     respond_with(@kaishamaster, location: kaishamasters_url)
   end
 
+  def import
+    Kaishamaster.delete_all
+    Kaishamaster.reset_pk_sequence
+    Kaishamaster.import(params[:file])
+    notice = t 'app.flash.import_csv'
+    redirect_to :back, notice: notice
+  end
+
   private
     def set_kaishamaster
       @kaishamaster = Kaishamaster.find(params[:id])

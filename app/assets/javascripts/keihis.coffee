@@ -107,3 +107,27 @@ jQuery ->
     eki = '2'
     $('#eki-search-modal').modal('show')
     event.preventDefault()
+
+#  init modal table
+  oShonin_search_modal = $('#shonin-table-modal').DataTable({
+    "pagingType": "simple_numbers"
+    ,"oLanguage":{
+      "sUrl": "../../assets/resource/dataTable_ja.txt"
+    }})
+  
+  $('#shonin-table-modal tbody').on 'click', 'tr', (event) ->
+    d = oShonin_search_modal.row(this).data()
+    $('.shonin').val(d[1])
+
+    if ( $(this).hasClass('selected') )
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oShonin_search_modal.$('tr.selected').removeClass('selected')
+      oShonin_search_modal.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')
+
+  $(document).on 'click', '.shonin-search', (event) ->
+    $('#shonin-search-modal').modal('show')
+    event.preventDefault()

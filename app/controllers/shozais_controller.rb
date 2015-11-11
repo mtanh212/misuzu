@@ -36,6 +36,14 @@ class ShozaisController < ApplicationController
     respond_with @shozai, location: shozais_url
   end
 
+  def import
+    Shozai.delete_all
+    Shozai.reset_pk_sequence
+    Shozai.import(params[:file])
+    notice = t 'app.flash.import_csv'
+    redirect_to :back, notice: notice
+  end
+
   private
     def set_shozai
       @shozai = Shozai.find(params[:id])

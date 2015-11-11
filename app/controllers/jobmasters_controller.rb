@@ -60,6 +60,14 @@ class JobmastersController < ApplicationController
         end
     end
   end
+
+  def import
+    Jobmaster.delete_all
+    Jobmaster.reset_pk_sequence
+    Jobmaster.import(params[:file])
+    notice = t 'app.flash.import_csv'
+    redirect_to :back, notice: notice
+  end
   
   private
     # Use callbacks to share common setup or constraints between actions.

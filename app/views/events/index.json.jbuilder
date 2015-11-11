@@ -14,8 +14,8 @@ json.events @all_events do |event|
       kisha_flag = '　△'
   end
   title =''
-  # title = event.joutaimaster.try(:name) << kisha_flag if event.joutaimaster
-  title = event.jobmaster.try(:job_name) << kisha_flag if event.joutaimaster
+  title = event.joutaimaster.try(:name) << kisha_flag if event.joutaimaster
+  # title = event.jobmaster.try(:job_name) << kisha_flag if event.joutaimaster
   json.title title
   json.start event.try(:start_time)
   json.end event.try(:end_time)
@@ -28,7 +28,8 @@ end
 json.my_events @events do |my_event|
   json.extract! my_event, :id
   description = ''
-  description = my_event.jobmaster.try(:job名) if my_event.jobmaster
+  # description = my_event.jobmaster.try(:job名) if my_event.jobmaster
+  description = my_event.joutaimaster.try(:name) if my_event.joutaimaster
   json.description description 
   # json.title event.bashomaster.try :場所名
   json.title my_event.joutaimaster.try(:name) if my_event.joutaimaster

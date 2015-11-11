@@ -30,7 +30,11 @@ class KeihiheadsController < ApplicationController
       when '経費データ検索'
         @keihi = Keihihead.find_by(shinsheino: keihi_params[:shinsheino])
         if @keihi
-          redirect_to edit_keihihead_url(@keihi)
+          if @keihi.承認kubun == '1'
+            redirect_to keihihead_url(@keihi)
+          else
+            redirect_to edit_keihihead_url(@keihi)
+          end
 
         else
           flash[:warning] = t "app.flash.record_not_found"
@@ -65,6 +69,18 @@ class KeihiheadsController < ApplicationController
     respond_with(@keihi, location: new_keihihead_url)
   end
 
+  def ajax
+    case params[:id]
+      when 'getshinshei'
+        date = params[:date]
+        listshinshei = Keihihead.where(日付: date, 社員番号: session[:user]).pluck(:申請番号)
+        data = {listshinshei: listshinshei}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+    end
+  end
+  
   private
   def set_keihi
     @keihi = Keihihead.find(params[:id])
@@ -74,6 +90,7 @@ class KeihiheadsController < ApplicationController
     @kaishamasters = Kaishamaster.all
     @kikans = Kikan.all
     @ekis = Eki.all
+    @shonins = Shoninshamst.all
   end
 
   def keihi_params

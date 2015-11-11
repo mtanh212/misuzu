@@ -41,6 +41,14 @@ class JoutaimastersController < ApplicationController
     
   end
 
+  def import
+    Joutaimaster.delete_all
+    Joutaimaster.reset_pk_sequence
+    Joutaimaster.import(params[:file])
+    notice = t 'app.flash.import_csv'
+    redirect_to :back, notice: notice
+  end
+  
   private
 
   def joutaimaster_params

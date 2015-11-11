@@ -1,7 +1,7 @@
 <%= javascript_include_tag 'event' %>
 <%= javascript_include_tag 'resource/ja' %>
-
-<%= form_for :user, url: custom_events_path  do |f| %>
+<%= stylesheet_link_tag 'events' %>
+<%= form_for @shain, url: custom_events_path, method: :post do |f| %>
 <div class="row">
   <div class="col-md-12">
     <ol class="breadcrumb">
@@ -22,14 +22,20 @@
   <div class="col-md-2 col-md-offset-3">
     <h3><span class="label label-default">氏名：　<%= Shainmaster.find(session[:selected_shain]).try :氏名 %></span></h3>
   </div>
-  <div class="col-md-4 col-md-offset-1" align="right">
-    <div class="btn-group" role="group" aria-label="...">
-      <%= f.submit '出社', class: 'btn btn-default', id:'shusha-button'%>
-      <%= f.submit '会議', class: 'btn btn-default', id:'kaighi-button'%>
-      <%= f.submit '外出', class: 'btn btn-default', id:'gaishutu-button'%>
-      <%= f.submit '出張', class: 'btn btn-default', id:'shustu-button'%>
-      <%= f.submit '代休', class: 'btn btn-default', id:'daikyu-button'%>
-      <%= f.submit '帰宅', class: 'btn btn-default', id:'kitaku-button'%>
+  <div class="col-md-3 col-md-offset-2" align="right">
+    <div class="form-group">
+      <%= label_tag :shozai_update,'現所在更新', class:'col-md-6 control-label' %>
+      <div class="col-md-6">
+        <%= select(:shain,:shozai_id, Shozai.all.collect {|s|[s.name, s.id]}, {}, {class: 'form-control', onchange: 'this.form.submit();'}) %>
+        <!--<div class="btn-group" role="group" aria-label="...">--> 
+        <%# f.submit '出社', class: 'btn btn-default', id:'shusha-button'%>
+        <%# f.submit '会議', class: 'btn btn-default', id:'kaighi-button'%>
+        <%# f.submit '外出', class: 'btn btn-default', id:'gaishutu-button'%>
+        <%# f.submit '出張', class: 'btn btn-default', id:'shustu-button'%>
+        <%# f.submit '代休', class: 'btn btn-default', id:'daikyu-button'%>
+        <%# f.submit '帰宅', class: 'btn btn-default', id:'kitaku-button'%>
+        <!--</div>-->
+      </div>
     </div>
   </div>
 </div>

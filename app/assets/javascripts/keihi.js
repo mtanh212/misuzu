@@ -144,11 +144,67 @@ $(function(){
         //inline: true,
         //widgetParent: 'container-fluid',
         showTodayButton: true,
-        showClear: true,
+        //showClear: true,
         //,daysOfWeekDisabled:[0,6]
-        calendarWeeks: true,
+        //calendarWeeks: true,
         keyBinds: false,
         focusOnShow: false
 
+    });
+    
+    $('#keihihead_日付').datetimepicker({
+        format: 'YYYY/MM/DD',
+        //inline: true,
+        //widgetParent: 'container-fluid',
+        showTodayButton: true,
+        //showClear: true,
+        //,daysOfWeekDisabled:[0,6]
+        //calendarWeeks: true,
+        keyBinds: false,
+        focusOnShow: false
+
+    });
+});
+
+//shinshei retrieve
+$(function(){
+    $('#keihihead_日付').keydown( function(e) {
+        if (e.keyCode == 9 && !e.shiftKey) {
+            var date = $(this).val();
+            jQuery.ajax({
+                url: '/keihiheads/ajax',
+                data: {id: 'getshinshei',date: date},
+                type: "POST",
+                // processData: false,
+                // contentType: 'application/json',
+                success: function(data) {
+                    $('#keihihead_shinsheino').empty();
+                    data.listshinshei.forEach(function (item, index, array) {
+                        $('#keihihead_shinsheino').append('<option value=' + item + '>' + item + '</option>');
+                    });
+                },
+                failure: function() {
+                }
+            });
+        }
+    });
+
+    $('#search-shinshei').click(function() {
+        var date = $('#keihihead_日付').val();
+        jQuery.ajax({
+            url: '/keihiheads/ajax',
+            data: {id: 'getshinshei',date: date},
+            type: "POST",
+            // processData: false,
+            // contentType: 'application/json',
+            success: function(data) {
+                $('#keihihead_shinsheino').empty();
+                data.listshinshei.forEach(function (item, index, array) {
+                    $('#keihihead_shinsheino').append('<option value=' + item + '>' + item + '</option>');
+                });
+            },
+            failure: function() {
+            }
+        });
     });
 });

@@ -16,6 +16,8 @@ class EventsController < ApplicationController
     @shains = Shainmaster.order(:所属コード,:役職コード,:社員番号).all
     @holidays = JptHolidayMst.all 
     
+    @shain = Shainmaster.find(session[:selected_shain])
+    
     # 不在状態の社員
     # check_user_status()
     
@@ -70,50 +72,15 @@ class EventsController < ApplicationController
   end
 
   def custom
+    # if  params[:commit].nil?
+    #   shozai_id = params[:shain][:shozai_id]
+    #   shozai = Shozai.find shozai_id
+    #   shain = User.find(session[:user]).shainmaster
+    #   shain.shozai = shozai if shozai
+    #   shain.save
+    #   redirect_to events_url
+    # end
     case params[:commit]
-      when '出社'
-        shozai = Shozai.find_by name: '出社'
-        shain = User.find(session[:user]).shainmaster
-        shain.shozai = shozai if shozai
-        shain.save
-        redirect_to events_url
-        
-      when '会議'
-        shozai = Shozai.find_by name: '会議'
-        shain = User.find(session[:user]).shainmaster
-        shain.shozai = shozai if shozai
-        shain.save
-        redirect_to events_url
-
-      when '出張'
-        shozai = Shozai.find_by name: '出張'
-        shain = User.find(session[:user]).shainmaster
-        shain.shozai = shozai if shozai
-        shain.save
-        redirect_to events_url
-
-      when '代休'
-        shozai = Shozai.find_by name: '代休'
-        shain = User.find(session[:user]).shainmaster
-        shain.shozai = shozai if shozai
-        shain.save
-        redirect_to events_url
-
-      when '外出'
-        shozai = Shozai.find_by name: '外出'
-        shain = User.find(session[:user]).shainmaster
-        shain.shozai = shozai if shozai
-        shain.save
-        redirect_to events_url
-      when '帰宅'
-        # event = kitaku()
-        # respond_with event, location: root_url
-        shozai = Shozai.find_by name: '帰宅'
-        shain = User.find(session[:user]).shainmaster
-        shain.shozai = shozai if shozai
-        shain.save
-        redirect_to events_url
-
       when '　ＯＫ　'
         session[:selected_shain] = Shainmaster.find_by(社員番号: params[:selected_user]).id
         respond_with @event, location: events_url
@@ -122,6 +89,13 @@ class EventsController < ApplicationController
       when '経費'
         # redirect_to keihis_url
         redirect_to new_keihihead_url
+      else
+        shozai_id = params[:shain][:shozai_id]
+        shozai = Shozai.find shozai_id
+        shain = User.find(session[:user]).shainmaster
+        shain.shozai = shozai if shozai
+        shain.save
+        redirect_to events_url
     end
   end
 

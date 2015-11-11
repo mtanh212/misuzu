@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20151103153340) do
 
   create_table "keihi_heads", force: :cascade do |t|
     t.string   "申請番号"
-    t.datetime "日付"
+    t.date     "日付"
     t.string   "社員番号"
     t.string   "申請者"
     t.string   "交通費合計"
@@ -98,8 +98,8 @@ ActiveRecord::Schema.define(version: 20151103153340) do
     t.string   "過不足"
     t.string   "承認kubun"
     t.string   "承認者"
-    t.datetime "清算予定日"
-    t.datetime "清算日"
+    t.date     "清算予定日"
+    t.date     "清算日"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

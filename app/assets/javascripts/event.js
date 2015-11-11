@@ -112,7 +112,7 @@ $(function(){
                     //group: true,
                     labelText: '役職',
                     field: 'yakushoku',
-                    width: 90,
+                    width: 75,
                     render: function(resources, el) {
                         el.css('background-color', '#0070a3');
                     }
@@ -121,7 +121,7 @@ $(function(){
                 {
                     labelText: '社員名',
                     field: 'shain',
-                    width: 70,
+                    width: 60,
                     render: function(resources, el) {
                         el.css('background-color', 'seagreen');
                     }
@@ -138,7 +138,7 @@ $(function(){
                 {
                     labelText: '状態',
                     field: 'joutai',
-                    width: 25,
+                    width: 50,
                     render: function(resources, el) {
                             el.css('background-color', resources.background_color);
                             el.css('color', resources.text_color);

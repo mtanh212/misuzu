@@ -41,6 +41,14 @@ class ShozokumastersController < ApplicationController
     
   end
 
+  def import
+    Shozokumaster.delete_all
+    Shozokumaster.reset_pk_sequence
+    Shozokumaster.import(params[:file])
+    notice = t 'app.flash.import_csv'
+    redirect_to :back, notice: notice
+  end
+  
   private
 
   def shozokumaster_params

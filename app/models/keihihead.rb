@@ -9,4 +9,4 @@ class Keihihead < ActiveRecord::Base
   after_destroy {|record|
     Keihibody.destroy(record.keihibodys.pluck(:id))
   }
-end
+end 

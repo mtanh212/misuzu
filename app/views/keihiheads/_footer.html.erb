@@ -25,11 +25,11 @@
   <%= f.check_box :承認kubun %>
   <%= f.label :承認要求 %>
   <%= f.label :承認 %>
-  <%= f.text_field :承認者, size:2, class: 'form-control' %>
+  <%= f.text_field_search :承認者,{}, size:2, class_field: 'shonin', class_search: 'shonin-search' %>
 
   <div class="editor-datetime">
     <%= f.label :清算予定日 %>
-    <%# f.text_field :清算予定日, size:6, class: 'form-control' %>
-    <%= f.date_select :清算予定日, size:6, class: 'form-control' %>
+    <%= f.text_field :清算予定日, size:6, class: 'form-control' %>
+    <%# f.date_select :清算予定日, size:6, class: 'form-control' %>
   </div>
 </div>
