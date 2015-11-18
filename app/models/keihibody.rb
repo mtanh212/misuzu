@@ -1,7 +1,8 @@
 class Keihibody < ActiveRecord::Base
-  self.table_name = 'keihi_bodies'
-  belongs_to :keihihead
+  self.table_name = :keihi_bodies
+  # self.primary_keys = [:申請番号,:行番号]
+  # self.primary_key = :申請番号
   
-  alias_attribute :shinsheino, :申請番号
-  alias_attribute :line_no, :行番号
+  belongs_to :keihihead, foreign_key: :申請番号
+  
 end

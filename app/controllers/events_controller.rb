@@ -37,13 +37,13 @@ class EventsController < ApplicationController
   
   def new
     # shainbango = User.find(session[:user]).shainmaster.shain_no
-    @event = Event.new shain_no: Shainmaster.find(session[:selected_shain]).shain_no
+    @event = Event.new shain_no: Shainmaster.find(session[:selected_shain]).id
     # @event.build_joutaimaster
   end
   
   def create
     @event = User.find(session[:user]).shainmaster.events.new event_params
-    set_fkey @event, event_params
+    # set_fkey @event, event_params
 
     flash[:notice] = t 'app.flash.new_success' if @event.save
 
@@ -59,7 +59,7 @@ class EventsController < ApplicationController
   def update
     case params[:commit]
       when '　削除　'
-        @event.destroy
+        flash[:notice] = t 'app.flash.delete_success' if @event.destroy
         respond_with @event, location: events_url
 
       when '　登録　'
@@ -90,7 +90,7 @@ class EventsController < ApplicationController
         # redirect_to keihis_url
         redirect_to new_keihihead_url
       else
-        shozai_id = params[:shain][:shozai_id]
+        shozai_id = params[:shain][:所在コード]
         shozai = Shozai.find shozai_id
         shain = User.find(session[:user]).shainmaster
         shain.shozai = shozai if shozai

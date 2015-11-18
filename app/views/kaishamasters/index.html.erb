@@ -21,7 +21,7 @@
   <tbody>
     <% @kaishamasters.each do |kaishamaster| %>
       <tr id="kaisha-<%= kaishamaster.id %>">
-      <td><%= kaishamaster.code %></td>
+      <td><%= kaishamaster.id %></td>
         <td><%= kaishamaster.name %></td>
         <td><%= kaishamaster.note %></td>
         <td><%= link_to '詳細', kaishamaster %></td>

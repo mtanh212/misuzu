@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   respond_to :js
   
+  include UsersHelper
+  
   # GET /users
   # GET /users.json
   def index
@@ -85,6 +87,7 @@ class UsersController < ApplicationController
           session[:user] = @user.id
           session[:current_user_id] = @user.id
           session[:selected_shain] = @user.shainmaster.id
+          check_shozai()
           respond_with @user, location: events_url
         end
     end

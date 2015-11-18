@@ -40,6 +40,13 @@ $(function() {
             "sUrl": "../../assets/resource/dataTable_ja.txt"
         }
     });
+
+    oJob_search_modal = $('#job_table').DataTable({
+        "pagingType": "simple_numbers"
+        ,"oLanguage":{
+            "sUrl": "../../assets/resource/dataTable_ja.txt"
+        }
+    });
 });
 
 //handle row click for refer
@@ -127,14 +134,14 @@ $(function(){
         $('#keihihead_合計').val(koutsuhi_sum + nittou_sum + shukuhaku_sum + sonotha_sum);
         $('#keihihead_過不足').val(koutsuhi_sum + nittou_sum + shukuhaku_sum + sonotha_sum - hansikin - shikyuhin);
 
-        shinsheino = $('#keihihead_shinsheino').val();
+        shinsheino = $('#keihihead_申請番号').val();
         $('.shinsheino').val(shinsheino);
 
-        line = 0;
-        $('.line-no').each(function() {
-            line +=1;
-            $(this).val(line);
-        });
+        //line = 0;
+        //$('.line-no').each(function() {
+        //    line +=1;
+        //    $(this).val(line);
+        //});
     });
 });
 
@@ -179,9 +186,9 @@ $(function(){
                 // processData: false,
                 // contentType: 'application/json',
                 success: function(data) {
-                    $('#keihihead_shinsheino').empty();
+                    $('#keihihead_申請番号').empty();
                     data.listshinshei.forEach(function (item, index, array) {
-                        $('#keihihead_shinsheino').append('<option value=' + item + '>' + item + '</option>');
+                        $('#keihihead_申請番号').append('<option value=' + item + '>' + item + '</option>');
                     });
                 },
                 failure: function() {
@@ -199,9 +206,9 @@ $(function(){
             // processData: false,
             // contentType: 'application/json',
             success: function(data) {
-                $('#keihihead_shinsheino').empty();
+                $('#keihihead_申請番号').empty();
                 data.listshinshei.forEach(function (item, index, array) {
-                    $('#keihihead_shinsheino').append('<option value=' + item + '>' + item + '</option>');
+                    $('#keihihead_申請番号').append('<option value=' + item + '>' + item + '</option>');
                 });
             },
             failure: function() {

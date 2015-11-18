@@ -1,5 +1,6 @@
 <%= javascript_include_tag 'keihi' %>
 <%= javascript_include_tag 'keihis' %>
+<%= stylesheet_link_tag 'keihis' %>
 
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
@@ -27,8 +28,8 @@
     <div class="form-group">
       <%= label_tag 'label2','申請No:'%>
       <%# f.select :shinsheino,[''], {class: 'form-control'} %>
-      <%array_value = [@keihi.shinsheino , @keihi.shinsheino] %>
-      <%= select(:keihihead, :shinsheino, array_value, {}, {class: 'form-control'}) %>
+      <%array_value = [@keihi.id , @keihi.id] %>
+      <%= select(:keihihead, :id, array_value, {}, {class: 'form-control'}) %>
       <%# f.text_field :shinsheino, class: 'form-control' %>
     </div>
 

@@ -5,10 +5,6 @@ Jpt::Application.routes.draw do
 		collection {post :ajax, :custom}
 	end
 	
-  resources :kouteimasters do
-    collection {post :ajax}
-  end
-  
   resources :bashomasters do
     collection {post :ajax, :import}
   end
@@ -23,14 +19,17 @@ Jpt::Application.routes.draw do
     collection {get :login}
   end
   
-  resources :employers, :yakushokumasters, :shainmasters, :jpt_holiday_msts, :keihiheads
-
-  resources :keihiheads do
-    collection {post :ajax}
+  resources :yakushokumasters, param: :id do 
   end
   
-  resources :jobmasters do
-    collection {post :import}
+  resources :jpt_holiday_msts do
+  end
+
+  resources :shainmasters do
+  end
+  
+  resources :keihiheads do
+    collection {post :ajax}
   end
   
   resources :shozokumasters do
@@ -41,7 +40,7 @@ Jpt::Application.routes.draw do
     collection {post :import}
   end
   
-  resources :kaishamasters do
+  resources :kaishamasters, param: :id do
     collection { post :import}
   end
   
@@ -50,4 +49,11 @@ Jpt::Application.routes.draw do
   end
   
   resources :kintais, only: [:index]
+
+  constraints(:id => /\w+(,\w+)*/) do
+    resources :kouteimasters do
+      collection {post :ajax}
+    end
+  end
+  # map.connect ':controller/:action/:id', :id => /\w+(,\w+)*/
 end

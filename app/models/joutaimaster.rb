@@ -1,9 +1,11 @@
 class Joutaimaster < ActiveRecord::Base
-  self.table_name = '状態マスタ'
+  self.table_name = :状態マスタ
+  self.primary_key = :状態コード
+
   validates :状態コード, :状態名, presence: true
-  has_one :event
+  has_one :event, foreign_key: :状態コード
   
-  alias_attribute :code, :状態コード
+  alias_attribute :id, :状態コード
   alias_attribute :name, :状態名
   alias_attribute :color, :色
   alias_attribute :text_color, :文字色

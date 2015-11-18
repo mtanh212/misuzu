@@ -1,11 +1,13 @@
 class Jobmaster < ActiveRecord::Base
-  self.table_name = 'JOBマスタ'
+  self.table_name = :JOBマスタ
+  self.primary_key = :job番号
   
   validates :job番号, :job名, presence: true
   
-  has_many :events
-  belongs_to :kaishamaster
+  has_one :events, foreign_key: :JOB
+  belongs_to :kaishamaster, class_name: :Kaishamaster, foreign_key: :ユーザ番号
   
+  alias_attribute :id, :job番号
   alias_attribute :job_name, :job名
 
   # a class method import, with file passed through as an argument
@@ -15,6 +17,10 @@ class Jobmaster < ActiveRecord::Base
       # creates a user for each row in the CSV file
       Jobmaster.create! row.to_hash
     end
+  end
+  
+  def to_param
+    id.parameterize
   end
 
 end

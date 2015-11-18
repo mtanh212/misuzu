@@ -28,7 +28,7 @@ class JobmastersController < ApplicationController
   # POST /jobmasters.json
   def create
     @jobmaster = Jobmaster.new(jobmaster_params)
-    @jobmaster.kaishamaster = Kaishamaster.find_by code: jobmaster_params[:ユーザ番号]
+    # @jobmaster.kaishamaster = Kaishamaster.find_by code: jobmaster_params[:ユーザ番号]
     flash[:notice] = t "app.flash.new_success" if @jobmaster.save
     respond_with @jobmaster
     
@@ -37,7 +37,7 @@ class JobmastersController < ApplicationController
   # PATCH/PUT /jobmasters/1
   # PATCH/PUT /jobmasters/1.json
   def update
-    @jobmaster.kaishamaster = Kaishamaster.find_by code: jobmaster_params[:ユーザ番号]
+    # @jobmaster.kaishamaster = Kaishamaster.find_by code: jobmaster_params[:ユーザ番号]
     flash[:notice] = t "app.flash.update_success" if @jobmaster.update jobmaster_params
     respond_with @jobmaster
     
@@ -53,7 +53,7 @@ class JobmastersController < ApplicationController
   def ajax
     case params[:focus_field]
       when "jobmaster_ユーザ番号"
-        kaisha_name = Kaishamaster.find_by(code: params[:kaisha_code]).try :name
+        kaisha_name = Kaishamaster.find(params[:kaisha_code]).try :name
         data = {kaisha_name: kaisha_name}
         respond_to do |format|
           format.json { render json: data}

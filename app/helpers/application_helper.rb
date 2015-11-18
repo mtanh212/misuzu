@@ -39,10 +39,10 @@ module ActionView
       end
 
       def text_area_search(method, options = {}, html_options = {})
-        existing_text_field = @object.send(method)
+        existing_area_field = @object.send(method)
         @template.content_tag(:div, :class => "input-group") do
-          text_area(method, :value => existing_text_field, class: "form-control custom-control", rows: "3", style: "resize:none", size: html_options[:size]) +
-              @template.content_tag(:span, @template.content_tag(:span, "", :class => "glyphicon glyphicon-search") ,:class => "input-group-addon #{html_options[:class]}")
+          text_area(method, :value => existing_area_field, class: "form-control custom-control #{html_options[:class_field]}", rows: "3", style: "resize:none", size: html_options[:size]) +
+              @template.content_tag(:span, @template.content_tag(:span, "", :class => "glyphicon glyphicon-search") ,:class => "input-group-addon #{html_options[:class_search]}")
         end
       end
 

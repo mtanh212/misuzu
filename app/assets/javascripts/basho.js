@@ -36,6 +36,7 @@ $(function() {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
+
         }
         else {
             oKaishaTable.$('tr.selected').removeClass('selected');

@@ -4,17 +4,18 @@ json.events @all_events do |event|
   description = event.jobmaster.try(:job名) if event.jobmaster
   json.description description
   # json.title event.bashomaster.try :場所名
-  kisha_flag = ''
-  case event.try(:kisha)
-    when '帰社'
-      kisha_flag = '　◯'
-    when '直帰'
-      kisha_flag = '　☓'
-    when '連続'
-      kisha_flag = '　△'
-  end
+  # kisha_flag = ''
+  # case event.try(:kisha)
+  #   when '帰社'
+  #     kisha_flag = '　◯'
+  #   when '直帰'
+  #     kisha_flag = '　☓'
+  #   when '連続'
+  #     kisha_flag = '　△'
+  # end
   title =''
-  title = event.joutaimaster.try(:name) << kisha_flag if event.joutaimaster
+  title = event.joutaimaster.try(:name) if event.joutaimaster
+  # title = event.joutaimaster.try(:name) << kisha_flag if event.joutaimaster
   # title = event.jobmaster.try(:job_name) << kisha_flag if event.joutaimaster
   json.title title
   json.start event.try(:start_time)

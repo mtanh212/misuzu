@@ -14,8 +14,9 @@ class KeihiheadsController < ApplicationController
   def new
     @keihi = Keihihead.new
     shinsheino = 1
-    shinsheino = Keihihead.maximum(:id) + 1 if Keihihead.exists?
-    @keihi.shinsheino = shinsheino
+    # shinsheino = Keihihead.maximum(:id) + 1 if Keihihead.exists?
+    shinsheino = Keihihead.order(id: :desc).first.id.to_i + 1 if Keihihead.exists?
+    @keihi.id = shinsheino.to_s
     @keihi.keihibodys.build
 
     respond_with(@keihi)
@@ -28,19 +29,17 @@ class KeihiheadsController < ApplicationController
   def create
     case params[:commit]
       when '経費データ検索'
-        @keihi = Keihihead.find_by(shinsheino: keihi_params[:shinsheino])
-        if @keihi
+        begin
+          @keihi = Keihihead.find keihi_params[:申請番号]
           if @keihi.承認kubun == '1'
             redirect_to keihihead_url(@keihi)
           else
             redirect_to edit_keihihead_url(@keihi)
           end
-
-        else
+        rescue ActiveRecord::RecordNotFound
           flash[:warning] = t "app.flash.record_not_found"
-          # @keihi = Keihihead.new shinsheino: keihi_params[:shinsheino]
           redirect_to :back
-          # respond_with(@keihi, location: keihi_url(@keihi))
+          return
         end
 
       when '登　録'
@@ -91,12 +90,13 @@ class KeihiheadsController < ApplicationController
     @kikans = Kikan.all
     @ekis = Eki.all
     @shonins = Shoninshamst.all
+    @jobs = Jobmaster.all
   end
-
+  
   def keihi_params
-    params.require(:keihihead).permit(:shinsheino, :日付, :社員番号, :申請者, :交通費合計, :日当合計, :宿泊費合計, :その他合計,
+    params.require(:keihihead).permit(:申請番号, :日付, :社員番号, :申請者, :交通費合計, :日当合計, :宿泊費合計, :その他合計,
                                       :旅費合計, :仮払金, :合計, :支給品, :過不足, :承認kubun, :承認者, :清算予定日, :清算日,
-                                      keihibodys_attributes: [:id, :shinsheino, :line_no, :日付, :社員番号, :相手先, :機関名,
+                                      keihibodys_attributes: [:id,:申請番号, :日付, :社員番号, :相手先, :機関名,
                                                               :発, :着, :発着kubun, :交通費, :日当, :宿泊費, :その他, :JOB,
                                                               :備考, :領収書kubun, :_destroy])
   end

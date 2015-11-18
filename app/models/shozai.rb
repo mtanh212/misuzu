@@ -1,13 +1,14 @@
 class Shozai < ActiveRecord::Base
   require 'csv'
-  self.table_name = "所在マスタ"
-  
+  self.table_name = :所在マスタ
+  self.primary_key = :所在コード
+
   validates :所在コード, :所在名, presence: true
   
-  has_many :events
-  has_one :shainmaster
+  # has_many :events
+  has_one :shainmaster, foreign_key: :所在コード
   
-  alias_attribute :code, :所在コード
+  alias_attribute :id, :所在コード
   alias_attribute :name, :所在名
   alias_attribute :background_color, :背景色
   alias_attribute :text_color, :文字色

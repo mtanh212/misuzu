@@ -51,9 +51,13 @@ jQuery ->
     $('#kaisha-search-modal').modal('show')
     event.preventDefault()
 
+  $(document).on 'click', '.job-search', (event) ->
+    $('#job_search_modal').modal('show')
+    event.preventDefault()
+
   $('#kaisha-table-modal tbody').on 'click', 'tr', (event) ->
     d = oKaisha_search_modal.row(this).data()
-    $('#keihi-table tr.selected').find('.custom-control').val(d[1])
+    $('#keihi-table tr.selected').find('.atesaki-name').val(d[1])
   
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
@@ -61,6 +65,19 @@ jQuery ->
     else
       oKaisha_search_modal.$('tr.selected').removeClass('selected')
       oKaisha_search_modal.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')
+
+  $('#job_table tbody').on 'click', 'tr', (event) ->
+    d = oJob_search_modal.row(this).data()
+    $('#keihi-table tr.selected').find('.job-code').val(d[0])
+  
+    if ( $(this).hasClass('selected') )
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oJob_search_modal.$('tr.selected').removeClass('selected')
+      oJob_search_modal.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
 

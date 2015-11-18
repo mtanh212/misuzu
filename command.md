@@ -35,7 +35,7 @@ sudo apt-get install nodejs
 ```
 
 Railsをインストール
- 
+
 `gem install rails`  
 
 Railsのインストールが終了したらバージョンを確認します
@@ -47,14 +47,14 @@ Railsのインストールが終了したらバージョンを確認します
 ##Postgresqlをインストール
 `$ sudo apt-getinstall postgresql postgresql-client libpq-dev`
 
-Pgのインストールが完了しましたら、PgへLoginしてみます： 
+Pgのインストールが完了しましたら、PgへLoginしてみます：
 
 `$ sudo-u postgres psql`
 
 注意：\ｑを打ったらplsqlを完了します  
 Plsql環境に下記のコマンド実行してみます
 
-`SELECT*FROM pg_user;` 
+`SELECT*FROM pg_user;`
 
 結果は下記の例の場合があります：
 
@@ -101,7 +101,7 @@ sudo launchctl start com.edb.launchd.postgresql-9.3
 sudo launchctl stop com.edb.launchd.postgresql-9.3
 ```
 or
- 
+
 ```
 sudo service postgresql restart  
 sudo service postgresql start  
@@ -111,6 +111,13 @@ sudo service postgresql stop
 Gem pg install (for MAC OSX)
 
 `gem install pg -- --with-pg-config=/Applications/Postgres.app/Contents/Versions/9.3/bin/pg_config`
+
+Then create a user (or a "role", as Postgres calls it):
+`create role myapp with createdb login password 'password1';`
+
+Once configured, your database.yml should contain something like this:
+You can then run:
+`rake db:setup`
 
 ##Railsの設定
 # Gemfileに下記の行を追加されます
@@ -154,7 +161,7 @@ start_navicatをTerninalにドラグ・ドロプしてインストールしま�
 
 ##rake
 
-`rails generate controller Shozai index` 
+`rails generate controller Shozai index`
 (for revert generate command)  
 `rails d controller Shozai index`  
 
@@ -212,7 +219,7 @@ Check log on heroku
 `heroku logs -n 1500`
 
 or, to tail the logs live
-`heroku logs -t` 
+`heroku logs -t`
 
 run rake migrate on heroku
 `heroku run rake db:migrate`
@@ -224,7 +231,7 @@ psql on heroku
 ##cancancan
 ```
 rails g cancan:ability
-``` 
+```
 →create  app/models/ability.rb
 ##Run Rspec
 `$ rake spec`

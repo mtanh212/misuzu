@@ -1,12 +1,13 @@
 class Shozokumaster < ActiveRecord::Base
-  self.table_name = '所属マスタ'
-  
+  self.table_name = :所属マスタ
+  self.primary_key = :所属コード
+
   validates :所属コード, :所属名, presence: true
   
-  has_many :kouteimasters
-  has_many :shainmasters
+  has_many :kouteimasters, foreign_key: :所属コード
+  has_one :shainmaster, foreign_key: :所属コード
   
-  alias_attribute :code, :所属コード
+  alias_attribute :id, :所属コード
   alias_attribute :name, :所属名
 
   # a class method import, with file passed through as an argument

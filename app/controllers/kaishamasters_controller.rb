@@ -50,6 +50,6 @@ class KaishamastersController < ApplicationController
     end
 
     def kaishamaster_params
-      params.require(:kaishamaster).permit(:code, :name, :note)
+      params.require(:kaishamaster).permit(:id, :name, :note)
     end
 end

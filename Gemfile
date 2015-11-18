@@ -38,6 +38,8 @@ gem 'figaro', '~> 0.7.0'
 gem 'cancancan', '~> 1.10'
 gem 'bootstrap-colorpicker-rails'
 
+gem 'composite_primary_keys'
+
 # gem 'execjs'
 # gem 'enum_help'
 #gem 'debugger'

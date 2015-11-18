@@ -1,10 +1,12 @@
 class Kaishamaster < ActiveRecord::Base
-self.table_name = '会社マスタ'
-  validates :code, :name, presence: true
-  has_one :bashomaster
-  has_one :jobmaster
+  self.table_name = :会社マスタ
+  self.primary_key = :会社コード
 
-  alias_attribute :code, :会社コード
+  validates :id, :name, presence: true
+  has_one :bashomaster, foreign_key: :会社コード
+  has_one :jobmaster, foreign_key: :ユーザ番号
+
+  alias_attribute :id, :会社コード
   alias_attribute :name, :会社名
   alias_attribute :note, :備考
 
@@ -17,4 +19,7 @@ self.table_name = '会社マスタ'
     end
   end
 
+  def to_param
+    id.parameterize
+  end
 end

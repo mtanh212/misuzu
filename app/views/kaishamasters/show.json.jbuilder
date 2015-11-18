@@ -1,1 +1,1 @@
-json.extract! @kaishamaster, :id, :code, :name, :note, :created_at, :updated_at
+json.extract! @kaishamaster, :id, :name, :note, :created_at, :updated_at

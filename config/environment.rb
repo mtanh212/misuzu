@@ -7,3 +7,5 @@ require File.expand_path('../application', __FILE__)
 
 # Initialize the Rails application.
 Jpt::Application.initialize!
+
+require 'composite_primary_keys'
