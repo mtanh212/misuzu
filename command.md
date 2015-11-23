@@ -222,6 +222,8 @@ or, to tail the logs live
 `heroku logs -t`
 
 run rake migrate on heroku
+`heroku run rake db:setup` -> run force create table along to schema file
+or
 `heroku run rake db:migrate`
 `heroku run rake db:seed`
 

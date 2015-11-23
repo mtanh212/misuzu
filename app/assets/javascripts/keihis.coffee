@@ -2,6 +2,21 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
+  $(document).on 'click', '.delete-all', (event) ->
+    $('.check-remove').each () ->
+      $(this).val('1')
+      $(this).closest('tr').hide()
+      
+      $('#keihihead_交通費合計').val(0);
+      $('#keihihead_日当合計').val(0);
+      $('#keihihead_宿泊費合計').val(0);
+      $('#keihihead_その他合計').val(0);
+      $('#keihihead_旅費合計').val(0);
+      $('#keihihead_合計').val(0);
+      $('#keihihead_過不足').val(0);
+      $('#keihihead_仮払金').val(0);
+    event.preventDefault()
+
   $(document).on 'click', '.remove_fields', (event) ->
     $(this).prev('input[type=hidden]').val('1')
     $(this).closest('fieldset').hide()

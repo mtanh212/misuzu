@@ -1,13 +1,15 @@
-<%= javascript_include_tag 'kintai' %>
+<%= javascript_include_tag 'kintais' %>
 <%= stylesheet_link_tag 'kintais' %>
 
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
+  <!-- <li><a href="#">基準情報</a></li> -->
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
   <li><%= link_to 'カレンダー', events_path %></li>
   <li class="active">勤怠</li>
 </ol>
 
-<table id="kintai" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+<table  id="kintai-table" class="table table-striped table-bordered table-hover" cellspacing="0">
   <thead>
   <tr>
     <th rowspan="2">日付</th>
@@ -15,12 +17,15 @@
     <th rowspan="2">タイプ</th>
     <th rowspan="2">出勤時間</th>
     <th rowspan="2">退社時間</th>
-    
+
     <th colspan="6">就 業 時 間</th>
-    
+
     <th rowspan="2">保守携帯</th>
     <th rowspan="2">処理区分</th>
     <th rowspan="2">備考</th>
+    <th rowspan="2"></th>
+    <th rowspan="2"></th>
+    <!--<th rowspan="2"></th>-->
   </tr>
   <tr>
     <th>実労働時間</th>
@@ -34,25 +39,25 @@
 
   <tbody>
   <% @kintais.each do |kintai| %>
-  <%add_class = 'danger' if kintai.曜日.in?(['1','7'])
-    case kintai.曜日
-      when '1'
-        week_day = '日'
-      when '2'
-        week_day = '月'
-      when '3'
-        week_day = '火'
-      when '4'
-        week_day = '水'
-      when '5'
-        week_day = '木'
-      when '6'
-        week_day = '金'
-      when '7'
-        week_day = '土'
-      
-    end
-  %>
+      <%add_class = 'danger' if kintai.曜日.in?(['1','7'])
+        case kintai.曜日
+          when '1'
+            week_day = '日'
+          when '2'
+            week_day = '月'
+          when '3'
+            week_day = '火'
+          when '4'
+            week_day = '水'
+          when '5'
+            week_day = '木'
+          when '6'
+            week_day = '金'
+          when '7'
+            week_day = '土'
+
+        end
+      %>
       <tr id="kintai-<%= kintai.id %>" class="<%= add_class %>">
         <td><%= kintai.日付 %></td>
         <td><%= week_day %></td>
@@ -61,14 +66,29 @@
         <td><%= kintai.退社時刻.to_s(:time) %></td>
         <td><%= kintai.実労働時間 %></td>
         <td><%= kintai.遅刻時間 %></td>
-        <td><%= kintai.早退時間 %></td>
+        <!--<td><%# kintai.早退時間 %></td>-->
         <td><%= kintai.普通残業時間 %></td>
         <td><%= kintai.深夜残業時間 %></td>
         <td><%= kintai.普通保守時間 %></td>
         <td><%= kintai.深夜保守時間 %></td>
         <td><%= kintai.保守携帯回数 %></td>
+        <td><%= kintai.状態1 %></td>
         <td><%= kintai.備考 %></td>
+        <!--<td><%# link_to '詳細', kintai %></td>-->
+        <td><%= link_to '編集', edit_kintai_path(kintai) %></td>
+        <% msg = t "app.delete_confirm" %>
+        <td><%= link_to '削除', kintai, method: :delete, data: { confirm: msg } %></td>
+
       </tr>
   <% end %>
   </tbody>
+  
 </table>
+<%= link_to '新規', new_kintai_path %>
+<div class="spacer"></div>
+<div class="row">
+  <div class="col-md-2">
+    <%= render 'kinmu_refer' %>
+  </div>
+</div>
+

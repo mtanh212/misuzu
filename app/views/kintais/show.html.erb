@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @kintai.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @kintai.last_name %>
+</p>
+
+<%= link_to 'Edit', edit_kintai_path(@kintai) %> |
+<%= link_to 'Back', kintais_path %>

@@ -2,159 +2,152 @@
 <%= javascript_include_tag 'resource/ja' %>
 <%= stylesheet_link_tag 'events' %>
 <%= form_for @shain, url: custom_events_path, method: :post do |f| %>
-<div class="row">
-  <div class="col-md-12">
-    <ol class="breadcrumb">
-      <li><%= link_to 'メニュー', main_path %></li>
-      <!-- <li><a href="#">基準情報</a></li> -->
-      <!-- <li><a href="#">セキュリティ管理</a></li> -->
-      <li class="active">カレンダー</li>
-    </ol>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-2">
-    <div class="btn-group" role="group" aria-label="...">
-      <%= f.submit '勤務', class: 'btn btn-default', id:'kintai'%>
-      <%= f.submit '経費', class: 'btn btn-default', id:'keihi'%>
-    </div>
-  </div>
-  <div class="col-md-2 col-md-offset-3">
-    <h3><span class="label label-default">氏名：　<%= Shainmaster.find(session[:selected_shain]).try :氏名 %></span></h3>
-  </div>
-  <div class="col-md-3 col-md-offset-2" align="right">
-    <div class="form-group">
-      <%= label_tag :shozai_update,'現所在更新', class:'col-md-6 control-label' %>
-      <div class="col-md-6">
-        <%= select(:shain,:所在コード, Shozai.all.collect {|s|[s.name, s.id]}, {}, {class: 'form-control', onchange: 'this.form.submit();'}) %>
-        <!--<div class="btn-group" role="group" aria-label="...">--> 
-        <%# f.submit '出社', class: 'btn btn-default', id:'shusha-button'%>
-        <%# f.submit '会議', class: 'btn btn-default', id:'kaighi-button'%>
-        <%# f.submit '外出', class: 'btn btn-default', id:'gaishutu-button'%>
-        <%# f.submit '出張', class: 'btn btn-default', id:'shustu-button'%>
-        <%# f.submit '代休', class: 'btn btn-default', id:'daikyu-button'%>
-        <%# f.submit '帰宅', class: 'btn btn-default', id:'kitaku-button'%>
-        <!--</div>-->
+    <div class="row">
+      <div class="col-md-12">
+        <ol class="breadcrumb">
+          <li><%= link_to 'メニュー', main_path %></li>
+          <!-- <li><a href="#">基準情報</a></li> -->
+          <!-- <li><a href="#">セキュリティ管理</a></li> -->
+          <li class="active">カレンダー</li>
+        </ol>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-md-2 col-md-offset-5">
-    <h4><%= Shainmaster.find(session[:selected_shain]).yakushokumaster.try :役職名 %></h4>
-  </div>
-
-  <div class="col-md-1 col-md-offset-1">
-    <%# button_to '社員選択', %>
-    <button type="button" class="btn btn-default" id="search_user">社員選択</button>
-  </div>
-  
-</div>
-
-<div class="row">
-  <div class="col-md-12">
-    <div class="spacer">
+    <div class="row">
+      <div class="col-xs-2">
+        <div class="btn-group" role="group" aria-label="...">
+          <%= f.submit '勤務', class: 'btn btn-default', id:'kintai'%>
+          <%= f.submit '経費', class: 'btn btn-default', id:'keihi'%>
+        </div>
+      </div>
+      <div class="col-xs-2 col-xs-offset-3">
+        <h3><span class="label label-default">氏名：　<%= Shainmaster.find(session[:selected_shain]).try :氏名 %></span></h3>
+      </div>
+      <div class="col-xs-5">
+        <div class="form-inline update-shozai">
+          <label>
+            現所在更新:
+            <%= select(:shain,:所在コード, Shozai.all.collect {|s|[s.name, s.id]}, {}, {class: 'form-control', onchange: 'this.form.submit();'}) %>
+          </label>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-2 col-md-offset-5">
+        <h4><%= Shainmaster.find(session[:selected_shain]).yakushokumaster.try :役職名 %></h4>
+      </div>
 
-    <table id="event_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-      <thead>
-      <tr>
-        <th></th>
-        <th>開始時刻</th>
-        <th>終了時刻</th>
-        <th>状態</th>
-        <th>場所</th>
-        <th>JOB No.</th>
-        <th>工程名</th>
-        <th>工数</th>
-        <th>計上</th>
-      </tr>
-      </thead>
+      <div class="col-md-1 col-md-offset-1">
+        <%# button_to '社員選択', %>
+        <button type="button" class="btn btn-default" id="search_user">社員選択</button>
+      </div>
 
-      <tbody>
-      <% @events.each do |event| %>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="spacer">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <table id="event_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+          <thead>
           <tr>
-            <td><%= event.id %></td>
-            <td><%= event.開始 %></td>
-            <td><%= event.終了 %></td>
-            <td><%= event.joutaimaster.try :name %></td>
-            <!--<td><%# event.shozai.try :所在名 %></td>-->
-            <!--<td><%# event.場所名 %></td>-->
-            <% 
-               if event.bashomaster
-                 basho_name = event.bashomaster.name
-                 basho_name = event.bashomaster.kaisha_name if event.bashomaster.場所区分 == '2' 
-               end
-            %>
-            <td><%= basho_name %></td>
-            <td><%= event.JOB %></td>
-            <td><%= event.kouteimaster.try :工程名 %></td>
-            <td><%= event.工数 %></td>
-            <td><%= event.計上 %></td>
-            <!--<td><%# event.joutaimaster.状態名 %></td>-->
+            <th></th>
+            <th>開始時刻</th>
+            <th>終了時刻</th>
+            <th>状態</th>
+            <th>場所</th>
+            <th>JOB No.</th>
+            <th>工程名</th>
+            <th>工数</th>
+            <th>計上</th>
           </tr>
-      <% end %>
+          </thead>
+
+          <tbody>
+          <% @events.each do |event| %>
+              <tr>
+                <td><%= event.id %></td>
+                <td><%= event.開始 %></td>
+                <td><%= event.終了 %></td>
+                <td><%= event.joutaimaster.try :name %></td>
+                <!--<td><%# event.shozai.try :所在名 %></td>-->
+                <!--<td><%# event.場所名 %></td>-->
+                <%
+                   if event.bashomaster
+                     basho_name = event.bashomaster.name
+                     basho_name = event.bashomaster.kaisha_name if event.bashomaster.場所区分 == '2'
+                   end
+                %>
+                <td><%= basho_name %></td>
+                <td><%= event.JOB %></td>
+                <td><%= event.kouteimaster.try :工程名 %></td>
+                <td><%= event.工数 %></td>
+                <td><%= event.計上 %></td>
+                <!--<td><%# event.joutaimaster.状態名 %></td>-->
+              </tr>
+          <% end %>
 
 
-      <%# @events.each do |event| %>
-      <%# render partial: 'table_row', locals: {event: event} %>
-      <%# end %>
-      </tbody>
-    </table>
-  </div>
+          <%# @events.each do |event| %>
+          <%# render partial: 'table_row', locals: {event: event} %>
+          <%# end %>
+          </tbody>
+        </table>
+      </div>
 
-</div>
-
-<div class="row">
-  <div class="col-md-2">
-    <%= link_to '新規イベント', new_event_path %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
-    <div class="spacer">
     </div>
-  </div>
-</div>
 
-<legend></legend>
+    <div class="row">
+      <div class="col-md-2">
+        <%= link_to '新規イベント', new_event_path %>
+      </div>
+    </div>
 
-<div class="row">
-  <div class="col-md-2">
-    <div class="input-group">
-      <input type='text' class="form-control" id="goto-date-input" name="goto-date-input">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="spacer">
+        </div>
+      </div>
+    </div>
+
+    <legend></legend>
+
+    <div class="row">
+      <div class="col-md-2">
+        <div class="input-group">
+          <input type='text' class="form-control" id="goto-date-input" name="goto-date-input">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button" id="toggle-calendar-goto">
           <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
         </button>
       </span>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <button id="goto-date-button" class="btn btn-default" type="button">Go!</button>
+      </div>
+      <div class="col-md-2 col-md-offset-2" align="right">
+        <div class="btn-group" role="group" aria-label="...">
+          <button id="month-view" type="button" class="btn btn-default">月</button>
+          <button id="day-view" type="button" class="btn btn-default">日</button>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="col-md-1">
-    <button id="goto-date-button" class="btn btn-default" type="button">Go!</button>
-  </div>
-  <div class="col-md-2 col-md-offset-2" align="right">
-    <div class="btn-group" role="group" aria-label="...">
-      <button id="month-view" type="button" class="btn btn-default">月</button>
-      <button id="day-view" type="button" class="btn btn-default">日</button>
-    </div>
-  </div>
-</div>
 
-<div class="spacer"></div>
-<div class="row">
-  <div class="col-md-12">
-    <div id="calendar-month-view"></div>
-    <div id="calendar-timeline"></div>
-  </div>
-</div>
+    <div class="spacer"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="calendar-month-view"></div>
+        <div id="calendar-timeline"></div>
+      </div>
+    </div>
 
     <%# render 'select_user_modal' %>
     <div class="modal fade" id="select_user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

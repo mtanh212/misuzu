@@ -1,6 +1,8 @@
 Jpt::Application.routes.draw do
 	root to: 'users#login'
 
+  resources :kintais
+  
   resources :events, only: [:index, :new, :create, :edit, :update] do
 		collection {post :ajax, :custom}
 	end
@@ -48,8 +50,6 @@ Jpt::Application.routes.draw do
     collection { post :import}
   end
   
-  resources :kintais, only: [:index]
-
   constraints(:id => /\w+(,\w+)*/) do
     resources :kouteimasters do
       collection {post :ajax}
