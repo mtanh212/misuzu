@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="form-group">
+      <!--<h3><%# "#{Date.today.year}年#{Date.today.month}月度" %></h3>-->
+      <label class="sr-only" for="">date</label>
+      <%= f.text_field :日付, class: 'form-control date-search'%>
+    </div>
+      <%= f.submit :勤怠検索, class: 'btn' %>
+  </div>
+  <div class="col-md-2">
+    <h4>勤務工数表</h4>
+  </div>
+  <div class="col-md-2">
+    <h4>氏名<ins> <%=  User.find(session[:user]).name%> </ins></h4>
+  </div>
+  <div class="col-md-3">
+    <h4>担当者番号<ins> <%=  User.find(session[:user]).id%> </ins></h4>
+  </div>
+  <div class="col-md-2">
+    <h4><%= "有給残数：" %></h4>
+  </div>
+</div>

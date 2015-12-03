@@ -155,7 +155,7 @@ $(function(){
 });
 
 //Add maxlength display
-$(function(){
-    $('input[maxlength]').maxlength();
-
-});
+//$(function(){
+//    $('input[maxlength]').maxlength();
+//
+//});

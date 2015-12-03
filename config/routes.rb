@@ -1,7 +1,10 @@
 Jpt::Application.routes.draw do
 	root to: 'users#login'
 
-  resources :kintais
+  resources :kintais do
+    collection { post :matching_date, :finish_input }
+    collection { get :matching_date_return }
+  end
   
   resources :events, only: [:index, :new, :create, :edit, :update] do
 		collection {post :ajax, :custom}

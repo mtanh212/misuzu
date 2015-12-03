@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118092202) do
+ActiveRecord::Schema.define(version: 20151202043334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,13 +103,13 @@ ActiveRecord::Schema.define(version: 20151118092202) do
     t.string   "勤務タイプ"
     t.datetime "出勤時刻"
     t.datetime "退社時刻"
-    t.string   "実労働時間"
-    t.string   "遅刻時間"
-    t.string   "早退時間"
-    t.string   "普通残業時間"
-    t.string   "深夜残業時間"
-    t.string   "普通保守時間"
-    t.string   "深夜保守時間"
+    t.decimal  "実労働時間"
+    t.decimal  "遅刻時間"
+    t.decimal  "早退時間"
+    t.decimal  "普通残業時間"
+    t.decimal  "深夜残業時間"
+    t.decimal  "普通保守時間"
+    t.decimal  "深夜保守時間"
     t.string   "保守携帯回数"
     t.string   "状態1"
     t.string   "状態2"
@@ -117,6 +117,8 @@ ActiveRecord::Schema.define(version: 20151118092202) do
     t.text     "備考"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "社員番号"
+    t.string   "入力済"
   end
 
   create_table "temps", force: :cascade do |t|

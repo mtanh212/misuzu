@@ -729,7 +729,7 @@ $(function(){
 
 $(function(){
 //Add maxlength display
-    $('input[maxlength]').maxlength();
+//    $('input[maxlength]').maxlength();
 
     //calendar hide show
     $('#calendar-month-view').hide();

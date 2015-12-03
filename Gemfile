@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.2.0'
 
 gem 'rails'
 # gem 'sqlite3'
@@ -19,7 +18,8 @@ gem 'paperclip'
 gem 'sprockets', '3.3.4'
 gem 'sprockets-rails', '>= 2.1.4'
 
-gem 'bootstrap-sass', '~> 3.3.5', path: 'vendor/bootstrap-sass-3.3.5.1'
+# gem 'bootstrap-sass', '~> 3.3.5', path: 'vendor/bootstrap-sass-3.3.5.1'
+gem 'bootstrap-sass'
 gem 'sass-rails', '>= 3.2'
 gem 'autoprefixer-rails', '>= 5.0'
 
@@ -28,7 +28,8 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
-# gem 'fullcalendar-rails'
+
+gem 'fullcalendar-rails'
 gem 'pg'
 gem 'activerecord-reset-pk-sequence'
 gem 'momentjs-rails', '>= 2.8.1'
@@ -39,6 +40,8 @@ gem 'cancancan', '~> 1.10'
 gem 'bootstrap-colorpicker-rails'
 
 gem 'composite_primary_keys'
+
+# gem 'jquery-datatables-rails'
 
 # gem 'execjs'
 # gem 'enum_help'

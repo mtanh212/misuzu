@@ -1,4 +1,12 @@
-json.array!(@kintais) do |kintai|
-  json.extract! kintai, :id, :first_name, :last_name
-  json.url kintai_url(kintai, format: :json)
+# json.array!(@kintais) do |kintai|
+#   json.extract! kintai, :id, :first_name, :last_name
+#   json.url kintai_url(kintai, format: :json)
+# end
+json.summary do
+  json.sum1 @kintais.sum('実労働時間')
+  json.sum2 @kintais.sum('遅刻時間')
+  json.sum3 @kintais.sum('普通残業時間')
+  json.sum4 @kintais.sum('深夜残業時間')
+  json.sum5 @kintais.sum('普通保守時間')
+  json.sum6 @kintais.sum('深夜保守時間')
 end

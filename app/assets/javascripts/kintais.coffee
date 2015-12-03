@@ -2,7 +2,14 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
-  $('#kintai_日付').datetimepicker({
+  $('.date-search').datetimepicker({
+    format: 'YYYY/MM',
+    viewMode: 'months',
+    keyBinds: false,
+    focusOnShow: false
+  })
+
+  $('.date-edit').datetimepicker({
     format: 'YYYY/MM/DD',
 #   //inline: true,
 #   //widgetParent: 'container-fluid',
@@ -77,3 +84,38 @@ jQuery ->
       oJoutai_search_modal.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
+
+#  $('.kintai-sum').click () ->
+#    jQuery.ajax({
+#      url: '/kintais/summary_kintai',
+#      data: {id: 'kintaisum'},
+#      type: "POST",
+#      success: (data) ->
+#        $('.sum1').text(data.sum1)
+#        $('.sum2').text(data.sum2)
+#        $('.sum3').text(data.sum3)
+#        $('.sum4').text(data.sum4)
+#        $('.sum5').text(data.sum5)
+#        $('.sum6').text(data.sum6)
+#      failure: () ->
+#    })
+
+  $.getJSON('/kintais/matching_date_return', (data) ->
+    $('.sum1').text(data.summary.sum1)
+    $('.sum2').text(data.summary.sum2)
+    $('.sum3').text(data.summary.sum3)
+    $('.sum4').text(data.summary.sum4)
+    $('.sum5').text(data.summary.sum5)
+    $('.sum6').text(data.summary.sum6)
+  )
+
+  $('.finish-input').click () ->
+    date = $('#kintai_日付').val()
+    jQuery.ajax({
+      url: '/kintais/finish_input',
+      data: {id: 'finish_input', date: date},
+      type: "POST",
+      success: (data) ->
+        $('.finish-message').text(data.message)
+      failure: () ->
+    })

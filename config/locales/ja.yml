@@ -202,6 +202,7 @@ ja:
   app:
     delete_confirm: 削除で宜しいでしょうか。
     flash:
+      kintai_finish_input: 入力済みとなりました。今後当月データの編集不可となっております。
       import_csv: CSVファイルから読み込んでできました！
       record_not_found: 該当情報が見つかりませんでした！
       new_success: 新規作成出来ました。

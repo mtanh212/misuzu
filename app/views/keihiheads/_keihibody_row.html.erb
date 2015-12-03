@@ -12,14 +12,14 @@
     <%#array_value = %w(往路 往復 復路) %>
     <% array_value = [['往路',1], ['復路',2], ['往復',3]] %>
     <%# select(:keihibody, :発着kubun, array_value, {}, {class: 'form-control'}) %>
-    <%= f.text_field :交通費, class: 'form-control koutsuhi', size: 1  %>
+    <%= f.text_field :交通費, class: 'form-control koutsuhi', size: 4  %>
     <%= f.select :発着kubun, array_value, {},{class: 'form-control'} %>
   </td>
   <td>
-    <%= f.text_field :日当, class: 'form-control nittou', size: 1    %>
-    <%= f.text_field :宿泊費, class: 'form-control shukuhaku', size: 1    %>
+    <%= f.text_field :日当, class: 'form-control nittou', size:4 %>
+    <%= f.text_field :宿泊費, class: 'form-control shukuhaku', size:4 %>
   </td>
-  <td><%= f.text_field :その他, class: 'form-control sonotha', size: 1    %></td>
+  <td><%= f.text_field :その他, class: 'form-control sonotha', size:4 %></td>
   <td><%= f.text_field_search :JOB, {}, class_field: 'job-code', class_search: 'job-search', size: 35 %></td>
   <td><%= f.text_area :備考, class: 'form-control', size: '10x2'  %></td>
   <td><%= f.check_box :領収書kubun, class: 'form-control'  %></td>

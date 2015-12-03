@@ -4,23 +4,17 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  * require_self
 
- *= require custom.css
+ *= require custom
 
- * require bootstrap.css
- * require bootstrap.min.css
-
- * require jquery.dataTables.css
- *= require dataTables.bootstrap.css
- *= require dataTables.tableTools.min.css
- *= require dataTables.fixedColumns.css
- *= require dataTables.scroller.css
-
- *= require style.min.css
-
- *= require bootstrap-datetimepicker.css
  *= require fullcalendar
- *= require jquery.qtip.min.css
- *= require scheduler.min.css
- *= require bootstrap-colorpicker.css
+ *= require scheduler.min
+
+ *= require dataTables/dataTables.bootstrap
+
+ *= require bootstrap-datetimepicker
+ *= require bootstrap-colorpicker
+
  * require_tree .
+ * require_self
+
 */

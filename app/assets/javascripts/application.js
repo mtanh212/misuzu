@@ -11,33 +11,24 @@
 // about supported directives.
 //
 //
-// require turbolinks
-
-//= require jquery-2.1.1.min.js
-//= require jquery_ujs
+//= require jquery
 //= require bootstrap-sprockets
-// require bootstrap.min.js
+//= require jquery_ujs
 
-//= require jquery.dataTables.min.js
-//= require dataTables.bootstrap.js
-//= require dataTables.tableTools.min.js
-//= require dataTables.fixedColumns.js
-//= require dataTables.scroller.js
 
-//= require jstree.min.js
+//= require turbolinks
 
-//= require transition.js
-//= require collapse.js
-// require bootstrap-datetimepicker.ja.js
-
-//= require bootstrap-maxlength.js
 //= require moment
 //= require moment/ja
+
+//= require fullcalendar
+//= require scheduler.min
+//= require fullcalendar/gcal
+
+//= require dataTables/jquery.dataTables.min
+//= require dataTables/dataTables.bootstrap
+
 //= require bootstrap-datetimepicker
-//= require fullcalendar.min
-//= require jquery.qtip.min.js
-//= require scheduler.min.js
-//= require gcal.js
 //= require bootstrap-colorpicker
 
 // require_tree .

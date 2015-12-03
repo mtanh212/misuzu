@@ -88,6 +88,7 @@ class UsersController < ApplicationController
           session[:current_user_id] = @user.id
           session[:selected_shain] = @user.shainmaster.id
           check_shozai()
+          check_kintai()
           respond_with @user, location: events_url
         end
     end
