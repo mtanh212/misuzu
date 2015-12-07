@@ -109,11 +109,11 @@ jQuery ->
     $('.sum6').text(data.summary.sum6)
   )
 
-  $('.finish-input').click () ->
+  $('#finish-input').click () ->
     date = $('#kintai_日付').val()
     jQuery.ajax({
       url: '/kintais/finish_input',
-      data: {id: 'finish_input', date: date},
+      data: {id: 'finish_input', date: date, checked: $(this).prop('checked')},
       type: "POST",
       success: (data) ->
         $('.finish-message').text(data.message)

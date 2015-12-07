@@ -36,8 +36,10 @@ class KintaisController < ApplicationController
   def finish_input
     date = params[:date].to_date
     kintai = Kintai.find_by 日付: date, 社員番号: session[:user]
-    kintai.入力済 = '1' if kintai
-    message = t "app.flash.kintai_finish_input" if kintai.save
+    checked = params[:checked] == 'true' ? '1':'0'
+    kintai.入力済 = checked if kintai
+    message = t "app.flash.kintai_finish_input" if kintai.save && checked == '1'
+    message ||= ''
     data = {message: message}
     respond_to do |format|
       format.json { render json: data}

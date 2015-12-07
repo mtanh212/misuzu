@@ -9,19 +9,19 @@
 <table id="shozais" class="table table-striped table-bordered table-hover" cellspacing="0">
 
   <thead>
-    <tr>
-      <th>所在コード</th>
-      <th>所在名</th>
-      <th>背景色</th>
-      <th>文字色</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>所在コード</th>
+    <th>所在名</th>
+    <th>背景色</th>
+    <th>文字色</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @shozais.each do |shozai| %>
+  <% @shozais.each do |shozai| %>
       <tr id="shozai_<%= shozai.id %>">
         <td><%= shozai.所在コード %></td>
         <td><%= shozai.所在名 %></td>
@@ -31,7 +31,7 @@
         <td><%= link_to '編集', edit_shozai_path(shozai) %></td>
         <td><%= link_to '削除', shozai, method: :delete, data: { confirm: '削除でよろしいですが?' } %></td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 
@@ -39,15 +39,17 @@
 
 <%= link_to '新規', new_shozai_path %>
 
-<h4>CSVでのデータをインポート!</h4>
-<%= form_tag import_shozais_path,class:'form-inline', multipart: true do %>
-    <div class="form-group">
-      <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
-      <%= file_field_tag :file , class: 'btn btn-default' %>
-    </div>  
-    <div class="form-group">
-      <%= label_tag 'importcsv', nil, class: 'sr-only' %>
-      <%= submit_tag "Import CSV" , class: 'btn btn-default' %>
-    </div>
-<% end %>
+<% if can? :update, @shozais %>
 
+    <h4>CSVでのデータをインポート!</h4>
+    <%= form_tag import_shozais_path,class:'form-inline', multipart: true do %>
+        <div class="form-group">
+          <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
+          <%= file_field_tag :file , class: 'btn btn-default' %>
+        </div>
+        <div class="form-group">
+          <%= label_tag 'importcsv', nil, class: 'sr-only' %>
+          <%= submit_tag "Import CSV" , class: 'btn btn-default' %>
+        </div>
+    <% end %>
+<% end %>

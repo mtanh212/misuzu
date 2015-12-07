@@ -37,7 +37,11 @@ gem 'bootstrap3-datetimepicker-rails'
 gem 'responders'
 gem 'figaro', '~> 0.7.0'
 gem 'cancancan', '~> 1.10'
+gem "haml-rails"
+
+# group :assets
 gem 'bootstrap-colorpicker-rails'
+gem 'simple_form'
 
 gem 'composite_primary_keys'
 
@@ -53,7 +57,6 @@ gem 'composite_primary_keys'
 # group :assets do
   # gem 'bootstrap-colorpicker-rails'
 	# gem 'bootswatch-rails'
-	# gem 'simple_form'
 	# gem 'therubyracer'
 	# gem 'less-rails'
 	# gem 'twitter-bootstrap-rails'

@@ -16,7 +16,7 @@ module UsersHelper
   end
 
   def create_kintai(day)
-    Kintai.create!(日付:day,曜日:day.wday, 社員番号: session[:user])
+    Kintai.create!(日付: day, 曜日: day.wday, 社員番号: session[:user])
   end
 
   class MonthRange

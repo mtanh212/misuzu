@@ -35,6 +35,7 @@
 
 <%= link_to '新規', new_shozokumaster_path %>
 
+<% if can? :update, @shozokumasters %>
 <h4>CSVでのデータをインポート!</h4>
 <%= form_tag import_shozokumasters_path,class:'form-inline', multipart: true do %>
     <div class="form-group">
@@ -45,4 +46,5 @@
       <%= label_tag 'importcsv', nil, class: 'sr-only' %>
       <%= submit_tag "Import CSV" , class: 'btn btn-default' %>
     </div>
+<% end %>
 <% end %>

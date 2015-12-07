@@ -1,0 +1,28 @@
+.row
+  .col-md-2
+    = render 'kinmu_refer'
+  .col-md-1.col-md-offset-1
+    = label_tag '合計時間'
+  .col-md-4
+    %table#kintai-table.table.table-striped.table-bordered.table-hover.table-condensed{'cellspacing'=>"0"}
+      %thead
+        %tr
+          %th 実労働
+          %th 遅刻早退
+          %th 普通残業
+          %th 深夜残業
+          %th 普通保守
+          %th 深夜保守
+      %tbody
+        %tr
+          %td.sum1
+          %td.sum2
+          %td.sum3
+          %td.sum4
+          %td.sum5
+          %td.sum6
+  .col-md-1
+    = check_box_tag 'finish-input'
+    = label_tag '承認要求'
+  .col-md-2
+    %p.finish-message

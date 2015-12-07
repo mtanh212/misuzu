@@ -22,44 +22,16 @@ $(function(){
 
     });
 
-	//選択された行を判断
-	$('#kouteimaster tbody').on( 'click', 'tr', function () {
-
-    if ( $(this).hasClass('selected') ) {
-        $(this).removeClass('selected');
-        $(this).removeClass('success');
-    }
-    else {
-        oTable.$('tr.selected').removeClass('selected');
-        oTable.$('tr.success').removeClass('success');
-        $(this).addClass('selected');
-        $(this).addClass('success');
-    }
-
-	} );
-    
-    //init shozoku modal table
-    oShozokuTable = $('#shozoku_search_table').DataTable({
-        "pagingType": "full_numbers"
-        ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
-        }
-    });
-    
     //選択された行を判断
-    $('#shozoku_search_table tbody').on( 'click', 'tr', function () {
-
-        var d = oShozokuTable.row(this).data();
-        $('#kouteimaster_所属コード').val(d[0]);
-        $('#shozoku_name').text(d[1]);
+    $('#kouteimaster tbody').on( 'click', 'tr', function () {
 
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
         }
         else {
-            oShozokuTable.$('tr.selected').removeClass('selected');
-            oShozokuTable.$('tr.success').removeClass('success');
+            oTable.$('tr.selected').removeClass('selected');
+            oTable.$('tr.success').removeClass('success');
             $(this).addClass('selected');
             $(this).addClass('success');
         }

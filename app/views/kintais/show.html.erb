@@ -114,7 +114,13 @@
           </tbody>
         </table>
       </div>
+      <div class="col-md-1">
+        <%= f.check_box :入力済, { id:'finish-input', checked: true }, '1', '0' %>
+        <%= label_tag '承認要求' %>
+      </div>
+      <div class="col-md-2">
+        <p class="finish-message"></p>
+      </div>
     </div>
-
 <% end %>
 

@@ -5,6 +5,7 @@ class ShozaisController < ApplicationController
 
   def index
     @shozais = Shozai.all
+    @shozai = Shozai.new
     respond_with(@shozais)
   end
 

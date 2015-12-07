@@ -83,6 +83,19 @@ GEM
       momentjs-rails (>= 2.9.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    haml (4.0.7)
+      tilt
+    haml-rails (0.9.0)
+      actionpack (>= 4.0.1)
+      activesupport (>= 4.0.1)
+      haml (>= 4.0.6, < 5.0)
+      html2haml (>= 1.0.1)
+      railties (>= 4.0.1)
+    html2haml (2.0.0)
+      erubis (~> 2.7.0)
+      haml (~> 4.0.0)
+      nokogiri (~> 1.6.0)
+      ruby_parser (~> 3.5)
     hub (1.12.4)
     i18n (0.7.0)
     jbuilder (2.3.2)
@@ -173,6 +186,8 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
+    ruby_parser (3.7.2)
+      sexp_processor (~> 4.1)
     sass (3.4.19)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -180,6 +195,10 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
+    sexp_processor (4.6.0)
+    simple_form (3.2.0)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -218,6 +237,7 @@ DEPENDENCIES
   composite_primary_keys
   figaro (~> 0.7.0)
   fullcalendar-rails
+  haml-rails
   hub
   jbuilder
   jquery-rails
@@ -231,6 +251,7 @@ DEPENDENCIES
   responders
   rspec-rails
   sass-rails (>= 3.2)
+  simple_form
   sinatra
   sprockets (= 3.3.4)
   sprockets-rails (>= 2.1.4)
