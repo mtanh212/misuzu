@@ -9,7 +9,22 @@ class Joutaimaster < ActiveRecord::Base
   alias_attribute :name, :状態名
   alias_attribute :color, :色
   alias_attribute :text_color, :文字色
-  
+
+  scope :active, ->(kubunlist) { where(勤怠使用区分: '1', 状態区分:kubunlist) }
+
+# scope :active, ->(wday,holiday) {
+#     case wday
+#       when '5','6'
+#         where(勤怠使用区分: '1', 状態区分:[1,5])
+#       when '0'..'4'
+#         if holiday == '1'
+#           where(勤怠使用区分: '1', 状態区分:[1,5])
+#         else
+#           where(勤怠使用区分: '1', 状態区分:[1,2,6])
+#         end
+#     end
+#   }
+
   def events
     super || build_events
   end

@@ -16,7 +16,16 @@ module UsersHelper
   end
 
   def create_kintai(day)
-    Kintai.create!(日付: day, 曜日: day.wday, 社員番号: session[:user])
+    if JptHolidayMst.exists?(event_date: day)
+      note = '会社休日'
+      holiday = '1'
+    end
+    if day.holiday?(:jp)
+      holiday = '1'
+      note = day.holidays(:jp)[0][:name]
+    end
+
+    Kintai.create!(日付: day, 曜日: day.wday, 社員番号: session[:user], holiday: holiday, 備考: note)
   end
 
   class MonthRange

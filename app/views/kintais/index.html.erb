@@ -42,7 +42,7 @@
 
   <tbody>
   <% @kintais.each do |kintai| %>
-      <%add_class = 'danger' if kintai.曜日.in?(['0','6'])
+      <%add_class = 'warning' if kintai.曜日.in?(['0','6']) || kintai.try(:holiday) == '1'
         case kintai.曜日
           when '0'
             week_day = '日'

@@ -94,11 +94,22 @@ class KintaisController < ApplicationController
   private
     def set_kintai
       @kintai = Kintai.find(params[:id])
-      @joutais = Joutaimaster.where(勤怠使用区分: '1')
+      kubunlist = []
+      case @kintai.曜日
+        when '0','6'
+          kubunlist = ['1','5']
+        when '1'..'5'
+          if @kintai.try(:holiday) == '1'
+            kubunlist = ['1','5']
+          else
+            kubunlist = ['1','2','6']
+          end
+      end
+      @joutais = Joutaimaster.active(kubunlist)
     end
 
     def kintai_params
       params.require(:kintai).permit(:日付, :曜日, :勤務タイプ, :出勤時刻, :退社時刻, :保守携帯回数, :状態1, :状態2,
-      :状態3, :備考, :実労働時間, :遅刻時間, :早退時間, :普通残業時間, :深夜残業時間, :普通保守時間, :深夜保守時間)
+      :状態3, :備考, :実労働時間, :遅刻時間, :早退時間, :普通残業時間, :深夜残業時間, :普通保守時間, :深夜保守時間, :holiday)
     end
 end

@@ -38,6 +38,7 @@ gem 'responders'
 gem 'figaro', '~> 0.7.0'
 gem 'cancancan', '~> 1.10'
 gem "haml-rails"
+gem "holidays"
 
 # group :assets
 gem 'bootstrap-colorpicker-rails'
