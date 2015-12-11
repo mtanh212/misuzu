@@ -48,20 +48,20 @@ jQuery ->
   })
 
   status = 0
-  $(document).on 'click', '.status1', (event) ->
+  $(document).on 'click', '.refer-joutai', (event) ->
     $('#joutai_search_modal').modal('show')
-    status = 1
+#    status = 1
     event.preventDefault()
 
-  $(document).on 'click', '.status2', (event) ->
-    $('#joutai_search_modal').modal('show')
-    status = 2
-    event.preventDefault()
-
-  $(document).on 'click', '.status3', (event) ->
-    $('#joutai_search_modal').modal('show')
-    status = 3
-    event.preventDefault()
+#  $(document).on 'click', '.status2', (event) ->
+#    $('#joutai_search_modal').modal('show')
+#    status = 2
+#    event.preventDefault()
+#
+#  $(document).on 'click', '.status3', (event) ->
+#    $('#joutai_search_modal').modal('show')
+#    status = 3
+#    event.preventDefault()
 
   oJoutai_search_modal = $('#joutai_table').DataTable({
     "pagingType": "simple_numbers"
@@ -71,10 +71,15 @@ jQuery ->
 
   $('#joutai_table tbody').on 'click', 'tr', (event) ->
     d = oJoutai_search_modal.row(this).data()
-    switch status
-      when 1 then $('.status1-code').val(d[0])
-      when 2 then $('.status2-code').val(d[0])
-      when 3 then $('.status3-code').val(d[0])
+    $('#kintai_状態1').val(d[0])
+    $('.joutai-code-hint').text(d[1])
+    $('#joutai_search_modal').modal('hide')
+    $('#eki-search-modal').modal('show')
+
+    #    switch status
+#      when 1 then $('.status1-code').val(d[0])
+#      when 2 then $('.status2-code').val(d[0])
+#      when 3 then $('.status3-code').val(d[0])
 
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
@@ -119,3 +124,39 @@ jQuery ->
         $('.finish-message').text(data.message)
       failure: () ->
     })
+
+  $('#kintai_勤務タイプ').on('change',() ->
+    selected_val = $(this).val()
+    start_time = ' '
+    end_time = ' '
+    switch (selected_val)
+      when '001'
+        start_time += '07:00'
+        end_time += '16:00'
+      when '002'
+        start_time += '07:30'
+        end_time += '16:30'
+      when '003'
+        start_time += '08:00'
+        end_time += '17:00'
+      when '004'
+        start_time += '08:30'
+        end_time += '17:30'
+      when '005'
+        start_time += '09:00'
+        end_time += '18:00'
+      when '006'
+        start_time += '09:30'
+        end_time += '18:30'
+      when '007'
+        start_time += '10:00'
+        end_time += '19:00'
+      when '008'
+        start_time += '10:30'
+        end_time += '19:30'
+      when '009'
+        start_time += '11:00'
+        end_time += '20:00'
+    $('#kintai_出勤時刻').val(moment().format('YYYY/MM/DD') + start_time)
+    $('#kintai_退社時刻').val(moment().format('YYYY/MM/DD') + end_time)
+  )

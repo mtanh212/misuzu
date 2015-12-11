@@ -1,11 +1,11 @@
 .row
-  .col-md-2
+  .col-sm-2
     = render 'kinmu_refer'
-  .col-md-1.col-md-offset-1
-    = label_tag '合計時間'
-  .col-md-4
+  .col-sm-6.col-sm-offset-1
     %table#kintai-table.table.table-striped.table-bordered.table-hover.table-condensed{cellspacing: "0"}
       %thead
+        %tr
+          %th{rowspan:2} 合計時間
         %tr
           %th 実労働
           %th 遅刻早退
@@ -15,14 +15,15 @@
           %th 深夜保守
       %tbody
         %tr
+          %td
           %td.sum1
           %td.sum2
           %td.sum3
           %td.sum4
           %td.sum5
           %td.sum6
-  .col-md-1
-    = check_box_tag 'finish-input'
-    = label_tag '承認要求'
-  .col-md-2
+  .col-sm-3
+    .pull-right
+      = check_box_tag 'finish-input'
+      = label_tag '承認要求'
     %p.finish-message

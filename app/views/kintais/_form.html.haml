@@ -1,0 +1,27 @@
+= simple_form_for @kintai do |f|
+  .row
+    .col-sm-2.col-sm-offset-2
+      = f.input :勤務タイプ, collection: Kintai::KINMU_TYPE
+      = f.input :出勤時刻
+      = f.input :退社時刻
+      = f.input :保守携帯回数
+      = f.input :状態1, wrapper: :vertical_input_group, hint:'', hint_html: { class: 'joutai-code-hint' } do
+        = f.input_field :状態1, class: 'form-control'
+        %span.input-group-addon.refer-joutai
+          %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
+      = f.input :備考
+    .col-sm-2.col-sm-offset-1
+      = f.input :実労働時間
+      = f.input :遅刻時間
+      = f.input :早退時間
+      = f.input :普通残業時間
+      = f.input :深夜残業時間
+      = f.input :普通保守時間
+      = f.input :深夜保守時間
+    .col-sm-1.col-sm-offset-1
+      = f.button :submit
+    .col-sm-3
+      .pull-right
+        = render 'kinmu_refer'
+= render 'share/joutai_modal'
+= render 'share/eki_modal'

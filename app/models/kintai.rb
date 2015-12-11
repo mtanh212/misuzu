@@ -6,4 +6,6 @@ class Kintai < ActiveRecord::Base
 
   belongs_to :joutaimaster, foreign_key: :状態1
 
+  KINMU_TYPE = %w(001 002 003 004 005 006 007 008 009)
+
 end

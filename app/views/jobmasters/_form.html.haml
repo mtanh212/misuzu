@@ -1,0 +1,14 @@
+= simple_form_for @jobmaster do |f|
+  .col-sm-4.col-sm-offset-2
+    = f.input :job番号
+    = f.input :job名
+    = f.input :開始日
+    = f.input :終了日
+    = f.input :ユーザ番号, wrapper: :vertical_input_group do
+      = f.input_field :ユーザ番号, class: 'form-control'
+      %span.input-group-addon.refer-kaisha
+        %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
+    = f.input :ユーザ名
+    = f.button :submit
+
+= render 'share/kaisha_modal'

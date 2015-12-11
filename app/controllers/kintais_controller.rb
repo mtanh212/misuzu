@@ -93,6 +93,7 @@ class KintaisController < ApplicationController
 
   private
     def set_kintai
+      @ekis = Eki.all
       @kintai = Kintai.find(params[:id])
       kubunlist = []
       case @kintai.曜日
