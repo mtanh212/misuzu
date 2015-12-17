@@ -231,13 +231,13 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-colorpicker-rails
-  bootstrap-sass
+  bootstrap-sass (= 3.3.6)
   bootstrap3-datetimepicker-rails
   cancancan (~> 1.10)
   coffee-rails
   composite_primary_keys
   figaro (~> 0.7.0)
-  fullcalendar-rails (~> 2.4.0)
+  fullcalendar-rails (~> 2.4.0.2)
   haml-rails
   holidays (~> 2.2.0)
   hub
