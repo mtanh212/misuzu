@@ -1,7 +1,7 @@
 <%= javascript_include_tag 'user' %>
 <ol class="breadcrumb">
   <!--<li><%# link_to 'メニュー', main_path %></li>-->
-  <!--<li><%= link_to '社員マスタ', shainmasters_url %></li>-->
+  <!--<li><%# link_to '社員マスタ', shainmasters_url %></li>-->
   <!-- <li><a href="#">基準情報</a></li> -->
   <!-- <li><a href="#">セキュリティ管理</a></li> -->
   <li class="active">担当者マスタ</li>
@@ -28,11 +28,7 @@
       <tr id="user_<%= user.id %>">
         <td><%= user.担当者コード %></td>
         <td><%= user.担当者名称 %></td>
-        <% if session[:user] == ENV['admin_user'] || current_user.admin?  %>
-          <td><%= user.パスワード %></td>
-        <%else %>
-          <td>***</td>
-        <%end %>
+        <td><%= user.パスワード %></td>
         <td><%= user.admin %></td>
         <td><%= link_to '詳細', user %></td>
         <td><%= link_to '編集', edit_user_path(user) %></td>

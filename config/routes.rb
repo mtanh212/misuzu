@@ -1,5 +1,9 @@
 Jpt::Application.routes.draw do
-	root to: 'users#login'
+  root to: 'users#login'
+
+  resources :kikanmsts do
+    collection {post :import}
+  end
 
   resources :kintais do
     collection { post :matching_date, :finish_input }

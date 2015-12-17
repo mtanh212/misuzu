@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <% if !session[:user].nil? %>
+    <% if session[:user] == ENV['admin_user'] %>
         <div class="form-group">
           <%= f.label :Admin, class: 'col-md-2 control-label' %>
           <div class="col-md-2">

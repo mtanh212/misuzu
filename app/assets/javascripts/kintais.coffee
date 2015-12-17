@@ -73,8 +73,9 @@ jQuery ->
     d = oJoutai_search_modal.row(this).data()
     $('#kintai_状態1').val(d[0])
     $('.joutai-code-hint').text(d[1])
-    $('#joutai_search_modal').modal('hide')
-    $('#eki-search-modal').modal('show')
+    if d[1] == '振休'
+      $('#joutai_search_modal').modal('hide')
+      $('#daikyu_search_modal').modal('show')
 
     #    switch status
 #      when 1 then $('.status1-code').val(d[0])
@@ -112,6 +113,7 @@ jQuery ->
     $('.sum4').text(data.summary.sum4)
     $('.sum5').text(data.summary.sum5)
     $('.sum6').text(data.summary.sum6)
+    $('.sum7').text(data.summary.sum7)
   )
 
   $('#finish-input').click () ->
@@ -160,3 +162,25 @@ jQuery ->
     $('#kintai_出勤時刻').val(moment().format('YYYY/MM/DD') + start_time)
     $('#kintai_退社時刻').val(moment().format('YYYY/MM/DD') + end_time)
   )
+
+  oDaikyuTable = $('.daikyutable').DataTable({
+    "pagingType": "simple_numbers"
+    ,"oLanguage":{
+      "sUrl": "../../assets/resource/dataTable_ja.txt"
+    }
+  })
+
+  $('.daikyutable tbody').on 'click', 'tr', (event) ->
+    d = oDaikyuTable.row(this).data()
+    $('#kintai_代休相手日付').val(d[0])
+    $('#kintai_代休取得区分').val('1')
+    $('#kintai_備考').val(d[0] + 'の振休')
+
+    if ( $(this).hasClass('selected') )
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oDaikyuTable.$('tr.selected').removeClass('selected')
+      oDaikyuTable.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')

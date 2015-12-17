@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208081118) do
+ActiveRecord::Schema.define(version: 20151216072327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 20151208081118) do
     t.decimal  "深夜残業時間"
     t.decimal  "普通保守時間"
     t.decimal  "深夜保守時間"
-    t.string   "保守携帯回数"
+    t.integer  "保守携帯回数"
     t.string   "状態1"
     t.string   "状態2"
     t.string   "状態3"
@@ -120,6 +120,8 @@ ActiveRecord::Schema.define(version: 20151208081118) do
     t.string   "社員番号"
     t.string   "入力済"
     t.string   "holiday"
+    t.date     "代休相手日付"
+    t.string   "代休取得区分"
   end
 
   create_table "temps", force: :cascade do |t|
@@ -250,6 +252,7 @@ ActiveRecord::Schema.define(version: 20151208081118) do
     t.string   "所在コード"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal  "有給残数"
   end
 
   add_index "社員マスタ", ["社員番号"], name: "index_社員マスタ_on_社員番号", unique: true, using: :btree

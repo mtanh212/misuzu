@@ -61,10 +61,19 @@ class KintaisController < ApplicationController
   def create
     @kintai = Kintai.new(kintai_params)
     flash[:notice] = t 'app.flash.new_success' if @kintai.save
-    respond_with(@kintai, location: kintais_url )
+    respond_with(@kintai, location: kintais_url)
   end
 
   def update
+    if kintai_params[:状態1].in?(['103']) #振出
+      params[:kintai][:代休相手日付] = @kintai.日付
+      params[:kintai][:代休取得区分] = '0'
+    end
+    if kintai_params[:状態1].in?(['105']) #振休
+      furishutsu = Kintai.current_month(session[:user]).find_by(代休相手日付: kintai_params[:代休相手日付])
+      furishutsu.update(代休取得区分: '1', 備考: @kintai.日付.to_s << 'の振出') if furishutsu
+    end
+
     flash[:notice] = t 'app.flash.update_success' if @kintai.update(kintai_params)
     respond_with(@kintai, location: kintais_url)
   end
@@ -93,7 +102,7 @@ class KintaisController < ApplicationController
 
   private
     def set_kintai
-      @ekis = Eki.all
+      @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:代休相手日付)
       @kintai = Kintai.find(params[:id])
       kubunlist = []
       case @kintai.曜日
@@ -110,7 +119,8 @@ class KintaisController < ApplicationController
     end
 
     def kintai_params
-      params.require(:kintai).permit(:日付, :曜日, :勤務タイプ, :出勤時刻, :退社時刻, :保守携帯回数, :状態1, :状態2,
-      :状態3, :備考, :実労働時間, :遅刻時間, :早退時間, :普通残業時間, :深夜残業時間, :普通保守時間, :深夜保守時間, :holiday)
+      params.require(:kintai).permit(:日付, :曜日, :勤務タイプ, :出勤時刻, :退社時刻, :保守携帯回数, :状態1, :状態2, :状態3, :備考,
+                                     :実労働時間, :遅刻時間, :早退時間, :普通残業時間, :深夜残業時間, :普通保守時間, :深夜保守時間,
+                                     :holiday, :代休相手日付, :代休取得区分)
     end
 end

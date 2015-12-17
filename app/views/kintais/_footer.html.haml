@@ -5,14 +5,14 @@
     %table#kintai-table.table.table-striped.table-bordered.table-hover.table-condensed{cellspacing: "0"}
       %thead
         %tr
-          %th{rowspan:2} 合計時間
-        %tr
+          %th 合計時間
           %th 実労働
           %th 遅刻早退
           %th 普通残業
           %th 深夜残業
           %th 普通保守
           %th 深夜保守
+          %th 保守携帯
       %tbody
         %tr
           %td
@@ -22,6 +22,7 @@
           %td.sum4
           %td.sum5
           %td.sum6
+          %td.sum7
   .col-sm-3
     .pull-right
       = check_box_tag 'finish-input'

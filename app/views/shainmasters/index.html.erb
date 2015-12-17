@@ -19,6 +19,7 @@
     <th>直間区分</th>
     <th>役職コード</th>
     <th>内号</th>
+    <th>有給残数</th>
     <th></th>
     <th></th>
     <th></th>
@@ -35,6 +36,7 @@
         <td><%= shain.直間区分 %></td>
         <td><%= shain.役職コード %></td>
         <td><%= shain.内線電話番号 %></td>
+        <td><%= shain.有給残数 %></td>
         <td><%= link_to '詳細', shain %></td>
         <td><%= link_to '編集', edit_shainmaster_path(shain) %></td>
         <td><%= link_to '削除', shain, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
