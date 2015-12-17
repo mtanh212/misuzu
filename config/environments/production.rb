@@ -33,6 +33,7 @@ Jpt::Application.configure do
   # config.assets.precompile = ['*.js','*.css','*.css.erb','*.scss']
   # Precompile additional assets
   # config.assets.precompile += %w( .svg .eot .woff .ttf )
+  config.assets.precompile = %w( .png )
   # puts config.assets.precompile.inspect
 
   # Compress JavaScripts and CSS
