@@ -38,7 +38,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
-    autoprefixer-rails (6.1.1)
+    autoprefixer-rails (6.1.2)
       execjs
       json
     better_errors (2.1.1)
@@ -68,7 +68,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    composite_primary_keys (8.1.1)
+    composite_primary_keys (8.1.2)
       activerecord (~> 4.2.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
@@ -120,9 +120,9 @@ GEM
     momentjs-rails (2.10.6)
       railties (>= 3.1)
     multi_json (1.11.2)
-    nokogiri (1.6.7)
+    nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
-    nokogiri (1.6.7-x86-mingw32)
+    nokogiri (1.6.7.1-x86-mingw32)
       mini_portile2 (~> 2.0.0.rc2)
     paperclip (4.3.2)
       activemodel (>= 3.2.0)
@@ -130,7 +130,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
-    passenger (5.0.21)
+    passenger (5.0.22)
       rack
       rake (>= 0.8.1)
     pg (0.18.4)
@@ -189,7 +189,7 @@ GEM
     rspec-support (3.4.1)
     ruby_parser (3.7.2)
       sexp_processor (~> 4.1)
-    sass (3.4.19)
+    sass (3.4.20)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -237,9 +237,9 @@ DEPENDENCIES
   coffee-rails
   composite_primary_keys
   figaro (~> 0.7.0)
-  fullcalendar-rails
+  fullcalendar-rails (~> 2.4.0)
   haml-rails
-  holidays
+  holidays (~> 2.2.0)
   hub
   jbuilder
   jquery-rails

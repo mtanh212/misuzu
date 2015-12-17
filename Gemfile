@@ -29,7 +29,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 
-gem 'fullcalendar-rails'
+gem 'fullcalendar-rails', '~> 2.4.0'
 gem 'pg'
 gem 'activerecord-reset-pk-sequence'
 gem 'momentjs-rails', '>= 2.8.1'
@@ -38,7 +38,7 @@ gem 'responders'
 gem 'figaro', '~> 0.7.0'
 gem 'cancancan', '~> 1.10'
 gem "haml-rails"
-gem "holidays"
+gem "holidays", '~> 2.2.0'
 
 # group :assets
 gem 'bootstrap-colorpicker-rails'

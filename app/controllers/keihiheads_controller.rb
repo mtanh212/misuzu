@@ -87,7 +87,7 @@ class KeihiheadsController < ApplicationController
   
   def set_modal
     @kaishamasters = Kaishamaster.all
-    @kikans = Kikan.all
+    @kikans = Kikanmst.all
     @ekis = Eki.all
     @shonins = Shoninshamst.all
     @jobs = Jobmaster.all
