@@ -20,18 +20,20 @@ Jpt::Application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_assets = false
+  # config.serve_static_assets = false
+  config.serve_static_files = false
 
   # Compress JavaScripts and CSS.
+
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = true
-  config.assets.precompile = ['*.js','*.css','*.css.erb']
+  # config.assets.compile = true
+  # config.assets.precompile = ['*.js','*.css','*.css.erb','*.scss']
   # Precompile additional assets
-  config.assets.precompile += %w( .svg .eot .woff .ttf )
-  puts config.assets.precompile.inspect
+  # config.assets.precompile += %w( .svg .eot .woff .ttf )
+  # puts config.assets.precompile.inspect
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
