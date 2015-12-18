@@ -6,11 +6,8 @@ class Kikanmst < ActiveRecord::Base
   alias_attribute :name, :機関名 
   alias_attribute :note, :備考
 
-  # a class method import, with file passed through as an argument
   def self.import(file)
-    # a block that runs through a loop in our CSV data
     CSV.foreach(file.path, headers: true) do |row|
-      # creates a user for each row in the CSV file
       Kikanmst.create! row.to_hash
     end
   end

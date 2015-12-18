@@ -1,6 +1,10 @@
 Jpt::Application.routes.draw do
   root to: 'users#login'
 
+  resources :ekis do
+    collection {post :import}
+  end
+
   resources :kikanmsts do
     collection {post :import}
   end
