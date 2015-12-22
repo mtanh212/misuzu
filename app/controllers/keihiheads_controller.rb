@@ -43,6 +43,7 @@ class KeihiheadsController < ApplicationController
         end
 
       when '登　録'
+        params[:keihihead][:日付] = Date.today if keihi_params[:日付].blank?
         @keihi = Keihihead.new(keihi_params)
         flash[:notice] = t 'app.flash.new_success' if @keihi.save
         # respond_with(@keihi, location: keihis_url)
@@ -54,6 +55,7 @@ class KeihiheadsController < ApplicationController
   def update
     case params[:commit]
       when '登　録'
+        params[:keihihead][:日付] = Date.today if keihi_params[:日付].nil?
         flash[:notice] = t "app.flash.update_success" if @keihi.update(keihi_params)
         # respond_with(@keihi)
         redirect_to new_keihihead_url

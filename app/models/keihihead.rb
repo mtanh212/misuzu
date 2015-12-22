@@ -11,6 +11,9 @@ class Keihihead < ActiveRecord::Base
   alias_attribute :id, :申請番号
   
   after_destroy {|record|
-    Keihibody.destroy(record.keihibodys.pluck(:申請番号))
+    Keihibody.destroy(record.keihibodys.pluck(:id))
   }
+
+  scope :current_member, ->(member) { where( 社員番号: member )}
+
 end 
