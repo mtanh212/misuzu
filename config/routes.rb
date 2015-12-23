@@ -1,6 +1,8 @@
 Jpt::Application.routes.draw do
   root to: 'users#login'
 
+  resources :shoninshamsts
+
   resources :ekis do
     collection {post :import}
   end
