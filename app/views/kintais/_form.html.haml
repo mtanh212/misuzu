@@ -2,13 +2,27 @@
   .row
     .col-sm-2.col-sm-offset-2
       = f.input :勤務タイプ, collection: Kintai::KINMU_TYPE
-      = f.input :出勤時刻
-      = f.input :退社時刻
+      = f.input :出勤時刻, as: :time
+      -#= f.input :出勤時刻, as: :string, wrapper: :vertical_custom_input_group do
+      -#  = f.input_field :出勤時刻, as: :string, class: 'form-control'
+      -#  %span.input-group-btn
+      -#    %button.btn.btn-default.start-time
+      -#      %span.glyphicon.glyphicon-hand-right
+      = f.input :退社時刻, as: :time
+      -#= f.input :退社時刻, as: :string, wrapper: :vertical_custom_input_group do
+      -#  = f.input_field :退社時刻, as: :string, class: 'form-control'
+      -#  %span.input-group-btn
+      -#    %button.btn.btn-default.end-time
+      -#      %span.glyphicon.glyphicon-hand-right
+      = f.button :button, type: :button, id: 'time-cal'  do
+        勤務時間再計算
+        %span.glyphicon.glyphicon-hand-right
       = f.input :保守携帯回数
       = f.input :状態1, wrapper: :vertical_input_group, hint:'', hint_html: { class: 'joutai-code-hint' } do
         = f.input_field :状態1, class: 'form-control'
-        %span.input-group-addon.refer-joutai
-          %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
+        %span.input-group-btn
+          %button.btn.btn-default.refer-joutai
+            %span.glyphicon.glyphicon-search
       = f.input :備考
     .col-sm-2.col-sm-offset-1
       = f.input :実労働時間

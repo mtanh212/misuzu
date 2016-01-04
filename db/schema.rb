@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222091026) do
+ActiveRecord::Schema.define(version: 20151226042301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,8 +101,8 @@ ActiveRecord::Schema.define(version: 20151222091026) do
     t.date     "日付"
     t.string   "曜日"
     t.string   "勤務タイプ"
-    t.datetime "出勤時刻"
-    t.datetime "退社時刻"
+    t.time     "出勤時刻"
+    t.time     "退社時刻"
     t.decimal  "実労働時間"
     t.decimal  "遅刻時間"
     t.decimal  "早退時間"

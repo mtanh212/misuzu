@@ -4,7 +4,7 @@ class KintaisController < ApplicationController
   respond_to :json
 
   def index
-    @kintais = Kintai.selected_month(session[:user],Date.today).order(:日付)
+    @kintais = Kintai.selected_month(session[:user], Date.today).order(:日付)
     @kintai = Kintai.new 日付: Date.today
     finish_flag = Kintai.find_by(社員番号: session[:user], 日付: Date.today.beginning_of_month).try :入力済 || '0'
     if finish_flag == '1'
