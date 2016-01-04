@@ -235,6 +235,12 @@ jQuery ->
       end_time_m = 0
     if end_time_m > 30 and end_time_m <= 59
       end_time_m = 30
+    if end_time_h == 18 and end_time_m == 30
+      end_time_h = 18
+      end_time_m = 0
+    if end_time_h == 19 and end_time_m == 0
+      end_time_h = 18
+      end_time_m = 0
 
     start_time = start_time_h + ':' + start_time_m
     end_time = end_time_h + ':' + end_time_m
@@ -245,7 +251,7 @@ jQuery ->
     if moment(end_time,'HH:mm') > moment('13:00','HH:mm')
       real_time = diff - 1
 
-    if moment(end_time,'HH:mm') > moment('18:00','HH:mm')
+    if moment(end_time,'HH:mm') > moment('19:00','HH:mm')
       real_time = diff - 2
       overtime = moment(end_time,'HH:mm').diff(moment('19:00','HH:mm'),'minutes')/60
 
