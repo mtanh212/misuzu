@@ -4,7 +4,8 @@ class Shozai < ActiveRecord::Base
   self.primary_key = :所在コード
 
   validates :所在コード, :所在名, presence: true
-  
+  validates :所在コード, uniqueness: true
+
   # has_many :events
   has_one :shainmaster, foreign_key: :所在コード
   

@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
 
   # validates :email, confirmation: true
   validates :担当者コード, presence: true
+  validates :担当者コード, uniqueness: true
+
   # validates :email_confirmation, presence: true
   
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "50x50>" }, :default_url => "images/:style/missing.png"

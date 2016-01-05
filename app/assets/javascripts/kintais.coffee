@@ -133,6 +133,7 @@ jQuery ->
     start_time_m = ''
     end_time_h = ''
     end_time_m = ''
+    real_time = 8
     switch (selected_val)
       when '001'
         start_time_h = '07'
@@ -179,6 +180,8 @@ jQuery ->
         start_time_m = '00'
         end_time_h = '20'
         end_time_m = '00'
+      else
+        real_time = 0
 #    $('#kintai_出勤時刻').val(moment().format('YYYY/MM/DD') + start_time)
 #    $('#kintai_退社時刻').val(moment().format('YYYY/MM/DD') + end_time)
     $('#kintai_出勤時刻_4i').val(start_time_h)
@@ -190,7 +193,7 @@ jQuery ->
     $('#kintai_普通保守時間').val(0)
     $('#kintai_深夜残業時間').val(0)
     $('#kintai_深夜保守時間').val(0)
-    $('#kintai_実労働時間').val(8)
+    $('#kintai_実労働時間').val(real_time)
     $('#kintai_普通残業時間').val(0)
 
   )

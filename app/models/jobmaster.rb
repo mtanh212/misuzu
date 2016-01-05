@@ -3,7 +3,8 @@ class Jobmaster < ActiveRecord::Base
   self.primary_key = :job番号
   
   validates :job番号, :job名, presence: true
-  
+  validates :job番号, uniqueness: true
+
   has_one :events, foreign_key: :JOB
   belongs_to :kaishamaster, class_name: :Kaishamaster, foreign_key: :ユーザ番号
   

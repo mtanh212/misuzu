@@ -5,6 +5,8 @@ class Bashomaster < ActiveRecord::Base
 
   validates :場所コード, :場所名, presence: true
   validates :会社コード, presence: true, if: :basho_kubun?
+  validates :場所コード, uniqueness: true
+
   has_many :events
   
   belongs_to :kaishamaster, foreign_key: :会社コード

@@ -3,7 +3,8 @@ class Shozokumaster < ActiveRecord::Base
   self.primary_key = :所属コード
 
   validates :所属コード, :所属名, presence: true
-  
+  validates :所属コード, uniqueness: true
+
   has_many :kouteimasters, foreign_key: :所属コード
   has_one :shainmaster, foreign_key: :所属コード
   
