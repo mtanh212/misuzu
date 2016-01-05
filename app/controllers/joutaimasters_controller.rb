@@ -30,7 +30,7 @@ class JoutaimastersController < ApplicationController
 
   def update
 
-    flash[:notice] = t "app.flash.update_success" if @joutaimaster.update joutaimaster_params
+    flash[:notice] = t "app.flash.update_success" if @joutaimaster.update joutaimaster_params_for_update
     respond_with @joutaimaster
 
   end
@@ -53,6 +53,10 @@ class JoutaimastersController < ApplicationController
 
   def joutaimaster_params
     params.require(:joutaimaster).permit(:状態コード, :状態名, :状態区分, :勤怠状態名, :マーク, :色, :text_color, :WEB使用区分, :勤怠使用区分)
+  end
+
+  def joutaimaster_params_for_update
+    params.require(:joutaimaster).permit(:状態名, :状態区分, :勤怠状態名, :マーク, :色, :text_color, :WEB使用区分, :勤怠使用区分)
   end
 
   def set_joutaimaster

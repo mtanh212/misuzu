@@ -22,14 +22,14 @@ class YakushokumastersController < ApplicationController
   def create
     @yakushokumaster = Yakushokumaster.new(yakushokumaster_params)
 
-    flash[:notice] = "Yakushoku was created successfuly." if @yakushokumaster.save
+    flash[:notice] = t "app.flash.new_success" if @yakushokumaster.save
     respond_with @yakushokumaster
     
   end
     
   
   def update
-    flash[:notice] = "Yakushoku was update successfuly." if @yakushokumaster.update yakushokumaster_params
+    flash[:notice] = t "app.flash.update_success" if @yakushokumaster.update yakushokumaster_params_for_update
     respond_with @yakushokumaster
 
   end
@@ -49,6 +49,10 @@ class YakushokumastersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def yakushokumaster_params
     params.require(:yakushokumaster).permit(:役職コード, :役職名)
+  end
+
+  def yakushokumaster_params_for_update
+    params.require(:yakushokumaster).permit(:役職名)
   end
 
 end

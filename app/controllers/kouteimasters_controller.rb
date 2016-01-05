@@ -47,7 +47,7 @@ class KouteimastersController < ApplicationController
   def update
     @shozoku = Shozokumaster.find_by 所属コード: kouteimaster_params[:所属コード]
     @kouteimaster.shozokumaster = @shozoku
-    flash[:notice] = t "app.flash.update_success" if @kouteimaster.update kouteimaster_params
+    flash[:notice] = t "app.flash.update_success" if @kouteimaster.update kouteimaster_params_for_update
     respond_with @kouteimaster
   end
 
@@ -85,6 +85,10 @@ class KouteimastersController < ApplicationController
     params.require(:kouteimaster).permit(:所属コード, :工程コード, :工程名)
   end
   
+  def kouteimaster_params_for_update
+    params.require(:kouteimaster).permit(:工程名)
+  end
+
   def param_valid
       params[:kouteimaster][:所属コード].in?(Shozokumaster.pluck(:所属コード))
   end

@@ -38,7 +38,7 @@ class JobmastersController < ApplicationController
   # PATCH/PUT /jobmasters/1.json
   def update
     # @jobmaster.kaishamaster = Kaishamaster.find_by code: jobmaster_params[:ユーザ番号]
-    flash[:notice] = t "app.flash.update_success" if @jobmaster.update jobmaster_params
+    flash[:notice] = t "app.flash.update_success" if @jobmaster.update jobmaster_params_for_update
     respond_with @jobmaster
     
   end
@@ -79,7 +79,11 @@ class JobmastersController < ApplicationController
     def jobmaster_params
       params.require(:jobmaster).permit(:job番号, :job名, :開始日, :終了日, :ユーザ番号, :ユーザ名)
     end
-  
+
+    def jobmaster_params_for_update
+      params.require(:jobmaster).permit(:job名, :開始日, :終了日, :ユーザ番号, :ユーザ名)
+    end
+
   def set_kaisha
     @kaishamasters = Kaishamaster.all
   end

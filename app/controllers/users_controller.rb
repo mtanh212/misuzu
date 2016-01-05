@@ -97,7 +97,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    flash[:notice] = t "app.flash.update_success" if @user.update user_params
+    flash[:notice] = t "app.flash.update_success" if @user.update user_params_for_update
     respond_with @user
   end
 
@@ -138,5 +138,9 @@ class UsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(:担当者コード, :担当者名称, :パスワード, :avatar, :admin, :有給残数)
+  end
+
+  def user_params_for_update
+    params.require(:user).permit(:担当者名称, :パスワード, :avatar, :admin, :有給残数)
   end
 end

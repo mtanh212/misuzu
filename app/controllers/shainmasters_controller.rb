@@ -34,7 +34,7 @@ class ShainmastersController < ApplicationController
   def update
     @shainmaster.shozokumaster = Shozokumaster.find_by 所属コード: shainmaster_params[:所属コード]
     @shainmaster.yakushokumaster = Yakushokumaster.find_by 役職コード: shainmaster_params[:役職コード]
-    flash[:notice] = t "app.flash.update_success" if @shainmaster.update shainmaster_params
+    flash[:notice] = t "app.flash.update_success" if @shainmaster.update shainmaster_params_for_update
     respond_with @shainmaster
     
   end
@@ -50,6 +50,10 @@ private
   
   def shainmaster_params
     params.require(:shainmaster).permit(:社員番号, :連携用社員番号, :氏名, :所属コード, :直間区分, :役職コード, :内線電話番号, :有給残数)
+  end
+
+  def shainmaster_params_for_update
+    params.require(:shainmaster).permit(:連携用社員番号, :氏名, :所属コード, :直間区分, :役職コード, :内線電話番号, :有給残数)
   end
 
   def set_shainmaster

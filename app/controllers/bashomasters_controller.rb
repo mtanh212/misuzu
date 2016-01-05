@@ -30,7 +30,7 @@ class BashomastersController < ApplicationController
 
   def update
     @bashomaster.kaishamaster = Kaishamaster.find_by code: bashomaster_params[:会社コード]
-    flash[:notice] = t "app.flash.update_success" if @bashomaster.update bashomaster_params
+    flash[:notice] = t "app.flash.update_success" if @bashomaster.update bashomaster_params_for_update
     respond_with @bashomaster
   end
 
@@ -61,7 +61,11 @@ class BashomastersController < ApplicationController
   private
 
   def bashomaster_params
-    params.require(:bashomaster).permit(:社員番号, :場所コード, :場所名, :場所名カナ, :SUB, :場所区分,:会社コード)
+    params.require(:bashomaster).permit(:場所コード, :場所名, :場所名カナ, :SUB, :場所区分,:会社コード)
+  end
+
+  def bashomaster_params_for_update
+    params.require(:bashomaster).permit(:場所名, :場所名カナ, :SUB, :場所区分,:会社コード)
   end
 
   def set_bashomaster

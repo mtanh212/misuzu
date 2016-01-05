@@ -27,7 +27,7 @@ class KikanmstsController < ApplicationController
   end
 
   def update
-    @kikanmst.update(kikanmst_params)
+    @kikanmst.update(kikanmst_params_for_update)
     respond_with(@kikanmst)
   end
 
@@ -51,5 +51,9 @@ class KikanmstsController < ApplicationController
 
     def kikanmst_params
       params.require(:kikanmst).permit(:機関コード, :機関名, :備考 )
+    end
+
+    def kikanmst_params_for_update
+      params.require(:kikanmst).permit(:機関名, :備考 )
     end
 end

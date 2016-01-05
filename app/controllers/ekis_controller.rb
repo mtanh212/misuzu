@@ -27,7 +27,7 @@ class EkisController < ApplicationController
   end
 
   def update
-    @eki.update(eki_params)
+    @eki.update(eki_params_for_update)
     respond_with(@eki)
   end
 
@@ -51,5 +51,9 @@ class EkisController < ApplicationController
 
     def eki_params
       params.require(:eki).permit(:駅コード, :駅名)
+    end
+
+    def eki_params_for_update
+      params.require(:eki).permit(:駅名)
     end
 end

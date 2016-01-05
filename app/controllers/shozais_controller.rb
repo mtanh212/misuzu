@@ -28,7 +28,7 @@ class ShozaisController < ApplicationController
   end
 
   def update
-    flash[:notice] = t 'app.flash.update_success' if @shozai.update(shozai_params)
+    flash[:notice] = t 'app.flash.update_success' if @shozai.update(shozai_params_for_update)
     respond_with(@shozai)
   end
 
@@ -53,5 +53,9 @@ class ShozaisController < ApplicationController
 
     def shozai_params
       params.require(:shozai).permit(:所在コード, :所在名, :background_color, :text_color)
+    end
+
+    def shozai_params_for_update
+      params.require(:shozai).permit(:所在名, :background_color, :text_color)
     end
 end

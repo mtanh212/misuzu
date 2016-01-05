@@ -27,7 +27,7 @@ class KaishamastersController < ApplicationController
   end
 
   def update
-    flash[:notice] = t "app.flash.update_success" if @kaishamaster.update(kaishamaster_params)
+    flash[:notice] = t "app.flash.update_success" if @kaishamaster.update(kaishamaster_params_for_update)
     respond_with(@kaishamaster)
   end
 
@@ -51,5 +51,9 @@ class KaishamastersController < ApplicationController
 
     def kaishamaster_params
       params.require(:kaishamaster).permit(:id, :name, :note)
+    end
+
+    def kaishamaster_params_for_update
+      params.require(:kaishamaster).permit(:name, :note)
     end
 end
