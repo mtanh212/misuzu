@@ -91,7 +91,7 @@ class KeihiheadsController < ApplicationController
     @kaishamasters = Kaishamaster.all
     @kikans = Kikanmst.all
     @ekis = Eki.all
-    @shonins = Shoninshamst.all
+    @shonins = Shoninshamst.current_user(session[:user])
     @jobs = Jobmaster.all
   end
   
