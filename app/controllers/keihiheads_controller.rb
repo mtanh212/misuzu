@@ -1,6 +1,7 @@
 class KeihiheadsController < ApplicationController
   before_action :set_keihi, only: [:show, :edit, :update, :destroy]
   before_action :set_modal, only: [:new, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   respond_to :js
 
@@ -70,6 +71,19 @@ class KeihiheadsController < ApplicationController
     respond_with(@keihi, location: new_keihihead_url)
   end
 
+  def matching
+    if  params[:commit] == '更新する' && !params[:shonin].nil?
+      flash[:notice] = t 'app.flash.update_success' if Keihihead.where(id: params[:shonin]).update_all(承認済区分: '1')
+    end
+    seisanyoteibi = keihi_params[:清算予定日]
+    shoninsha = keihi_params[:承認者]
+    seisanyoteibi = Date.today if keihi_params[:清算予定日].blank?
+    shoninsha = session[:user] if keihi_params[:承認者].blank?
+    @keihi_shonins = Keihihead.where("清算予定日 <= ? and 承認者 = ? and 承認済区分 <> '1'", seisanyoteibi, shoninsha)
+    @keihi_shonin = Keihihead.new(清算予定日: keihi_params[:清算予定日], 承認者: keihi_params[:承認者])
+    render 'shonin'
+  end
+
   def ajax
     case params[:id]
       when 'getshinshei'
@@ -81,7 +95,12 @@ class KeihiheadsController < ApplicationController
         end
     end
   end
-  
+
+  def shonin
+    @keihi_shonins = Keihihead.none
+    @keihi_shonin = Keihihead.new
+  end
+
   private
   def set_keihi
     @keihi = Keihihead.find(params[:id])
@@ -97,7 +116,7 @@ class KeihiheadsController < ApplicationController
   
   def keihi_params
     params.require(:keihihead).permit(:申請番号, :日付, :社員番号, :申請者, :交通費合計, :日当合計, :宿泊費合計, :その他合計,
-                                      :旅費合計, :仮払金, :合計, :支給品, :過不足, :承認kubun, :承認者, :清算予定日, :清算日,
+                                      :旅費合計, :仮払金, :合計, :支給品, :過不足, :承認kubun, :承認者, :清算予定日, :清算日,:承認済区分,
                                       keihibodys_attributes: [:id,:申請番号, :日付, :社員番号, :相手先, :機関名,
                                                               :発, :着, :発着kubun, :交通費, :日当, :宿泊費, :その他, :JOB,
                                                               :備考, :領収書kubun, :_destroy])

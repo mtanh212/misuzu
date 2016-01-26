@@ -1,6 +1,7 @@
 class EmployersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_employer, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   def index
     # get all record

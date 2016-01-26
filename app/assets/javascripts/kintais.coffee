@@ -69,10 +69,17 @@ jQuery ->
       "sUrl": "../../assets/resource/dataTable_ja.txt"
     }})
 
+  joutaikubun = ''
   $('#joutai_table tbody').on 'click', 'tr', (event) ->
     d = oJoutai_search_modal.row(this).data()
     $('#kintai_状態1').val(d[0])
     $('.joutai-code-hint').text(d[1])
+    joutaikubun = d[3]
+    if d[0] == '30' #有給
+      $('#kintai_出勤時刻_4i').val('00')
+      $('#kintai_出勤時刻_5i').val('00')
+      $('#kintai_退社時刻_4i').val('00')
+      $('#kintai_退社時刻_5i').val('00')
     if d[1] == '振休'
       $('#joutai_search_modal').modal('hide')
       $('#daikyu_search_modal').modal('show')
@@ -298,7 +305,8 @@ jQuery ->
     if exit_time >=0
       sum_left_time += exit_time
     $('#kintai_遅刻時間').val(sum_left_time)
-
+    if joutaikubun == '2'
+      $('#kintai_遅刻時間').val('0')
     $('#kintai_普通保守時間').val()
     $('#kintai_深夜残業時間').val()
     $('#kintai_深夜保守時間').val()

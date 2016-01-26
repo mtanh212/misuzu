@@ -1,5 +1,6 @@
 class KaishamastersController < ApplicationController
   before_action :set_kaishamaster, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   respond_to :js
 

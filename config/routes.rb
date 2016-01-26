@@ -44,7 +44,8 @@ Jpt::Application.routes.draw do
   end
   
   resources :keihiheads do
-    collection {post :ajax}
+    collection {post :ajax, :shonin, :matching}
+    collection {get :shonin}
   end
   
   resources :shozokumasters do

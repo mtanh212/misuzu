@@ -5,5 +5,4 @@ class Shoninshamst < ActiveRecord::Base
   belongs_to :shainmaster, foreign_key: :承認者
 
   delegate :title, to: :shainmaster, prefix: :shonin, allow_nil: true
-
 end

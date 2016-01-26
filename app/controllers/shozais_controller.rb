@@ -1,5 +1,6 @@
 class ShozaisController < ApplicationController
   before_action :set_shozai, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   respond_to :js
 

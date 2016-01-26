@@ -163,3 +163,49 @@ jQuery ->
   $(document).on 'click', '.shonin-search', (event) ->
     $('#shonin-search-modal').modal('show')
     event.preventDefault()
+
+  oShonin_table = $('.shonin-table').DataTable({
+    "pagingType": "simple_numbers",
+    "oLanguage":{
+      "sUrl": "../../assets/resource/dataTable_ja.txt"
+    },
+    "aoColumnDefs": [
+      { "bSortable": false, "aTargets": [ 13 ]},
+      {
+        "targets": [13],
+        "width": '7px'
+      }
+    ]
+  })
+
+  $('.shonin-table').on( 'click', 'tr',  () ->
+    d = oShonin_table.row(this).data()
+    $('#jobmaster_ユーザ番号').val(d[0])
+    $('#jobmaster_ユーザ名').val(d[1])
+
+    if $(this).hasClass('selected')
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oShonin_table.$('tr.selected').removeClass('selected')
+      oShonin_table.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')
+  )
+
+  $(document).on 'focus', '#keihihead_清算予定日', (event) ->
+    $(this).datetimepicker({
+      format: 'YYYY/MM/DD',
+      widgetPositioning: {
+        horizontal: 'left',
+        vertical: 'bottom'
+      }
+      showTodayButton: true,
+      showClear: true,
+#    //,daysOfWeekDisabled:[0,6]
+      calendarWeeks: true,
+      keyBinds: false,
+      focusOnShow: false
+
+    })
+    event.preventDefault()

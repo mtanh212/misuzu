@@ -82,7 +82,8 @@ class EventsController < ApplicationController
     # end
     case params[:commit]
       when '　ＯＫ　'
-        session[:selected_shain] = Shainmaster.find_by(社員番号: params[:selected_user]).id
+        # session[:selected_shain] = Shainmaster.find(params[:selected_user]).id
+        session[:selected_shain] = params[:selected_user]
         respond_with @event, location: events_url
       when '勤務'
         redirect_to kintais_url
@@ -91,8 +92,8 @@ class EventsController < ApplicationController
         redirect_to new_keihihead_url
       else
         shozai_id = params[:shain][:所在コード]
-        shozai = Shozai.find shozai_id
-        shain = User.find(session[:user]).shainmaster
+        shozai = Shozai.find(shozai_id)
+        shain = User.find(session[:selected_shain]).shainmaster
         shain.shozai = shozai if shozai
         shain.save
         redirect_to events_url
