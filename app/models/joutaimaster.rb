@@ -2,6 +2,8 @@ class Joutaimaster < ActiveRecord::Base
   self.table_name = :状態マスタ
   self.primary_key = :状態コード
 
+  scope :web_use, -> { where( WEB使用区分:'1')}
+
   validates :状態コード, :状態名, presence: true
   validates :状態コード, uniqueness: true
 

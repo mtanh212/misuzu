@@ -141,7 +141,7 @@ private
     @jobs = Jobmaster.all
     @shozais = Shozai.all
     @bashos = Bashomaster.all
-    @joutais = Joutaimaster.all
+    @joutais = Joutaimaster.web_use.all
     # @kouteis = User.find(session[:user]).shainmaster.shozokumaster.kouteimasters
     @kouteis = Shainmaster.find(session[:selected_shain]).shozokumaster.kouteimasters
   end
