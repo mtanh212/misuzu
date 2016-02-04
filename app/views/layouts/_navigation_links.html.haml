@@ -1,11 +1,12 @@
 %nav.navbar.navbar-inverse.navbar-fixed-top{role: :navigation}
   .container-fluid
     .navbar-header
-      %a.navbar-brand{href: '#'} Misuzu
+      .navbar-brand 勤務管理システム
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         - user = User.find session[:user]
         - if !user.nil?
+          %li.navbar-text パスワード更新日：#{user.updated_at.to_date}
           %li= image_tag user.avatar.url(:thumb)
           %li= link_to user.try(:担当者名称).to_s, edit_user_path(user)
           %li= link_to 'ログアウト', root_path

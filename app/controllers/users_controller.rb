@@ -88,7 +88,7 @@ class UsersController < ApplicationController
           session[:current_user_id] = @user.id
           session[:selected_shain] = @user.shainmaster.id
           check_shozai()
-          check_kintai()
+          check_kintai_at_day(Date.today)
           respond_with @user, location: events_url
         end
     end
@@ -109,22 +109,17 @@ class UsersController < ApplicationController
   end
 
   def change_pass
-
-  end
-
-  def change_pass_exc
-    @user = User.find_by(担当者コード: params[:user][:担当者コード].downcase,パスワード: params[:user][:パスワード])
-    if !@user.nil?
-      if params[:user][:新パスワード] == params[:user][:もう一度新パスワード]
-        @user.update(パスワード: params[:user][:新パスワード])
-        redirect_to root_url
+    if request.post?
+      @user = User.find_by(担当者コード: params[:user][:user_code].downcase, パスワード: params[:user][:old_password])
+      if !@user.nil?
+        if params[:user][:new_password] == params[:user][:renew_password]
+          flash[:notice] = t 'app.flash.update_success' if @user.update(パスワード: params[:user][:new_password])
+          redirect_to root_url
+        else
+          redirect_to :back, notice: '新パスワードともう一度パスワードが異なります。'
+        end
       else
-        flash.now[:error] = '新パスワードともう一度パスワードが異なります。'
-        render :change_pass
-      end
-    else
-      respond_to do |format|
-        format.html {redirect_to action: :change_pass}
+        redirect_to :back, notice: 'ユーザーIDまたはパスワードが間違っています。'
       end
     end
   end

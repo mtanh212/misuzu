@@ -1,6 +1,7 @@
 class BashomastersController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_bashomaster, only: [:new, :create, :show, :edit, :update, :destroy]
+  before_action :set_kaishamst, only: [:new, :create, :show, :edit, :update, :destroy]
+  before_action :set_bashomaster, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
   respond_to :js
   
@@ -23,7 +24,7 @@ class BashomastersController < ApplicationController
 
   def create
     @bashomaster = Bashomaster.new(bashomaster_params)
-    @bashomaster.kaishamaster = Kaishamaster.find_by code: bashomaster_params[:会社コード]
+    @bashomaster.kaishamaster = Kaishamaster.find(bashomaster_params[:会社コード])
     flash[:notice] = t "app.flash.new_success" if @bashomaster.save
     respond_with @bashomaster
   end
@@ -70,6 +71,9 @@ class BashomastersController < ApplicationController
 
   def set_bashomaster
     @bashomaster = Bashomaster.find(params[:id])
+  end
+
+  def set_kaishamst
     @kaishamasters = Kaishamaster.all
   end
   

@@ -67,6 +67,23 @@ SimpleForm.setup do |config|
     end
   end
 
+  config.wrappers :horizontal_inline_form, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+    b.wrapper tag: 'div', class: 'form-inline' do |ba|
+      ba.wrapper tag: 'div', class: 'form-group' do |bac|
+        bac.use :label
+        bac.use :input, class: 'form-control'
+        bac.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+        bac.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+      end
+    end
+  end
+
   config.wrappers :horizontal_file_input, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder

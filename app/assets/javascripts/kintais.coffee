@@ -134,55 +134,62 @@ jQuery ->
       failure: () ->
     })
 
+  $(document).ready () ->
+    fill_time()
+
   $('#kintai_勤務タイプ').on('change',() ->
-    selected_val = $(this).val()
+    fill_time()
+
+  fill_time = () ->
+#    selected_val = $(this).val()
+    selected_val = $('#kintai_勤務タイプ').val()
     start_time_h = ''
     start_time_m = ''
     end_time_h = ''
     end_time_m = ''
     real_time = 8
     switch (selected_val)
-      when '001'
+      when '1'
         start_time_h = '07'
         start_time_m = '00'
         end_time_h = '16'
         end_time_m = '00'
-      when '002'
+      when '2'
         start_time_h = '07'
         start_time_m = '30'
         end_time_h = '16'
         end_time_m = '30'
-      when '003'
+      when '3'
         start_time_h = '08'
         start_time_m = '00'
         end_time_h = '17'
         end_time_m = '00'
-      when '004'
+      when '4'
         start_time_h = '08'
         start_time_m = '30'
         end_time_h = '17'
         end_time_m = '30'
-      when '005'
+      when '5'
         start_time_h = '09'
         start_time_m = '00'
         end_time_h = '18'
         end_time_m = '00'
-      when '006'
+      when '6'
         start_time_h = '09'
         start_time_m = '30'
         end_time_h = '18'
         end_time_m = '30'
-      when '007'
+      when '7'
         start_time_h = '10'
         start_time_m = '00'
         end_time_h = '19'
         end_time_m = '00'
-      when '008'
+      when '8'
         start_time_h = '10'
         start_time_m = '30'
         end_time_h = '19'
         end_time_m = '30'
-      when '009'
+      when '9'
         start_time_h = '11'
         start_time_m = '00'
         end_time_h = '20'

@@ -17,8 +17,8 @@
       -#= f.hint '清算予定日付の入力'
     .form-group
       -#= label_tag 'shoninsha','承認者：'
-      = f.input :承認者 do
-        = f.select :承認者, Shoninshamst.all.map { |k| [k.shonin_title, k.承認者, { class: k.id }] }, {include_blank: true}, {class:'form-control'}
+      -#= f.input :承認者 do
+        = f.select :承認者, Shoninshamst.current_user(session[:user]).map { |k| [k.shonin_title, k.承認者, { class: k.id }] }.uniq, {include_blank: true}, {class:'form-control'}
       = f.button :submit, '検索する'
       -#= submit_tag '検索する', class: 'btn btn-default search-shonin'
     .pull-right

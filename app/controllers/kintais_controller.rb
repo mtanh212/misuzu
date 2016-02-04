@@ -3,6 +3,8 @@ class KintaisController < ApplicationController
 
   respond_to :json
 
+  include UsersHelper
+
   def index
     @kintais = Kintai.selected_month(session[:user], Date.today).order(:日付)
     @kintai = Kintai.new 日付: Date.today
@@ -14,15 +16,16 @@ class KintaisController < ApplicationController
     end
   end
 
-  def matching_date
-    session[:selected_date] = kintai_params[:日付]
-    redirect_to matching_date_return_kintais_url
-  end
+  # def matching_date
+  #   session[:selected_date] = kintai_params[:日付]
+  #   redirect_to matching_date_return_kintais_url
+  # end
 
-  def matching_date_return
-    date_param = session[:selected_date]
-    date_param = Date.today if date_param.nil?
+  def matching_date
+    date_param = kintai_params[:日付]
+    date_param = Date.today if kintai_params[:日付].nil?
     date = date_param.to_date
+    check_kintai_at_day(date)
     @kintais = Kintai.selected_month(session[:user],date).order(:日付)
     @kintai = Kintai.new 日付: date
     finish_flag = Kintai.find_by(社員番号: session[:user], 日付: date).try :入力済 || '0'
@@ -52,10 +55,12 @@ class KintaisController < ApplicationController
 
   def new
     @kintai = Kintai.new
+    @kintai.勤務タイプ = Shainmaster.find(session[:user]).勤務タイプ
     respond_with(@kintai)
   end
 
   def edit
+    @kintai.勤務タイプ = Shainmaster.find(session[:user]).勤務タイプ
   end
 
   def create
@@ -104,6 +109,7 @@ class KintaisController < ApplicationController
     def set_kintai
       @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:代休相手日付)
       @kintai = Kintai.find(params[:id])
+
       kubunlist = []
       case @kintai.曜日
         when '0','6'

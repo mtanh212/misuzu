@@ -112,7 +112,8 @@
            end
         %>
         <div class="col-md-2">
-          <%= select(:event, :工数, array_value, {}, {class: 'form-control input-sm'}) %>
+          <%# select(:event, :工数, array_value, {}, {class: 'form-control input-sm'}) %>
+          <%= f.text_field :工数, class: 'form-control' %>
         </div>
         <div class="col-md-3">
           <span class="help-block">h　(単位：時間)</span>

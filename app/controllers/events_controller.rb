@@ -90,19 +90,12 @@ class EventsController < ApplicationController
       when '経費'
         # redirect_to keihis_url
         redirect_to new_keihihead_url
-      else
-        shozai_id = params[:shain][:所在コード]
-        shozai = Shozai.find(shozai_id)
-        shain = User.find(session[:selected_shain]).shainmaster
-        shain.shozai = shozai if shozai
-        shain.save
-        redirect_to events_url
     end
   end
 
   def ajax
    case params[:id]
-     when "event_状態コード"
+     when 'event_状態コード'
        joutai = Joutaimaster.find_by(状態コード: params[:event_joutai_code])
        # event= [{id: '1', resourceId: 'b', start: '2015-08-07 10:00:00', end: '2015-08-07 14:00:00', title: joutai.name }]
        # data = {joutai_name: joutai.name, event: event, event_color: joutai.color, event_text_color: joutai.text_color}
@@ -110,27 +103,51 @@ class EventsController < ApplicationController
        respond_to do |format|
          format.json { render json: data}
        end
-     when "event_場所コード"
+     when 'event_場所コード'
        basho_name = Bashomaster.find_by(場所コード: params[:event_basho_code]).try(:場所名)
        data = {basho_name: basho_name}
        respond_to do |format|
          format.json { render json: data}
        end
-     when "event_工程コード"
+     when 'event_工程コード'
        koutei_name = get_koutei_name(params[:event_koutei_code],session[:user])
        data = {koutei_name: koutei_name}
        respond_to do |format|
          format.json { render json: data}
        end
-     when "event_job"
+     when 'event_job'
        job_name = Jobmaster.find_by(job番号: params[:event_job_code]).try(:job名)
        data = {job_name: job_name}
        respond_to do |format|
          format.json { render json: data}
        end
+     when 'save_kinmu_type'
+       kinmu_type = params[:data]
+       shain = Shainmaster.find(session[:user])
+       if shain.update(勤務タイプ: kinmu_type)
+         return_data = {message: 'OK'}
+       else
+         return_data = {message: 'NotOK'}
+       end
+       respond_to do |format|
+         format.json { render json: return_data}
+       end
+     when 'change_shozai'
+       shozai_id = params[:data]
+       shozai = Shozai.find(shozai_id)
+       shain = User.find(session[:selected_shain]).shainmaster
+       shain.shozai = shozai if shozai
+       if shain.save
+         return_data = {message: 'OK'}
+       else
+         return_data = {message: 'NotOK'}
+       end
+       respond_to do |format|
+         format.json { render json: return_data}
+       end
    end
   end
-  
+
 private
 # Use callbacks to share common setup or constraints between actions.
   def set_event

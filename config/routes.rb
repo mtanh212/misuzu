@@ -13,7 +13,7 @@ Jpt::Application.routes.draw do
 
   resources :kintais do
     collection { post :matching_date, :finish_input }
-    collection { get :matching_date_return }
+    # collection { get :matching_date_return }
   end
   
   resources :events, only: [:index, :new, :create, :edit, :update] do
@@ -31,7 +31,8 @@ Jpt::Application.routes.draw do
 	match 'main', to: 'main#index', via: [:get]
 
   resources :users do
-    collection {get :login}
+    collection {get :login, :change_pass}
+    collection {post :change_pass}
   end
   
   resources :yakushokumasters, param: :id do 

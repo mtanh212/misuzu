@@ -1,7 +1,9 @@
 <%= javascript_include_tag 'event' %>
+<%= javascript_include_tag 'events' %>
 <%= javascript_include_tag 'resource/ja' %>
 <%= stylesheet_link_tag 'events' %>
-<%= form_for @shain, url: custom_events_path, method: :post do |f| %>
+
+<%= simple_form_for @shain, url: custom_events_path, method: :post do |f| %>
     <div class="row">
       <div class="col-md-12">
         <ol class="breadcrumb">
@@ -13,34 +15,51 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-xs-2">
-        <div class="btn-group" role="group" aria-label="...">
+    <div class="row-fluid">
+      <div class="pull-left">
+        <!--<div class="btn-group" role="group" aria-label="...">-->
           <%= f.submit '勤務', class: 'btn btn-default', id:'kintai'%>
           <%= f.submit '経費', class: 'btn btn-default', id:'keihi'%>
-        </div>
+        <!--</div>-->
       </div>
       <div class="col-xs-2 col-xs-offset-3">
         <h3><span class="label label-default">氏名：　<%= Shainmaster.find(session[:selected_shain]).try :氏名 %></span></h3>
       </div>
-      <div class="col-xs-5">
-        <div class="form-inline update-shozai">
-          <label>
-            現所在更新:
-            <%= select(:shain,:所在コード, Shozai.all.collect {|s|[s.name, s.id]}, {}, {class: 'form-control', onchange: 'this.form.submit();'}) %>
-          </label>
+      <!--<div class="col-xs-5">-->
+        <!--<div class="form-inline update-shozai">-->
+          <!--<label>-->
+            <!--現所在更新:-->
+            <!--<%# select(:shain,:所在コード, Shozai.all.collect {|s|[s.name, s.id]}, {}, {class: 'form-control', onchange: 'this.form.submit();'}) %>-->
+          <!--</label>-->
+        <!--</div>-->
+      <!--</div>-->
+      <div class="pull-right">
+        <div class="form-inline">
+          <%= f.input :所在コード, label:'所在' do %>
+              <%= f.select :所在コード, Shozai.all.map { |s| [s.name, s.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control'} %>
+          <% end %>
         </div>
       </div>
+
     </div>
 
-    <div class="row">
+    <div class="row-fluid">
       <div class="col-md-2 col-md-offset-5">
         <h4><%= Shainmaster.find(session[:selected_shain]).yakushokumaster.try :役職名 %></h4>
       </div>
 
-      <div class="col-md-1 col-md-offset-1">
+      <div class="col-md-1">
         <%# button_to '社員選択', %>
         <button type="button" class="btn btn-default" id="search_user">社員選択</button>
+      </div>
+
+      <div class="pull-right">
+        <div class="form-inline">
+          <%= f.input :勤務タイプ, collection: 1..9 %>
+          <!--<button id="save_kinmu_type" type="button" class="btn btn-default">-->
+            <!--<span class="glyphicon glyphicon-save" aria-hidden="true"></span>保存-->
+          <!--</button>-->
+        </div>
       </div>
 
     </div>
@@ -133,10 +152,10 @@
       <div class="col-md-1">
         <button id="goto-date-button" class="btn btn-default" type="button">Go!</button>
       </div>
-      <div class="col-md-2 col-md-offset-2" align="right">
+      <div class="col-md-4" align="right">
         <div class="btn-group" role="group" aria-label="...">
-          <button id="month-view" type="button" class="btn btn-default">月</button>
-          <button id="day-view" type="button" class="btn btn-default">日</button>
+          <button id="month-view" type="button" class="btn btn-default">個人画面へ</button>
+          <button id="day-view" type="button" class="btn btn-default">一覧画面へ</button>
         </div>
       </div>
     </div>
