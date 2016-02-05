@@ -38,8 +38,7 @@ module EventsHelper
     event.bashomaster = Bashomaster.find_by 場所コード: event_params[:場所コード]
     event.kouteimaster = Kouteimaster.find_by 所属コード: event_params[:所属コード], 工程コード: event_params[:工程コード]
     # event.shozai = Shozai.find_by 所在コード: event_params[:所在コード]
-    event.jobmaster = Jobmaster.find event_params[:JOB]
-    
+    event.jobmaster = Jobmaster.find_by job番号: event_params[:JOB]
   end
   
   def check_user_status

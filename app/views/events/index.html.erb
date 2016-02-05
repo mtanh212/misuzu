@@ -55,10 +55,10 @@
 
       <div class="pull-right">
         <div class="form-inline">
-          <%= f.input :勤務タイプ, collection: 1..9 %>
-          <!--<button id="save_kinmu_type" type="button" class="btn btn-default">-->
-            <!--<span class="glyphicon glyphicon-save" aria-hidden="true"></span>保存-->
-          <!--</button>-->
+          <%# f.input :勤務タイプ, collection: '001'..'009' %>
+          <% display = ['001 → 07:00 〜 16:00', '002 → 07:30 〜 16:30', '003 → 08:00 〜 17:00', '004 → 08:30 〜 17:30', '005 → 09:00 〜 18:00', '006 → 09:30 〜 18:30', '007 → 10:00 〜 19:00', '008 → 10:30 〜 19:30', '009 → 11:00 〜 20:00']
+          %>
+          <%= f.input :勤務タイプ, collection: (1..9).map { |i| ["#{display[i-1]}", "00#{i}"] }%>
         </div>
       </div>
 
