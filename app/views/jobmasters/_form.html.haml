@@ -1,5 +1,5 @@
 = simple_form_for @jobmaster do |f|
-  .col-sm-4.col-sm-offset-2
+  .col-sm-4.col-sm-offset-1
     = f.input :job番号
     = f.input :job名
     = f.input :開始日
@@ -9,6 +9,13 @@
       %span.input-group-addon.refer-kaisha
         %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
     = f.input :ユーザ名
-    = f.button :submit
+  .col-sm-4.col-sm-offset-1
+    = f.input :入力社員番号
+    - display = ['1：営業活動', '2：開発マスタ', '3：保守', '4：社内業務']
+    = f.input :分類コード, collection: (0..3).map {|i| [display[i],i+1]}
+    = f.input :分類名
+    = f.input :関連Job番号
+    = f.input :備考
+    = f.button :submit, class: 'btn btn-primary'
 
 = render 'share/kaisha_modal'

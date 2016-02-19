@@ -17,7 +17,8 @@
       = f.button :button, type: :button, id: 'time-cal'  do
         勤務時間再計算
         %span.glyphicon.glyphicon-hand-right
-      = f.input :保守携帯回数, collection: 0..1
+      - display = ['0：なし', '1：保守携帯']
+      = f.input :保守携帯回数, label: '保守携帯' ,collection: (0..1).map {|i| [display[i],i]}
       = f.input :状態1, wrapper: :vertical_input_group, hint:'', hint_html: { class: 'joutai-code-hint' } do
         = f.input_field :状態1, class: 'form-control'
         %span.input-group-btn

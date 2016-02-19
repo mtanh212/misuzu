@@ -13,7 +13,7 @@ class EventsController < ApplicationController
     rescue
       @events = Shainmaster.take.events
     end
-    @shains = Shainmaster.order(:所属コード,:役職コード,:社員番号).all
+    @shains = Shainmaster.order(:所属コード, :役職コード, :社員番号).all
     @holidays = JptHolidayMst.all 
     
     @shain = Shainmaster.find(session[:selected_shain])

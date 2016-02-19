@@ -114,7 +114,7 @@ $(function(){
                     field: 'yakushoku',
                     width: 75,
                     render: function(resources, el) {
-                        el.css('background-color', '#0070a3');
+                        el.css('background-color', '#5bc0de');
                     }
 
                 },
@@ -123,7 +123,7 @@ $(function(){
                     field: 'shain',
                     width: 60,
                     render: function(resources, el) {
-                        el.css('background-color', 'seagreen');
+                        el.css('background-color', '#67b168');
                     }
 
                 },
@@ -339,7 +339,17 @@ $(function(){
         "pagingType": "simple_numbers"
         ,"oLanguage":{
             "sUrl": "../../assets/resource/dataTable_ja.txt"
-        }
+        },
+        columnDefs: [{
+                targets: [0],
+                orderData: [2, 3, 0]
+            }
+            ,{
+                "targets": [2, 3],
+                "visible": false,
+                "searchable": false
+            }
+        ]
     });
     
     oBashoTable = $('#basho_table').DataTable({

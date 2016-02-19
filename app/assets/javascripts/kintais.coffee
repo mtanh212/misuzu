@@ -135,7 +135,7 @@ jQuery ->
     })
 
   $(document).ready () ->
-    fill_time()
+#    fill_time()
 
   $('#kintai_勤務タイプ').on('change',() ->
     fill_time()
@@ -261,16 +261,20 @@ jQuery ->
 
     start_time = start_time_h + ':' + start_time_m
     end_time = end_time_h + ':' + end_time_m
-    diff = moment(end_time,'HH:mm').diff(moment(start_time,'HH:mm'),'minutes')/60
+    diff = moment(end_time, 'HH:mm').diff(moment(start_time, 'HH:mm'), 'minutes')/60
 
-    real_time = 0
+    real_time = diff
     overtime = 0
-    if moment(end_time,'HH:mm') > moment('13:00','HH:mm')
+    if moment(start_time, 'HH:mm') < moment('12:00', 'HH:mm')  and moment(end_time, 'HH:mm') > moment('13:00', 'HH:mm')
       real_time = diff - 1
 
-    if moment(end_time,'HH:mm') > moment('19:00','HH:mm')
+    if moment(start_time, 'HH:mm') < moment('12:00', 'HH:mm') and moment(end_time, 'HH:mm') > moment('19:00', 'HH:mm')
       real_time = diff - 2
-      overtime = moment(end_time,'HH:mm').diff(moment('19:00','HH:mm'),'minutes')/60
+      overtime = moment(end_time, 'HH:mm').diff(moment('19:00', 'HH:mm'), 'minutes')/60
+
+    if moment(start_time, 'HH:mm') > moment('13:00', 'HH:mm') and moment(end_time, 'HH:mm') > moment('19:00', 'HH:mm')
+      real_time = diff - 1
+      overtime = moment(end_time, 'HH:mm').diff(moment('19:00', 'HH:mm'), 'minutes')/60
 
     $('#kintai_実労働時間').val(real_time)
     $('#kintai_普通残業時間').val(overtime)

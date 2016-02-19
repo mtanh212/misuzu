@@ -20,8 +20,8 @@ class Jobmaster < ActiveRecord::Base
     end
   end
   
-  def to_param
-    id.parameterize
-  end
+  # def to_param
+  #   id.parameterize
+  # end
 
 end

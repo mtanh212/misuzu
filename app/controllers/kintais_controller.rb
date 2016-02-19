@@ -60,7 +60,44 @@ class KintaisController < ApplicationController
   end
 
   def edit
-    @kintai.勤務タイプ = Shainmaster.find(session[:user]).勤務タイプ
+    if @kintai.勤務タイプ.nil?
+      @kintai.勤務タイプ = Shainmaster.find(session[:user]).勤務タイプ
+      @kintai.実労働時間 = 8
+      @kintai.遅刻時間 = 0
+      @kintai.普通残業時間 = 0
+      @kintai.深夜残業時間 = 0
+      @kintai.普通保守時間 = 0
+      @kintai.深夜保守時間 = 0
+      case @kintai.勤務タイプ
+        when '001'
+          @kintai.出勤時刻 = '07:00:00'
+          @kintai.退社時刻 = '16:00:00'
+        when '002'
+          @kintai.出勤時刻 = '07:30:00'
+          @kintai.退社時刻 = '16:30:00'
+        when '003'
+          @kintai.出勤時刻 = '08:00:00'
+          @kintai.退社時刻 = '17:00:00'
+        when '004'
+          @kintai.出勤時刻 = '08:30:00'
+          @kintai.退社時刻 = '17:30:00'
+        when '005'
+          @kintai.出勤時刻 = '09:00:00'
+          @kintai.退社時刻 = '18:00:00'
+        when '006'
+          @kintai.出勤時刻 = '09:30:00'
+          @kintai.退社時刻 = '18:30:00'
+        when '007'
+          @kintai.出勤時刻 = '10:00:00'
+          @kintai.退社時刻 = '19:00:00'
+        when '008'
+          @kintai.出勤時刻 = '10:30:00'
+          @kintai.退社時刻 = '19:30:00'
+        when '009'
+          @kintai.出勤時刻 = '11:00:00'
+          @kintai.退社時刻 = '20:00:00'
+      end
+    end
   end
 
   def create

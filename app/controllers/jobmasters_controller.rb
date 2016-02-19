@@ -17,7 +17,9 @@ class JobmastersController < ApplicationController
 
   # GET /jobmasters/new
   def new
-    @jobmaster = Jobmaster.new
+    max_job = Jobmaster.maximum(:job番号) + 1
+    max_job = 100001 if max_job < 100001
+    @jobmaster = Jobmaster.new(job番号: max_job)
   end
 
   # GET /jobmasters/1/edit
@@ -77,11 +79,11 @@ class JobmastersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def jobmaster_params
-      params.require(:jobmaster).permit(:job番号, :job名, :開始日, :終了日, :ユーザ番号, :ユーザ名)
+      params.require(:jobmaster).permit(:job番号, :job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名,:関連Job番号, :備考)
     end
 
     def jobmaster_params_for_update
-      params.require(:jobmaster).permit(:job名, :開始日, :終了日, :ユーザ番号, :ユーザ名)
+      params.require(:jobmaster).permit(:job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名, :関連Job番号, :備考)
     end
 
   def set_kaisha

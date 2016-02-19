@@ -1,20 +1,28 @@
 jQuery ->
   oTable = $('#jobmaster').DataTable({
-    "pagingType": "full_numbers"
-    , "oLanguage": {
+    "scrollX": true,
+#    'scrollY': "300px",
+    "pagingType": "full_numbers",
+    "oLanguage": {
       "sUrl": "../../assets/resource/dataTable_ja.txt"
-    }
-    ,"aoColumnDefs": [
-      { "bSortable": false, "aTargets": [ 6,7,8 ]},
+    },
+    "aoColumnDefs": [
+      { "bSortable": false, "aTargets": [ 11,12 ]},
       {
-        "targets": [6,7,8],
+        "targets": [11,12],
         "width": '15px'
       }
     ],
-    "columnDefs": [ {
+    "columnDefs": [{
       "targets"  : 'no-sort',
       "orderable": false
-    }]
+    }],
+    'scrollCollapse': true,
+#    'fixedColumns': {
+#      'leftColumns': 0,
+#      'rightColumns': 2,
+#      'heightMatch': 'none'
+#    }
   })
 
   oKaisha_modal = $('#kaisha-table-modal').DataTable({
@@ -75,4 +83,16 @@ jQuery ->
       failure: () ->
         console.log("jobmaster_ユーザ番号 keydown Unsuccessful")
       })
+  )
+
+  $('#jobmaster_分類コード').on('change', () ->
+    switch $(this).val()
+      when '1'
+        $('#jobmaster_分類名').val('営業活動')
+      when '2'
+        $('#jobmaster_分類名').val('開発マスタ')
+      when '3'
+        $('#jobmaster_分類名').val('保守')
+      when '4'
+        $('#jobmaster_分類名').val('社内業務')
   )

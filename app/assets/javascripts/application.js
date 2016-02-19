@@ -26,7 +26,8 @@
 //= require fullcalendar/gcal
 
 //= require dataTables/jquery.dataTables.min
-//= require dataTables/dataTables.bootstrap
+//= require dataTables/dataTables.bootstrap.min
+//= require dataTables/dataTables.fixedColumns.min
 
 //= require bootstrap-datetimepicker
 //= require bootstrap-colorpicker

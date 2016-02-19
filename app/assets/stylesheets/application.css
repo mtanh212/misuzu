@@ -9,7 +9,8 @@
  *= require fullcalendar
  *= require scheduler.min
 
- *= require dataTables/dataTables.bootstrap
+ *= require dataTables/dataTables.bootstrap.min
+ *= require dataTables/fixedColumns.dataTables.min
 
  *= require bootstrap-datetimepicker
  *= require bootstrap-colorpicker

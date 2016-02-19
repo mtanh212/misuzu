@@ -1,4 +1,6 @@
 <%= javascript_include_tag 'jobs' %>
+<%= stylesheet_link_tag 'jobmst' %>
+
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
   <!-- <li><a href="#">基準情報</a></li> -->
@@ -6,7 +8,7 @@
   <li class="active">JOBマスタ</li>
 </ol>
 
-<table id="jobmaster" class="table table-striped table-bordered table-hover" cellspacing="0">
+<table id="jobmaster" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
   <thead>
     <tr>
       <th>Job番号</th>
@@ -15,7 +17,12 @@
       <th>終了日</th>
       <th>ユーザ番号</th>
       <th>ユーザ名</th>
-      <th></th>
+      <th>入力社員番号</th>
+      <th>分類コード</th>
+      <th>分類名</th>
+      <th>関連Job番号</th>
+      <th>備考</th>
+      <!--<th></th>-->
       <th></th>
       <th></th>
     </tr>
@@ -30,7 +37,12 @@
         <td><%= jobmaster.終了日 %></td>
         <td><%= jobmaster.ユーザ番号 %></td>
         <td><%= jobmaster.ユーザ名 %></td>
-        <td><%= link_to '詳細', jobmaster %></td>
+        <td><%= jobmaster.入力社員番号 %></td>
+        <td><%= jobmaster.分類コード %></td>
+        <td><%= jobmaster.分類名 %></td>
+        <td><%= jobmaster.関連Job番号 %></td>
+        <td><%= jobmaster.備考 %></td>
+        <!--<td><%# link_to '詳細', jobmaster %></td>-->
         <td><%= link_to '編集', edit_jobmaster_path(jobmaster) %></td>
         <td><%= link_to '削除', jobmaster, method: :delete, data: { confirm: '削除でよろしいですが？' } %></td>
       </tr>
