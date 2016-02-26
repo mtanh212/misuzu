@@ -11,22 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160216041145) do
+ActiveRecord::Schema.define(version: 20160225101809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "JOBマスタ", id: false, force: :cascade do |t|
-    t.integer  "job番号",      null: false
+    t.string   "job番号",      null: false
     t.string   "job名"
     t.date     "開始日"
     t.date     "終了日"
-    t.integer  "ユーザ番号"
+    t.string   "ユーザ番号"
     t.string   "ユーザ名"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "入力社員番号"
-    t.integer  "分類コード"
+    t.string   "分類コード"
     t.string   "分類名"
     t.string   "関連Job番号"
     t.string   "備考"
@@ -145,6 +145,15 @@ ActiveRecord::Schema.define(version: 20160216041145) do
 
   add_index "会社マスタ", ["会社コード"], name: "index_会社マスタ_on_会社コード", unique: true, using: :btree
 
+  create_table "分類マスタ", id: false, force: :cascade do |t|
+    t.string   "分類コード",      null: false
+    t.string   "分類名"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "分類マスタ", ["分類コード"], name: "index_分類マスタ_on_分類コード", unique: true, using: :btree
+
   create_table "場所マスタ", id: false, force: :cascade do |t|
     t.string   "場所コード",      null: false
     t.string   "場所名"
@@ -216,6 +225,7 @@ ActiveRecord::Schema.define(version: 20160216041145) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "email"
   end
 
   add_index "担当者マスタ", ["担当者コード"], name: "index_担当者マスタ_on_担当者コード", unique: true, using: :btree

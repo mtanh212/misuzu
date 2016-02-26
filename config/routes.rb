@@ -1,6 +1,8 @@
 Jpt::Application.routes.draw do
   root to: 'users#login'
 
+  resources :bunruis
+
   resources :shoninshamsts
 
   resources :ekis do
@@ -13,7 +15,7 @@ Jpt::Application.routes.draw do
 
   resources :kintais do
     collection { post :matching_date, :finish_input }
-    # collection { get :matching_date_return }
+    collection { get :matching_date_return }
   end
   
   resources :events, only: [:index, :new, :create, :edit, :update] do

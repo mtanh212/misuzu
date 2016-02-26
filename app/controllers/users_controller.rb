@@ -114,6 +114,12 @@ class UsersController < ApplicationController
       if !@user.nil?
         if params[:user][:new_password] == params[:user][:renew_password]
           flash[:notice] = t 'app.flash.update_success' if @user.update(パスワード: params[:user][:new_password])
+          Mail.deliver do
+            to 'hminhduc@me.com'
+            from 'hminhduc@gmail.com'
+            subject 'testing send mail'
+            body 'Sending email with Ruby through SendGrid!'
+          end
           redirect_to root_url
         else
           redirect_to :back, notice: '新パスワードともう一度パスワードが異なります。'

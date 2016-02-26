@@ -242,6 +242,7 @@ DEPENDENCIES
   hub
   jbuilder
   jquery-rails
+  mail
   momentjs-rails (>= 2.8.1)
   paperclip
   passenger (>= 5.0.4)

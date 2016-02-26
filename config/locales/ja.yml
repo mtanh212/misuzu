@@ -205,6 +205,7 @@ ja:
       kintai_finish_input: 入力済みとなりました。今後当月データの編集不可となっております。
       import_csv: CSVファイルから読み込んでできました！
       record_not_found: 該当情報が見つかりませんでした！
+      record_not_existing: 参照情報が存在していない！
       new_success: 新規作成出来ました。
       update_success: 更新成功出来ました。
       delete_success: 削除成功出来ました。

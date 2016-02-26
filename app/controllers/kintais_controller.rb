@@ -16,14 +16,14 @@ class KintaisController < ApplicationController
     end
   end
 
-  # def matching_date
-  #   session[:selected_date] = kintai_params[:日付]
-  #   redirect_to matching_date_return_kintais_url
-  # end
-
   def matching_date
-    date_param = kintai_params[:日付]
-    date_param = Date.today if kintai_params[:日付].nil?
+    session[:selected_kintai_date] = kintai_params[:日付]
+    redirect_to matching_date_return_kintais_url
+  end
+
+  def matching_date_return
+    date_param = session[:selected_kintai_date]
+    date_param = Date.today if date_param.nil?
     date = date_param.to_date
     check_kintai_at_day(date)
     @kintais = Kintai.selected_month(session[:user],date).order(:日付)

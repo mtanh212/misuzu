@@ -1,9 +1,11 @@
 class JobmastersController < ApplicationController
   before_action :set_jobmaster, only: [:show, :edit, :update, :destroy]
-  before_action :set_kaisha, only: [:new, :edit, :create, :update]
+  before_action :set_refer, only: [:new, :edit, :create, :update]
   load_and_authorize_resource
   respond_to :js
-  
+
+  include JobmastersHelper
+
   # GET /jobmasters
   # GET /jobmasters.json
   def index
@@ -17,7 +19,8 @@ class JobmastersController < ApplicationController
 
   # GET /jobmasters/new
   def new
-    max_job = Jobmaster.maximum(:job番号) + 1
+    max_job = Jobmaster.pluck(:job番号).map {|i| i.to_i}.max + 1
+    # max_job = Jobmaster.maximum(:job番号) + 1
     max_job = 100001 if max_job < 100001
     @jobmaster = Jobmaster.new(job番号: max_job)
   end
@@ -29,20 +32,19 @@ class JobmastersController < ApplicationController
   # POST /jobmasters
   # POST /jobmasters.json
   def create
+    # max_job = Jobmaster.pluck(:job番号).map {|i| i.to_i}.max + 1
+    # max_job = 100001 if max_job < 100001
+    # jobmaster_params[:job番号] = max_job
     @jobmaster = Jobmaster.new(jobmaster_params)
-    # @jobmaster.kaishamaster = Kaishamaster.find_by code: jobmaster_params[:ユーザ番号]
     flash[:notice] = t "app.flash.new_success" if @jobmaster.save
     respond_with @jobmaster
-    
   end
 
   # PATCH/PUT /jobmasters/1
   # PATCH/PUT /jobmasters/1.json
   def update
-    # @jobmaster.kaishamaster = Kaishamaster.find_by code: jobmaster_params[:ユーザ番号]
-    flash[:notice] = t "app.flash.update_success" if @jobmaster.update jobmaster_params_for_update
+    flash[:notice] = t "app.flash.update_success" if @jobmaster.update jobmaster_params
     respond_with @jobmaster
-    
   end
 
   # DELETE /jobmasters/1
@@ -79,14 +81,17 @@ class JobmastersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def jobmaster_params
-      params.require(:jobmaster).permit(:job番号, :job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名,:関連Job番号, :備考)
+      params.require(:jobmaster).permit(:job番号, :job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名, :関連Job番号, :備考)
     end
 
     def jobmaster_params_for_update
       params.require(:jobmaster).permit(:job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名, :関連Job番号, :備考)
     end
 
-  def set_kaisha
+  def set_refer
     @kaishamasters = Kaishamaster.all
+    @jobs = Jobmaster.all
+    @shains = Shainmaster.all
+    @bunruis = Bunrui.all
   end
 end

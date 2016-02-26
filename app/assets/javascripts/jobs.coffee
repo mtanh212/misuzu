@@ -32,10 +32,35 @@ jQuery ->
     }
   })
 
+  oShain_modal = $('#user_table').DataTable({
+    "pagingType": "full_numbers"
+    , "oLanguage": {
+      "sUrl": "../../assets/resource/dataTable_ja.txt"
+    }
+  })
+
+  oJob_modal = $('#job_table').DataTable({
+    "pagingType": "full_numbers"
+    , "oLanguage": {
+      "sUrl": "../../assets/resource/dataTable_ja.txt"
+    }
+  })
+
+  oBunrui_modal = $('.bunrui-table').DataTable({
+    "pagingType": "full_numbers"
+    , "oLanguage": {
+      "sUrl": "../../assets/resource/dataTable_ja.txt"
+    }
+  })
+
   $('#kaisha-table-modal tbody').on( 'click', 'tr',  () ->
     d = oKaisha_modal.row(this).data()
     $('#jobmaster_ユーザ番号').val(d[0])
     $('#jobmaster_ユーザ名').val(d[1])
+
+    #    remove error if has
+    $('#jobmaster_ユーザ番号').closest('.form-group').find('span.help-block').remove()
+    $('#jobmaster_ユーザ番号').closest('.form-group').removeClass('has-error')
 
     if $(this).hasClass('selected')
       $(this).removeClass('selected')
@@ -46,6 +71,63 @@ jQuery ->
       $(this).addClass('selected')
       $(this).addClass('success')
    )
+
+  $('#user_table tbody').on( 'click', 'tr',  () ->
+    d = oShain_modal.row(this).data()
+    $('#jobmaster_入力社員番号').val(d[0])
+    $('.hint-shain-refer').text(d[1])
+
+#    remove error if has
+    $('#jobmaster_入力社員番号').closest('.form-group').find('span.help-block').remove()
+    $('#jobmaster_入力社員番号').closest('.form-group').removeClass('has-error')
+
+    if $(this).hasClass('selected')
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oShain_modal.$('tr.selected').removeClass('selected')
+      oShain_modal.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')
+  )
+
+  $('#job_table tbody').on( 'click', 'tr',  () ->
+    d = oJob_modal.row(this).data()
+    $('#jobmaster_関連Job番号').val(d[0])
+    $('.hint-job-refer').text(d[1])
+
+    #    remove error if has
+    $('#jobmaster_関連Job番号').closest('.form-group').find('span.help-block').remove()
+    $('#jobmaster_関連Job番号').closest('.form-group').removeClass('has-error')
+
+    if $(this).hasClass('selected')
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oJob_modal.$('tr.selected').removeClass('selected')
+      oJob_modal.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')
+  )
+
+  $('.bunrui-table tbody').on( 'click', 'tr',  () ->
+    d = oBunrui_modal.row(this).data()
+    $('#jobmaster_分類コード').val(d[0])
+    $('#jobmaster_分類名').val(d[1])
+
+    #    remove error if has
+    $('#jobmaster_分類コード').closest('.form-group').find('span.help-block').remove()
+    $('#jobmaster_分類コード').closest('.form-group').removeClass('has-error')
+
+    if $(this).hasClass('selected')
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oBunrui_modal.$('tr.selected').removeClass('selected')
+      oBunrui_modal.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')
+  )
 
   $('#jobmaster_開始日').datetimepicker({
     format: 'YYYY/MM/DD'
@@ -67,6 +149,18 @@ jQuery ->
 
   $('.refer-kaisha').click( () ->
     $('#kaisha-search-modal').modal('show')
+  )
+
+  $('.refer-shain').click( () ->
+    $('#select_user_modal').modal('show')
+  )
+
+  $('.refer-job').click( () ->
+    $('#job_search_modal').modal('show')
+  )
+
+  $('.refer-bunrui').click( () ->
+    $('#bunrui_search_modal').modal('show')
   )
 
   $('#jobmaster_ユーザ番号').keydown( (event) ->

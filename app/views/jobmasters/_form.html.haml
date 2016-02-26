@@ -1,6 +1,7 @@
 = simple_form_for @jobmaster do |f|
   .col-sm-4.col-sm-offset-1
-    = f.input :job番号
+    -#= f.input :job番号, disabled: true, hint: 'Job番号自動生成変更無し'
+    = f.input :job番号 if mode == :new
     = f.input :job名
     = f.input :開始日
     = f.input :終了日
@@ -10,12 +11,23 @@
         %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
     = f.input :ユーザ名
   .col-sm-4.col-sm-offset-1
-    = f.input :入力社員番号
-    - display = ['1：営業活動', '2：開発マスタ', '3：保守', '4：社内業務']
-    = f.input :分類コード, collection: (0..3).map {|i| [display[i],i+1]}
+    = f.input :入力社員番号, hint:'', hint_html: {class: 'hint-shain-refer'}, wrapper: :vertical_input_group do
+      = f.input_field :入力社員番号, class: 'form-control'
+      %span.input-group-addon.refer-shain
+        %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
+    = f.input :分類コード, hint:'', hint_html: {class: 'hint-bunrui-refer'}, wrapper: :vertical_input_group do
+      = f.input_field :分類コード, class: 'form-control'
+      %span.input-group-addon.refer-bunrui
+        %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
     = f.input :分類名
-    = f.input :関連Job番号
+    = f.input :関連Job番号, hint:'', hint_html: {class: 'hint-job-refer'}, wrapper: :vertical_input_group do
+      = f.input_field :関連Job番号, class: 'form-control'
+      %span.input-group-addon.refer-job
+        %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
     = f.input :備考
     = f.button :submit, class: 'btn btn-primary'
 
 = render 'share/kaisha_modal'
+= render 'share/job_modal'
+= render 'share/shain_modal_refer'
+= render 'share/bunrui_modal'

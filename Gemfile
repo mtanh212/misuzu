@@ -46,11 +46,11 @@ gem 'bootstrap-colorpicker-rails'
 gem 'simple_form'
 
 gem 'composite_primary_keys'
-
 # gem 'jquery-datatables-rails'
 
 gem 'execjs'
 gem 'therubyracer'
+gem 'mail'
 
 # gem 'enum_help'
 #gem 'debugger'
