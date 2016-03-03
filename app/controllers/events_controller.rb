@@ -40,7 +40,17 @@ class EventsController < ApplicationController
     @event = Event.new shain_no: Shainmaster.find(session[:selected_shain]).id
     # @event.build_joutaimaster
   end
-  
+
+  def create_basho
+    @basho = Bashomaster.new(basho_params)
+    @basho.save
+  end
+
+  def create_kaisha
+    @kaisha = Kaishamaster.new(kaisha_params)
+    @kaisha.save
+  end
+
   def create
     @event = User.find(session[:user]).shainmaster.events.new event_params
     # set_fkey @event, event_params
@@ -161,11 +171,22 @@ private
     @joutais = Joutaimaster.web_use.all
     # @kouteis = User.find(session[:user]).shainmaster.shozokumaster.kouteimasters
     @kouteis = Shainmaster.find(session[:selected_shain]).shozokumaster.kouteimasters
+    @basho = Bashomaster.new
+    @kaisha = Kaishamaster.new
+    @kaishamasters = Kaishamaster.all
   end
 
 # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
     params.require(:event).permit(:社員番号, :開始, :終了, :状態コード, :場所コード, :JOB, :所属コード, :工程コード, :工数, 
                                   :計上, :所在コード, :comment, :帰社区分) 
+  end
+
+  def basho_params
+    params.require(:bashomaster).permit(:場所コード, :場所名, :場所名カナ, :SUB, :場所区分, :会社コード)
+  end
+
+  def kaisha_params
+    params.require(:kaishamaster).permit(:会社コード, :会社名, :備考)
   end
 end

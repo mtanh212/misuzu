@@ -2,6 +2,7 @@ class Kikanmst < ActiveRecord::Base
   self.table_name = :機関マスタ
   self.primary_key = :機関コード
 
+  validates :機関コード, :機関名, presence: true
   validates :機関コード, uniqueness: true
 
   alias_attribute :id, :機関コード 

@@ -29,14 +29,7 @@ class KouteimastersController < ApplicationController
   # POST /kouteimasters
   # POST /kouteimasters.json
   def create
-    @shozoku = Shozokumaster.find_by 所属コード: kouteimaster_params[:所属コード]
-    
-    if !@shozoku.nil?
-      @kouteimaster = @shozoku.kouteimasters.new kouteimaster_params 
-    else
-      @kouteimaster = Kouteimaster.new kouteimaster_params
-    end
-    
+    @kouteimaster = Kouteimaster.new kouteimaster_params
     flash[:notice] = t "app.flash.new_success" if @kouteimaster.save
     respond_with @kouteimaster
   end
@@ -45,9 +38,7 @@ class KouteimastersController < ApplicationController
   # PATCH/PUT /kouteimasters/1
   # PATCH/PUT /kouteimasters/1.json
   def update
-    @shozoku = Shozokumaster.find_by 所属コード: kouteimaster_params[:所属コード]
-    @kouteimaster.shozokumaster = @shozoku
-    flash[:notice] = t "app.flash.update_success" if @kouteimaster.update kouteimaster_params_for_update
+    flash[:notice] = t "app.flash.update_success" if @kouteimaster.update kouteimaster_params
     respond_with @kouteimaster
   end
 
@@ -85,10 +76,6 @@ class KouteimastersController < ApplicationController
     params.require(:kouteimaster).permit(:所属コード, :工程コード, :工程名)
   end
   
-  def kouteimaster_params_for_update
-    params.require(:kouteimaster).permit(:工程名)
-  end
-
   def param_valid
       params[:kouteimaster][:所属コード].in?(Shozokumaster.pluck(:所属コード))
   end

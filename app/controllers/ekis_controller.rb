@@ -23,12 +23,12 @@ class EkisController < ApplicationController
 
   def create
     @eki = Eki.new(eki_params)
-    @eki.save
+    flash[:notice] = t 'app.flash.new_success' if @eki.save
     respond_with(@eki)
   end
 
   def update
-    @eki.update(eki_params_for_update)
+    flash[:notice] = t 'app.flash.update_success' if @eki.update(eki_params)
     respond_with(@eki)
   end
 
@@ -51,10 +51,6 @@ class EkisController < ApplicationController
     end
 
     def eki_params
-      params.require(:eki).permit(:駅コード, :駅名)
-    end
-
-    def eki_params_for_update
-      params.require(:eki).permit(:駅名)
+      params.require(:eki).permit(:駅コード, :駅名, :駅名カナ)
     end
 end

@@ -1,14 +1,11 @@
 <%= javascript_include_tag 'basho' %>
+
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
-  <!-- <li><a href="#">基準情報</a></li> -->
-  <!-- <li><a href="#">セキュリティ管理</a></li> -->
   <li class="active">場所マスタ</li>
 </ol>
 
-<!-- <h1>工程マスタ</h1> -->
-
-<table id="bashomaster" class="table table-striped table-bordered table-hover" cellspacing="0">
+<table id="bashomaster" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 
   <thead>
   <tr>
@@ -18,7 +15,6 @@
     <th>SUB</th>
     <th>場所区分</th>
     <th>会社コード</th>
-    <th></th>
     <th></th>
     <th></th>
   </tr>
@@ -33,7 +29,6 @@
         <td><%= basho.SUB %></td>
         <td><%= basho.場所区分 %></td>
         <td><%= basho.会社コード %></td>
-        <td><%= link_to '詳細', basho %></td>
         <td><%= link_to '編集', edit_bashomaster_path(basho) %></td>
         <td><%= link_to '削除', basho, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
 

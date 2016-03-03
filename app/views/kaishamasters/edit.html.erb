@@ -5,7 +5,4 @@
   <li class="active">編集</li>
 </ol>
 
-<%= render 'form' %>
-
-<%= link_to '詳細', @kaishamaster %> |
-<%= link_to '戻る', kaishamasters_path %>
+<%= render 'form', mode: :edit %>

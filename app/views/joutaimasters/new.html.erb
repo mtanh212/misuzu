@@ -1,4 +1,5 @@
 <%= javascript_include_tag 'joutai' %>
+
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
   <li><%= link_to '状態マスタ', joutaimasters_path %></li>
@@ -7,5 +8,4 @@
 </ol>
 
 
-<%= render 'form' %>
-<%= link_to '戻る', joutaimasters_path %>
+<%= render 'form', mode: :new %>

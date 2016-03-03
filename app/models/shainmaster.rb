@@ -4,7 +4,7 @@ class Shainmaster < ActiveRecord::Base
 
   # default_scope { where("社員番号 is not '#{ENV['admin_user']}'")}
   
-  validates :社員番号,:氏名, presence: true
+  validates :社員番号,:氏名, :連携用社員番号, presence: true
   validates :社員番号, uniqueness: true
 
   has_many :events, dependent: :destroy, foreign_key: :社員番号

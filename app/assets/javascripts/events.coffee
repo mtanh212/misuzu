@@ -66,3 +66,33 @@ jQuery ->
       failure: () ->
         console.log("change_shozai field")
     }))
+
+  $('#basho-new').click () ->
+    $('#basho-new-modal').modal('show')
+
+  $('#kaisha-new').click () ->
+    $('#kaisha-new-modal').modal('show')
+
+  $('.refer-kaisha').click () ->
+    $('#kaisha-search-modal').modal('show')
+
+  oKaisha_modal = $('#kaisha-table-modal').DataTable({
+    "pagingType": "simple_numbers"
+    ,"oLanguage":{
+      "sUrl": "../../assets/resource/dataTable_ja.txt"
+    }
+  })
+
+  $('#kaisha-table-modal tbody').on( 'click', 'tr',  () ->
+    d = oKaisha_modal.row(this).data()
+    $('#bashomaster_会社コード').val(d[0])
+
+    if $(this).hasClass('selected')
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oKaisha_modal.$('tr.selected').removeClass('selected')
+      oKaisha_modal.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')
+  )

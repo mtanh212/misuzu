@@ -30,7 +30,7 @@ class ShozokumastersController < ApplicationController
 
   def update
     
-    flash[:notice] = t "app.flash.update_success" if @shozokumaster.update shozokumaster_params_for_update
+    flash[:notice] = t "app.flash.update_success" if @shozokumaster.update shozokumaster_params
     respond_with @shozokumaster
     
   end
@@ -53,10 +53,6 @@ class ShozokumastersController < ApplicationController
 
   def shozokumaster_params
     params.require(:shozokumaster).permit(:所属コード, :所属名)
-  end
-
-  def shozokumaster_params_for_update
-    params.require(:shozokumaster).permit(:所属名)
   end
 
   def set_shozokumaster

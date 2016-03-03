@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225101809) do
+ActiveRecord::Schema.define(version: 20160229063934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,6 +166,15 @@ ActiveRecord::Schema.define(version: 20160225101809) do
   end
 
   add_index "場所マスタ", ["場所コード"], name: "index_場所マスタ_on_場所コード", unique: true, using: :btree
+
+  create_table "場所区分マスタ", id: false, force: :cascade do |t|
+    t.string   "場所区分コード",    null: false
+    t.string   "場所区分名"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "場所区分マスタ", ["場所区分コード"], name: "index_場所区分マスタ_on_場所区分コード", unique: true, using: :btree
 
   create_table "工程マスタ", id: false, force: :cascade do |t|
     t.string   "所属コード",      null: false

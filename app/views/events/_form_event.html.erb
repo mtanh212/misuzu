@@ -60,12 +60,18 @@
         <div class="col-md-2">
           <%= f.text_field :場所コード, class: 'form-control' %>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-3">
           <button class="btn btn-default" id="basho_search" type="button">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
           </button>
+          <button class="btn btn-default" id="basho-new" type="button">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+          </button>
+          <button class="btn btn-default" id="kaisha-new" type="button">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+          </button>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
           <span id="basho_name" class="help-block"><%= @event.bashomaster.try :場所名 %></span>
         </div>
       </div>
@@ -243,3 +249,6 @@
 <%= render 'share/koutei_modal' %>
 <%= render 'share/shozai_modal' %>
 <%= render 'share/job_modal' %>
+<%= render 'share/basho_new_modal' %>
+<%= render 'share/kaisha_new_modal' %>
+<%= render 'share/kaisha_modal' %>

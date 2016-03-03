@@ -4,12 +4,11 @@
   %li= link_to 'メニュー', main_path
   %li.active 駅マスタ
 
-%table.ekitable.table.table-striped.table-bordered.table-hover{cellspacing:0}
+%table.ekitable.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
   %thead
     %tr
       %th 駅コード
       %th 駅名
-      %th
       %th
       %th
 
@@ -18,7 +17,6 @@
       %tr
         %td= eki.id
         %td= eki.name
-        %td= link_to '詳細', eki
         %td= link_to '編集', edit_eki_path(eki)
         - msg = t 'app.delete_confirm'
         %td= link_to '削除', eki, :method => :delete, :data => { :confirm => msg }

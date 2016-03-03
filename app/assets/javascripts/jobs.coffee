@@ -7,10 +7,10 @@ jQuery ->
       "sUrl": "../../assets/resource/dataTable_ja.txt"
     },
     "aoColumnDefs": [
-      { "bSortable": false, "aTargets": [ 11,12 ]},
+      { "bSortable": false, "aTargets": [ 10,11 ]},
       {
-        "targets": [11,12],
-        "width": '15px'
+        "targets": [10,11],
+        "width": '5%'
       }
     ],
     "columnDefs": [{

@@ -1,7 +1,7 @@
 class KeihiheadsController < ApplicationController
   before_action :set_keihi, only: [:show, :edit, :update, :destroy]
   before_action :set_modal, only: [:new, :edit, :update, :destroy]
-  load_and_authorize_resource
+  # load_and_authorize_resource
 
   respond_to :js
 
@@ -116,8 +116,8 @@ class KeihiheadsController < ApplicationController
   
   def keihi_params
     params.require(:keihihead).permit(:申請番号, :日付, :社員番号, :申請者, :交通費合計, :日当合計, :宿泊費合計, :その他合計,
-                                      :旅費合計, :仮払金, :合計, :支給品, :過不足, :承認kubun, :承認者, :清算予定日, :清算日,:承認済区分,
-                                      keihibodys_attributes: [:id,:申請番号, :日付, :社員番号, :相手先, :機関名,
+                                      :旅費合計, :仮払金, :合計, :支給品, :過不足, :承認kubun, :承認者, :清算予定日, :清算日, :承認済区分,
+                                      keihibodys_attributes: [:id, :申請番号, :日付, :社員番号, :相手先, :機関名,
                                                               :発, :着, :発着kubun, :交通費, :日当, :宿泊費, :その他, :JOB,
                                                               :備考, :領収書kubun, :_destroy])
   end

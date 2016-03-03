@@ -6,10 +6,10 @@ $(function() {
             "sUrl": "../../assets/resource/dataTable_ja.txt"
         }
         ,"aoColumnDefs": [
-            { "bSortable": false, "aTargets": [ 8,9,10 ]},
+            { "bSortable": false, "aTargets": [ 8,9 ]},
             {
-                "targets": [8,9,10],
-                "width": '15px'
+                "targets": [8,9],
+                "width": '5%'
             }
         ],
         "columnDefs": [ {

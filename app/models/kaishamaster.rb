@@ -2,7 +2,7 @@ class Kaishamaster < ActiveRecord::Base
   self.table_name = :会社マスタ
   self.primary_key = :会社コード
 
-  validates :id, :name, presence: true
+  validates :会社コード, :会社名, presence: true
   validates :会社コード, uniqueness: true
 
   has_one :bashomaster, foreign_key: :会社コード

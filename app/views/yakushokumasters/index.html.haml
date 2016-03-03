@@ -4,12 +4,11 @@
   %li= link_to 'メニュー', main_path
   %li.active 役職テーブル
 
-%table#yakushoku_table.table.table-striped.table-bordered.table-hover{cellspacing: '0'}
+%table#yakushoku_table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
   %thead
     %tr
       %th 役職コード
       %th 役職名
-      %th
       %th
       %th
   %tbody
@@ -17,7 +16,6 @@
       %tr{ id: "yakushoku_#{yakushoku.id}" }
         %td= yakushoku.役職コード
         %td= yakushoku.役職名
-        %td= link_to '詳細', yakushoku
         %td= link_to '編集', edit_yakushokumaster_path(yakushoku)
         %td= link_to '削除', yakushoku,  method: :delete, data: { confirm: '削除で宜しですか。' }
 

@@ -15,11 +15,12 @@
       = f.input_field :入力社員番号, class: 'form-control'
       %span.input-group-addon.refer-shain
         %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
-    = f.input :分類コード, hint:'', hint_html: {class: 'hint-bunrui-refer'}, wrapper: :vertical_input_group do
-      = f.input_field :分類コード, class: 'form-control'
-      %span.input-group-addon.refer-bunrui
-        %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
-    = f.input :分類名
+    -#= f.input :分類コード, hint:'', hint_html: {class: 'hint-bunrui-refer'}, wrapper: :vertical_input_group do
+    -#  = f.input_field :分類コード, class: 'form-control'
+    -#  %span.input-group-addon.refer-bunrui
+    -#    %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
+    = f.association :bunrui, label_method: :分類名, value_method: :分類コード, label:'分類'
+    -#= f.input :分類名
     = f.input :関連Job番号, hint:'', hint_html: {class: 'hint-job-refer'}, wrapper: :vertical_input_group do
       = f.input_field :関連Job番号, class: 'form-control'
       %span.input-group-addon.refer-job

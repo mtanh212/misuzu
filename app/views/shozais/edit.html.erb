@@ -1,11 +1,9 @@
 <%= javascript_include_tag 'shozai' %>
+
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
   <li><%= link_to '所在マスタ', shozais_path %></li>
   <li class="active">編集</li>
 </ol>
 
-<%= render 'form' %>
-
-<%= link_to '詳細', @shozai %> |
-<%= link_to '戻る', shozais_path %>
+<%= render 'form', mode: :edit %>

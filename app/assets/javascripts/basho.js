@@ -6,10 +6,10 @@ $(function() {
             "sUrl": "../../assets/resource/dataTable_ja.txt"
         },
         "aoColumnDefs": [
-            { "bSortable": false, "aTargets": [ 6,7,8 ]},
+            { "bSortable": false, "aTargets": [ 6,7 ]},
             {
-                "targets": [6,7,8],
-                "width": '15px'
+                "targets": [6,7],
+                "width": '5%'
             }
         ],
         "columnDefs": [ {
@@ -50,7 +50,7 @@ $(function() {
 
 //button handle
 $(function(){
-    $('#kaisha-search-button').click(function(){
+    $('.refer-kaisha').click(function(){
         $('#kaisha-search-modal').modal('show');
     });
 

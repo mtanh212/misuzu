@@ -1,6 +1,8 @@
 Jpt::Application.routes.draw do
   root to: 'users#login'
 
+  resources :bashokubunmsts
+
   resources :bunruis
 
   resources :shoninshamsts
@@ -19,7 +21,7 @@ Jpt::Application.routes.draw do
   end
   
   resources :events, only: [:index, :new, :create, :edit, :update] do
-		collection {post :ajax, :custom}
+		collection {post :ajax, :custom, :create_basho, :create_kaisha}
 	end
 	
   resources :bashomasters do
