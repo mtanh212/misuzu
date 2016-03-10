@@ -1,7 +1,3 @@
-# json.array!(@kintais) do |kintai|
-#   json.extract! kintai, :id, :first_name, :last_name
-#   json.url kintai_url(kintai, format: :json)
-# end
 json.summary do
   json.sum1 @kintais.sum('実労働時間')
   json.sum2 @kintais.sum('遅刻時間')

@@ -129,41 +129,111 @@ jQuery ->
       $(this).addClass('success')
   )
 
-  $('#jobmaster_開始日').datetimepicker({
-    format: 'YYYY/MM/DD'
-    ,showTodayButton: true
+
+#  $('.start-date').click( () ->
+#    $('#jobmaster_開始日').data("DateTimePicker").toggle()
+#  )
+#
+#  $('.end-date').click( () ->
+#    $('#jobmaster_終了日').data("DateTimePicker").toggle()
+#  )
+
+#  $('.calendar-span').click( () ->
+#    $('#jobmaster_開始日').data("DateTimePicker").toggle()
+##    element1 = $('.date').find($('#jobmaster_開始日'))
+##    element2 = $('.date').find($('#jobmaster_終了日'))
+##
+##    if $(this).prev().is(element1)
+##      $('#jobmaster_開始日').data("DateTimePicker").toggle()
+##
+##    if $(this).prev().is(element2)
+##      $('#jobmaster_終了日').data("DateTimePicker").toggle()
+#  )
+
+  $('.form_datetime').datetimepicker({
+    format: 'YYYY/MM/DD',
+    widgetPositioning: {
+      horizontal: 'left',
+      vertical: 'bottom'
+    }
+    showTodayButton: true,
+    showClear: true,
+#    //,daysOfWeekDisabled:[0,6]
+    calendarWeeks: true,
+    keyBinds: false,
+    focusOnShow: false
   })
 
-  $('#jobmaster_終了日').datetimepicker({
-    format: 'YYYY/MM/DD'
-    ,showTodayButton: true
-  })
+#  $('#jobmaster_開始日').datetimepicker({
+#    format: 'YYYY/MM/DD',
+#    widgetPositioning: {
+#      horizontal: 'left',
+#      vertical: 'bottom'
+#    }
+#    showTodayButton: true,
+#    showClear: true,
+##    //,daysOfWeekDisabled:[0,6]
+#    calendarWeeks: true,
+#    keyBinds: false,
+#    focusOnShow: false
+#  })
+#
+#  $('#jobmaster_終了日').datetimepicker({
+#    format: 'YYYY/MM/DD',
+#    widgetPositioning: {
+#      horizontal: 'left',
+#      vertical: 'bottom'
+#    }
+#    showTodayButton: true,
+#    showClear: true,
+##    //,daysOfWeekDisabled:[0,6]
+#    calendarWeeks: true,
+#    keyBinds: false,
+#    focusOnShow: false
+#  })
+#
+#  $("#jobmaster_開始日").on("dp.change", (e) ->
+#    $('#jobmaster_終了日').data("DateTimePicker").minDate(e.date)
+#    e.preventDefault()
+#  )
+#
+#  $("#jobmaster_終了日").on("dp.change", (e) ->
+#    $('#jobmaster_開始日').data("DateTimePicker").maxDate(e.date);
+#    e.preventDefault()
+#  )
 
-  $("#jobmaster_開始日").on("dp.change", (event) ->
-    $('#jobmaster_終了日').data("DateTimePicker").minDate(e.date)
+  $('.search-field').click( () ->
+    element1 = $('.search-group').find('#jobmaster_ユーザ番号')
+    element2 = $('.search-group').find('#jobmaster_入力社員番号')
+    element3 = $('.search-group').find('#jobmaster_関連Job番号')
+
+    if $(this).prev().is(element1)
+      $('#kaisha-search-modal').modal('show')
+
+    if $(this).prev().is(element2)
+      $('#select_user_modal').modal('show')
+
+    if $(this).prev().is(element3)
+      $('#job_search_modal').modal('show')
   )
 
-  $("#jobmaster_終了日").on("dp.change", (event) ->
-    $('#jobmaster_開始日').data("DateTimePicker").maxDate(e.date)
-  )
+#  $('.refer-kaisha').click( () ->
+#    $('#kaisha-search-modal').modal('show')
+#  )
+#
+#  $('.refer-shain').click( () ->
+#    $('#select_user_modal').modal('show')
+#  )
+#
+#  $('.refer-job').click( () ->
+#    $('#job_search_modal').modal('show')
+#  )
 
-  $('.refer-kaisha').click( () ->
-    $('#kaisha-search-modal').modal('show')
-  )
+#  $('.refer-bunrui').click( () ->
+#    $('#bunrui_search_modal').modal('show')
+#  )
 
-  $('.refer-shain').click( () ->
-    $('#select_user_modal').modal('show')
-  )
-
-  $('.refer-job').click( () ->
-    $('#job_search_modal').modal('show')
-  )
-
-  $('.refer-bunrui').click( () ->
-    $('#bunrui_search_modal').modal('show')
-  )
-
-  $('#jobmaster_ユーザ番号').keydown( (event) ->
+  $('#jobmaster_ユーザ番号').keydown( (e) ->
     if (e.keyCode == 9 && !e.shiftKey)
       kaisha_code = $('#jobmaster_ユーザ番号').val()
       jQuery.ajax({
@@ -171,7 +241,8 @@ jQuery ->
         data: {focus_field: 'jobmaster_ユーザ番号', kaisha_code: kaisha_code},
         type: "POST",
       success: (data) ->
-        $('#kaisha-name').text(data.kaisha_name)
+#        $('#kaisha-name').text(data.kaisha_name)
+        $('#jobmaster_ユーザ名').val(data.kaisha_name)
         console.log("getAjax jobmaster_ユーザ番号:"+ data.kaisha_name)
       ,
       failure: () ->
@@ -179,14 +250,14 @@ jQuery ->
       })
   )
 
-  $('#jobmaster_分類コード').on('change', () ->
-    switch $(this).val()
-      when '1'
-        $('#jobmaster_分類名').val('営業活動')
-      when '2'
-        $('#jobmaster_分類名').val('開発マスタ')
-      when '3'
-        $('#jobmaster_分類名').val('保守')
-      when '4'
-        $('#jobmaster_分類名').val('社内業務')
-  )
+#  $('#jobmaster_分類コード').on('change', () ->
+#    switch $(this).val()
+#      when '1'
+#        $('#jobmaster_分類名').val('営業活動')
+#      when '2'
+#        $('#jobmaster_分類名').val('開発マスタ')
+#      when '3'
+#        $('#jobmaster_分類名').val('保守')
+#      when '4'
+#        $('#jobmaster_分類名').val('社内業務')
+#  )

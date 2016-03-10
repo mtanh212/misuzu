@@ -113,7 +113,7 @@ jQuery ->
 #      failure: () ->
 #    })
 
-  $.getJSON('/kintais/matching_date_return', (data) ->
+  $.getJSON('/kintais/search', (data) ->
     $('.sum1').text(data.summary.sum1)
     $('.sum2').text(data.summary.sum2)
     $('.sum3').text(data.summary.sum3)
@@ -321,3 +321,4 @@ jQuery ->
     $('#kintai_普通保守時間').val()
     $('#kintai_深夜残業時間').val()
     $('#kintai_深夜保守時間').val()
+

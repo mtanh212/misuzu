@@ -32,4 +32,7 @@
 //= require bootstrap-datetimepicker
 //= require bootstrap-colorpicker
 
+//= require custom
+
+
 // require_tree .

@@ -16,8 +16,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :kintais do
-    collection { post :matching_date, :finish_input }
-    collection { get :matching_date_return }
+    collection {get :search}
   end
   
   resources :events, only: [:index, :new, :create, :edit, :update] do

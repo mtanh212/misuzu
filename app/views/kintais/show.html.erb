@@ -9,7 +9,7 @@
   <li class="active">勤怠・入力済み</li>
 </ol>
 
-<%= form_for @kintai, url: matching_date_kintais_path, html: {class:'form-inline'} do |f|%>
+<%= form_for :kintai, url: kintais_path, html: {class:'form-inline'}, method: :get do |f|%>
     <%= render 'header', f:f %>
 
     <table  id="kintai-table" class="table table-striped table-bordered table-hover" cellspacing="0">
@@ -80,7 +80,7 @@
 
     </table>
 
-<!--フッター-->
+    <!--フッター-->
     <div class="row">
       <div class="col-md-2">
         <%= render 'kinmu_refer' %>
@@ -114,12 +114,10 @@
           </tbody>
         </table>
       </div>
-      <div class="col-md-1">
-        <%= f.check_box :入力済, { id:'finish-input', checked: true }, '1', '0' %>
-        <%= label_tag '承認要求' %>
-      </div>
-      <div class="col-md-2">
-        <p class="finish-message"></p>
+      <div class="col-md-4">
+        <div class="pull-right">
+          <%= f.submit :入力する, class: 'btn btn-default' %>
+        </div>
       </div>
     </div>
 <% end %>

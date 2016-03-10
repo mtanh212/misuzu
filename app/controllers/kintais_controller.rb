@@ -1,34 +1,32 @@
 class KintaisController < ApplicationController
-  before_action :set_kintai, only: [:show, :edit, :update, :destroy]
+  before_action :set_kintai, only: [:edit, :update, :destroy]
 
   respond_to :json
 
   include UsersHelper
 
   def index
-    @kintais = Kintai.selected_month(session[:user], Date.today).order(:日付)
-    @kintai = Kintai.new 日付: Date.today
-    finish_flag = Kintai.find_by(社員番号: session[:user], 日付: Date.today.beginning_of_month).try :入力済 || '0'
-    if finish_flag == '1'
-      render :show
-    else
-      render :index
-    end
-  end
-
-  def matching_date
-    session[:selected_kintai_date] = kintai_params[:日付]
-    redirect_to matching_date_return_kintais_url
-  end
-
-  def matching_date_return
-    date_param = session[:selected_kintai_date]
-    date_param = Date.today if date_param.nil?
+    date_param = Date.today
+    date_param = params[:search] if params[:search]
     date = date_param.to_date
+    session[:selected_kintai_date] = date
     check_kintai_at_day(date)
-    @kintais = Kintai.selected_month(session[:user],date).order(:日付)
-    @kintai = Kintai.new 日付: date
-    finish_flag = Kintai.find_by(社員番号: session[:user], 日付: date).try :入力済 || '0'
+
+    case params[:commit]
+      when '入力済'
+        @kintai = Kintai.find_by(日付: date, 社員番号: session[:user])
+        @kintai.入力済 = '1' if @kintai
+        @kintai.save
+      when '入力する'
+        @kintai = Kintai.find_by(日付: date, 社員番号: session[:user])
+        @kintai.入力済 = '0' if @kintai
+        @kintai.save
+    end
+
+    @kintais = Kintai.selected_month(session[:user], date).order(:日付)
+
+    finish_flag = Kintai.find_by(社員番号: session[:user], 日付: date.beginning_of_month).try :入力済 || '0'
+
     if finish_flag == '1'
       render :show
     else
@@ -36,17 +34,8 @@ class KintaisController < ApplicationController
     end
   end
 
-  def finish_input
-    date = params[:date].to_date
-    kintai = Kintai.find_by 日付: date, 社員番号: session[:user]
-    checked = params[:checked] == 'true' ? '1':'0'
-    kintai.入力済 = checked if kintai
-    message = t "app.flash.kintai_finish_input" if kintai.save && checked == '1'
-    message ||= ''
-    data = {message: message}
-    respond_to do |format|
-      format.json { render json: data}
-    end
+  def search
+    @kintais = Kintai.selected_month(session[:user], session[:selected_kintai_date])
   end
 
   def show
@@ -124,23 +113,6 @@ class KintaisController < ApplicationController
     flash[:notice] = t 'app.flash.delete_success' if @kintai.destroy
     respond_with(@kintai, location: kintais_url)
   end
-
-  # def summary_kintai
-  #   case params[:id]
-  #     when 'kintaisum'
-  #       current_month = Kintai.current_month
-  #       sum1 = current_month.sum('実労働時間')
-  #       sum2 = current_month.sum('遅刻時間')
-  #       sum3 = current_month.sum('普通残業時間')
-  #       sum4 = current_month.sum('深夜残業時間')
-  #       sum5 = current_month.sum('普通保守時間')
-  #       sum6 = current_month.sum('深夜保守時間')
-  #       data = {sum1: sum1, sum2: sum2, sum3: sum3, sum4: sum4, sum5: sum5, sum6: sum6}
-  #       respond_to do |format|
-  #         format.json { render json: data}
-  #       end
-  #   end
-  # end
 
   private
     def set_kintai

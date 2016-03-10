@@ -25,6 +25,9 @@
           %td.sum7
   .col-sm-3
     .pull-right
-      = check_box_tag 'finish-input'
-      = label_tag '承認要求'
+      -#= check_box_tag 'finish-input'
+      -#= label_tag '承認要求'
+      -#= button_tag '入力済', name: 'commit', value:'入力済', class: 'btn btn-default'
+      = f.submit :入力済, class: 'btn btn-default'
+
     %p.finish-message

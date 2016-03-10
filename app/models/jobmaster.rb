@@ -8,6 +8,7 @@ class Jobmaster < ActiveRecord::Base
   validates :関連Job番号, numericality: { only_integer: true }, inclusion: {in: Jobmaster.pluck(:job番号)}, allow_blank: true
   validates :ユーザ番号, inclusion: {in: Kaishamaster.pluck(:会社コード)}, allow_blank: true
   validates :分類コード, inclusion: {in: Bunrui.pluck(:分類コード)}, allow_blank: true
+  validate :check_date_input
 
   has_one :events, foreign_key: :JOB
   belongs_to :kaishamaster, class_name: :Kaishamaster, foreign_key: :ユーザ番号
@@ -15,6 +16,7 @@ class Jobmaster < ActiveRecord::Base
 
   alias_attribute :id, :job番号
   alias_attribute :job_name, :job名
+  delegate :分類名, to: :bunrui, prefix: :bunrui, allow_nil: true
 
   # a class method import, with file passed through as an argument
   def self.import(file)
@@ -29,4 +31,9 @@ class Jobmaster < ActiveRecord::Base
   #   id.parameterize
   # end
 
+  def check_date_input
+    if 開始日.present? && 終了日.present? && 開始日 > 終了日
+      errors.add(:終了日, "は開始日以上の値にしてください。")
+    end
+  end
 end
