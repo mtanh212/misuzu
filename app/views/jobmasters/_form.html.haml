@@ -4,8 +4,8 @@
       -#= f.input :job番号, disabled: true, hint: 'Job番号自動生成変更無し'
       = f.input :job番号, input_html: {style: 'width:100px'} if mode == :new
       = f.input :job名
-      = f.input :開始日, as: :date_time_picker
-      = f.input :終了日, as: :date_time_picker
+      = f.input :開始日, as: :date_picker
+      = f.input :終了日, as: :date_picker
       = f.input :ユーザ番号, as: :search_field
       -#= f.input :ユーザ番号, wrapper: :vertical_input_group do
       -#  = f.input_field :ユーザ番号, class: 'form-control'

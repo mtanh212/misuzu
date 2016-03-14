@@ -33,13 +33,14 @@
           <!--</label>-->
         <!--</div>-->
       <!--</div>-->
-      <div class="pull-right">
-        <div class="form-inline">
-          <%= f.input :所在コード, label:'所在' do %>
-              <%= f.select :所在コード, Shozai.all.map { |s| [s.name, s.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control'} %>
-          <% end %>
-        </div>
-      </div>
+
+      <!--<div class="pull-right">-->
+        <!--<div class="form-inline">-->
+          <!--<%# f.input :所在コード, label:'所在' do %>-->
+              <!--<%# f.select :所在コード, Shozai.all.map { |s| [s.name, s.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control'} %>-->
+          <!--<%# end %>-->
+        <!--</div>-->
+      <!--</div>-->
 
     </div>
 
@@ -83,7 +84,7 @@
             <th>終了時刻</th>
             <th>状態</th>
             <th>場所</th>
-            <th>JOB No.</th>
+            <th>JOB</th>
             <th>工程名</th>
             <th>工数</th>
             <th>計上</th>
@@ -106,7 +107,7 @@
                    end
                 %>
                 <td><%= basho_name %></td>
-                <td><%= event.JOB %></td>
+                <td><%= event.job_job名 %></td>
                 <td><%= event.kouteimaster.try :工程名 %></td>
                 <td><%= event.工数 %></td>
                 <td><%= event.計上 %></td>

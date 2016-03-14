@@ -36,9 +36,9 @@ class EventsController < ApplicationController
   end
   
   def new
-    # shainbango = User.find(session[:user]).shainmaster.shain_no
-    @event = Event.new shain_no: Shainmaster.find(session[:selected_shain]).id
-    # @event.build_joutaimaster
+    date = Date.today.to_s(:db)
+    # @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{date} 09:00", 終了: "#{date} 18:00")
+    @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id)
   end
 
   def create_basho
@@ -68,12 +68,12 @@ class EventsController < ApplicationController
 
   def update
     case params[:commit]
-      when '　削除　'
+      when '削除する'
         flash[:notice] = t 'app.flash.delete_success' if @event.destroy
         respond_with @event, location: events_url
 
-      when '　登録　'
-        set_fkey @event, event_params
+      when '登録する'
+        # set_fkey @event, event_params
         flash[:notice] = t 'app.flash.update_success' if @event.update event_params
         # joutai = Joutaimaster.find_by code: event_params[:状態コード]
         # joutai.update color: params['input-backgroud-color'], text_color: params['input-text-color']

@@ -96,3 +96,54 @@ jQuery ->
       $(this).addClass('selected')
       $(this).addClass('success')
   )
+
+  $('.datetime').datetimepicker({
+    format: 'YYYY/MM/DD HH:mm',
+    showTodayButton: true,
+    showClear: true,
+    sideBySide: true,
+    calendarWeeks: true,
+    toolbarPlacement: 'top',
+    keyBinds: false,
+    focusOnShow: false
+#    defaultDate: '2016/03/14 09:00'
+  })
+
+  $('.search-field').click( () ->
+    element1 = $('.search-group').find('#event_状態コード')
+    element2 = $('.search-group').find('#event_場所コード')
+    element3 = $('.search-group').find('#event_JOB')
+    element4 = $('.search-group').find('#event_工程コード')
+    element5 = $('.search-group').find('#bashomaster_会社コード')
+
+    if $(this).prev().is(element1)
+      $('#joutai_search_modal').modal('show')
+
+    if $(this).prev().is(element2)
+      $('#basho_search_modal').modal('show')
+
+    if $(this).prev().is(element3)
+      $('#job_search_modal').modal('show')
+
+    if $(this).prev().is(element4)
+      $('#koutei_search_modal').modal('show')
+
+    if $(this).prev().is(element5)
+      $('#kaisha-search-modal').modal('show')
+  )
+
+  $('.search-plus').click( () ->
+    $('#basho-new-modal').modal('show')
+
+    element = $('.search-group').find('#bashomaster_会社コード')
+    if $(this).prev().prev().is(element)
+      $('#kaisha-new-modal').modal('show')
+  )
+
+  $('#basho-new-ok').click( () ->
+    basho_code = $('#bashomaster_場所コード').val()
+    if basho_code
+      $('#event_場所コード').val(basho_code)
+      $('.hint-basho-refer').text($('#bashomaster_場所名').val())
+  )
+

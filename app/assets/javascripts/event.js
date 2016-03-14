@@ -183,21 +183,17 @@ $(window).on('load', function() {
 
 //toggle_calendar
 $(function () {
-
     $('#toggle-calendar-goto').click(function () {
         $('#goto-date-input').data("DateTimePicker").toggle();
-
     });
 
-    $('#開始').click(function () {
-        $('#event_開始').data("DateTimePicker").toggle();
-    });
-    
-    $('#終了').click(function () {
-        $('#event_終了').data("DateTimePicker").toggle();
-
-    });
-
+    //$('#開始').click(function () {
+    //    $('#event_開始').data("DateTimePicker").toggle();
+    //});
+    //
+    //$('#終了').click(function () {
+    //    $('#event_終了').data("DateTimePicker").toggle();
+    //});
 });
 
 //date field click handler
@@ -217,41 +213,39 @@ $(function () {
 
     });
     
-    $('#event_開始').datetimepicker({
-        format: 'YYYY/MM/DD HH:mm',
-        showClear: true,
-        showTodayButton: true,
-        sideBySide: true,
-        //,daysOfWeekDisabled:[0,6]
-        calendarWeeks: true,
-        //allowInputToggle: true,
-        toolbarPlacement: 'top',
-        keyBinds: false,
-        focusOnShow: false
-    });
-    
-    $('#event_終了').datetimepicker({
-        format: 'YYYY/MM/DD HH:mm',
-        showTodayButton: true,
-        showClear: true,
-        sideBySide: true,
-        //daysOfWeekDisabled:[0,6],
-        calendarWeeks: true,
-        //allowInputToggle: true,
-        toolbarPlacement: 'top',
-        keyBinds: false,
-        focusOnShow: false
+    //$('#event_開始').datetimepicker({
+    //    format: 'YYYY/MM/DD HH:mm',
+    //    showClear: true,
+    //    showTodayButton: true,
+    //    sideBySide: true,
+    //    //,daysOfWeekDisabled:[0,6]
+    //    calendarWeeks: true,
+    //    //allowInputToggle: true,
+    //    toolbarPlacement: 'top',
+    //    keyBinds: false,
+    //    focusOnShow: false
+    //});
+    //
+    //$('#event_終了').datetimepicker({
+    //    format: 'YYYY/MM/DD HH:mm',
+    //    showTodayButton: true,
+    //    showClear: true,
+    //    sideBySide: true,
+    //    //daysOfWeekDisabled:[0,6],
+    //    calendarWeeks: true,
+    //    //allowInputToggle: true,
+    //    toolbarPlacement: 'top',
+    //    keyBinds: false,
+    //    focusOnShow: false
+    //});
 
-
-    });
-
-    $("#event_開始").on("dp.change", function (e) {
-        $('#event_終了').data("DateTimePicker").minDate(e.date);
-    });
-    
-    $("#event_終了").on("dp.change", function (e) {
-        $('#event_開始').data("DateTimePicker").maxDate(e.date);
-    });
+    //$("#event_開始").on("dp.change", function (e) {
+    //    $('#event_終了').data("DateTimePicker").minDate(e.date);
+    //});
+    //
+    //$("#event_終了").on("dp.change", function (e) {
+    //    $('#event_開始').data("DateTimePicker").maxDate(e.date);
+    //});
 });
 
 //button handle
@@ -265,58 +259,58 @@ $(function(){
         $('#calendar-timeline').fullCalendar('gotoDate',date);
     });
     
-    $('#search_user').click(function(){
-        $('#select_user_modal').modal('show');
-    });
-    
-    $('#joutai_search').click(function(){
-        $('#joutai_search_modal').modal('show');
-    });
-    
-    $('#basho_search').click(function(){
-        $('#basho_search_modal').modal('show');
-    });
-    
-    $('#koutei_search').click(function(){
-        $('#koutei_search_modal').modal('show');
-    });
-    
-    $('#shozai_search').click(function(){
-        $('#shozai_search_modal').modal('show');
-    });
-    
-    $('#job_search').click(function(){
-        $('#job_search_modal').modal('show');
-    });
+    //$('#search_user').click(function(){
+    //    $('#select_user_modal').modal('show');
+    //});
+    //
+    //$('#joutai_search').click(function(){
+    //    $('#joutai_search_modal').modal('show');
+    //});
+    //
+    //$('#basho_search').click(function(){
+    //    $('#basho_search_modal').modal('show');
+    //});
+    //
+    //$('#koutei_search').click(function(){
+    //    $('#koutei_search_modal').modal('show');
+    //});
+    //
+    //$('#shozai_search').click(function(){
+    //    $('#shozai_search_modal').modal('show');
+    //});
+    //
+    //$('#job_search').click(function(){
+    //    $('#job_search_modal').modal('show');
+    //});
 
-    $('#shujitu').click(function() {
-        start_form_time = $('#event_開始').val();
-        end_form_time = $('#event_終了').val();
-
-        var start_time, end_time
-
-        if (start_form_time == "" && end_form_time == "") {
-            start_time = moment().format("YYYY-MM-DD");
-            end_time = start_time + " 18:00"
-            start_time += " 09:00"
-            $('#event_開始').val(start_time);
-            $('#event_終了').val(end_time);
-            return;
-        }
-
-        if (start_form_time != "") {
-            start_time = start_form_time.substring(0, 10) + " 09:00";
-            end_time = start_form_time.substring(0, 10) + " 18:00";
-        } else {
-            start_time = end_form_time.substring(0, 10) + " 09:00";
-            end_time = end_form_time.substring(0, 10) + " 18:00";
-        }
-    
-        
-        $('#event_開始').val(start_time);
-        $('#event_終了').val(end_time);
-
-    });
+    //$('#shujitu').click(function() {
+    //    start_form_time = $('#event_開始').val();
+    //    end_form_time = $('#event_終了').val();
+    //
+    //    var start_time, end_time
+    //
+    //    if (start_form_time == "" && end_form_time == "") {
+    //        start_time = moment().format("YYYY-MM-DD");
+    //        end_time = start_time + " 18:00"
+    //        start_time += " 09:00"
+    //        $('#event_開始').val(start_time);
+    //        $('#event_終了').val(end_time);
+    //        return;
+    //    }
+    //
+    //    if (start_form_time != "") {
+    //        start_time = start_form_time.substring(0, 10) + " 09:00";
+    //        end_time = start_form_time.substring(0, 10) + " 18:00";
+    //    } else {
+    //        start_time = end_form_time.substring(0, 10) + " 09:00";
+    //        end_time = end_form_time.substring(0, 10) + " 18:00";
+    //    }
+    //
+    //
+    //    $('#event_開始').val(start_time);
+    //    $('#event_終了').val(end_time);
+    //
+    //});
     
     //month day switch view
     $('#month-view').click(function(){
@@ -441,7 +435,8 @@ $(function(){
 
         var d = oBashoTable.row(this).data();
         $('#event_場所コード').val(d[0]);
-        $('#basho_name').text(d[1]);
+        //$('#basho_name').text(d[1]);
+        $('.hint-basho-refer').text(d[1])
 
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
@@ -460,7 +455,12 @@ $(function(){
 
         var d = oJoutaiTable.row(this).data();
         $('#event_状態コード').val(d[0]);
-        $('#joutai_name').text(d[1]);
+        //$('#joutai_name').text(d[1]);
+        $('.hint-joutai-refer').text(d[1])
+
+        //#    remove error if has
+        $('#event_状態コード').closest('.form-group').find('span.help-block').remove()
+        $('#event_状態コード').closest('.form-group').removeClass('has-error')
 
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
@@ -497,10 +497,10 @@ $(function(){
     $('#koutei_table tbody').on( 'click', 'tr', function () {
 
         var d = oKouteiTable.row(this).data();
-        //$('#event_所属コード').val(d[0]);
-        //$('#shozoku_name').val(d[1]);
         $('#event_工程コード').val(d[0]);
-        $('#koutei_name').text(d[1]);
+        //$('#koutei_name').text(d[1]);
+        $('.hint-koutei-refer').text(d[1])
+
 
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
@@ -540,7 +540,8 @@ $(function(){
 
         var d = oJobTable.row(this).data();
         $('#event_JOB').val(d[0]);
-        $('#job_name').text(d[1]);
+        //$('#job_name').text(d[1]);
+        $('.hint-job-refer').text(d[1])
 
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
@@ -613,58 +614,15 @@ $(function(){
     $("#event_状態コード").keydown( function(e) {
         if (e.keyCode == 9 && !e.shiftKey) {
             var event_joutai = $("#event_状態コード").val();
+            if (!event_joutai) return
             jQuery.ajax({
                 url: '/events/ajax',
                 data: {id: "event_状態コード",event_joutai_code: event_joutai},
                 type: "POST",
-                // processData: false,
-                // contentType: 'application/json',
                 success: function(data) {
-                    $('#joutai_name').text(data.joutai_name);
+                    //$('#joutai_name').text(data.joutai_name);
+                    $('.hint-joutai-refer').text(data.joutai_name);
                     console.log("getAjax joutai_name:"+ data.joutai_name);
-                    
-                    //preview calendar
-                    //$('#calendar-preview').fullCalendar(
-                    //    {
-                    //        now: '2015-08-07',
-                    //        height: 170,
-                    //        businessHours:{
-                    //            start: '09:00:00', // a start time (09am in this example)
-                    //            end: '18:00:00', // an end time (6pm in this example)
-                    //
-                    //            dow: [1, 2, 3, 4, 5]
-                    //            // days of week. an array of zero-based day of week integers (0=Sunday)
-                    //            // (Monday-Freeday in this example)
-                    //        },
-                    //        resourceAreaWidth: '20%',
-                    //        slotLabelFormat: ['HH : mm'],
-                    //        scrollTime: '09:00:00',
-                    //        eventOverlap: false,
-                    //        defaultView: 'timelineDay',
-                    //        events: data.event,
-                    //        eventTextColor: data.event_text_color,
-                    //        eventColor: data.event_color,
-                    //        resourceLabelText: '社員',
-                    //        resources: [
-                    //            { id: 'a', title: '松本' },
-                    //            { id: 'b', title: 'Duc'}
-                    //        ],
-                    //        header: {
-                    //            left:   '',
-                    //            center: '',
-                    //            right:  ''
-                    //
-                    //        }
-                    //    }
-                    //);
-                    
-                    //$("#preview-text").text(data.joutai_name);
-                    //$("#preview-text").css('color', data.event_text_color);
-                    //$('#preview-backgroud').css("background-color", data.event_color);
-                    //$("#event_joutaimaster_attributes_color").val(data.event_color);
-                    //$("#event_joutaimaster_attributes_text_color").val(data.event_text_color);
-                    //$('#preview-panel').show();
-                    //$(".fc-toolbar").hide();
                 },
                 failure: function() {
                     console.log("event_状態コード keydown Unsuccessful");
@@ -677,6 +635,7 @@ $(function(){
     $('#event_場所コード').keydown( function(e) {
         if (e.keyCode == 9 && !e.shiftKey) {
             var event_basho_code = $('#event_場所コード').val();
+            if (!event_basho_code) return
             jQuery.ajax({
                 url: '/events/ajax',
                 data: {id: 'event_場所コード',event_basho_code: event_basho_code},
@@ -684,7 +643,8 @@ $(function(){
                 // processData: false,
                 // contentType: 'application/json',
                 success: function(data) {
-                    $('#basho_name').text(data.basho_name);
+                    //$('#basho_name').text(data.basho_name);
+                    $('.hint-basho-refer').text(data.basho_name);
                     console.log("getAjax basho_name:"+ data.basho_name);
                 },
                 failure: function() {
@@ -704,7 +664,8 @@ $(function(){
                 // processData: false,
                 // contentType: 'application/json',
                 success: function(data) {
-                    $('#koutei_name').text(data.koutei_name);
+                    //$('#koutei_name').text(data.koutei_name);
+                    $('.hint-koutei-refer').text(data.koutei_name);
                     console.log("getAjax koutei_name:"+ data.koutei_name);
                 },
                 failure: function() {
@@ -718,6 +679,8 @@ $(function(){
     $('#event_JOB').keydown( function(e) {
         if (e.keyCode == 9 && !e.shiftKey) {
             var event_job_code = $('#event_JOB').val();
+            if (!event_job_code) return
+
             jQuery.ajax({
                 url: '/events/ajax',
                 data: {id: 'event_job',event_job_code: event_job_code},
@@ -725,7 +688,8 @@ $(function(){
                 // processData: false,
                 // contentType: 'application/json',
                 success: function(data) {
-                    $('#job_name').text(data.job_name);
+                    //$('#job_name').text(data.job_name);
+                    $('.hint-job-refer').text(data.job_name);
                     console.log("getAjax job_name:"+ data.job_name);
                 },
                 failure: function() {
@@ -738,30 +702,8 @@ $(function(){
 });
 
 $(function(){
-//Add maxlength display
-//    $('input[maxlength]').maxlength();
-
     //calendar hide show
     $('#calendar-month-view').hide();
     $('#calendar-timeline').show();
-
-////colorpicker added
-//    $('#preview-panel').hide();
-//
-//    $('#change-background-color').colorpicker().on('changeColor', function(ev){
-//        $('#preview-backgroud').css("background-color", ev.color.toHex());
-//        $('#event_joutaimaster_attributes_color').val(ev.color.toHex());
-//    });
-//    
-//    $('#change-text-color').colorpicker().on('changeColor', function(ev){
-//        $('#preview-text').css("color", ev.color.toHex());
-//        $('#event_joutaimaster_attributes_text_color').val(ev.color.toHex());
-//    });
-//
-////binding preview when load
-////    $("#preview-text").text($('#joutai_name').val());
-//    $("#preview-text").css('color', $("#event_joutaimaster_attributes_text_color").val());
-//    $('#preview-backgroud').css("background-color", $("#event_joutaimaster_attributes_color").val());
-    
 });
 

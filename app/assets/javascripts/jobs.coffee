@@ -150,7 +150,7 @@ jQuery ->
 ##      $('#jobmaster_終了日').data("DateTimePicker").toggle()
 #  )
 
-  $('.form_datetime').datetimepicker({
+  $('.date').datetimepicker({
     format: 'YYYY/MM/DD',
     widgetPositioning: {
       horizontal: 'left',

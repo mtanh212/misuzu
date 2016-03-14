@@ -152,7 +152,7 @@ $(function(){
         //inline: true,
         //widgetParent: 'container-fluid',
         showTodayButton: true,
-        //showClear: true,
+        showClear: true,
         //,daysOfWeekDisabled:[0,6]
         //calendarWeeks: true,
         keyBinds: false,
@@ -165,7 +165,7 @@ $(function(){
         //inline: true,
         //widgetParent: 'container-fluid',
         showTodayButton: true,
-        //showClear: true,
+        showClear: true,
         //,daysOfWeekDisabled:[0,6]
         //calendarWeeks: true,
         keyBinds: false,

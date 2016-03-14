@@ -1,0 +1,34 @@
+= simple_form_for @event do |f|
+  .col-md-4.col-md-offset-1
+    = f.input :社員番号, input_html: {style: 'width:100px'}
+    = f.input :状態コード, label: '状態', input_html: {style: 'width:100px'}, as: :search_field, hint:"#{@event.joutaimaster.try :状態名}", hint_html: {class: 'hint-joutai-refer'}
+    = f.input :場所コード, label: '場所', input_html: {style: 'width:100px'}, as: :search_fields, hint:"#{@event.bashomaster.try :場所名}", hint_html: {class: 'hint-basho-refer'}
+    = f.input :JOB, input_html: {style: 'width:100px'}, as: :search_field, hint:"#{@event.jobmaster.try :job名}", hint_html: {class: 'hint-job-refer'}
+    -#= f.input :工程コード, label: '工程', input_html: {style: 'width:100px'}, as: :search_field, hint:"#{@event.kouteimaster.try :工程名}", hint_html: {class: 'hint-koutei-refer'}
+    - shozoku = get_shozoku(session[:user]).所属コード
+    - kouteis = Kouteimaster.where(所属コード: shozoku)
+    -#= select(:event, :工程コード, kouteis.collect {|k| [ k.工程名, k.工程コード ] }, { include_blank: true }, {class: 'form-control'})
+    = f.input :工程コード, label: '工程' do
+      = f.select :工程コード, kouteis.map { |k| [k.工程名, k.工程コード] }, {include_blank: true}, {class: 'form-control', style: 'width:150px'}
+    = f.input :工数, input_html: {style: 'width:100px'}, hint: 'h　(単位：時間)'
+    = f.input :所属コード, input_html:{value: "#{get_shozoku(session[:user]).所属コード}"}, as: :hidden
+  .col-md-4.col-md-offset-1
+    = f.input :開始, as: :date_time_picker
+    = f.input :終了, as: :date_time_picker
+    = f.input :comment, label: 'コメント'
+
+    - if mode == 'new'
+      = f.button :submit, '登録する', class: 'btn btn-primary'
+
+    - if @event.計上 != '済' && mode == 'edit'
+      = f.button :submit, '登録する', class: 'btn btn-primary'
+      = f.button :submit, '削除する', class: 'btn btn-primary'
+
+= render 'share/joutai_modal'
+= render 'share/basho_modal'
+= render 'share/koutei_modal'
+= render 'share/shozai_modal'
+= render 'share/job_modal'
+= render 'share/basho_new_modal'
+= render 'share/kaisha_new_modal'
+= render 'share/kaisha_modal'

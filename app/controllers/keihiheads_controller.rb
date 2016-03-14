@@ -16,7 +16,9 @@ class KeihiheadsController < ApplicationController
     @keihi = Keihihead.new
     shinsheino = 1
     # shinsheino = Keihihead.maximum(:id) + 1 if Keihihead.exists?
-    shinsheino = Keihihead.order(id: :desc).first.id.to_i + 1 if Keihihead.exists?
+    shinsheino = Keihihead.pluck(:id).map {|i| i.to_i}.max + 1
+
+    # shinsheino = Keihihead.order(id: :desc).first.id.to_i + 1 if Keihihead.exists?
     @keihi.id = shinsheino.to_s
     @keihi.keihibodys.build
 
@@ -88,7 +90,8 @@ class KeihiheadsController < ApplicationController
     case params[:id]
       when 'getshinshei'
         date = params[:date]
-        listshinshei = Keihihead.where(日付: date, 社員番号: session[:user]).pluck(:申請番号)
+        listshinshei = Keihihead.current_member(session[:user]).order(updated_at: :desc).pluck(:申請番号)
+        listshinshei = Keihihead.current_member(session[:user]).where(日付: date).pluck(:申請番号) if !date.blank?
         data = {listshinshei: listshinshei}
         respond_to do |format|
           format.json { render json: data}

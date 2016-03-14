@@ -1,7 +1,7 @@
-class DateTimePickerInput < SimpleForm::Inputs::Base
+class DatePickerInput < SimpleForm::Inputs::Base
   def input(wrapper_options = nil)
     template.content_tag(:div, class: 'form-inline') do
-      template.content_tag(:div, class: 'input-group datetime') do
+      template.content_tag(:div, class: 'input-group date') do
         # template.concat @builder.text_field(attribute_name, merge_wrapper_options(input_html_options,wrapper_options))
         template.concat @builder.text_field(attribute_name, input_html_options)
         # template.concat span_remove
@@ -11,7 +11,7 @@ class DateTimePickerInput < SimpleForm::Inputs::Base
   end
 
   def input_html_options
-    super.merge({class: 'form-control', readonly: false})
+    super.merge({class: 'form-control', readonly: false, size: 7})
   end
 
   # def span_remove
