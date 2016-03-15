@@ -275,10 +275,10 @@ $(function(){
         $('#calendar-timeline').fullCalendar('gotoDate',date);
     });
     
-    //$('#search_user').click(function(){
-    //    $('#select_user_modal').modal('show');
-    //});
-    //
+    $('#search_user').click(function(){
+        $('#select_user_modal').modal('show');
+    });
+
     //$('#joutai_search').click(function(){
     //    $('#joutai_search_modal').modal('show');
     //});

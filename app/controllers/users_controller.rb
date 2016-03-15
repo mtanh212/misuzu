@@ -112,13 +112,15 @@ class UsersController < ApplicationController
     if request.post?
       @user = User.find_by(担当者コード: params[:user][:user_code].downcase, パスワード: params[:user][:old_password])
       if !@user.nil?
-        if params[:user][:new_password] == params[:user][:renew_password]
-          flash[:notice] = t 'app.flash.update_success' if @user.update(パスワード: params[:user][:new_password])
+        new_pass = params[:user][:new_password]
+        email = params[:user][:email]
+        if new_pass == params[:user][:renew_password]
+          flash[:notice] = t 'app.flash.update_success' if @user.update(パスワード: params[:user][:new_password], email: email)
           Mail.deliver do
-            to 'hminhduc@me.com'
+            to "#{email}"
             from 'hminhduc@gmail.com'
-            subject 'testing send mail'
-            body 'Sending email with Ruby through SendGrid!'
+            subject '【勤務システム】ログインパスワード変更'
+            body "パスワードを変更成功できました。この際から、【#{new_pass}】でログインしてくさだい！"
           end
           redirect_to root_url
         else
