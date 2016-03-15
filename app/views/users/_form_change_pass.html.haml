@@ -4,5 +4,6 @@
     = f.input :old_password, as: :password, label: 'パスワード'
     = f.input :new_password, as: :password, label: '新パスワード'
     = f.input :renew_password, as: :password, label: 'もう一度'
+    = f.input :avatar, as: :file, required: false
     = f.input :email, as: :email, required: false
     = f.button :submit, class: 'btn btn-primary'

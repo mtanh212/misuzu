@@ -1,0 +1,9 @@
+= simple_form_for @user do |f|
+  .col-md-2.col-md-offset-1
+    = f.input :担当者コード
+    = f.input :担当者名称
+    = f.input :パスワード
+    = f.input :avatar, as: :file
+    - if session[:user] == ENV['admin_user']
+      = f.input :admin, as: :check_box
+    = f.button :submit, class: 'btn btn-primary'

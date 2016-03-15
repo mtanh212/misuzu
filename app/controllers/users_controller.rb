@@ -33,24 +33,26 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     case params[:commit]
-      when '登録'
+      when '登録する'
         @user = User.new(user_params)
         
-        if user_params[:担当者コード].in?(User.pluck(:担当者コード))
-          flash[:alert] = t "app.flash.login_existing"
-          # respond_with @user, location: new_user_url
-          redirect_to :back
-          return
-        end
+        # if user_params[:担当者コード].in?(User.pluck(:担当者コード))
+        #   # flash[:alert] = t "app.flash.login_existing"
+        #   # respond_with @user, location: new_user_url
+        #   error_msg = t "messages.taken"
+        #   @user.errors.add(:担当者コード, error_msg)
+        #   redirect_to :back
+        #   return
+        # end
+        #
+        # if !user_params[:担当者コード].in?(Shainmaster.pluck(:連携用社員番号))
+        #   flash[:alert] = t "app.flash.login_new"
+        #   # respond_with @user, location: new_user_url
+        #   redirect_to :back
+        #   return
+        # end
         
-        if !user_params[:担当者コード].in?(Shainmaster.pluck(:連携用社員番号))
-          flash[:alert] = t "app.flash.login_new" 
-          # respond_with @user, location: new_user_url
-          redirect_to :back
-          return
-        end
-        
-        @user.shainmaster = Shainmaster.find_by 社員番号: user_params[:担当者コード]
+        # @user.shainmaster = Shainmaster.find_by 社員番号: user_params[:担当者コード]
         flash[:notice] = t "app.flash.new_success" if @user.save
         respond_with @user, location: login_users_url
         
@@ -111,11 +113,14 @@ class UsersController < ApplicationController
   def change_pass
     if request.post?
       @user = User.find_by(担当者コード: params[:user][:user_code].downcase, パスワード: params[:user][:old_password])
+
       if !@user.nil?
         new_pass = params[:user][:new_password]
         email = params[:user][:email]
+        avatar = params[:user][:avatar]
+
         if new_pass == params[:user][:renew_password]
-          flash[:notice] = t 'app.flash.update_success' if @user.update(パスワード: params[:user][:new_password], email: email)
+          flash[:notice] = t 'app.flash.update_success' if @user.update(パスワード: new_pass, email: email, avatar: avatar)
           Mail.deliver do
             to "#{email}"
             from 'hminhduc@gmail.com'
@@ -140,10 +145,10 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:担当者コード, :担当者名称, :パスワード, :avatar, :admin, :有給残数)
+    params.require(:user).permit(:担当者コード, :担当者名称, :パスワード, :avatar, :admin, :有給残数, :email)
   end
 
   def user_params_for_update
-    params.require(:user).permit(:担当者名称, :パスワード, :avatar, :admin, :有給残数)
+    params.require(:user).permit(:担当者名称, :パスワード, :avatar, :admin, :有給残数, :email)
   end
 end
