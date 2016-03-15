@@ -135,15 +135,15 @@ $(function(){
                         el.css('background-color', '#adadad');
                     }
                 },
-                {
-                    labelText: '状態',
-                    field: 'joutai',
-                    width: 50,
-                    render: function(resources, el) {
-                            el.css('background-color', resources.background_color);
-                            el.css('color', resources.text_color);
-                    }
-                },
+                //{
+                //    labelText: '状態',
+                //    field: 'joutai',
+                //    width: 50,
+                //    render: function(resources, el) {
+                //            el.css('background-color', resources.background_color);
+                //            el.css('color', resources.text_color);
+                //    }
+                //},
                 {
                     labelText: '伝言',
                     field: 'dengon',
@@ -178,6 +178,22 @@ $(function(){
 $(window).on('load', function() {
     $('#calendar-timeline').fullCalendar('render');
     $('#goto-date-input').val(moment().format('YYYY/MM/DD'));
+
+    if ($('#event_状態コード').val() == "30"){
+        $('#event_場所コード').prop( "disabled", true );
+        $('#event_JOB').prop( "disabled", true );
+        $('#event_工程コード').prop( "disabled", true );
+        $('#basho_search').prop( "disabled", true );
+        $('#koutei_search').prop( "disabled", true );
+
+    }else{
+        $('#event_場所コード').prop( "disabled", false );
+        $('#event_JOB').prop( "disabled", false );
+        $('#event_工程コード').prop( "disabled", false );
+        $('#basho_search').prop( "disabled", false );
+        $('#koutei_search').prop( "disabled", false );
+
+    }
 
 });
 
@@ -450,6 +466,7 @@ $(function(){
         }
 
     } );
+
     //状態選択された行を判断
     $('#joutai_table tbody').on( 'click', 'tr', function () {
 
@@ -475,6 +492,9 @@ $(function(){
 
         //check if that day missing
         if (d[0] == "30"){
+            //$('#event_開始').val(moment());
+            //$('#event_終了').val(moment());
+
             $('#event_場所コード').prop( "disabled", true );
             $('#event_JOB').prop( "disabled", true );
             $('#event_工程コード').prop( "disabled", true );
@@ -482,6 +502,9 @@ $(function(){
             $('#koutei_search').prop( "disabled", true );
             
         }else{
+            //$('#event_開始').val('');
+            //$('#event_終了').val('');
+
             $('#event_場所コード').prop( "disabled", false );
             $('#event_JOB').prop( "disabled", false );
             $('#event_工程コード').prop( "disabled", false );

@@ -18,6 +18,9 @@ json.events @all_events do |event|
   # title = event.joutaimaster.try(:name) << kisha_flag if event.joutaimaster
   # title = event.jobmaster.try(:job_name) << kisha_flag if event.joutaimaster
   json.title title
+  # start_time = event.try(:joutai_code) == '30' ? event.try(:start_time).to_date : event.try(:start_time)
+  # end_time = event.try(:joutai_code) == '30' ? event.try(:end_time).to_date : event.try(:end_time)
+
   json.start event.try(:start_time)
   json.end event.try(:end_time)
   json.url edit_event_url(event, format: :html)
@@ -46,10 +49,11 @@ json.shains @shains do |shain|
   json.extract! shain, :id
   json.shain shain.try(:氏名)
   # json.joutai shain.events.first.shozai.try(:所在名) if shain.events.first
-  # event = shain.events.where("開始 < ? AND 終了 > ?",Time.now, Time.now).first
+  # event = shain.events.where("開始 < ? AND 終了 > ?",Time.current, Time.current).first
   joutai = ''
   # joutai = event.shozai.try(:name) if event
-  joutai = shain.shozai.try :name if shain.shozai
+  # joutai = shain.shozai.try :name if shain.shozai
+  # joutai = event.joutai_状態名 if event
   json.joutai joutai
   
   # json.joutai shain.events.where("開始 < ? AND 終了 > ?", Time.now, Time.now).first.joutaimaster.try(:状態名) if shain.events.where("開始 < ? AND 終了 > ?",Time.now, Time.now).first

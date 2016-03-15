@@ -13,7 +13,8 @@ class Event < ActiveRecord::Base
   belongs_to :jobmaster, foreign_key: :JOB
 
   delegate :job名, to: :jobmaster, prefix: :job, allow_nil: true
-  
+  delegate :状態名, to: :joutaimaster, prefix: :joutai, allow_nil: true
+
   alias_attribute :shain_no, :社員番号
   alias_attribute :start_time, :開始
   alias_attribute :end_time, :終了
@@ -26,7 +27,7 @@ class Event < ActiveRecord::Base
   alias_attribute :shozai_code, :所在コード
 
   def check_date_input
-    if 開始.present? && 終了.present? && 開始 > 終了
+    if 開始.present? && 終了.present? && 開始 >= 終了
       errors.add(:終了, "は開始日以上の値にしてください。")
     end
   end
