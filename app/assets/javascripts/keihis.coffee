@@ -173,7 +173,7 @@ jQuery ->
       { "bSortable": false, "aTargets": [ 13 ]},
       {
         "targets": [13],
-        "width": '7px'
+        "width": '4%'
       }
     ]
   })
@@ -193,7 +193,7 @@ jQuery ->
       $(this).addClass('success')
   )
 
-  $(document).on 'focus', '#keihihead_清算予定日', (event) ->
+  $(document).on 'focus', '#search', (event) ->
     $(this).datetimepicker({
       format: 'YYYY/MM/DD',
       widgetPositioning: {

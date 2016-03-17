@@ -35,49 +35,27 @@ class UsersController < ApplicationController
     case params[:commit]
       when '登録する'
         @user = User.new(user_params)
-        
-        # if user_params[:担当者コード].in?(User.pluck(:担当者コード))
-        #   # flash[:alert] = t "app.flash.login_existing"
-        #   # respond_with @user, location: new_user_url
-        #   error_msg = t "messages.taken"
-        #   @user.errors.add(:担当者コード, error_msg)
-        #   redirect_to :back
-        #   return
-        # end
-        #
-        # if !user_params[:担当者コード].in?(Shainmaster.pluck(:連携用社員番号))
-        #   flash[:alert] = t "app.flash.login_new"
-        #   # respond_with @user, location: new_user_url
-        #   redirect_to :back
-        #   return
-        # end
-        
-        # @user.shainmaster = Shainmaster.find_by 社員番号: user_params[:担当者コード]
-        flash[:notice] = t "app.flash.new_success" if @user.save
+        if @user.save
+          flash[:notice] = t "app.flash.new_success"
+          email = user_params[:email]
+          new_pass = user_params[:パスワード]
+          Mail.deliver do
+            to "#{email}"
+            from 'hminhduc@gmail.com'
+            subject '【勤務システム】ログインパスワード変更'
+            body "パスワードを変更成功できました。この際から、【#{new_pass}】でログインしてくさだい！"
+          end
+
+        end
         respond_with @user, location: login_users_url
-        
+
       when 'ログイン'
-
-        # if ENV['admin_user'] == params[:user][:担当者コード].downcase  
-        #   if ENV['admin_password'] == params[:user][:パスワード]
-        #     @user = User.find_or_create_by 担当者コード: ENV['admin_user'], admin: true
-        #     @user.shainmaster = Shainmaster.find_or_create_by 社員番号: ENV['admin_user'], 連携用社員番号: ENV['admin_user'], 氏名: 'admin'
-        #     @user.shainmaster.shozokumaster = Shozokumaster.take
-        #     @user.shainmaster.yakushokumaster = Yakushokumaster.take
-        #     @user.save
-        #     @user.shainmaster.save
-        #   end
-        # else
-        #   @user = User.where('担当者コード = ? AND パスワード = ?',params[:user][:担当者コード].downcase,params[:user][:パスワード]).first
-        # end
-
         if ENV['admin_user'] == params[:user][:担当者コード].downcase && ENV['admin_password'] == params[:user][:パスワード]
           session[:user] = ENV['admin_user']
           session[:current_user_id] = ENV['admin_user']
           redirect_to users_url
           return
         end
-
 
         @user = User.where('担当者コード = ? AND パスワード = ?',params[:user][:担当者コード].downcase,params[:user][:パスワード]).first
         
@@ -99,8 +77,21 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    flash[:notice] = t "app.flash.update_success" if @user.update user_params_for_update
-    respond_with @user
+    if @user.update user_params_for_update
+      flash[:notice] = t "app.flash.update_success"
+      email = user_params_for_update[:email]
+      new_pass = user_params_for_update[:パスワード]
+      Mail.deliver do
+        to "#{email}"
+        from 'hminhduc@gmail.com'
+        subject '【勤務システム】ログインパスワード変更'
+        body "パスワードを変更成功できました。この際から、【#{new_pass}】でログインしてくさだい！"
+      end
+
+      redirect_to root_url
+    else
+      respond_with @user
+    end
   end
 
   # DELETE /users/1

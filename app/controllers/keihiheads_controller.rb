@@ -73,19 +73,6 @@ class KeihiheadsController < ApplicationController
     respond_with(@keihi, location: new_keihihead_url)
   end
 
-  def matching
-    if  params[:commit] == '更新する' && !params[:shonin].nil?
-      flash[:notice] = t 'app.flash.update_success' if Keihihead.where(id: params[:shonin]).update_all(承認済区分: '1')
-    end
-    seisanyoteibi = keihi_params[:清算予定日]
-    shoninsha = keihi_params[:承認者]
-    seisanyoteibi = Date.today if keihi_params[:清算予定日].blank?
-    shoninsha = session[:user] if keihi_params[:承認者].blank?
-    @keihi_shonins = Keihihead.where("清算予定日 <= ? and 承認者 = ? and 承認済区分 <> '1'", seisanyoteibi, shoninsha)
-    @keihi_shonin = Keihihead.new(清算予定日: keihi_params[:清算予定日], 承認者: keihi_params[:承認者])
-    render 'shonin'
-  end
-
   def ajax
     case params[:id]
       when 'getshinshei'
@@ -99,9 +86,13 @@ class KeihiheadsController < ApplicationController
     end
   end
 
-  def shonin
-    @keihi_shonins = Keihihead.none
-    @keihi_shonin = Keihihead.new
+  def shonin_search
+    @keihi_shonins = Keihihead.where(承認者: session[:user]).where("承認済区分 != ? or 承認済区分 is null", '1')
+    @keihi_shonins = @keihi_shonins.where("Date(清算予定日) <= ?", params[:清算予定日]) if params[:清算予定日]
+
+    if params[:commit] == '更新する' && !params[:shonin].nil?
+      flash[:notice] = t 'app.flash.update_success' if Keihihead.where(id: params[:shonin]).update_all(承認済区分: '1')
+    end
   end
 
   private

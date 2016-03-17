@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   # validates :email, confirmation: true
   validates :担当者コード, :担当者名称, :パスワード, presence: true
   validates :担当者コード, uniqueness: true
-  validate :check_taken
+  validate :check_taken, on: :create
 
   # validates :email_confirmation, presence: true
   

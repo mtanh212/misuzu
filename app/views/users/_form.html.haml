@@ -2,8 +2,9 @@
   .col-md-2.col-md-offset-1
     = f.input :担当者コード
     = f.input :担当者名称
-    = f.input :パスワード
+    = f.input :パスワード, as: :password
     = f.input :avatar, as: :file
+    = f.input :email, as: :email
     - if session[:user] == ENV['admin_user']
-      = f.input :admin, as: :check_box
+      = f.input :admin, as: :boolean
     = f.button :submit, class: 'btn btn-primary'
