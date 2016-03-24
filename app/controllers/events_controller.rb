@@ -98,8 +98,8 @@ class EventsController < ApplicationController
       when '勤務'
         redirect_to kintais_url
       when '経費'
-        # redirect_to keihis_url
-        redirect_to new_keihihead_url
+        redirect_to keihiheads_url
+        # redirect_to new_keihihead_url
     end
   end
 

@@ -39,7 +39,7 @@ RSpec.describe BashokubunmstsController, type: :controller do
   describe "GET #index" do
     it "assigns all bashokubunmsts as @bashokubunmsts" do
       bashokubunmst = Bashokubunmst.create! valid_attributes
-      get :index, {}, valid_session
+      get :index_old, {}, valid_session
       expect(assigns(:bashokubunmsts)).to eq([bashokubunmst])
     end
   end

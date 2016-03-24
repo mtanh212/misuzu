@@ -39,7 +39,7 @@ RSpec.describe KintaisController, type: :controller do
   describe "GET #index" do
     it "assigns all kintais as @kintais" do
       kintai = Kintai.create! valid_attributes
-      get :index, {}, valid_session
+      get :index_old, {}, valid_session
       expect(assigns(:kintais)).to eq([kintai])
     end
   end

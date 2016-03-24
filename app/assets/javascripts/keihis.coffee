@@ -2,19 +2,105 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
+  $(document).on 'click', '.keihihead-update', (event) ->
+    summary()
+  $(document).on 'click', '.summary', (event) ->
+    summary()
+
+#  sonotha_sum, koutsuhi_sum, nittou_sum, shukuhaku_sum, shinsheino
+  summary = () ->
+    sonotha_sum = 0
+    koutsuhi_sum = 0
+    nittou_sum = 0
+    shukuhaku_sum = 0
+
+    $('.koutsuhi').each( () ->
+      value = $(this).val()
+      if(!isNaN(value) && value.length != 0)
+        koutsuhi_sum += parseFloat(value)
+    )
+
+    $('.nittou').each( () ->
+      value = $(this).val()
+      if(!isNaN(value) && value.length != 0)
+        nittou_sum += parseFloat(value)
+    )
+
+    $('.shukuhaku').each( () ->
+      value = $(this).val()
+      if(!isNaN(value) && value.length != 0)
+        shukuhaku_sum += parseFloat(value)
+    )
+
+    $('.sonotha').each( () ->
+#    //var value = $(this).text()
+      value = $(this).val()
+#    // add only if the value is number
+      if(!isNaN(value) && value.length != 0)
+        sonotha_sum += parseFloat(value)
+    )
+
+    hansikin = $('#keihihead_仮払金').val()
+    shikyuhin = $('#keihihead_支給品').val()
+
+    if(!isNaN(hansikin) && hansikin.length != 0) then hansikin = $('#keihihead_仮払金').val() else hansikin = 0
+
+    if(!isNaN(shikyuhin) && shikyuhin.length != 0) then shikyuhin = $('#keihihead_支給品').val() else shikyuhin = 0
+
+#    //minue value for checked remove
+    _sonotha_sum = 0
+    _koutsuhi_sum = 0
+    _nittou_sum = 0
+    _shukuhaku_sum = 0
+    $('.check-remove').each( () ->
+      if ($(this).val() == "1")
+        value = $(this).closest('tr').find('.koutsuhi').val()
+        if(!isNaN(value) && value.length != 0)
+          _koutsuhi_sum += parseFloat(value)
+
+        value = $(this).closest('tr').find('.nittou').val()
+        if(!isNaN(value) && value.length != 0)
+          _nittou_sum += parseFloat(value)
+
+        value = $(this).closest('tr').find('.shukuhaku').val()
+        if(!isNaN(value) && value.length != 0)
+          _shukuhaku_sum += parseFloat(value)
+
+        value = $(this).closest('tr').find('.sonotha').val()
+        if(!isNaN(value) && value.length != 0)
+          _sonotha_sum += parseFloat(value)
+    )
+
+    koutsuhi_sum -= _koutsuhi_sum
+    nittou_sum -= _nittou_sum
+    shukuhaku_sum -= _shukuhaku_sum
+    sonotha_sum -= _sonotha_sum
+
+    $('#keihihead_交通費合計').val(koutsuhi_sum)
+    $('#keihihead_日当合計').val(nittou_sum)
+    $('#keihihead_宿泊費合計').val(shukuhaku_sum)
+    $('#keihihead_その他合計').val(sonotha_sum)
+    $('#keihihead_旅費合計').val(koutsuhi_sum + nittou_sum + shukuhaku_sum)
+    $('#keihihead_合計').val(koutsuhi_sum + nittou_sum + shukuhaku_sum + sonotha_sum)
+    $('#keihihead_過不足').val(koutsuhi_sum + nittou_sum + shukuhaku_sum + sonotha_sum - hansikin - shikyuhin)
+
+    shinsheino = $('#keihihead_申請番号').val()
+    $('.shinsheino').val(shinsheino)
+
+
   $(document).on 'click', '.delete-all', (event) ->
     $('.check-remove').each () ->
       $(this).val('1')
       $(this).closest('tr').hide()
       
-      $('#keihihead_交通費合計').val(0);
-      $('#keihihead_日当合計').val(0);
-      $('#keihihead_宿泊費合計').val(0);
-      $('#keihihead_その他合計').val(0);
-      $('#keihihead_旅費合計').val(0);
-      $('#keihihead_合計').val(0);
-      $('#keihihead_過不足').val(0);
-      $('#keihihead_仮払金').val(0);
+      $('#keihihead_交通費合計').val(0)
+      $('#keihihead_日当合計').val(0)
+      $('#keihihead_宿泊費合計').val(0)
+      $('#keihihead_その他合計').val(0)
+      $('#keihihead_旅費合計').val(0)
+      $('#keihihead_合計').val(0)
+      $('#keihihead_過不足').val(0)
+      $('#keihihead_仮払金').val(0)
     event.preventDefault()
 
   $(document).on 'click', '.remove_fields', (event) ->
@@ -210,7 +296,38 @@ jQuery ->
     })
     event.preventDefault()
 
-  $("form").on("keypress",  (e) ->
-    if (e.keyCode == 13)
-      false
+  $('.keihihead-table').DataTable({
+    "pagingType": "simple_numbers"
+    ,"oLanguage":{
+      "sUrl": "../../assets/resource/dataTable_ja.txt"
+    }
+    ,"aoColumnDefs": [
+      { "bSortable": false, "aTargets": [ 7,8 ]},
+      {
+        "targets": [7,8],
+        "width": '5%'
+      }
+    ],
+    "columnDefs": [ {
+      "targets"  : 'no-sort',
+      "orderable": false
+    }]
+  })
+
+  $('.input-group').datetimepicker({
+    format: 'YYYY/MM/DD',
+    widgetPositioning: {
+      horizontal: 'left',
+      vertical: 'bottom'
+    }
+    showTodayButton: true,
+    showClear: true,
+#    //,daysOfWeekDisabled:[0,6]
+    calendarWeeks: true,
+    keyBinds: false,
+    focusOnShow: false
+  })
+
+  $('#summary').click( () ->
+    alert('now')
   )

@@ -6,9 +6,13 @@ class KintaisController < ApplicationController
   include UsersHelper
 
   def index
-    date_param = Date.today
-    date_param = params[:search] if params[:search]
-    date = date_param.to_date
+    @date_param = Date.today
+    @date_param = params[:search] if params[:search].present?
+
+    # @date_param = params[:search]
+    # @date_param = Date.today.to_date unless date_param.present?
+
+    date = @date_param.to_date
     session[:selected_kintai_date] = date
     check_kintai_at_day(date)
 

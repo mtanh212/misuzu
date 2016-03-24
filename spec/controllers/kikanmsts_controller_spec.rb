@@ -39,7 +39,7 @@ RSpec.describe KikanmstsController, type: :controller do
   describe "GET #index" do
     it "assigns all kikanmsts as @kikanmsts" do
       kikanmst = Kikanmst.create! valid_attributes
-      get :index, {}, valid_session
+      get :index_old, {}, valid_session
       expect(assigns(:kikanmsts)).to eq([kikanmst])
     end
   end

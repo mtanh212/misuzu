@@ -39,7 +39,7 @@ RSpec.describe KaishamastersController, type: :controller do
   describe "GET #index" do
     it "assigns all kaishamasters as @kaishamasters" do
       kaishamaster = Kaishamaster.create! valid_attributes
-      get :index, {}, valid_session
+      get :index_old, {}, valid_session
       expect(assigns(:kaishamasters)).to eq([kaishamaster])
     end
   end

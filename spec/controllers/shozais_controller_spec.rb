@@ -39,7 +39,7 @@ RSpec.describe ShozaisController, type: :controller do
   describe "GET #index" do
     it "assigns all shozais as @shozais" do
       shozai = Shozai.create! valid_attributes
-      get :index, {}, valid_session
+      get :index_old, {}, valid_session
       expect(assigns(:shozais)).to eq([shozai])
     end
   end

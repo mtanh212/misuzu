@@ -138,7 +138,8 @@ jQuery ->
 #    fill_time()
 
   $('#kintai_勤務タイプ').on('change',() ->
-    fill_time()
+    fill_time2()
+  )
 
   fill_time = () ->
 #    selected_val = $(this).val()
@@ -210,7 +211,51 @@ jQuery ->
     $('#kintai_実労働時間').val(real_time)
     $('#kintai_普通残業時間').val(0)
 
-  )
+  fill_time2 = () ->
+    selected_val = $('#kintai_勤務タイプ').val()
+    start_time = moment().format('YYYY/MM/DD')
+    end_time = moment().format('YYYY/MM/DD')
+    real_time = 8
+    switch (selected_val)
+      when '001'
+        start_time += ' 07:00'
+        end_time += ' 16:00'
+      when '002'
+        start_time += ' 07:30'
+        end_time += ' 16:30'
+      when '003'
+        start_time += ' 08:00'
+        end_time += ' 17:00'
+      when '004'
+        start_time += ' 08:30'
+        end_time += ' 17:30'
+      when '005'
+        start_time += ' 09:00'
+        end_time += ' 18:00'
+      when '006'
+        start_time += ' 09:30'
+        end_time += ' 18:30'
+      when '007'
+        start_time += ' 10:00'
+        end_time += ' 19:00'
+      when '008'
+        start_time += ' 10:30'
+        end_time += ' 19:30'
+      when '009'
+        start_time += ' 11:00'
+        end_time += ' 20:00'
+      else
+        real_time = 0
+    $('#kintai_出勤時刻').val(start_time)
+    $('#kintai_退社時刻').val(end_time)
+
+    $('#kintai_遅刻時間').val(0)
+    $('#kintai_普通保守時間').val(0)
+    $('#kintai_深夜残業時間').val(0)
+    $('#kintai_深夜保守時間').val(0)
+    $('#kintai_実労働時間').val(real_time)
+    $('#kintai_普通残業時間').val(0)
+
 
   oDaikyuTable = $('.daikyutable').DataTable({
     "pagingType": "simple_numbers"
@@ -234,7 +279,7 @@ jQuery ->
       $(this).addClass('selected')
       $(this).addClass('success')
 
-  $('#time-cal').on 'click', (event) ->
+  $('#time-cal-old').on 'click', (event) ->
     time_type = $('#kintai_勤務タイプ').val()
 
     start_time_h = parseInt($('#kintai_出勤時刻_4i').val())
@@ -322,3 +367,84 @@ jQuery ->
     $('#kintai_深夜残業時間').val()
     $('#kintai_深夜保守時間').val()
 
+  $('#time-cal').on 'click', (event) ->
+    time_type = $('#kintai_勤務タイプ').val()
+
+    start_time = $('#kintai_出勤時刻').val()
+    end_time = $('#kintai_退社時刻').val()
+
+    diff = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time, 'YYYY/MM/DD HH:mm'), 'minutes')/60
+
+    real_time = diff
+    overtime = 0
+    if moment(start_time, 'HH:mm') < moment('12:00', 'HH:mm')  and moment(end_time, 'HH:mm') > moment('13:00', 'HH:mm')
+      real_time = diff - 1
+
+    if moment(start_time, 'HH:mm') < moment('12:00', 'HH:mm') and moment(end_time, 'HH:mm') > moment('19:00', 'HH:mm')
+      real_time = diff - 2
+      overtime = moment(end_time, 'HH:mm').diff(moment('19:00', 'HH:mm'), 'minutes')/60
+
+    if moment(start_time, 'HH:mm') > moment('13:00', 'HH:mm') and moment(end_time, 'HH:mm') > moment('19:00', 'HH:mm')
+      real_time = diff - 1
+      overtime = moment(end_time, 'HH:mm').diff(moment('19:00', 'HH:mm'), 'minutes')/60
+
+    $('#kintai_実労働時間').val(real_time)
+    $('#kintai_普通残業時間').val(overtime)
+
+    late_time = 0
+    exit_time = 0
+    switch (time_type)
+      when '001'
+        late_time = moment(start_time,'HH:mm').diff(moment('07:00','HH:mm'),'minutes')/60
+        exit_time = moment('16:00','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
+      when '002'
+        late_time = moment(start_time,'HH:mm').diff(moment('07:30','HH:mm'),'minutes')/60
+        exit_time = moment('16:30','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
+      when '003'
+        late_time = moment(start_time,'HH:mm').diff(moment('08:00','HH:mm'),'minutes')/60
+        exit_time = moment('17:00','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
+      when '004'
+        late_time = moment(start_time,'HH:mm').diff(moment('08:30','HH:mm'),'minutes')/60
+        exit_time = moment('17:30','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
+      when '005'
+        late_time = moment(start_time,'HH:mm').diff(moment('09:00','HH:mm'),'minutes')/60
+        exit_time = moment('18:00','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
+      when '006'
+        late_time = moment(start_time,'HH:mm').diff(moment('09:30','HH:mm'),'minutes')/60
+        exit_time = moment('18:30','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
+      when '007'
+        late_time = moment(start_time,'HH:mm').diff(moment('10:00','HH:mm'),'minutes')/60
+        exit_time = moment('19:00','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
+      when '008'
+        late_time = moment(start_time,'HH:mm').diff(moment('10:30','HH:mm'),'minutes')/60
+        exit_time = moment('19:30','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
+      when '009'
+        late_time = moment(start_time,'HH:mm').diff(moment('11:00','HH:mm'),'minutes')/60
+        exit_time = moment('20:00','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
+
+    sum_left_time = 0
+    if late_time >= 0
+      sum_left_time = late_time
+
+    if exit_time >= 0
+      sum_left_time += exit_time
+
+    $('#kintai_遅刻時間').val(sum_left_time)
+    if joutaikubun == '2'
+      $('#kintai_遅刻時間').val('0')
+    $('#kintai_普通保守時間').val()
+    $('#kintai_深夜残業時間').val()
+    $('#kintai_深夜保守時間').val()
+
+  $('.datetime').datetimepicker({
+    format: 'YYYY/MM/DD HH:mm',
+#    format: 'LT',
+    showTodayButton: true,
+    showClear: true,
+    sideBySide: true,
+#    calendarWeeks: true,
+    toolbarPlacement: 'top',
+    keyBinds: false,
+    focusOnShow: false
+#    defaultDate: '2016/03/14 09:00'
+  })

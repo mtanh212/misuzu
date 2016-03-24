@@ -39,7 +39,7 @@ RSpec.describe JobmastersController, type: :controller do
   describe "GET #index" do
     it "assigns all jobmasters as @jobmasters" do
       jobmaster = Jobmaster.create! valid_attributes
-      get :index, {}, valid_session
+      get :index_old, {}, valid_session
       expect(assigns(:jobmasters)).to eq([jobmaster])
     end
   end

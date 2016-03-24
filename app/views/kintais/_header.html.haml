@@ -4,7 +4,7 @@
     .form-group
       %label.sr-only date
       -#= f.text_field :日付, class: 'form-control date-search'
-      = text_field_tag :search, params[:search], placeholder: "Search Posts", class:'form-control date-search'
+      = text_field_tag :search, @date_param, class:'form-control date-search'
       = f.submit :勤怠検索, class: 'btn'
   .col-md-2
     %h4 勤務工数表

@@ -39,7 +39,7 @@ RSpec.describe EkisController, type: :controller do
   describe "GET #index" do
     it "assigns all ekis as @ekis" do
       eki = Eki.create! valid_attributes
-      get :index, {}, valid_session
+      get :index_old, {}, valid_session
       expect(assigns(:ekis)).to eq([eki])
     end
   end

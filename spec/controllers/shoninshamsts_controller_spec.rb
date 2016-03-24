@@ -39,7 +39,7 @@ RSpec.describe ShoninshamstsController, type: :controller do
   describe "GET #index" do
     it "assigns all shoninshamsts as @shoninshamsts" do
       shoninshamst = Shoninshamst.create! valid_attributes
-      get :index, {}, valid_session
+      get :index_old, {}, valid_session
       expect(assigns(:shoninshamsts)).to eq([shoninshamst])
     end
   end

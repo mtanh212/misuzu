@@ -39,7 +39,7 @@ RSpec.describe JptHolidayMstsController, type: :controller do
   describe "GET #index" do
     it "assigns all jpt_holiday_msts as @jpt_holiday_msts" do
       jpt_holiday_mst = JptHolidayMst.create! valid_attributes
-      get :index, {}, valid_session
+      get :index_old, {}, valid_session
       expect(assigns(:jpt_holiday_msts)).to eq([jpt_holiday_mst])
     end
   end

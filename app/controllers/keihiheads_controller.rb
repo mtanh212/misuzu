@@ -6,14 +6,14 @@ class KeihiheadsController < ApplicationController
   respond_to :js
 
   def index
-
+    @keihiheads = Keihihead.current_member(session[:user])
   end
 
   def show
   end
 
   def new
-    @keihi = Keihihead.new
+    @keihi = Keihihead.new(日付: Date.today)
     shinsheino = 1
     # shinsheino = Keihihead.maximum(:id) + 1 if Keihihead.exists?
     shinsheino = Keihihead.pluck(:id).map {|i| i.to_i}.max + 1
@@ -30,47 +30,53 @@ class KeihiheadsController < ApplicationController
   end
 
   def create
-    case params[:commit]
-      when '経費データ検索'
-        begin
-          @keihi = Keihihead.find keihi_params[:申請番号]
-          if @keihi.承認kubun == '1'
-            redirect_to keihihead_url(@keihi)
-          else
-            redirect_to edit_keihihead_url(@keihi)
-          end
-        rescue ActiveRecord::RecordNotFound
-          flash[:warning] = t "app.flash.record_not_found"
-          redirect_to :back
-          return
-        end
+    # case params[:commit]
+    #   when '経費データ検索'
+    #     begin
+    #       @keihi = Keihihead.find keihi_params[:申請番号]
+    #       if @keihi.承認kubun == '1'
+    #         redirect_to keihihead_url(@keihi)
+    #       else
+    #         redirect_to edit_keihihead_url(@keihi)
+    #       end
+    #     rescue ActiveRecord::RecordNotFound
+    #       flash[:warning] = t "app.flash.record_not_found"
+    #       redirect_to :back
+    #       return
+    #     end
+    #
+    #   when '登　録'
+    #     params[:keihihead][:日付] = Date.today if keihi_params[:日付].blank?
+    #     @keihi = Keihihead.new(keihi_params)
+    #     flash[:notice] = t 'app.flash.new_success' if @keihi.save
+    #     # respond_with(@keihi, location: keihis_url)
+    #     redirect_to new_keihihead_url
+    # end
 
-      when '登　録'
-        params[:keihihead][:日付] = Date.today if keihi_params[:日付].blank?
-        @keihi = Keihihead.new(keihi_params)
-        flash[:notice] = t 'app.flash.new_success' if @keihi.save
-        # respond_with(@keihi, location: keihis_url)
-        redirect_to new_keihihead_url
-    end
-
+    params[:keihihead][:日付] = Date.today if keihi_params[:日付].blank?
+    @keihi = Keihihead.new(keihi_params)
+    @keihi.id = Keihihead.pluck(:id).map {|i| i.to_i}.max + 1
+    @keihi.社員番号 = session[:user]
+    flash[:notice] = t 'app.flash.new_success' if @keihi.save
+    redirect_to keihiheads_url
   end
 
   def update
     case params[:commit]
-      when '登　録'
+      when '登録する'
         params[:keihihead][:日付] = Date.today if keihi_params[:日付].nil?
         flash[:notice] = t "app.flash.update_success" if @keihi.update(keihi_params)
         # respond_with(@keihi)
-        redirect_to new_keihihead_url
-      when '削　除'
+        redirect_to keihiheads_url
+      when '削除する'
         flash[:notice] = t "app.flash.delete_success" if @keihi.destroy
-        respond_with @keihi, location: new_keihihead_url
+        respond_with @keihi, location: keihiheads_url
     end
   end
 
   def destroy
     @keihi.destroy
-    respond_with(@keihi, location: new_keihihead_url)
+    respond_with(@keihi, location: keihiheads_url)
   end
 
   def ajax

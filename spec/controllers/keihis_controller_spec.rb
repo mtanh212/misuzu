@@ -39,7 +39,7 @@ RSpec.describe KeihisController, type: :controller do
   describe "GET #index" do
     it "assigns all keihis as @keihis" do
       keihi = Keihi.create! valid_attributes
-      get :index, {}, valid_session
+      get :index_old, {}, valid_session
       expect(assigns(:keihiheads)).to eq([keihi])
     end
   end

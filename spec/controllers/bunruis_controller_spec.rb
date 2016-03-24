@@ -39,7 +39,7 @@ RSpec.describe BunruisController, type: :controller do
   describe "GET #index" do
     it "assigns all bunruis as @bunruis" do
       bunrui = Bunrui.create! valid_attributes
-      get :index, {}, valid_session
+      get :index_old, {}, valid_session
       expect(assigns(:bunruis)).to eq([bunrui])
     end
   end
