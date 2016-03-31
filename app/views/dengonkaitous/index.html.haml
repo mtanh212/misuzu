@@ -1,0 +1,23 @@
+%h1 Listing dengonkaitous
+
+%table
+  %thead
+    %tr
+      %th First name
+      %th Last name
+      %th
+      %th
+      %th
+
+  %tbody
+    - @dengonkaitous.each do |dengonkaitou|
+      %tr
+        %td= dengonkaitou.first_name
+        %td= dengonkaitou.last_name
+        %td= link_to 'Show', dengonkaitou
+        %td= link_to 'Edit', edit_dengonkaitou_path(dengonkaitou)
+        %td= link_to 'Destroy', dengonkaitou, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Dengonkaitou', new_dengonkaitou_path

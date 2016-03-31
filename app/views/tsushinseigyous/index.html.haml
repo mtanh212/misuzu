@@ -1,0 +1,23 @@
+%h1 Listing tsushinseigyous
+
+%table
+  %thead
+    %tr
+      %th First name
+      %th Last name
+      %th
+      %th
+      %th
+
+  %tbody
+    - @tsushinseigyous.each do |tsushinseigyou|
+      %tr
+        %td= tsushinseigyou.first_name
+        %td= tsushinseigyou.last_name
+        %td= link_to 'Show', tsushinseigyou
+        %td= link_to 'Edit', edit_tsushinseigyou_path(tsushinseigyou)
+        %td= link_to 'Destroy', tsushinseigyou, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Tsushinseigyou', new_tsushinseigyou_path

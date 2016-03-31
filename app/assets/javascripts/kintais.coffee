@@ -367,69 +367,27 @@ jQuery ->
     $('#kintai_深夜残業時間').val()
     $('#kintai_深夜保守時間').val()
 
-  $('#time-cal').on 'click', (event) ->
-    time_type = $('#kintai_勤務タイプ').val()
+  kousu = []
+  countup = 0
+  until countup > 1000
+    kousu.push(countup)
+    countup += 0.5
 
+  $('#time-cal').on 'click', (event) ->
     start_time = $('#kintai_出勤時刻').val()
     end_time = $('#kintai_退社時刻').val()
 
-    diff = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time, 'YYYY/MM/DD HH:mm'), 'minutes')/60
+#    diff = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time, 'YYYY/MM/DD HH:mm'), 'minutes')/60
+    diff = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time, 'YYYY/MM/DD HH:mm'),'hours', true)
 
-    real_time = diff
-    overtime = 0
-    if moment(start_time, 'HH:mm') < moment('12:00', 'HH:mm')  and moment(end_time, 'HH:mm') > moment('13:00', 'HH:mm')
-      real_time = diff - 1
+    kyukei = $('#kyukei').val()
+    if(!isNaN(kyukei) && kyukei.length != 0) then diff -= parseFloat(kyukei)
 
-    if moment(start_time, 'HH:mm') < moment('12:00', 'HH:mm') and moment(end_time, 'HH:mm') > moment('19:00', 'HH:mm')
-      real_time = diff - 2
-      overtime = moment(end_time, 'HH:mm').diff(moment('19:00', 'HH:mm'), 'minutes')/60
+    for num in kousu
+      if num > diff && num > 0
+        $('#kintai_実労働時間').val(num - 0.5)
+        break
 
-    if moment(start_time, 'HH:mm') > moment('13:00', 'HH:mm') and moment(end_time, 'HH:mm') > moment('19:00', 'HH:mm')
-      real_time = diff - 1
-      overtime = moment(end_time, 'HH:mm').diff(moment('19:00', 'HH:mm'), 'minutes')/60
-
-    $('#kintai_実労働時間').val(real_time)
-    $('#kintai_普通残業時間').val(overtime)
-
-    late_time = 0
-    exit_time = 0
-    switch (time_type)
-      when '001'
-        late_time = moment(start_time,'HH:mm').diff(moment('07:00','HH:mm'),'minutes')/60
-        exit_time = moment('16:00','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
-      when '002'
-        late_time = moment(start_time,'HH:mm').diff(moment('07:30','HH:mm'),'minutes')/60
-        exit_time = moment('16:30','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
-      when '003'
-        late_time = moment(start_time,'HH:mm').diff(moment('08:00','HH:mm'),'minutes')/60
-        exit_time = moment('17:00','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
-      when '004'
-        late_time = moment(start_time,'HH:mm').diff(moment('08:30','HH:mm'),'minutes')/60
-        exit_time = moment('17:30','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
-      when '005'
-        late_time = moment(start_time,'HH:mm').diff(moment('09:00','HH:mm'),'minutes')/60
-        exit_time = moment('18:00','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
-      when '006'
-        late_time = moment(start_time,'HH:mm').diff(moment('09:30','HH:mm'),'minutes')/60
-        exit_time = moment('18:30','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
-      when '007'
-        late_time = moment(start_time,'HH:mm').diff(moment('10:00','HH:mm'),'minutes')/60
-        exit_time = moment('19:00','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
-      when '008'
-        late_time = moment(start_time,'HH:mm').diff(moment('10:30','HH:mm'),'minutes')/60
-        exit_time = moment('19:30','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
-      when '009'
-        late_time = moment(start_time,'HH:mm').diff(moment('11:00','HH:mm'),'minutes')/60
-        exit_time = moment('20:00','HH:mm').diff(moment(end_time,'HH:mm'),'minutes')/60
-
-    sum_left_time = 0
-    if late_time >= 0
-      sum_left_time = late_time
-
-    if exit_time >= 0
-      sum_left_time += exit_time
-
-    $('#kintai_遅刻時間').val(sum_left_time)
     if joutaikubun == '2'
       $('#kintai_遅刻時間').val('0')
     $('#kintai_普通保守時間').val()

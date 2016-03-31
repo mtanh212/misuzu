@@ -3,18 +3,23 @@
 <%= javascript_include_tag 'resource/ja' %>
 <%= stylesheet_link_tag 'events' %>
 
-<%= simple_form_for @shain, url: custom_events_path, method: :post do |f| %>
-    <div class="row">
-      <div class="col-md-12">
-        <ol class="breadcrumb">
-          <li><%= link_to 'メニュー', main_path %></li>
-          <!-- <li><a href="#">基準情報</a></li> -->
-          <!-- <li><a href="#">セキュリティ管理</a></li> -->
-          <li class="active">カレンダー</li>
-        </ol>
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%= link_to 'メニュー', main_path %></li>
+      <!-- <li><a href="#">基準情報</a></li> -->
+      <!-- <li><a href="#">セキュリティ管理</a></li> -->
+      <li class="active">カレンダー</li>
+      <div class="pull-right">
+        <button id="month-view-button" type="button" class="btn btn-sm">個人画面へ</button>
+        <button id="day-view-button" type="button" class="btn btn-sm">一覧画面へ</button>
       </div>
-    </div>
+    </ol>
+  </div>
+</div>
 
+<div id="month-view">
+<%= simple_form_for @shain, url: custom_events_path, method: :post do |f| %>
     <div class="row-fluid">
       <div class="pull-left">
         <!--<div class="btn-group" role="group" aria-label="...">-->
@@ -29,18 +34,18 @@
         <!--<div class="form-inline update-shozai">-->
           <!--<label>-->
             <!--現所在更新:-->
-            <!--<%# select(:shain,:所在コード, Shozai.all.collect {|s|[s.name, s.id]}, {}, {class: 'form-control', onchange: 'this.form.submit();'}) %>-->
+            <%# select(:shain,:所在コード, Shozai.all.collect {|s|[s.name, s.id]}, {}, {class: 'form-control', onchange: 'this.form.submit();'}) %>
           <!--</label>-->
         <!--</div>-->
       <!--</div>-->
 
-      <!--<div class="pull-right">-->
-        <!--<div class="form-inline">-->
-          <!--<%# f.input :所在コード, label:'所在' do %>-->
-              <!--<%# f.select :所在コード, Shozai.all.map { |s| [s.name, s.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control'} %>-->
-          <!--<%# end %>-->
-        <!--</div>-->
-      <!--</div>-->
+      <div class="pull-right">
+        <div class="form-inline">
+          <%= f.input :所在コード, label:'所在' do %>
+              <%= f.select :所在コード, Shozai.all.map { |s| [s.name, s.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control'} %>
+          <% end %>
+        </div>
+      </div>
 
     </div>
 
@@ -154,19 +159,19 @@
       <div class="col-md-1">
         <button id="goto-date-button" class="btn btn-default" type="button">Go!</button>
       </div>
-      <div class="col-md-4" align="right">
-        <div class="btn-group" role="group" aria-label="...">
-          <button id="month-view" type="button" class="btn btn-default">個人画面へ</button>
-          <button id="day-view" type="button" class="btn btn-default">一覧画面へ</button>
-        </div>
-      </div>
+      <!--<div class="col-md-4" align="right">-->
+        <!--<div class="btn-group" role="group" aria-label="...">-->
+          <!--<button id="month-view" type="button" class="btn btn-default">個人画面へ</button>-->
+          <!--<button id="day-view" type="button" class="btn btn-default">一覧画面へ</button>-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
 
     <div class="spacer"></div>
     <div class="row">
       <div class="col-md-12">
         <div id="calendar-month-view"></div>
-        <div id="calendar-timeline"></div>
+        <!--<div id="calendar-timeline"></div>-->
       </div>
     </div>
 
@@ -174,3 +179,10 @@
     <input type="hidden" name="selected_user" id="selected_user"/>
     <input type="hidden" name="selected_user_name" id="selected_user_name"/>
 <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div id="calendar-timeline"></div>
+  </div>
+</div>

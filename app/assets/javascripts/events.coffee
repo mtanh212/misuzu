@@ -5,19 +5,14 @@ jQuery ->
     kousu.push(countup)
     countup += 0.25
 
-  $('.kousu-keisan').click (event) ->
+  $('#koushuu').click (event) ->
     start_time = $('#event_開始').val()
     end_time = $('#event_終了').val()
     diff = moment(end_time,'YYYY/MM/DD HH:mm').diff(moment(start_time,'YYYY/MM/DD HH:mm'),'hours', true)
-#    check refresh time
-#    if diff > 4 && diff < 5
-#      diff = 4
-#    if diff >= 5 && diff <= 9
-#      diff -= 1
-#    if diff > 9 && diff < 10
-#      diff = 8
-#    if diff >= 10
-#      diff -= 2
+
+    kyukei = $('#kyukei').val()
+    if(!isNaN(kyukei) && kyukei.length != 0) then diff -= parseFloat(kyukei)
+
     for num in kousu
       if num > diff && num > 0
         $('#event_工数').val(num-0.25)
@@ -146,4 +141,3 @@ jQuery ->
       $('#event_場所コード').val(basho_code)
       $('.hint-basho-refer').text($('#bashomaster_場所名').val())
   )
-

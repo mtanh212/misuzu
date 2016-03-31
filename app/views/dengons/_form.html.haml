@@ -1,0 +1,16 @@
+= simple_form_for(@dengon) do |f|
+  = f.error_notification
+  .col-md-3.col-md-offset-2
+    = f.input :from1
+    = f.input :from2
+    = f.input :日付, as: :date_time_picker
+    = f.association :input_user, label_method: :氏名, value_method: :社員番号, label:'入力者'
+    = f.association :to_user, label_method: :氏名, value_method: :社員番号, label:'To'
+    = f.association :dengonyouken, label_method: :種類名, value_method: :id, label:'用件'
+    = f.association :dengonkaitou, label_method: :種類名, value_method: :id, label:'回答'
+    = f.input :伝言内容, as: :text
+  .col-md-2.col-md-offset-1
+    = f.input :確認
+    = f.input :送信
+
+    = f.button :submit

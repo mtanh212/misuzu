@@ -308,6 +308,7 @@ jQuery ->
         "width": '5%'
       }
     ],
+    "order": [],
     "columnDefs": [ {
       "targets"  : 'no-sort',
       "orderable": false

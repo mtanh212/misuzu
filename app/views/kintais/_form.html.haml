@@ -1,6 +1,6 @@
 = simple_form_for @kintai do |f|
   .row
-    .col-sm-2.col-sm-offset-2
+    .col-md-3.col-sm-offset-1
       = f.input :勤務タイプ, collection: Kintai::KINMU_TYPE
       = f.input :出勤時刻, as: :date_time_picker
       -#= f.input :出勤時刻, as: :string, wrapper: :vertical_custom_input_group do
@@ -14,8 +14,9 @@
       -#  %span.input-group-btn
       -#    %button.btn.btn-default.end-time
       -#      %span.glyphicon.glyphicon-hand-right
+      = text_field_tag :kyukei, '', placeholder: '休憩時間', style: 'width: 100px'
       = f.button :button, type: :button, id: 'time-cal'  do
-        勤務時間再計算
+        実労働時間再計算
         %span.glyphicon.glyphicon-hand-right
       - display = ['0：なし', '1：保守携帯']
       = f.input :保守携帯回数, label: '保守携帯' ,collection: (0..1).map {|i| [display[i],i]}

@@ -135,15 +135,15 @@ $(function(){
                         el.css('background-color', '#adadad');
                     }
                 },
-                //{
-                //    labelText: '状態',
-                //    field: 'joutai',
-                //    width: 50,
-                //    render: function(resources, el) {
-                //            el.css('background-color', resources.background_color);
-                //            el.css('color', resources.text_color);
-                //    }
-                //},
+                {
+                    labelText: '状態',
+                    field: 'joutai',
+                    width: 50,
+                    render: function(resources, el) {
+                            el.css('background-color', resources.background_color);
+                            el.css('color', resources.text_color);
+                    }
+                },
                 {
                     labelText: '伝言',
                     field: 'dengon',
@@ -329,16 +329,22 @@ $(function(){
     //});
     
     //month day switch view
-    $('#month-view').click(function(){
+    $('#month-view-button').click(function(){
         $('#calendar-timeline').hide();
-        $('#calendar-month-view').show();
+        $('#month-view').show();
+
         $('#calendar-month-view').fullCalendar('render');
+        //$('#calendar-timeline').hide();
+        //$('#calendar-month-view').show();
+        //$('#calendar-month-view').fullCalendar('render');
 
     });
     
-    $('#day-view').click(function(){
-        $('#calendar-month-view').hide();
+    $('#day-view-button').click(function(){
+        $('#month-view').hide();
         $('#calendar-timeline').show();
+        //$('#calendar-month-view').hide();
+        //$('#calendar-timeline').show();
     });
 
 });
@@ -726,7 +732,10 @@ $(function(){
 
 $(function(){
     //calendar hide show
-    $('#calendar-month-view').hide();
+    //$('#calendar-month-view').show();
+    //$('#calendar-timeline').hide();
+
+    $('#month-view').hide();
     $('#calendar-timeline').show();
 });
 

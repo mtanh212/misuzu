@@ -1,0 +1,23 @@
+%h1 Listing dengonyoukens
+
+%table
+  %thead
+    %tr
+      %th First name
+      %th Last name
+      %th
+      %th
+      %th
+
+  %tbody
+    - @dengonyoukens.each do |dengonyouken|
+      %tr
+        %td= dengonyouken.first_name
+        %td= dengonyouken.last_name
+        %td= link_to 'Show', dengonyouken
+        %td= link_to 'Edit', edit_dengonyouken_path(dengonyouken)
+        %td= link_to 'Destroy', dengonyouken, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Dengonyouken', new_dengonyouken_path

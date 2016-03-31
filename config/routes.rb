@@ -1,4 +1,8 @@
 Jpt::Application.routes.draw do
+  resources :tsushinseigyous
+  resources :dengonyoukens
+  resources :dengonkaitous
+  resources :dengons
   root to: 'users#login'
 
   resources :bashokubunmsts

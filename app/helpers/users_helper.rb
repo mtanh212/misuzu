@@ -1,9 +1,15 @@
 module UsersHelper
   def check_shozai
+    Temp.find_or_create_by(id: 1)
     temp = Temp.find_by(date: Date.today.to_s(:db), checked: true)
     if temp.nil?
       Temp.find(1).update(date: Date.today.to_s(:db), checked: true)
       Shainmaster.update_all 所在コード: 0
+    end
+  #   Check event that absance that day
+    events = Event.where("Date(開始) = ? AND 状態コード = ?", Date.today.to_s(:db),'30')
+    events.each do |event|
+      event.shainmaster.update 所在コード: 600
     end
   end
 

@@ -1,0 +1,50 @@
+= javascript_include_tag 'dengons'
+
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 伝言一覧
+
+.row
+  .col-md-5.col-md-offset-4
+    %h2
+      = "#{Time.now.strftime('%F %H:%M %A')}"
+%br
+= render 'header'
+%br
+
+%table.dengon.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
+  %thead
+    %tr
+      %th From1
+      %th From2
+      %th 日付
+      %th 入力者
+      %th To
+      %th 用件
+      %th 回答
+      %th 伝言内容
+      %th 確認
+      %th 送信
+      %th
+      %th
+
+  %tbody
+    - @dengons.each do |dengon|
+      %tr
+        %td= dengon.from1
+        %td= dengon.from2
+        %td= dengon.日付.strftime("%F %H:%M")
+        %td= dengon.input_user_氏名
+        %td= dengon.to_user_氏名
+        %td= dengon.youken_種類名
+        %td= dengon.kaitou_種類名
+        %td.breakAll= dengon.伝言内容
+        -#%td{'word-wrap' => 'break-word'}= dengon.伝言内容
+        %td= dengon.確認
+        %td= dengon.送信
+        %td= link_to '編集', edit_dengon_path(dengon)
+        %td= link_to '削除', dengon, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to '新規', new_dengon_path

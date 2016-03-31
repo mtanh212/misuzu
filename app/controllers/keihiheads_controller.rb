@@ -6,7 +6,7 @@ class KeihiheadsController < ApplicationController
   respond_to :js
 
   def index
-    @keihiheads = Keihihead.current_member(session[:user])
+    @keihiheads = Keihihead.current_member(session[:user]).order(申請番号: :desc)
   end
 
   def show
@@ -16,7 +16,7 @@ class KeihiheadsController < ApplicationController
     @keihi = Keihihead.new(日付: Date.today)
     shinsheino = 1
     # shinsheino = Keihihead.maximum(:id) + 1 if Keihihead.exists?
-    shinsheino = Keihihead.pluck(:id).map {|i| i.to_i}.max + 1
+    shinsheino = Keihihead.pluck(:id).map {|i| i.to_i}.max + 1 if Keihihead.exists?
 
     # shinsheino = Keihihead.order(id: :desc).first.id.to_i + 1 if Keihihead.exists?
     @keihi.id = shinsheino.to_s
@@ -55,7 +55,8 @@ class KeihiheadsController < ApplicationController
 
     params[:keihihead][:日付] = Date.today if keihi_params[:日付].blank?
     @keihi = Keihihead.new(keihi_params)
-    @keihi.id = Keihihead.pluck(:id).map {|i| i.to_i}.max + 1
+    @keihi.id = 1
+    @keihi.id = Keihihead.pluck(:id).map {|i| i.to_i}.max + 1 if Keihihead.exists?
     @keihi.社員番号 = session[:user]
     flash[:notice] = t 'app.flash.new_success' if @keihi.save
     redirect_to keihiheads_url

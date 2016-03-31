@@ -52,7 +52,7 @@ json.shains @shains do |shain|
   # event = shain.events.where("開始 < ? AND 終了 > ?",Time.current, Time.current).first
   joutai = ''
   # joutai = event.shozai.try(:name) if event
-  # joutai = shain.shozai.try :name if shain.shozai
+  joutai = shain.shozai_所在名
   # joutai = event.joutai_状態名 if event
   json.joutai joutai
   

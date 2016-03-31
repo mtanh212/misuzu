@@ -16,6 +16,8 @@ class Shainmaster < ActiveRecord::Base
   alias_attribute :title, :氏名
   alias_attribute :id, :社員番号
 
+  delegate :所在名, to: :shozai, prefix: :shozai, allow_nil: true
+
   def events
     super || build_events
   end

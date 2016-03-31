@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323080232) do
+ActiveRecord::Schema.define(version: 20160329032120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,35 @@ ActiveRecord::Schema.define(version: 20160323080232) do
   end
 
   add_index "会社マスタ", ["会社コード"], name: "index_会社マスタ_on_会社コード", unique: true, using: :btree
+
+  create_table "伝言", force: :cascade do |t|
+    t.string   "from1"
+    t.string   "from2"
+    t.datetime "日付"
+    t.string   "入力者"
+    t.string   "to"
+    t.string   "用件"
+    t.string   "回答"
+    t.string   "伝言内容"
+    t.boolean  "確認"
+    t.boolean  "送信"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "伝言回答マスタ", force: :cascade do |t|
+    t.string   "種類名"
+    t.string   "備考"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "伝言用件マスタ", force: :cascade do |t|
+    t.string   "種類名"
+    t.string   "備考"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "分類マスタ", id: false, force: :cascade do |t|
     t.string   "分類コード",      null: false
@@ -284,6 +313,14 @@ ActiveRecord::Schema.define(version: 20160323080232) do
   end
 
   add_index "社員マスタ", ["社員番号"], name: "index_社員マスタ_on_社員番号", unique: true, using: :btree
+
+  create_table "通信制御マスタ", force: :cascade do |t|
+    t.string   "社員番号"
+    t.string   "メール"
+    t.string   "送信許可区分"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "駅マスタ", id: false, force: :cascade do |t|
     t.string   "駅コード",       null: false
