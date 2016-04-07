@@ -53,6 +53,8 @@ module Jpt
     # Enable the asset pipeline
     config.assets.enabled = true
     config.assets.paths << "#{Rails.root}/app/assets"
+    config.assets.paths << "#{Rails.root}/public/assets"
+    config.assets.paths << "#{Rails.root}/public/images"
     config.assets.paths << "#{Rails.root}/vendor/assets"
     # config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
     # config.assets.precompile << /(^[^_\/]|\/[^_])[^\/]*$/

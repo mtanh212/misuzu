@@ -87,4 +87,7 @@ Jpt::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  Paperclip::Attachment.default_options[:path] = "#{Rails.root}/public/assets/system/:class/avatars/:id_partition/:style/:filename"
+
 end

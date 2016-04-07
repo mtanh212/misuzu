@@ -10,9 +10,13 @@ class Kintai < ActiveRecord::Base
   validate :check_date_input
 
   def check_date_input
-    if 出勤時刻.present? && 退社時刻.present? && 出勤時刻 > 退社時刻
-      errors.add(:退社時刻, "は出勤時刻以上の値にしてください。")
+    if 出勤時刻.present? && 退社時刻.present?
+      if 出勤時刻 > 退社時刻
+        errors.add(:退社時刻, "は出勤時刻以上の値にしてください。")
+      end
+      if ((退社時刻 - 出勤時刻)/1.hour).to_i > 22
+        errors.add(:退社時刻, "は22時間より小さい値にしてください。")
+      end
     end
   end
-
 end

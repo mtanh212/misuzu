@@ -7,7 +7,12 @@
         - user = User.find session[:user]
         - if !user.nil?
           %li.navbar-text パスワード更新日：#{user.updated_at.to_date}
-          %li= image_tag user.avatar.url(:thumb)
+          - image_path_origin = user.avatar.url(:thumb)
+          - if image_path_origin.present?
+            - image_path_length = image_path_origin.length
+            - image_path = image_path_origin[1,image_path_length-1]
+            %li= image_tag image_path
+          -#%li= image_tag user.avatar.url(:thumb)
           %li= link_to user.try(:担当者名称).to_s, edit_user_path(user)
           %li.dropdown
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false"}

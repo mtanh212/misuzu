@@ -10,8 +10,8 @@ jQuery ->
     end_time = $('#event_終了').val()
     diff = moment(end_time,'YYYY/MM/DD HH:mm').diff(moment(start_time,'YYYY/MM/DD HH:mm'),'hours', true)
 
-    kyukei = $('#kyukei').val()
-    if(!isNaN(kyukei) && kyukei.length != 0) then diff -= parseFloat(kyukei)
+#    kyukei = $('#kyukei').val()
+#    if(!isNaN(kyukei) && kyukei.length != 0) then diff -= parseFloat(kyukei)
 
     for num in kousu
       if num > diff && num > 0
