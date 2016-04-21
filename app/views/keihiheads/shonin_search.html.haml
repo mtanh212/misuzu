@@ -3,7 +3,7 @@
 
 %ol.breadcrumb
   %li= link_to 'メニュー', main_path
-  %li.active 経費承認
+  %li.active 経費承認一覧
 
 -#= form_tag shoninzumi_keihiheads_path, class:'form-inline' do |f|
 = simple_form_for :keihi_shonin, url: shonin_search_keihiheads_path, html: {class:'form-inline'}, method: :get do |f|
@@ -30,7 +30,7 @@
       - @keihi_shonins.each do |shonin|
         %tr
           %td= shonin.清算予定日
-          %td= shonin.社員番号
+          %td= shonin.shainmaster_氏名
           %td= shonin.申請番号
           %td= shonin.交通費合計
           %td= shonin.日当合計

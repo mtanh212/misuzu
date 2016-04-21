@@ -7,7 +7,9 @@
         %ul.list-group
           %li.list-group-item= link_to 'カレンダー', events_path
           %li.list-group-item= link_to '経費承認', shonin_search_keihiheads_path
-          -#%li.list-group-item= link_to '伝言', dengons_path
+          %li.list-group-item= link_to '伝言', dengons_path
+          %li.list-group-item= link_to '勤怠', kintais_path
+          %li.list-group-item= link_to '経費', keihiheads_url
 
 .panel.panel-default
   .panel-heading
@@ -35,3 +37,8 @@
           %li.list-group-item= link_to '承認者マスタ', shoninshamsts_path
           %li.list-group-item= link_to '分類マスタ', bunruis_path
           %li.list-group-item= link_to '場所区分マスタ', bashokubunmsts_path
+      .col-md-3
+        %ul.list-group
+          %li.list-group-item= link_to '伝言回答マスタ', ''
+          %li.list-group-item= link_to '伝言用件マスタ', ''
+          %li.list-group-item= link_to '通信制御マスタ', ''
