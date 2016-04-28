@@ -4,9 +4,10 @@ class User < ActiveRecord::Base
 
 
   # validates :email, confirmation: true
-  validates :担当者コード, :担当者名称, :パスワード, presence: true
+  validates :担当者コード, :担当者名称, :パスワード, :再パスワード , presence: true
   validates :担当者コード, uniqueness: true
   validate :check_taken, on: :create
+  validate :check_taken_update, on: :update
 
   # validates :email_confirmation, presence: true
   
@@ -26,6 +27,16 @@ class User < ActiveRecord::Base
 
     if !担当者コード.in?(Shainmaster.pluck(:連携用社員番号))
       errors.add(:担当者コード, 'は不正な値です。')
+    end
+
+    if パスワード != 再パスワード
+      errors.add(:再パスワード, 'は不正な値です。')
+    end
+  end
+
+  def check_taken_update
+    if パスワード != 再パスワード
+      errors.add(:再パスワード, 'は不正な値です。')
     end
   end
 end

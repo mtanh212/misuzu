@@ -5,6 +5,14 @@ class DengonsController < ApplicationController
 
   def index
     @dengons = Dengon.all
+    @shain_param = params[:head][:shainbango] if params[:head].present?
+    @yoken = params[:head][:youken] if params[:head].present?
+    @kaitou = params[:head][:kaitou] if params[:head].present?
+
+    @dengons = @dengons.where(社員番号: @shain_param) if @shain_param.present?
+    @dengons = @dengons.where(用件: @yoken) if @yoken.present?
+    @dengons = @dengons.where(回答: @kaitou) if @kaitou.present?
+
     respond_with(@dengons)
   end
 
@@ -45,6 +53,6 @@ class DengonsController < ApplicationController
     end
 
     def dengon_params
-      params.require(:dengon).permit(:from1, :from2, :日付, :入力者, :to, :用件, :回答, :伝言内容, :確認, :送信)
+      params.require(:dengon).permit(:from1, :from2, :日付, :入力者, :社員番号, :用件, :回答, :伝言内容, :確認, :送信)
     end
 end

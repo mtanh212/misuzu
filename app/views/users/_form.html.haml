@@ -3,6 +3,7 @@
     = f.input :担当者コード
     = f.input :担当者名称
     = f.input :パスワード, as: :password
+    = f.input :再パスワード, as: :password
     = f.input :avatar, as: :file
     = f.input :email, as: :email
     - if session[:user] == ENV['admin_user']

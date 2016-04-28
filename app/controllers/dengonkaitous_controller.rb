@@ -23,12 +23,12 @@ class DengonkaitousController < ApplicationController
   def create
     @dengonkaitou = Dengonkaitou.new(dengonkaitou_params)
     @dengonkaitou.save
-    respond_with(@dengonkaitou)
+    respond_with(@dengonkaitou, location: dengonkaitous_url)
   end
 
   def update
     @dengonkaitou.update(dengonkaitou_params)
-    respond_with(@dengonkaitou)
+    respond_with(@dengonkaitou, location: dengonkaitous_url)
   end
 
   def destroy
@@ -42,6 +42,6 @@ class DengonkaitousController < ApplicationController
     end
 
     def dengonkaitou_params
-      params.require(:dengonkaitou).permit(:first_name, :last_name)
+      params.require(:dengonkaitou).permit(:種類名, :備考)
     end
 end

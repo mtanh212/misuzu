@@ -1,7 +1,6 @@
-%h1 Editing dengonyouken
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '伝言用件マスタ', dengonyoukens_path
+  %li.active 編集
 
-= render 'form'
-
-= link_to 'Show', @dengonyouken
-\|
-= link_to 'Back', dengonyoukens_path
+= render 'form', mode: :edit

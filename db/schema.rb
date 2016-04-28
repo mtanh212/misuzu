@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329032120) do
+ActiveRecord::Schema.define(version: 20160423133520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,7 +150,6 @@ ActiveRecord::Schema.define(version: 20160329032120) do
     t.string   "from2"
     t.datetime "日付"
     t.string   "入力者"
-    t.string   "to"
     t.string   "用件"
     t.string   "回答"
     t.string   "伝言内容"
@@ -158,6 +157,7 @@ ActiveRecord::Schema.define(version: 20160329032120) do
     t.boolean  "送信"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "社員番号"
   end
 
   create_table "伝言回答マスタ", force: :cascade do |t|
@@ -264,6 +264,7 @@ ActiveRecord::Schema.define(version: 20160329032120) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "email"
+    t.string   "再パスワード"
   end
 
   add_index "担当者マスタ", ["担当者コード"], name: "index_担当者マスタ_on_担当者コード", unique: true, using: :btree

@@ -2,7 +2,7 @@ class Dengon < ActiveRecord::Base
   self.table_name = :伝言
 
   belongs_to :input_user, foreign_key: :入力者, class_name: 'Shainmaster'
-  belongs_to :to_user, foreign_key: :to, class_name: 'Shainmaster'
+  belongs_to :to_user, foreign_key: :社員番号, class_name: 'Shainmaster'
   belongs_to :dengonyouken, foreign_key: :用件, class_name: 'Dengonyouken'
   belongs_to :dengonkaitou, foreign_key: :回答, class_name: 'Dengonkaitou'
 

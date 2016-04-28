@@ -1,23 +1,27 @@
-%h1 Listing tsushinseigyous
+= javascript_include_tag 'tsushinseigyous'
 
-%table
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 通信制御マスタ
+
+%table.tsushinseigyotable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
   %thead
     %tr
-      %th First name
-      %th Last name
-      %th
+      %th 社員番号
+      %th メール
+      %th 送信許可区分
       %th
       %th
 
   %tbody
     - @tsushinseigyous.each do |tsushinseigyou|
       %tr
-        %td= tsushinseigyou.first_name
-        %td= tsushinseigyou.last_name
-        %td= link_to 'Show', tsushinseigyou
-        %td= link_to 'Edit', edit_tsushinseigyou_path(tsushinseigyou)
-        %td= link_to 'Destroy', tsushinseigyou, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= tsushinseigyou.shain_氏名
+        %td= tsushinseigyou.メール
+        %td= tsushinseigyou.送信許可区分
+        %td= link_to '編集', edit_tsushinseigyou_path(tsushinseigyou)
+        %td= link_to '削除', tsushinseigyou, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
 
 %br
 
-= link_to 'New Tsushinseigyou', new_tsushinseigyou_path
+= link_to '新規', new_tsushinseigyou_path

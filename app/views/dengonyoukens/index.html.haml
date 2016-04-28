@@ -1,23 +1,25 @@
-%h1 Listing dengonyoukens
+= javascript_include_tag 'dengonyoukens'
 
-%table
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 伝言用件マスタ
+
+%table.dengonyoukentable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
   %thead
     %tr
-      %th First name
-      %th Last name
-      %th
+      %th 種類名
+      %th 備考
       %th
       %th
 
   %tbody
     - @dengonyoukens.each do |dengonyouken|
       %tr
-        %td= dengonyouken.first_name
-        %td= dengonyouken.last_name
-        %td= link_to 'Show', dengonyouken
-        %td= link_to 'Edit', edit_dengonyouken_path(dengonyouken)
-        %td= link_to 'Destroy', dengonyouken, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= dengonyouken.種類名
+        %td= dengonyouken.備考
+        %td= link_to '編集', edit_dengonyouken_path(dengonyouken)
+        %td= link_to '削除', dengonyouken, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
 
 %br
 
-= link_to 'New Dengonyouken', new_dengonyouken_path
+= link_to '新規', new_dengonyouken_path

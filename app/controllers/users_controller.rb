@@ -136,10 +136,10 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:担当者コード, :担当者名称, :パスワード, :avatar, :admin, :有給残数, :email)
+    params.require(:user).permit(:担当者コード, :担当者名称, :パスワード, :再パスワード, :avatar, :admin, :有給残数, :email)
   end
 
   def user_params_for_update
-    params.require(:user).permit(:担当者名称, :パスワード, :avatar, :admin, :有給残数, :email)
+    params.require(:user).permit(:担当者名称, :パスワード, :再パスワード, :avatar, :admin, :有給残数, :email)
   end
 end

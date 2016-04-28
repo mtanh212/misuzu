@@ -23,12 +23,12 @@ class TsushinseigyousController < ApplicationController
   def create
     @tsushinseigyou = Tsushinseigyou.new(tsushinseigyou_params)
     @tsushinseigyou.save
-    respond_with(@tsushinseigyou)
+    respond_with(@tsushinseigyou, location: tsushinseigyous_url)
   end
 
   def update
     @tsushinseigyou.update(tsushinseigyou_params)
-    respond_with(@tsushinseigyou)
+    respond_with(@tsushinseigyou, location: tsushinseigyous_url)
   end
 
   def destroy
@@ -42,6 +42,6 @@ class TsushinseigyousController < ApplicationController
     end
 
     def tsushinseigyou_params
-      params.require(:tsushinseigyou).permit(:first_name, :last_name)
+      params.require(:tsushinseigyou).permit(:社員番号, :メール, :通信許可区分)
     end
 end

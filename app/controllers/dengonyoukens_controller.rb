@@ -23,12 +23,12 @@ class DengonyoukensController < ApplicationController
   def create
     @dengonyouken = Dengonyouken.new(dengonyouken_params)
     @dengonyouken.save
-    respond_with(@dengonyouken)
+    respond_with(@dengonyouken, location: dengonyoukens_url)
   end
 
   def update
     @dengonyouken.update(dengonyouken_params)
-    respond_with(@dengonyouken)
+    respond_with(@dengonyouken, location: dengonyoukens_url)
   end
 
   def destroy
@@ -42,6 +42,6 @@ class DengonyoukensController < ApplicationController
     end
 
     def dengonyouken_params
-      params.require(:dengonyouken).permit(:first_name, :last_name)
+      params.require(:dengonyouken).permit(:種類名, :備考)
     end
 end
