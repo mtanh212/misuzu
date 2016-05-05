@@ -2,6 +2,7 @@ class DengonsController < ApplicationController
   before_action :set_dengon, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
+  include DengonsHelper
 
   def index
     @dengons = Dengon.all
@@ -33,12 +34,14 @@ class DengonsController < ApplicationController
     @dengon = Dengon.new(dengon_params)
     @dengon.save
     # respond_with(@dengon)
+    update_dengon_counter()
     redirect_to dengons_url
   end
 
   def update
     @dengon.update(dengon_params)
     # respond_with(@dengon)
+    update_dengon_counter()
     redirect_to dengons_url
   end
 

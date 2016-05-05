@@ -34,7 +34,7 @@
         %tr
           %td= dengon.from1
           %td= dengon.from2
-          %td= dengon.日付.strftime("%F %H:%M")
+          %td= dengon.日付.strftime("%F %H:%M") if dengon.日付
           %td= dengon.input_user_氏名
           %td= dengon.to_user_氏名
           %td= dengon.youken_種類名

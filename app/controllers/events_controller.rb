@@ -3,9 +3,9 @@ class EventsController < ApplicationController
   before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy]
   # load_and_authorize_resource
   respond_to :json
-  
+
   include EventsHelper
-  
+
   def index
     @all_events = Event.where("Date(開始) = ?", Date.today.to_s(:db))
     begin
@@ -14,13 +14,13 @@ class EventsController < ApplicationController
       @events = Shainmaster.take.events
     end
     @shains = Shainmaster.order(:所属コード, :役職コード, :社員番号).all
-    @holidays = JptHolidayMst.all 
-    
+    @holidays = JptHolidayMst.all
+
     @shain = Shainmaster.find(session[:selected_shain])
-    
+
     # 不在状態の社員
     # check_user_status()
-    
+
     # @shain_names = @shains.select :id, :title
     # respond_with(@shain_names) do |format|
     #   format.json {
@@ -30,11 +30,11 @@ class EventsController < ApplicationController
     #            }}
     # end
   end
-   
+
   def edit
     # @event.build_joutaimaster if @event.joutaimaster.nil?
   end
-  
+
   def new
     date = Date.today.to_s(:db)
     # @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{date} 09:00", 終了: "#{date} 18:00")
@@ -58,11 +58,10 @@ class EventsController < ApplicationController
     flash[:notice] = t 'app.flash.new_success' if @event.save
 
     # if @event.save
-    #   flash[:notice] = t 'app.flash.new_success' 
+    #   flash[:notice] = t 'app.flash.new_success'
     # else
     #   @event.build_joutaimaster
     # end
-    
     respond_with @event, location: events_url
   end
 
@@ -163,7 +162,7 @@ private
   def set_event
     @event = Event.find(params[:id])
   end
-  
+
   def set_param
     @jobs = Jobmaster.all
     @shozais = Shozai.all
@@ -178,8 +177,8 @@ private
 
 # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:社員番号, :開始, :終了, :状態コード, :場所コード, :JOB, :所属コード, :工程コード, :工数, 
-                                  :計上, :所在コード, :comment, :帰社区分) 
+    params.require(:event).permit(:社員番号, :開始, :終了, :状態コード, :場所コード, :JOB, :所属コード, :工程コード, :工数,
+                                  :計上, :所在コード, :comment, :帰社区分)
   end
 
   def basho_params
