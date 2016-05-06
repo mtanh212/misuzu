@@ -42,6 +42,6 @@ class TsushinseigyousController < ApplicationController
     end
 
     def tsushinseigyou_params
-      params.require(:tsushinseigyou).permit(:社員番号, :メール, :通信許可区分)
+      params.require(:tsushinseigyou).permit(:社員番号, :メール, :送信許可区分)
     end
 end
