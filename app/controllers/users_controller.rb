@@ -43,7 +43,7 @@ class UsersController < ApplicationController
             to "#{email}"
             from 'hminhduc@gmail.com'
             subject '【勤務システム】ログインパスワード変更'
-            body "パスワードを変更成功できました。この際から、【#{new_pass}】でログインしてくさだい！"
+            body "パスワードを変更成功できました。この際から、ID:【#{session[:user]}】 PASS:【#{new_pass}】でログインしてくさだい！"
           end
 
         end
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
           return
         end
 
-        @user = User.where('担当者コード = ? AND パスワード = ?',params[:user][:担当者コード].downcase,params[:user][:パスワード]).first
+        @user = User.where('担当者コード = ? AND パスワード = ?',params[:user][:担当者コード].downcase, params[:user][:パスワード]).first
         
         if @user.nil?
           flash.now[:alert] = t "app.flash.login_field"
@@ -67,7 +67,8 @@ class UsersController < ApplicationController
           session[:user] = @user.id
           session[:current_user_id] = @user.id
           session[:selected_shain] = @user.shainmaster.id
-          check_shozai()
+          # 現在保留
+          # check_shozai()
           check_kintai_at_day(Date.today)
           respond_with @user, location: events_url
         end

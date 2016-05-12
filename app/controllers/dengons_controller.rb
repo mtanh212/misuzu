@@ -35,6 +35,7 @@ class DengonsController < ApplicationController
     @dengon.save
     # respond_with(@dengon)
     update_dengon_counter()
+    # send_dengon_mail()
     redirect_to dengons_url
   end
 

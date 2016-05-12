@@ -41,8 +41,8 @@
           %td= dengon.kaitou_種類名
           %td.breakAll= dengon.伝言内容
           -#%td{'word-wrap' => 'break-word'}= dengon.伝言内容
-          %td= dengon.確認
-          %td= dengon.送信
+          %td= dengon.確認 == true ? '確認済':'未確認'
+          %td= dengon.送信 == true ? '許可':'不可'
           %td= link_to '編集', edit_dengon_path(dengon)
           %td= link_to '削除', dengon, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
 
