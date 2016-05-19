@@ -14,7 +14,7 @@ $(function(){
                 //height: 1500,
                 //firstHour: '09:00',
                 businessHours:{
-                    start: '09:00:00', // a start time (09am in this example)
+                    start: '06:00:00', // a start time (09am in this example)
                     end: '18:00:00', // an end time (6pm in this example)
 
                     dow: [1, 2, 3, 4, 5]
@@ -26,9 +26,9 @@ $(function(){
                 //aspectRatio: 1.5,/
                 //resourceAreaWidth: '30%',
                 slotLabelFormat: ['HH : mm'],
-                scrollTime: '09:00:00',
+                scrollTime: '06:00:00',
                 //slotDuration: moment.duration(0.5, 'hours'),
-                minTime: '09:00:00',
+                minTime: '06:00:00',
                 //maxTime: '23:00:00',
                 //eventOverlap: false,
                 googleCalendarApiKey: 'AIzaSyDOeA5aJ29drd5dSAqv1TW8Dvy2zkYdsdk',
@@ -65,7 +65,7 @@ $(function(){
                 height: 1400,
                 //firstHour: '09:00',
                 businessHours:{
-                    start: '09:00:00', // a start time (09am in this example)
+                    start: '06:00:00', // a start time (09am in this example)
                     end: '18:00:00', // an end time (6pm in this example)
 
                     dow: [1, 2, 3, 4, 5]
@@ -77,7 +77,7 @@ $(function(){
                 //aspectRatio: 1.5,
                 resourceAreaWidth: '35%',
                 slotLabelFormat: ['HH : mm'],
-                scrollTime: '09:00:00',
+                scrollTime: '06:00:00',
                 //slotDuration: moment.duration(0.5, 'hours'),
                 //minTime: '09:00:00',
                 //maxTime: '23:00:00',

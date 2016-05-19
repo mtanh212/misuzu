@@ -37,14 +37,14 @@ class JobmastersController < ApplicationController
     # jobmaster_params[:job番号] = max_job
     @jobmaster = Jobmaster.new(jobmaster_params)
     flash[:notice] = t "app.flash.new_success" if @jobmaster.save
-    respond_with @jobmaster
+    respond_with @jobmaster, location: jobmasters_url
   end
 
   # PATCH/PUT /jobmasters/1
   # PATCH/PUT /jobmasters/1.json
   def update
-    flash[:notice] = t "app.flash.update_success" if @jobmaster.update jobmaster_params
-    respond_with @jobmaster
+    flash[:notice] = t "app.flash.update_success" if @jobmaster.update(jobmaster_params)
+    respond_with @jobmaster, location: jobmasters_url
   end
 
   # DELETE /jobmasters/1
@@ -82,10 +82,6 @@ class JobmastersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def jobmaster_params
       params.require(:jobmaster).permit(:job番号, :job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名, :関連Job番号, :備考)
-    end
-
-    def jobmaster_params_for_update
-      params.require(:jobmaster).permit(:job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名, :関連Job番号, :備考)
     end
 
   def set_refer

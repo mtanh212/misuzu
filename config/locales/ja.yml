@@ -213,5 +213,7 @@ ja:
       login_new: 担当者コードが正しくないです。
       login_existing: ユーザーが既に登録されました。
       access_denied: あなたはアクセス権限ではありません！
+      mail_to: 社員のメールアドレスを登録していません。
+      mail_send_field: エラーが発生する為、メールを送信できませんでした！
     login:
       let_login: ログインしてください。

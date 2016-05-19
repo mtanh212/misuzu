@@ -4,14 +4,12 @@ module DengonsHelper
     Shainmaster.find(session[:user]).update(伝言件数: counter)
   end
 
-  def send_dengon_mail()
-    to_mail = ''
-    subject_mail = ''
+  def send_mail(to_mail, subject_mail, body_mail)
     Mail.deliver do
       to to_mail
       from 'hminhduc@gmail.com'
       subject subject_mail
-      body "パスワードを変更成功できました。この際から、ID:【#{session[:user]}】 PASS:【#{new_pass}】でログインしてくさだい！"
+      body body_mail
     end
   end
 end

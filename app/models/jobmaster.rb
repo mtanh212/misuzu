@@ -8,7 +8,7 @@ class Jobmaster < ActiveRecord::Base
   validates :関連Job番号, numericality: { only_integer: true }, inclusion: {in: Jobmaster.pluck(:job番号)}, allow_blank: true
   validates :ユーザ番号, inclusion: {in: Kaishamaster.pluck(:会社コード)}, allow_blank: true
   validates :分類コード, inclusion: {in: Bunrui.pluck(:分類コード)}, allow_blank: true
-  validate :check_date_input
+  validate :check_input
 
   has_one :events, foreign_key: :JOB
   belongs_to :kaishamaster, class_name: :Kaishamaster, foreign_key: :ユーザ番号
@@ -31,9 +31,8 @@ class Jobmaster < ActiveRecord::Base
   #   id.parameterize
   # end
 
-  def check_date_input
-    if 開始日.present? && 終了日.present? && 開始日 > 終了日
-      errors.add(:終了日, "は開始日以上の値にしてください。")
-    end
+  def check_input
+    errors.add(:終了日, "は開始日以上の値にしてください。") if 開始日.present? && 終了日.present? && 開始日 > 終了日
+    errors.add(:job番号, "重複値になっています")  if job番号.in?(Jobmaster.pluck(:job番号))
   end
 end
