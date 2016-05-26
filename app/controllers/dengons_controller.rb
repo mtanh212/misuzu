@@ -6,7 +6,11 @@ class DengonsController < ApplicationController
 
   def index
     @dengons = Dengon.all
-    @shain_param = params[:head][:shainbango] if params[:head].present?
+    if params[:head].present?
+      @shain_param = params[:head][:shainbango]
+    else
+      @shain_param = session[:user]
+    end
     @yoken = params[:head][:youken] if params[:head].present?
     @kaitou = params[:head][:kaitou] if params[:head].present?
 

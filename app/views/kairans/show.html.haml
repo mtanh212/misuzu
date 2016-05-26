@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Hakkousha:
+  = @kairan.hakkousha
+%p
+  %b Namelist:
+  = @kairan.namelist
+
+= link_to 'Edit', edit_kairan_path(@kairan)
+\|
+= link_to 'Back', kairans_path

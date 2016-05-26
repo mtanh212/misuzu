@@ -14,8 +14,8 @@ $(function(){
                 //height: 1500,
                 //firstHour: '09:00',
                 businessHours:{
-                    start: '06:00:00', // a start time (09am in this example)
-                    end: '18:00:00', // an end time (6pm in this example)
+                    start: '00:00:00', // a start time (09am in this example)
+                    end: '23:00:00', // an end time (6pm in this example)
 
                     dow: [1, 2, 3, 4, 5]
                     // days of week. an array of zero-based day of week integers (0=Sunday)
@@ -26,9 +26,9 @@ $(function(){
                 //aspectRatio: 1.5,/
                 //resourceAreaWidth: '30%',
                 slotLabelFormat: ['HH : mm'],
-                scrollTime: '06:00:00',
+                scrollTime: '00:00:00',
                 //slotDuration: moment.duration(0.5, 'hours'),
-                minTime: '06:00:00',
+                minTime: '00:00:00',
                 //maxTime: '23:00:00',
                 //eventOverlap: false,
                 googleCalendarApiKey: 'AIzaSyDOeA5aJ29drd5dSAqv1TW8Dvy2zkYdsdk',
@@ -65,8 +65,8 @@ $(function(){
                 height: 1400,
                 //firstHour: '09:00',
                 businessHours:{
-                    start: '06:00:00', // a start time (09am in this example)
-                    end: '18:00:00', // an end time (6pm in this example)
+                    start: '00:00:00', // a start time (09am in this example)
+                    end: '23:00:00', // an end time (6pm in this example)
 
                     dow: [1, 2, 3, 4, 5]
                     // days of week. an array of zero-based day of week integers (0=Sunday)
@@ -77,7 +77,7 @@ $(function(){
                 //aspectRatio: 1.5,
                 resourceAreaWidth: '35%',
                 slotLabelFormat: ['HH : mm'],
-                scrollTime: '06:00:00',
+                scrollTime: '00:00:00',
                 //slotDuration: moment.duration(0.5, 'hours'),
                 //minTime: '09:00:00',
                 //maxTime: '23:00:00',
@@ -342,7 +342,8 @@ $(function(){
     
     $('#day-view-button').click(function(){
         $('#month-view').hide();
-        $('#calendar-timeline').show();
+        //$('#calendar-timeline').show();
+        $('.timeline-view').show();
         //$('#calendar-month-view').hide();
         //$('#calendar-timeline').show();
     });
@@ -736,6 +737,7 @@ $(function(){
     //$('#calendar-timeline').hide();
 
     $('#month-view').hide();
-    $('#calendar-timeline').show();
+    //$('#calendar-timeline').show();
+    $('.timeline-view').show();
 });
 

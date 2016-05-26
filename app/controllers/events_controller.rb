@@ -98,6 +98,12 @@ class EventsController < ApplicationController
         redirect_to kintais_url
       when '経費'
         redirect_to keihiheads_url
+      when '伝言'
+        redirect_to dengons_url
+      when '承認'
+        redirect_to shonin_search_keihiheads_url
+      when '回覧'
+        redirect_to ''
         # redirect_to new_keihihead_url
     end
   end

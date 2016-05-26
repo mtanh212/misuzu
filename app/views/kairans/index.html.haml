@@ -1,0 +1,32 @@
+= javascript_include_tag 'kairans'
+
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 回覧
+
+%table.kairan-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
+
+  %thead
+    %tr
+      %th 日時
+      %th 要件
+      %th 件名
+      %th 確認
+      %th
+      %th
+      %th
+
+  %tbody
+    - @kairans.each do |kairan|
+      %tr
+        %td= kairan.要件
+        %td= kairan.開始
+        %td= kairan.件名
+        %td= kairan.確認
+        %td= link_to '詳細', kairan
+        %td= link_to '編集', edit_kairan_path(kairan)
+        %td= link_to '削除', kairan, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
+
+%br
+
+= link_to '新規回覧', new_kairan_path

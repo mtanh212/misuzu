@@ -1,4 +1,6 @@
 Jpt::Application.routes.draw do
+  resources :kairans
+  resources :kairanyokenmsts
   resources :tsushinseigyous
   resources :dengonyoukens
   resources :dengonkaitous

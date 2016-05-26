@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160423133520) do
+ActiveRecord::Schema.define(version: 20160521081923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,6 +182,32 @@ ActiveRecord::Schema.define(version: 20160423133520) do
   end
 
   add_index "分類マスタ", ["分類コード"], name: "index_分類マスタ_on_分類コード", unique: true, using: :btree
+
+  create_table "回覧", force: :cascade do |t|
+    t.string   "発行者"
+    t.string   "要件"
+    t.datetime "開始"
+    t.datetime "終了"
+    t.string   "件名"
+    t.text     "内容"
+    t.boolean  "確認"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "回覧用件マスタ", force: :cascade do |t|
+    t.string   "名称"
+    t.string   "備考"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "回覧詳細", force: :cascade do |t|
+    t.string   "回覧コード"
+    t.string   "対象者"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "場所マスタ", id: false, force: :cascade do |t|
     t.string   "場所コード",      null: false

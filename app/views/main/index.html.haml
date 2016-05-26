@@ -9,7 +9,10 @@
           %li.list-group-item= link_to '経費承認', shonin_search_keihiheads_path
           %li.list-group-item= link_to '伝言', dengons_path
           %li.list-group-item= link_to '勤怠', kintais_path
-          %li.list-group-item= link_to '経費', keihiheads_url
+          %li.list-group-item= link_to '経費', keihiheads_path
+      .col-md-3
+        %ul.list-group
+          %li.list-group-item= link_to '回覧', kairans_path
 
 .panel.panel-default
   .panel-heading
@@ -42,3 +45,4 @@
           %li.list-group-item= link_to '伝言回答マスタ', dengonkaitous_path
           %li.list-group-item= link_to '伝言用件マスタ', dengonyoukens_path
           %li.list-group-item= link_to '通信制御マスタ', tsushinseigyous_path
+          %li.list-group-item= link_to '回覧用件マスタ', kairanyokenmsts_path

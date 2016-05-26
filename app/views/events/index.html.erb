@@ -18,13 +18,14 @@
   </div>
 </div>
 
-<div id="month-view">
 <%= simple_form_for @shain, url: custom_events_path, method: :post do |f| %>
+<div id="month-view">
     <div class="row-fluid">
       <div class="pull-left">
         <!--<div class="btn-group" role="group" aria-label="...">-->
           <%= f.submit '勤務', class: 'btn btn-default', id:'kintai'%>
           <%= f.submit '経費', class: 'btn btn-default', id:'keihi'%>
+          <%= f.submit '伝言', class: 'btn btn-default', id:'dengon'%>
         <!--</div>-->
       </div>
       <div class="col-xs-2 col-xs-offset-3">
@@ -178,11 +179,21 @@
     <%= render 'share/shain_modal', f:f %>
     <input type="hidden" name="selected_user" id="selected_user"/>
     <input type="hidden" name="selected_user_name" id="selected_user_name"/>
-<% end %>
 </div>
 
 <div class="row">
   <div class="col-md-12">
-    <div id="calendar-timeline"></div>
+    <div class="timeline-view">
+      <div class="pull-left">
+        <%= f.submit '勤務', class: 'btn btn-default', id:'kintai'%>
+        <%= f.submit '経費', class: 'btn btn-default', id:'keihi'%>
+        <%= f.submit '承認', class: 'btn btn-default', id:'shonin'%>
+        <%= f.submit '伝言', class: 'btn btn-default', id:'dengon'%>
+        <%= f.submit '回覧', class: 'btn btn-default', id:'kairan'%>
+      </div>
+      <br><br>
+      <div id="calendar-timeline"></div>
+    </div>
   </div>
 </div>
+  <% end %>
