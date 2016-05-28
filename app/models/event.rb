@@ -14,6 +14,7 @@ class Event < ActiveRecord::Base
 
   delegate :job名, to: :jobmaster, prefix: :job, allow_nil: true
   delegate :状態名, to: :joutaimaster, prefix: :joutai, allow_nil: true
+  delegate :工程名, to: :kouteimaster, prefix: :koutei, allow_nil: true
 
   alias_attribute :shain_no, :社員番号
   alias_attribute :start_time, :開始
