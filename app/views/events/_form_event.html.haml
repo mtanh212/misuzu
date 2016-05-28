@@ -10,7 +10,7 @@
     -#= select(:event, :工程コード, kouteis.collect {|k| [ k.工程名, k.工程コード ] }, { include_blank: true }, {class: 'form-control'})
     = f.input :工程コード, label: '工程' do
       = f.select :工程コード, @kouteis.map { |k| [k.工程名, k.工程コード] }, {include_blank: true}, {class: 'form-control', style: 'width:150px'}
-    = f.input :所属コード, input_html:{value: "#{get_shozoku(session[:user]).所属コード}"}, as: :hidden
+    = f.input :所属コード, input_html:{value: "#{get_shozoku(session[:selected_shain]).所属コード}"}, as: :hidden
   .col-md-4.col-md-offset-1
     = f.input :開始, as: :date_time_picker
     = f.input :終了, as: :date_time_picker

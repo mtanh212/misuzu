@@ -21,9 +21,10 @@
 //= require moment
 //= require moment/ja
 
-//= require fullcalendar
+//= require fullcalendar.min
 //= require scheduler.min
-//= require fullcalendar/gcal
+// require fullcalendar/gcal
+//= require gcal
 
 //= require dataTables/jquery.dataTables.min
 //= require dataTables/dataTables.bootstrap.min

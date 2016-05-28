@@ -6,7 +6,7 @@
 
  *= require custom
 
- *= require fullcalendar
+ *= require fullcalendar.min
  *= require scheduler.min
 
  *= require dataTables/dataTables.bootstrap.min
