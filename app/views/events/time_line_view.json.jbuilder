@@ -21,8 +21,10 @@ json.events @all_events do |event|
   # start_time = event.try(:joutai_code) == '30' ? event.try(:start_time).to_date : event.try(:start_time)
   # end_time = event.try(:joutai_code) == '30' ? event.try(:end_time).to_date : event.try(:end_time)
 
-  json.start event.try(:start_time)
-  json.end event.try(:end_time)
+  # json.start event.try(:start_time)
+  json.start '2016-06-01T06:30:00'
+  # json.end event.try(:end_time)
+  json.end '2016-06-01T08:00:00'
   json.url edit_event_url(event, format: :html)
   json.resourceId event.shainmaster.id if event.shainmaster
   json.color event.joutaimaster.try(:色) if event.joutaimaster
