@@ -78,7 +78,7 @@ $(function(){
                 //editable: true,
                 //aspectRatio: 1.5,
                 resourceAreaWidth: '35%',
-                slotLabelFormat: ['HH : mm'],
+                //slotLabelFormat: ['HH : mm'],
                 //scrollTime: '00:00',
                 //slotDuration: moment.duration(0.5, 'hours'),
                 //minTime: '00:00:00',
