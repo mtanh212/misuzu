@@ -76,7 +76,7 @@ $(function(){
                 //},
                 //firstDay: 1,
                 //editable: true,
-                aspectRatio: 1.5,
+                //aspectRatio: 1.5,
                 resourceAreaWidth: '35%',
                 slotLabelFormat: ['HH : mm'],
                 //scrollTime: '00:00',
@@ -331,24 +331,24 @@ $(function(){
     //});
     
     //month day switch view
-    $('#month-view-button').click(function(){
-        $('#calendar-timeline').hide();
-        $('#month-view').show();
-
-        $('#calendar-month-view').fullCalendar('render');
-        //$('#calendar-timeline').hide();
-        //$('#calendar-month-view').show();
-        //$('#calendar-month-view').fullCalendar('render');
-
-    });
+    //$('#month-view-button').click(function(){
+    //    $('#calendar-timeline').hide();
+    //    $('#month-view').show();
+    //
+    //    $('#calendar-month-view').fullCalendar('render');
+    //    //$('#calendar-timeline').hide();
+    //    //$('#calendar-month-view').show();
+    //    //$('#calendar-month-view').fullCalendar('render');
+    //
+    //});
     
-    $('#day-view-button').click(function(){
-        $('#month-view').hide();
-        //$('#calendar-timeline').show();
-        $('.timeline-view').show();
-        //$('#calendar-month-view').hide();
-        //$('#calendar-timeline').show();
-    });
+    //$('#day-view-button').click(function(){
+    //    $('#month-view').hide();
+    //    //$('#calendar-timeline').show();
+    //    $('.timeline-view').show();
+    //    //$('#calendar-month-view').hide();
+    //    //$('#calendar-timeline').show();
+    //});
 
 });
 
@@ -738,8 +738,8 @@ $(function(){
     //$('#calendar-month-view').show();
     //$('#calendar-timeline').hide();
 
-    $('#month-view').hide();
+    $('#month-view').show();
     //$('#calendar-timeline').show();
-    $('.timeline-view').show();
+    //$('.timeline-view').show();
 });
 

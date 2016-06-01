@@ -70,7 +70,7 @@ class UsersController < ApplicationController
           # 現在保留
           # check_shozai()
           check_kintai_at_day(Date.today)
-          respond_with @user, location: events_url
+          respond_with @user, location: time_line_view_events_url
         end
     end
   end

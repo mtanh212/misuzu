@@ -29,6 +29,29 @@ class EventsController < ApplicationController
     # end
   end
 
+  def time_line_view
+    if request.post?
+      case params[:commit]
+        when '一覧'
+          redirect_to time_line_view_events_url
+        when '勤務'
+          redirect_to kintais_url
+        when '経費'
+          redirect_to keihiheads_url
+        when '伝言'
+          redirect_to dengons_url
+        when '承認'
+          redirect_to shonin_search_keihiheads_url
+        when '回覧'
+          redirect_to ''
+      end
+    end
+    @all_events = Event.where("Date(開始) = ?", Date.today.to_s(:db))
+    @shains = Shainmaster.order(:所属コード, :役職コード, :社員番号).all
+  rescue
+    @events = Shainmaster.take.events
+  end
+
   def edit
     # @event.build_joutaimaster if @event.joutaimaster.nil?
   end
@@ -92,6 +115,8 @@ class EventsController < ApplicationController
         # session[:selected_shain] = Shainmaster.find(params[:selected_user]).id
         session[:selected_shain] = params[:selected_user]
         respond_with @event, location: events_url
+      when '一覧'
+        redirect_to time_line_view_events_url
       when '勤務'
         redirect_to kintais_url
       when '経費'
