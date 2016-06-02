@@ -46,7 +46,8 @@ class EventsController < ApplicationController
           redirect_to ''
       end
     end
-    @all_events = Event.where("Date(開始) = ?", Date.today.to_s(:db))
+    # @all_events = Event.where("Date(開始) = ?", Date.today.to_s(:db))
+    @all_events = Event.all
     @shains = Shainmaster.order(:所属コード, :役職コード, :社員番号).all
   rescue
     @events = Shainmaster.take.events
