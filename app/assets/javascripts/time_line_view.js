@@ -11,20 +11,20 @@ $(function(){
                 //height: 1287,
                 height: 1400,
                 //firstHour: '06:00',
-                //businessHours:{
-                //    start: '09:00:00', // a start time (09am in this example)
-                //    end: '18:00:00', // an end time (6pm in this example)
-                //
-                //    dow: [1, 2, 3, 4, 5]
-                //    // days of week. an array of zero-based day of week integers (0=Sunday)
-                //    // (Monday-Freeday in this example)
-                //},
-                //firstDay: 1,
+                businessHours:{
+                    start: '09:00:00', // a start time (09am in this example)
+                    end: '18:00:00', // an end time (6pm in this example)
+
+                    dow: [1, 2, 3, 4, 5]
+                    // days of week. an array of zero-based day of week integers (0=Sunday)
+                    // (Monday-Freeday in this example)
+                },
+                firstDay: 1,
                 //editable: true,
-                //aspectRatio: 1.5,
+                aspectRatio: 1.5,
                 resourceAreaWidth: '35%',
                 slotLabelFormat: ['HH : mm'],
-                //scrollTime: '00:00',
+                scrollTime: '06:00',
                 //slotDuration: moment.duration(0.5, 'hours'),
                 //minTime: '00:00:00',
                 //maxTime: '24:00:00',
