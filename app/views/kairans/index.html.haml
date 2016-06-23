@@ -4,29 +4,45 @@
   %li= link_to 'メニュー', main_path
   %li.active 回覧
 
-%table.kairan-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
+-#= simple_form_for :kairanIndex, html: {class:'form-inline'}, url: confirm_kairans_path, method: :get do |f|
+= simple_form_for :kairanIndex, html: {class:'form-inline'}, url: kairans_path, method: :get do |f|
+  = render 'header', f:f
+  %br
 
-  %thead
-    %tr
-      %th 日時
-      %th 要件
-      %th 件名
-      %th 確認
-      %th
-      %th
-      %th
+  %table.kairan-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
 
-  %tbody
-    - @kairans.each do |kairan|
+    %thead
       %tr
-        %td= kairan.要件
-        %td= kairan.開始
-        %td= kairan.件名
-        %td= kairan.確認
-        %td= link_to '詳細', kairan
-        %td= link_to '編集', edit_kairan_path(kairan)
-        %td= link_to '削除', kairan, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
+        %th 日時
+        %th 要件
+        %th 件名
+        %th 内容
+        %th 確認
+        %th 回答
+        %th
+        %th id
+        %th kairanCode
 
-%br
+    %tbody
+      - @kairanShoshais.each do |kairan|
+        %tr
+          %td= kairan.開始
+          %td= kairan.kairan.kairanyokenmst.try :名称 if kairan.kairan
+          %td= kairan.件名
+          %td.breakAll= kairan.内容
+          %td= kairan.確認 == true ? '確認済':'未確認'
+          - kairanKaitou = Kairan.find kairan.回覧コード
+          %td= link_to '回答', kaitou_kairan_path(kairanKaitou)
+          %td
+          %td= kairan.id
+          %td= kairan.回覧コード
+          -#%td= link_to '編集', edit_kairan_path(kairan)
+          -#%td= link_to '削除', kairan, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
 
-= link_to '新規回覧', new_kairan_path
+  %br
+
+  = hidden_field_tag 'checked'
+  .pull-right
+    = button_tag '確認する', name: 'button', id: 'kakunin', value: '確認する', class: 'btn btn-primary'
+
+= link_to '新規', new_kairan_path

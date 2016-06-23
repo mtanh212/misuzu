@@ -1,7 +1,8 @@
-%h1 Editing kairan
+= javascript_include_tag 'kairans'
+
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '回覧一覧', kairans_path
+  %li.active 編集
 
 = render 'form'
-
-= link_to 'Show', @kairan
-\|
-= link_to 'Back', kairans_path

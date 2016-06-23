@@ -29,6 +29,8 @@
 //= require dataTables/jquery.dataTables.min
 //= require dataTables/dataTables.bootstrap.min
 //= require dataTables/dataTables.fixedColumns.min
+//= require dataTables/dataTables.select.min
+//= require dataTables/dataTables.buttons.min
 
 //= require bootstrap-datetimepicker
 //= require bootstrap-colorpicker

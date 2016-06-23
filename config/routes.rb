@@ -1,5 +1,9 @@
 Jpt::Application.routes.draw do
-  resources :kairans
+  resources :kairans do
+    collection {post :confirm, :kaitou_create}
+    # collection {get :kaitou}
+    member {get :kaitou}
+  end
   resources :kairanyokenmsts
   resources :tsushinseigyous
   resources :dengonyoukens

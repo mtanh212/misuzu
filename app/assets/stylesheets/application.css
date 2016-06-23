@@ -11,6 +11,8 @@
 
  *= require dataTables/dataTables.bootstrap.min
  *= require dataTables/fixedColumns.dataTables.min
+ *= require dataTables/select.dataTables.min
+ *= require dataTables/buttons.dataTables.min
 
  *= require bootstrap-datetimepicker
  *= require bootstrap-colorpicker

@@ -3,9 +3,60 @@ class KairansController < ApplicationController
 
   respond_to :html
 
+  include KairansHelper
+
+  def kaitou
+    kairan = Kairan.find(params[:id])
+    @kairan = Kairan.new(発行者: kairan.発行者, 要件: kairan.要件, 開始: kairan.開始, 終了:kairan.終了, 件名: kairan.件名, 内容: kairan.内容)
+  end
+
+  def kaitou_create
+    taiShoSha = kairan_params[:発行者]
+    kairan_params[:発行者] = session[:user]
+    kairan = Kairan.create(kairan_params)
+    Kairanshosai.create(回覧コード:kairan.id, 対象者: taiShoSha)
+    redirect_to kairans_url
+  end
+
+  def confirm
+    strSelected = params[:checked]
+    arrSelected = strSelected.split(',') if strSelected
+    arrSelected.each do |kairanShoshaiId|
+      Kairanshosai.find(kairanShoshaiId).update(確認: true)
+    end
+    flash[:notice] = t "app.flash.kairan_confirm"
+    redirect_to kairans_url
+  end
+
   def index
-    @kairans = Kairan.all
-    respond_with(@kairans)
+    case params[:button]
+      when '検索する'
+      when '確認する'
+        strSelected = params[:checked]
+        arrSelected = strSelected.split(',') if strSelected
+        arrSelected.each do |kairanShoshaiId|
+          Kairanshosai.find(kairanShoshaiId).update(確認: true)
+        end
+        flash[:notice] = t "app.flash.kairan_confirm"
+      # redirect_to kairans_url
+
+    end
+
+    @kairanShoshais = Kairanshosai.all
+    if params[:head].present?
+      @shain_param = params[:head][:shainbango]
+    else
+      @shain_param = session[:user]
+    end
+    @yoken = params[:head][:youken] if params[:head].present?
+    arrKairanId = Kairan.where(要件: @yoken).ids if @yoken.present?
+
+    @kairanShoshais = @kairanShoshais.where(対象者: @shain_param) if @shain_param.present?
+    @kairanShoshais = @kairanShoshais.where(回覧コード: arrKairanId) if @yoken.present?
+
+    Kairan.where("終了 <= :end_date", end_date: Time.now).destroy_all
+    respond_with(@kairanShoshais)
+
   end
 
   def show
@@ -14,31 +65,39 @@ class KairansController < ApplicationController
 
   def new
     @kairan = Kairan.new
+    @shains = Shainmaster.all
     respond_with(@kairan)
   end
 
   def edit
+    @shains = Shainmaster.all
   end
 
   def create
+    # kairan_params[:発行者] = session[:user]
+    kairan_params[:確認] = false
     @kairan = Kairan.new(kairan_params)
+
     flash[:notice] = t "app.flash.new_success" if @kairan.save
+    updateKairanDetail(@kairan.id, params[:shain])
     respond_with(@kairan, location: kairans_url)
   end
 
   def update
+    updateKairanDetail(@kairan.id, params[:shain])
     flash[:notice] = t "app.flash.update_success" if @kairan.update(kairan_params)
-    respond_with(@kairan)
+    respond_with(@kairan, location: kairans_url)
   end
 
   def destroy
-    @kairan.destroy
-    respond_with(@kairan, location: kairans_url)
+    @kairanShoshai.destroy
+    respond_with(@kairanShoshai, location: kairans_url)
   end
 
   private
     def set_kairan
       @kairan = Kairan.find(params[:id])
+      @kairanShoshai = Kairanshosai.find(params[:id])
     end
 
     def kairan_params

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601145858) do
+ActiveRecord::Schema.define(version: 20160612144014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -186,8 +186,8 @@ ActiveRecord::Schema.define(version: 20160601145858) do
   create_table "回覧", force: :cascade do |t|
     t.string   "発行者"
     t.string   "要件"
-    t.datetime "開始"
-    t.datetime "終了"
+    t.string   "開始"
+    t.string   "終了"
     t.string   "件名"
     t.text     "内容"
     t.boolean  "確認"
@@ -207,6 +207,7 @@ ActiveRecord::Schema.define(version: 20160601145858) do
     t.string   "対象者"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "確認"
   end
 
   create_table "場所マスタ", id: false, force: :cascade do |t|

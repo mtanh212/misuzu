@@ -12,7 +12,10 @@
           %li.list-group-item= link_to '経費', keihiheads_path
       .col-md-3
         %ul.list-group
-          %li.list-group-item= link_to '回覧', kairans_path
+          %li.list-group-item
+            = link_to '回覧', kairans_path
+            %span.badge #{@kairanCount}
+
 
 .panel.panel-default
   .panel-heading
