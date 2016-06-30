@@ -54,7 +54,7 @@ class KairansController < ApplicationController
     @kairanShoshais = @kairanShoshais.where(対象者: @shain_param) if @shain_param.present?
     @kairanShoshais = @kairanShoshais.where(回覧コード: arrKairanId) if @yoken.present?
 
-    Kairan.where("終了 <= :end_date", end_date: Time.now).destroy_all
+    # Kairan.where("終了 <= :end_date", end_date: Time.now).destroy_all
     respond_with(@kairanShoshais)
 
   end
