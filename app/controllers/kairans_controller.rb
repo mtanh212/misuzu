@@ -7,7 +7,7 @@ class KairansController < ApplicationController
 
   def kaitou
     kairan = Kairan.find(params[:id])
-    @kairan = Kairan.new(発行者: kairan.発行者, 要件: kairan.要件, 開始: kairan.開始, 終了:kairan.終了, 件名: kairan.件名, 内容: kairan.内容)
+    @kairan = Kairan.new(発行者: kairan.発行者, 要件: kairan.要件, 開始: kairan.開始, 終了:kairan.終了, 件名: 'Re:'<< kairan.件名, 内容: 'Re:' << kairan.内容)
   end
 
   def kaitou_create

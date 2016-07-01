@@ -13,6 +13,14 @@ class EventsController < ApplicationController
     @holidays = JptHolidayMst.all
 
     @shain = Shainmaster.find(session[:selected_shain])
+
+    @kairanCount = Kairanshosai.where(対象者: session[:user], 確認: false).count
+    shain = Shainmaster.find(session[:user])
+    if shain
+      shain.回覧件数 = @kairanCount
+      shain.save
+    end
+
   rescue
     @events = Shainmaster.take.events
 
