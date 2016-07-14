@@ -3,6 +3,20 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 jQuery ->
+  shokairan_table = $('.shokairan-table').DataTable({
+    "pagingType": "simple_numbers"
+    ,"oLanguage":{
+      "sUrl": "../../assets/resource/dataTable_ja.txt"
+    },
+    columnDefs: [
+      { "width": "10%", "targets": 0 },
+      { "width": "10%", "targets": 1 },
+      { "width": "10%", "targets": 2 },
+      { "width": "50%", "targets": 3 }
+    ],
+    order: [[ 0, 'des' ]]
+  })
+
   kairan_table = $('.kairan-table').DataTable({
     "pagingType": "simple_numbers"
     ,"oLanguage":{

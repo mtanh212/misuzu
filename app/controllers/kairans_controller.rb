@@ -7,15 +7,22 @@ class KairansController < ApplicationController
 
   def kaitou
     kairan = Kairan.find(params[:id])
-    @kairan = Kairan.new(発行者: kairan.発行者, 要件: kairan.要件, 開始: kairan.開始, 終了:kairan.終了, 件名: 'Re:'<< kairan.件名, 内容: 'Re:' << kairan.内容)
+    # @kairan = Kairan.new(発行者: kairan.発行者, 要件: kairan.要件, 開始: kairan.開始, 終了:kairan.終了, 件名: 'Re:'<< kairan.件名, 内容: 'Re:' << kairan.内容)
+    @kairan = Kairan.new(発行者: session[:user], 要件: kairan.要件, 開始: kairan.開始, 終了:kairan.終了, 件名: 'Re:'<< kairan.件名, 内容: 'Re:' << kairan.内容)
+    @kaitoid = params[:id]
+    @kaitoto = kairan.発行者
   end
 
   def kaitou_create
-    taiShoSha = kairan_params[:発行者]
+    # taiShoSha = kairan_params[:発行者]
+    taiShoSha = params[:kaitoto]
     kairan_params[:発行者] = session[:user]
     kairan = Kairan.create(kairan_params)
     Kairanshosai.create(回覧コード:kairan.id, 対象者: taiShoSha)
+    kairanShoshai = Kairanshosai.where(回覧コード: params[:kaitoid], 対象者: session[:user]).first!
+    kairanShoshai.update(回答済: true)
     redirect_to kairans_url
+  rescue
   end
 
   def confirm
@@ -28,13 +35,17 @@ class KairansController < ApplicationController
     redirect_to kairans_url
   end
 
+  def shokairan
+    @kairans = Kairan.where(発行者: session[:user])
+  end
+
   def index
     case params[:button]
-      when '検索する'
-      when '確認する'
-        strSelected = params[:checked]
-        arrSelected = strSelected.split(',') if strSelected
-        arrSelected.each do |kairanShoshaiId|
+      when '検索'
+      when '確認'
+        strSelecteds = params[:checked]
+        arrSelecteds = strSelecteds.split(',') if strSelecteds
+        arrSelecteds.each do |kairanShoshaiId|
           Kairanshosai.find(kairanShoshaiId).update(確認: true)
         end
         flash[:notice] = t "app.flash.kairan_confirm"
@@ -101,6 +112,6 @@ class KairansController < ApplicationController
     end
 
     def kairan_params
-      params.require(:kairan).permit(:発行者, :要件, :開始, :終了, :件名, :内容, :確認)
+      params.require(:kairan).permit(:発行者, :要件, :開始, :終了, :件名, :内容, :確認, :確認要, :確認済)
     end
 end

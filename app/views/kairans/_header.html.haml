@@ -10,4 +10,6 @@
     -#  = label_tag :回答
     -#  = select(:head, :kaitou, Dengonkaitou.all.collect {|p| [ p.種類名, p.id ] }, {selected: @kaitou, include_blank: true }, class: 'form-control')
     .pull-right
-      = button_tag '検索する', name: :button, id: :search, value: '検索する', class:'btn btn-primary'
+      = button_tag '検索', name: :button, id: :search, value: '検索', class:'btn btn-primary'
+      = button_tag '確認', name: 'button', id: :kakunin, value: '確認', class: 'btn btn-primary'
+      -#= button_tag '送回覧', name: 'button', id: :createdkairan, value: '送回覧', class: 'btn btn-primary'

@@ -12,4 +12,8 @@
     = f.input :終了, as: :date_time_picker
     = f.input :件名
     = f.input :内容, as: 'text'
+
     = f.button :submit, '回答する', class: 'btn btn-primary', id: 'kairan'
+
+    = hidden_field_tag 'kaitoid', @kaitoid
+    = hidden_field_tag 'kaitoto', @kaitoto
