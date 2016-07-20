@@ -47,7 +47,7 @@ RSpec.describe EkisController, type: :controller do
   describe "GET #show" do
     it "assigns the requested eki as @eki" do
       eki = Eki.create! valid_attributes
-      get :show, {:id => eki.to_param}, valid_session
+      get :send_kairan_view, {:id => eki.to_param}, valid_session
       expect(assigns(:eki)).to eq(eki)
     end
   end

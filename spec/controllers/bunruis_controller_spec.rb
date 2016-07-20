@@ -47,7 +47,7 @@ RSpec.describe BunruisController, type: :controller do
   describe "GET #show" do
     it "assigns the requested bunrui as @bunrui" do
       bunrui = Bunrui.create! valid_attributes
-      get :show, {:id => bunrui.to_param}, valid_session
+      get :send_kairan_view, {:id => bunrui.to_param}, valid_session
       expect(assigns(:bunrui)).to eq(bunrui)
     end
   end

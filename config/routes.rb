@@ -2,7 +2,7 @@ Jpt::Application.routes.draw do
   resources :kairans do
     collection {post :confirm, :kaitou_create}
     collection {get :shokairan}
-    member {get :kaitou}
+    member {get :kaitou, :send_kairan_view}
   end
   resources :kairanyokenmsts
   resources :tsushinseigyous

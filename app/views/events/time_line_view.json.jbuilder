@@ -46,8 +46,10 @@ json.shains @shains do |shain|
   json.shozoku shain.shozokumaster.try(:所属名) if shain.shozokumaster
   json.linenum shain.try :内線電話番号
   json.yakushoku shain.yakushokumaster.try(:役職名) if shain.yakushokumaster
-  json.dengon shain.try :伝言件数
-  json.kairan shain.try :回覧件数
+  dengon = shain.try(:伝言件数) == '0' ? '' : shain.try(:伝言件数)
+  json.dengon dengon
+  kairan = shain.try(:回覧件数) == '0' ? '' : shain.try(:回覧件数)
+  json.kairan kairan
   background_color = ''
   background_color = shain.shozai.try :background_color if shain.shozai
   json.background_color background_color

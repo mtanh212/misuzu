@@ -47,7 +47,7 @@ RSpec.describe KairansController, type: :controller do
   describe "GET #show" do
     it "assigns the requested kairan as @kairan" do
       kairan = Kairan.create! valid_attributes
-      get :show, {:id => kairan.to_param}, valid_session
+      get :send_kairan_view, {:id => kairan.to_param}, valid_session
       expect(assigns(:kairan)).to eq(kairan)
     end
   end

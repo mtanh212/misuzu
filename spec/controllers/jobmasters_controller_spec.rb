@@ -47,7 +47,7 @@ RSpec.describe JobmastersController, type: :controller do
   describe "GET #show" do
     it "assigns the requested jobmaster as @jobmaster" do
       jobmaster = Jobmaster.create! valid_attributes
-      get :show, {:id => jobmaster.to_param}, valid_session
+      get :send_kairan_view, {:id => jobmaster.to_param}, valid_session
       expect(assigns(:jobmaster)).to eq(jobmaster)
     end
   end

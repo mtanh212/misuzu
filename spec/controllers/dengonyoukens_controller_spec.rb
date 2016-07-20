@@ -47,7 +47,7 @@ RSpec.describe DengonyoukensController, type: :controller do
   describe "GET #show" do
     it "assigns the requested dengonyouken as @dengonyouken" do
       dengonyouken = Dengonyouken.create! valid_attributes
-      get :show, {:id => dengonyouken.to_param}, valid_session
+      get :send_kairan_view, {:id => dengonyouken.to_param}, valid_session
       expect(assigns(:dengonyouken)).to eq(dengonyouken)
     end
   end

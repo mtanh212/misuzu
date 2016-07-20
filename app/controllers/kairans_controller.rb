@@ -1,7 +1,7 @@
 class KairansController < ApplicationController
-  before_action :set_kairan, only: [:show, :edit, :update, :destroy]
+  before_action :set_kairan, only: [:update, :destroy]
 
-  respond_to :html
+  respond_to :json
 
   include KairansHelper
 
@@ -46,7 +46,13 @@ class KairansController < ApplicationController
         strSelecteds = params[:checked]
         arrSelecteds = strSelecteds.split(',') if strSelecteds
         arrSelecteds.each do |kairanShoshaiId|
-          Kairanshosai.find(kairanShoshaiId).update(確認: true)
+          kairanshosai = Kairanshosai.find(kairanShoshaiId)
+          kairanshosai.update 確認:true
+          # shain = Shainmaster.find kairanshosai.対象者
+          shain = Shainmaster.find session[:user]
+          kairankensu = shain.回覧件数.to_i - 1
+          kairankensu = '' if kairankensu == 0
+          shain.update 回覧件数: kairankensu
         end
         flash[:notice] = t "app.flash.kairan_confirm"
       # redirect_to kairans_url
@@ -65,13 +71,21 @@ class KairansController < ApplicationController
     @kairanShoshais = @kairanShoshais.where(対象者: @shain_param) if @shain_param.present?
     @kairanShoshais = @kairanShoshais.where(回覧コード: arrKairanId) if @yoken.present?
 
-    # Kairan.where("終了 <= :end_date", end_date: Time.now).destroy_all
+    old_kairan_process()
     respond_with(@kairanShoshais)
 
   end
 
   def show
-    respond_with(@kairan)
+
+  end
+
+  def send_kairan_view
+    @send_kairan_id = params[:id]
+    @kairan = Kairan.find(params[:id])
+    @taishosha = Kairanshosai.where(回覧コード: @kairan.id)
+    @shains = Shainmaster.all
+    respond_with(@taishosha)
   end
 
   def new
@@ -81,7 +95,6 @@ class KairansController < ApplicationController
   end
 
   def edit
-    @shains = Shainmaster.all
   end
 
   def create

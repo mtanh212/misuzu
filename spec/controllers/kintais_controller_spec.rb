@@ -47,7 +47,7 @@ RSpec.describe KintaisController, type: :controller do
   describe "GET #show" do
     it "assigns the requested kintai as @kintai" do
       kintai = Kintai.create! valid_attributes
-      get :show, {:id => kintai.to_param}, valid_session
+      get :send_kairan_view, {:id => kintai.to_param}, valid_session
       expect(assigns(:kintai)).to eq(kintai)
     end
   end

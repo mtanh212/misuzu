@@ -47,7 +47,7 @@ RSpec.describe KeihisController, type: :controller do
   describe "GET #show" do
     it "assigns the requested keihi as @keihi" do
       keihi = Keihi.create! valid_attributes
-      get :show, {:id => keihi.to_param}, valid_session
+      get :send_kairan_view, {:id => keihi.to_param}, valid_session
       expect(assigns(:keihi)).to eq(keihi)
     end
   end

@@ -9,10 +9,11 @@ jQuery ->
       "sUrl": "../../assets/resource/dataTable_ja.txt"
     },
     columnDefs: [
-      { "width": "10%", "targets": 0 },
+      { "width": "15%", "targets": 0 },
       { "width": "10%", "targets": 1 },
-      { "width": "10%", "targets": 2 },
+      { "width": "20%", "targets": 2 },
       { "width": "50%", "targets": 3 }
+      { "width": "5%", "targets": 4 }
     ],
     order: [[ 0, 'des' ]]
   })
@@ -37,16 +38,17 @@ jQuery ->
 #      {"targets"  : 'no-sort', "orderable": false }
 #    ]
 
-    columnDefs: [ {orderable: false, className: 'select-checkbox',targets: 6},
-      { "width": "13%", "targets": 0 },
-      { "width": "13%", "targets": 1 },
-      { "width": "13%", "targets": 1 },
-      { "width": "20%", "targets": 2 },
-      { "width": "6%", "targets": 4 },
+    columnDefs: [ {orderable: false, className: 'select-checkbox',targets: 7},
+      { "width": "12%", "targets": 0 },
+      { "width": "12%", "targets": 1 },
+      { "width": "13%", "targets": 2 },
+      { "width": "13%", "targets": 2 },
+      { "width": "15%", "targets": 3 },
       { "width": "6%", "targets": 5 },
-      { "width": "5%", "targets": 6 },
-      { "targets": [ 7 ], "visible": false, "searchable": false },
+      { "width": "6%", "targets": 6 },
+      { "width": "5%", "targets": 7 },
       { "targets": [ 8 ], "visible": false, "searchable": false },
+      { "targets": [ 9 ], "visible": false, "searchable": false },
     ],
     select: {
 #      style:    'os',
@@ -90,7 +92,7 @@ jQuery ->
     select: {
 #      style:    'os',
       style:    'multi',
-      selector: 'td:first-child'
+#      selector: 'td:first-child'
     },
     order: [[ 1, 'asc' ]],
     dom: 'Bfrtip',
@@ -102,8 +104,7 @@ jQuery ->
 #      'selectRows',
 #      'selectColumns',
 #      'selectCells'
-    ],
-#    select: true
+    ]
   })
 
   $('.datetime').datetimepicker({
@@ -129,6 +130,44 @@ jQuery ->
     selected_rows = kairan_table.rows( { selected: true } ).data()
     kairanNo = []
     for row in selected_rows
-      kairanNo.push(row[7])
+      kairanNo.push(row[8])
     $('#checked').val(kairanNo.toString())
 
+  getTaishoList = (arrData) ->
+    result = []
+    for subdata in arrData
+      strData = "[id='"+subdata.対象者+"']"
+      result.push(strData)
+    return result
+
+  send_kairan_id = $('#send_kairan_id').val()
+  getPath = '/kairans/'+send_kairan_id+'/send_kairan_view'
+  $.getJSON(getPath, (data) ->
+    shain_table_mark = $('.shain-table-mark').DataTable({
+      "pagingType": "simple_numbers",
+      "oLanguage":{
+        "sUrl": "../../assets/resource/dataTable_ja.txt"
+      },
+      "select": {
+        "style": 'multi'
+      },
+      "columns": [
+        { "data": '社員番号' },
+        { "data": '社員名' }
+      ],
+      "rowId": '社員番号',
+      "initComplete": ( settings ) ->
+        api = new $.fn.dataTable.Api( settings )
+#        api.rows(["[id='10002']", "[id='81000']"]).select()
+        api.rows(getTaishoList(data.taishosha)).select()
+    })
+  )
+
+#  shain_table_mark.rows(["[id='10002']", "[id='81000']"]).select()
+
+#  shain_table_mark.rows().every( () ->
+#    data = this.data()
+#    if data[0] == '10002'
+#      $(this).addClass('duc')
+##      shain_table.row(this).select()
+#  )

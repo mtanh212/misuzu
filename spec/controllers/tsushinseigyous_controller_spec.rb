@@ -47,7 +47,7 @@ RSpec.describe TsushinseigyousController, type: :controller do
   describe "GET #show" do
     it "assigns the requested tsushinseigyou as @tsushinseigyou" do
       tsushinseigyou = Tsushinseigyou.create! valid_attributes
-      get :show, {:id => tsushinseigyou.to_param}, valid_session
+      get :send_kairan_view, {:id => tsushinseigyou.to_param}, valid_session
       expect(assigns(:tsushinseigyou)).to eq(tsushinseigyou)
     end
   end

@@ -47,7 +47,7 @@ RSpec.describe KikanmstsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested kikanmst as @kikanmst" do
       kikanmst = Kikanmst.create! valid_attributes
-      get :show, {:id => kikanmst.to_param}, valid_session
+      get :send_kairan_view, {:id => kikanmst.to_param}, valid_session
       expect(assigns(:kikanmst)).to eq(kikanmst)
     end
   end

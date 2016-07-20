@@ -9,6 +9,8 @@ class Shainmaster < ActiveRecord::Base
 
   has_many :events, dependent: :destroy, foreign_key: :社員番号
   has_one :user, dependent: :destroy, foreign_key: :担当者コード
+  has_one :kairan, foreign_key: :社員番号
+
   belongs_to :shozai, foreign_key: :所在コード
   belongs_to :shozokumaster, foreign_key: :所属コード
   belongs_to :yakushokumaster, foreign_key: :役職コード

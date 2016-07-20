@@ -47,7 +47,7 @@ RSpec.describe DengonkaitousController, type: :controller do
   describe "GET #show" do
     it "assigns the requested dengonkaitou as @dengonkaitou" do
       dengonkaitou = Dengonkaitou.create! valid_attributes
-      get :show, {:id => dengonkaitou.to_param}, valid_session
+      get :send_kairan_view, {:id => dengonkaitou.to_param}, valid_session
       expect(assigns(:dengonkaitou)).to eq(dengonkaitou)
     end
   end

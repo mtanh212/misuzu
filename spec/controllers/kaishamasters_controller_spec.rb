@@ -47,7 +47,7 @@ RSpec.describe KaishamastersController, type: :controller do
   describe "GET #show" do
     it "assigns the requested kaishamaster as @kaishamaster" do
       kaishamaster = Kaishamaster.create! valid_attributes
-      get :show, {:id => kaishamaster.to_param}, valid_session
+      get :send_kairan_view, {:id => kaishamaster.to_param}, valid_session
       expect(assigns(:kaishamaster)).to eq(kaishamaster)
     end
   end

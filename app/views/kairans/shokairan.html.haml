@@ -5,21 +5,15 @@
   %li= link_to '回覧', kairans_path
   %li.active 送回覧
 
--#= simple_form_for :kairanIndex, html: {class:'form-inline'}, url: confirm_kairans_path, method: :get do |f|
 = simple_form_for :kairanIndex, html: {class:'form-inline'}, url: kairans_path, method: :get do |f|
-  -#= render 'header', f:f
-  -#%br
-
   %table.shokairan-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
-
     %thead
       %tr
         %th 日時
         %th 要件
         %th 件名
         %th 内容
-        -#%th 確認
-
+        %th 詳細
     %tbody
       - @kairans.each do |kairan|
         %tr
@@ -27,14 +21,6 @@
           %td= kairan.kairanyokenmst.名称
           %td= kairan.件名
           %td.breakAll= kairan.内容
-          -#%td= kairan.確認 == true ? '確認済':'未確認'
-  -#%td= link_to '編集', edit_kairan_path(kairan)
-  -#%td= link_to '削除', kairan, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
-
-  -#%br
-
-  -#= hidden_field_tag 'checked'
-  -#.pull-right
-    -#= button_tag '確認する', name: 'button', id: 'kakunin', value: '確認する', class: 'btn btn-primary'
+          %td= link_to '詳細', send_kairan_view_kairan_path(kairan)
 
   = link_to '新規', new_kairan_path

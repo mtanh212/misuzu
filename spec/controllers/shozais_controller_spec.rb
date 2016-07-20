@@ -47,7 +47,7 @@ RSpec.describe ShozaisController, type: :controller do
   describe "GET #show" do
     it "assigns the requested shozai as @shozai" do
       shozai = Shozai.create! valid_attributes
-      get :show, {:id => shozai.to_param}, valid_session
+      get :send_kairan_view, {:id => shozai.to_param}, valid_session
       expect(assigns(:shozai)).to eq(shozai)
     end
   end

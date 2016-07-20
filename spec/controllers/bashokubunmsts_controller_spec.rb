@@ -47,7 +47,7 @@ RSpec.describe BashokubunmstsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested bashokubunmst as @bashokubunmst" do
       bashokubunmst = Bashokubunmst.create! valid_attributes
-      get :show, {:id => bashokubunmst.to_param}, valid_session
+      get :send_kairan_view, {:id => bashokubunmst.to_param}, valid_session
       expect(assigns(:bashokubunmst)).to eq(bashokubunmst)
     end
   end

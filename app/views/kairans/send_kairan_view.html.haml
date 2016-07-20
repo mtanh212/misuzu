@@ -1,3 +1,12 @@
+= javascript_include_tag 'kairans'
+
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '回覧一覧', kairans_path
+  %li.active 編集
+
+-#= render 'form'
+
 = simple_form_for(@kairan) do |f|
   .col-md-3.col-md-offset-1
     = f.input :発行者, as: :hidden, input_html: {value: session[:user]}
@@ -8,19 +17,18 @@
     = f.input :件名
     = f.input :内容, as: 'text'
     = f.input :確認要, as: :radio_buttons, label: '回答要'
-    = f.button :submit, class: 'btn btn-primary', id: 'kairan'
+    -#= f.button :submit, class: 'btn btn-primary', id: 'kairan'
     = hidden_field_tag 'shain'
+    = hidden_field_tag 'send_kairan_id', @send_kairan_id
   .col-md-7.col-md-offset-1
-    %table#shain-table.shain-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
+    %table.shain-table-mark.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
       %thead
         %tr
-          %th
           %th 社員番号
           %th 社員名
 
       %tbody
         - @shains.each do |shain|
           %tr
-            %td
             %td= shain.社員番号
             %td= shain.氏名

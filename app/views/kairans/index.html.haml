@@ -14,6 +14,7 @@
     %thead
       %tr
         %th 日時
+        %th 発行者
         %th 要件
         %th 件名
         %th 内容
@@ -27,6 +28,7 @@
       - @kairanShoshais.each do |kairan|
         %tr
           %td= kairan.開始
+          %td= kairan.kairan.氏名
           %td= kairan.kairan.kairanyokenmst.try :名称 if kairan.kairan
           %td= kairan.件名
           %td.breakAll= kairan.内容
@@ -35,7 +37,7 @@
             - kakunin = '回答済'
           %td= kakunin
           - kairanKaitou = Kairan.find kairan.回覧コード
-          - kaito = kairan.kairan.確認要 == true ? '回答＊':'回答'
+          - kaito = kairan.kairan.確認要 == true ? '要':''
           %td= link_to kaito, kaitou_kairan_path(kairanKaitou)
           %td
           %td= kairan.id

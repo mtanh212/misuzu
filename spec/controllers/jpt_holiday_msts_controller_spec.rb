@@ -47,7 +47,7 @@ RSpec.describe JptHolidayMstsController, type: :controller do
   describe "GET #show" do
     it "assigns the requested jpt_holiday_mst as @jpt_holiday_mst" do
       jpt_holiday_mst = JptHolidayMst.create! valid_attributes
-      get :show, {:id => jpt_holiday_mst.to_param}, valid_session
+      get :send_kairan_view, {:id => jpt_holiday_mst.to_param}, valid_session
       expect(assigns(:jpt_holiday_mst)).to eq(jpt_holiday_mst)
     end
   end
