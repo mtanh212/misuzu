@@ -1,19 +1,15 @@
 class ShozokumastersController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :set_shozokumaster, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
   respond_to :js
-  
+
   def index
-    @shozokumasters = Shozokumaster.all
   end
 
   def show
-
   end
 
   def new
-    @shozokumaster = Shozokumaster.new
   end
 
   def edit
@@ -21,41 +17,36 @@ class ShozokumastersController < ApplicationController
   end
 
   def create
-    @shozokumaster = Shozokumaster.new(shozokumaster_params)
-    
     flash[:notice] = t "app.flash.new_success" if @shozokumaster.save
     respond_with @shozokumaster
 
   end
 
   def update
-    
-    flash[:notice] = t "app.flash.update_success" if @shozokumaster.update shozokumaster_params
+    flash[:notice] = t "app.flash.update_success" if @shozokumaster.
+      update_attributes shozokumaster_params
     respond_with @shozokumaster
-    
   end
 
   def destroy
     @shozokumaster.destroy
     respond_with @shozokumaster, location: shozokumasters_url
-    
   end
 
   def import
-    Shozokumaster.delete_all
-    Shozokumaster.reset_pk_sequence
-    Shozokumaster.import(params[:file])
-    notice = t 'app.flash.import_csv'
-    redirect_to :back, notice: notice
+    if params[:file].nil?
+      redirect_to shozokumasters_path
+    else
+      Shozokumaster.delete_all
+      Shozokumaster.reset_pk_sequence
+      Shozokumaster.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
   end
-  
+
   private
-
   def shozokumaster_params
-    params.require(:shozokumaster).permit(:所属コード, :所属名)
-  end
-
-  def set_shozokumaster
-    @shozokumaster = Shozokumaster.find(params[:id])
+    params.require(:shozokumaster).permit :所属コード, :所属名
   end
 end

@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    if @user.update user_params_for_update
+    if @user.update_attributes user_params_for_update
       flash[:notice] = t "app.flash.update_success"
       redirect_to root_url
     else

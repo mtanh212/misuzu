@@ -7,7 +7,7 @@ class Shozokumaster < ActiveRecord::Base
 
   has_many :kouteimasters, foreign_key: :所属コード
   has_one :shainmaster, foreign_key: :所属コード
-  
+
   alias_attribute :id, :所属コード
   alias_attribute :name, :所属名
 
@@ -19,5 +19,4 @@ class Shozokumaster < ActiveRecord::Base
       Shozokumaster.create! row.to_hash
     end
   end
-
 end
