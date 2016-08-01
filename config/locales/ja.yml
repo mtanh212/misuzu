@@ -216,5 +216,6 @@ ja:
       mail_to: 社員のメールアドレスを登録していません。
       mail_send_field: エラーが発生する為、メールを送信できませんでした！
       kairan_confirm: チェックされた回覧を確認済み
+      wellcome_to: よろこそ！
     login:
       let_login: ログインしてください。

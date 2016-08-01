@@ -59,7 +59,7 @@ $(function(){
                 //},
             }
         );
-        
+
         $('#calendar-timeline').fullCalendar(
             {
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -108,7 +108,7 @@ $(function(){
                 //{
                     //group: true,
                     //labelText: '所属',
-                    //field: 'shozoku'  
+                    //field: 'shozoku'
                 //},
                 {
                     //group: true,
@@ -168,12 +168,12 @@ $(function(){
                 ,resources: data.shains
             }
         );
-        
+
         //add jpt holiday
         $('#calendar-month-view').fullCalendar('addEventSource',data.holidays);
-        
+
     });
-    
+
 });
 
 // readjust sizing after font load
@@ -216,7 +216,7 @@ $(function () {
 
 //date field click handler
 $(function () {
-    
+
     $('#goto-date-input').datetimepicker({
         format: 'YYYY/MM/DD',
         widgetPositioning: {
@@ -230,7 +230,7 @@ $(function () {
         focusOnShow: false
 
     });
-    
+
     //$('#event_開始').datetimepicker({
     //    format: 'YYYY/MM/DD HH:mm',
     //    showClear: true,
@@ -276,7 +276,7 @@ $(function(){
         $('#calendar-month-view').fullCalendar('gotoDate',date);
         $('#calendar-timeline').fullCalendar('gotoDate',date);
     });
-    
+
     $('#search_user').click(function(){
         $('#select_user_modal').modal('show');
     });
@@ -329,7 +329,7 @@ $(function(){
     //    $('#event_終了').val(end_time);
     //
     //});
-    
+
     //month day switch view
     //$('#month-view-button').click(function(){
     //    $('#calendar-timeline').hide();
@@ -341,7 +341,7 @@ $(function(){
     //    //$('#calendar-month-view').fullCalendar('render');
     //
     //});
-    
+
     //$('#day-view-button').click(function(){
     //    $('#month-view').hide();
     //    //$('#calendar-timeline').show();
@@ -370,28 +370,28 @@ $(function(){
             }
         ]
     });
-    
+
     oBashoTable = $('#basho_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
             "sUrl": "../../assets/resource/dataTable_ja.txt"
         }
     });
-    
+
     oJoutaiTable = $('#joutai_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
             "sUrl": "../../assets/resource/dataTable_ja.txt"
         }
     });
-    
+
     oKouteiTable = $('#koutei_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
             "sUrl": "../../assets/resource/dataTable_ja.txt"
         }
     });
-    
+
     oShozaiTable = $('#shozai_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
@@ -429,7 +429,7 @@ $(function(){
             //{"targets": [5], "width": '8%'}
         ],
         "order": [],
-        "columnDefs": [ 
+        "columnDefs": [
             {"targets" : 'no-sort', "orderable": false}
         ],
         "autoWidth": true
@@ -454,7 +454,7 @@ $(function(){
         }
 
     } );
-    
+
     //場所選択された行を判断
     $('#basho_table tbody').on( 'click', 'tr', function () {
 
@@ -509,7 +509,7 @@ $(function(){
             $('#event_工程コード').prop( "disabled", true );
             $('#basho_search').prop( "disabled", true );
             $('#koutei_search').prop( "disabled", true );
-            
+
         }else{
             //$('#event_開始').val('');
             //$('#event_終了').val('');
@@ -519,12 +519,12 @@ $(function(){
             $('#event_工程コード').prop( "disabled", false );
             $('#basho_search').prop( "disabled", false );
             $('#koutei_search').prop( "disabled", false );
-            
+
         }
 
 
     } );
-    
+
     //工程選択された行を判断
     $('#koutei_table tbody').on( 'click', 'tr', function () {
 
@@ -544,9 +544,9 @@ $(function(){
             $(this).addClass('selected');
             $(this).addClass('success');
         }
-        
+
     } );
-    
+
     //工程選択された行を判断
     $('#shozai_table tbody').on( 'click', 'tr', function () {
 
@@ -564,7 +564,7 @@ $(function(){
             $(this).addClass('selected');
             $(this).addClass('success');
         }
-        
+
     } );
 
     //工程選択された行を判断
@@ -585,7 +585,7 @@ $(function(){
             $(this).addClass('selected');
             $(this).addClass('success');
         }
-        
+
     } );
 
 });
@@ -660,7 +660,7 @@ $(function(){
                     console.log("event_状態コード keydown Unsuccessful");
                 }
             });
-            
+
         }
     });
 

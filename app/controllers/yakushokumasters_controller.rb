@@ -16,28 +16,24 @@ class YakushokumastersController < ApplicationController
   end
 
   def edit
-
   end
-  
+
   def create
     @yakushokumaster = Yakushokumaster.new(yakushokumaster_params)
-
     flash[:notice] = t "app.flash.new_success" if @yakushokumaster.save
     respond_with @yakushokumaster
-    
   end
-    
-  
+
+
   def update
     flash[:notice] = t "app.flash.update_success" if @yakushokumaster.update yakushokumaster_params_for_update
     respond_with @yakushokumaster
 
   end
-  
+
   def destroy
     @yakushokumaster.destroy
     respond_with @yakushokumaster, location: yakushokumasters_url
-    
   end
 
   private

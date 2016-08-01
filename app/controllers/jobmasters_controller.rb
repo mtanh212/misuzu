@@ -72,7 +72,7 @@ class JobmastersController < ApplicationController
     notice = t 'app.flash.import_csv'
     redirect_to :back, notice: notice
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_jobmaster

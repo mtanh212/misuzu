@@ -14,10 +14,9 @@ class DengonsController < ApplicationController
     @yoken = params[:head][:youken] if params[:head].present?
     @kaitou = params[:head][:kaitou] if params[:head].present?
 
-    @dengons = @dengons.where(社員番号: @shain_param) if @shain_param.present?
+    @dengons = @dengons.where("社員番号 = ? or 入力者 = ?", @shain_param, @shain_param) if @shain_param.present?
     @dengons = @dengons.where(用件: @yoken) if @yoken.present?
     @dengons = @dengons.where(回答: @kaitou) if @kaitou.present?
-
     respond_with(@dengons)
   end
 

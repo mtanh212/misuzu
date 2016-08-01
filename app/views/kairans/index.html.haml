@@ -25,23 +25,23 @@
         %th kairanCode
 
     %tbody
-      - @kairanShoshais.each do |kairan|
+      - @kairanShoshais.each do |kairanshosai|
         %tr
-          %td= kairan.開始
-          %td= kairan.kairan.氏名
-          %td= kairan.kairan.kairanyokenmst.try :名称 if kairan.kairan
-          %td= kairan.件名
-          %td.breakAll= kairan.内容
-          - kakunin =  kairan.確認 == true ? '確認済':'未確認'
-          - if kairan.回答済 == true
+          %td= kairanshosai.開始
+          %td= kairanshosai.kairan.氏名
+          %td= kairanshosai.kairan.kairanyokenmst.try :名称 if kairanshosai.kairan
+          %td= kairanshosai.件名
+          %td.breakAll= kairanshosai.内容
+          - kakunin =  kairanshosai.確認 == true ? '確認済':'未確認'
+          - if kairanshosai.回答済 == true
             - kakunin = '回答済'
           %td= kakunin
-          - kairanKaitou = Kairan.find kairan.回覧コード
-          - kaito = kairan.kairan.確認要 == true ? '要':''
+          - kairanKaitou = Kairan.find kairanshosai.回覧コード
+          - kaito = kairanshosai.kairan.確認要 == true ? '要':''
           %td= link_to kaito, kaitou_kairan_path(kairanKaitou)
           %td
-          %td= kairan.id
-          %td= kairan.回覧コード
+          %td= kairanshosai.id
+          %td= kairanshosai.回覧コード
           -#%td= link_to '編集', edit_kairan_path(kairan)
           -#%td= link_to '削除', kairan, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
 

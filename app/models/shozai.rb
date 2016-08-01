@@ -7,8 +7,8 @@ class Shozai < ActiveRecord::Base
   validates :所在コード, uniqueness: true
 
   # has_many :events
-  has_one :shainmaster, foreign_key: :所在コード
-  
+  has_many :shainmasters, foreign_key: :所在コード
+
   alias_attribute :id, :所在コード
   alias_attribute :name, :所在名
   alias_attribute :background_color, :背景色

@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   self.table_name = :events
-  
+
   validates :社員番号, :開始, :状態コード, presence: true
   validates :工程コード, :場所コード, :JOB, presence: true, if: Proc.new{|event| event.joutaimaster.try(:状態区分) == '1'}
   validate :check_date_input

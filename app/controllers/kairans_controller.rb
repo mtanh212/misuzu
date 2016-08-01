@@ -77,14 +77,13 @@ class KairansController < ApplicationController
   end
 
   def show
-
   end
 
   def send_kairan_view
     @send_kairan_id = params[:id]
     @kairan = Kairan.find(params[:id])
     @taishosha = Kairanshosai.where(回覧コード: @kairan.id)
-    @shains = Shainmaster.all
+    @kairanshosais = @kairan.kairanshosais
     respond_with(@taishosha)
   end
 
@@ -119,12 +118,12 @@ class KairansController < ApplicationController
   end
 
   private
-    def set_kairan
-      @kairan = Kairan.find(params[:id])
-      @kairanShoshai = Kairanshosai.find(params[:id])
-    end
+  def set_kairan
+    @kairan = Kairan.find(params[:id])
+    @kairanShoshai = Kairanshosai.find(params[:id])
+  end
 
-    def kairan_params
-      params.require(:kairan).permit(:発行者, :要件, :開始, :終了, :件名, :内容, :確認, :確認要, :確認済)
-    end
+  def kairan_params
+    params.require(:kairan).permit(:発行者, :要件, :開始, :終了, :件名, :内容, :確認, :確認要, :確認済)
+  end
 end

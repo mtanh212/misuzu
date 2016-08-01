@@ -8,12 +8,13 @@ class EventsController < ApplicationController
 
   def index
     @all_events = Event.where("Date(開始) = ?", Date.today.to_s(:db))
-    @events = Shainmaster.find(session[:selected_shain]).events.where("Date(開始) >= ?", (Date.today - 1.month).to_s(:db)).order(開始: :desc)
     @shains = Shainmaster.order(:所属コード, :役職コード, :社員番号).all
     @holidays = JptHolidayMst.all
-
+    session[:selected_shain] = current_user.id unless session[:selected_shain].present?
+    @events = Shainmaster.find(session[:selected_shain]).events.
+      where("Date(開始) >= ?",(Date.today - 1.month).to_s(:db)).
+      order(開始: :desc)
     @shain = Shainmaster.find(session[:selected_shain])
-
     @kairanCount = Kairanshosai.where(対象者: session[:user], 確認: false).count
     shain = Shainmaster.find(session[:user])
     if shain
@@ -23,7 +24,6 @@ class EventsController < ApplicationController
 
   rescue
     @events = Shainmaster.take.events
-
     # 不在状態の社員
     # check_user_status()
 

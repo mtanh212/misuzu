@@ -9,12 +9,12 @@ class Bashomaster < ActiveRecord::Base
   # validates :会社コード, inclusion: {in: Kaishamaster.pluck(:会社コード)}, allow_blank: true
 
   has_many :events
-  
+
   belongs_to :kaishamaster, foreign_key: :会社コード
   belongs_to :bashokubunmst, foreign_key: :場所区分
 
   delegate :name, to: :kaishamaster, prefix: :kaisha, allow_nil: true
-  
+
   alias_attribute :id, :場所コード
   alias_attribute :name, :場所名
 
@@ -31,9 +31,9 @@ class Bashomaster < ActiveRecord::Base
       kaishamaster = Kaishamaster.find_by(会社コード: row_hash['会社コード'])
       kaishamaster_id = kaishamaster.id if kaishamaster
       new_hash = row_hash.merge({'kaishamaster_id': kaishamaster_id})
-      
+
       Bashomaster.create! new_hash
-      
+
       # basho.kaishamaster = Kaishamaster.find_by(会社コード: row_hash['会社コード'])
       # basho.save
 
@@ -46,7 +46,7 @@ class Bashomaster < ActiveRecord::Base
     #     basho.save
     #   end
     # end
-    
+
   end
 
 end

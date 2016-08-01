@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   self.table_name = :担当者マスタ
   self.primary_key = :担当者コード
+  attr_accessor :remember_token
 
 
   # validates :email, confirmation: true

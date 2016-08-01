@@ -1,7 +1,7 @@
 class Jobmaster < ActiveRecord::Base
   self.table_name = :JOBマスタ
   self.primary_key = :job番号
-  
+
   validates :job番号, uniqueness: true
   validates :job番号, :job名, presence: true
   validates :入力社員番号, numericality: { only_integer: true }, inclusion: {in: Shainmaster.pluck(:社員番号)}, allow_blank: true
@@ -10,7 +10,7 @@ class Jobmaster < ActiveRecord::Base
   validates :分類コード, inclusion: {in: Bunrui.pluck(:分類コード)}, allow_blank: true
   validate :check_input
 
-  has_one :events, foreign_key: :JOB
+  has_one :event, foreign_key: :JOB
   belongs_to :kaishamaster, class_name: :Kaishamaster, foreign_key: :ユーザ番号
   belongs_to :bunrui,foreign_key: :分類コード
 
@@ -26,13 +26,12 @@ class Jobmaster < ActiveRecord::Base
       Jobmaster.create! row.to_hash
     end
   end
-  
+
   # def to_param
   #   id.parameterize
   # end
 
   def check_input
     errors.add(:終了日, "は開始日以上の値にしてください。") if 開始日.present? && 終了日.present? && 開始日 > 終了日
-    errors.add(:job番号, "重複値になっています")  if job番号.in?(Jobmaster.pluck(:job番号))
   end
 end

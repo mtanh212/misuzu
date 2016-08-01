@@ -3,7 +3,7 @@ class Shainmaster < ActiveRecord::Base
   self.primary_key = :社員番号
 
   # default_scope { where("社員番号 is not '#{ENV['admin_user']}'")}
-  
+
   validates :社員番号,:氏名, :連携用社員番号, presence: true
   validates :社員番号, uniqueness: true
 
@@ -14,7 +14,7 @@ class Shainmaster < ActiveRecord::Base
   belongs_to :shozai, foreign_key: :所在コード
   belongs_to :shozokumaster, foreign_key: :所属コード
   belongs_to :yakushokumaster, foreign_key: :役職コード
-  
+
   alias_attribute :title, :氏名
   alias_attribute :id, :社員番号
 
