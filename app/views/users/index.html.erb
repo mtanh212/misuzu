@@ -1,6 +1,6 @@
 <%= javascript_include_tag 'user' %>
 <ol class="breadcrumb">
-  <!--<li><%# link_to 'メニュー', main_path %></li>-->
+  <li><%= link_to 'メニュー', main_path %></li>
   <!--<li><%# link_to '社員マスタ', shainmasters_url %></li>-->
   <!-- <li><a href="#">基準情報</a></li> -->
   <!-- <li><a href="#">セキュリティ管理</a></li> -->
@@ -9,18 +9,15 @@
 
 <!-- <h1>工程マスタ</h1> -->
 
-<table id="user_table" class="table table-striped table-bordered table-hover" cellspacing="0">
+<table id="user_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 
   <thead>
-  <tr>
-    <th>担当者コード</th>
-    <th>担当者名称</th>
-    <th>パスワード</th>
-    <th>アドミン</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+    <tr>
+      <th>担当者コード</th>
+      <th>担当者名称</th>
+      <th>アドミン</th>
+      <th colspan="3">アクション</th>
+    </tr>
   </thead>
 
   <tbody>
@@ -28,12 +25,11 @@
       <tr id="user_<%= user.id %>">
         <td><%= user.担当者コード %></td>
         <td><%= user.担当者名称 %></td>
-        <td><%= user.パスワード %></td>
         <td><%= user.admin %></td>
         <td><%= link_to '詳細', user %></td>
-        <td><%= link_to '編集', edit_user_path(user) %></td>
-        <td><%= link_to '削除', user, remote: true, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
-
+        <td><%= link_to '編集', edit_user_path(user) if
+        current_user.admin? %></td>
+        <td><%= link_to '削除', user, method: :delete, data: { confirm: '削除で宜しですか。'} if current_user.admin? %></td>
       </tr>
   <% end %>
   </tbody>

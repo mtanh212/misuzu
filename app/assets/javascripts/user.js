@@ -4,12 +4,12 @@ $(function() {
         "pagingType": "full_numbers"
         , "oLanguage": {
             "sUrl": "../../assets/resource/dataTable_ja.txt"
-        }
-        ,"aoColumnDefs": [
-            { "bSortable": false, "aTargets": [ 4,5,6 ]},
+        },
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [ 4,5 ]},
             {
-                "targets": [4,5,6],
-                "width": '15px'
+                "targets": [4,5],
+                "width": '5%'
             }
         ],
         "columnDefs": [ {
@@ -17,10 +17,4 @@ $(function() {
             "orderable": false
         }]
     });
-});
-
-
-$(function(){
-
-
 });

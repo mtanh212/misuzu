@@ -24,27 +24,28 @@
     .row
       .col-md-3
         %ul.list-group
+          %li.list-group-item= link_to '担当者マスタ', users_path
           %li.list-group-item= link_to '工程マスタ', kouteimasters_path
           %li.list-group-item= link_to '社員マスタ', shainmasters_path
           %li.list-group-item= link_to '所属マスタ', shozokumasters_path
           %li.list-group-item= link_to '会社マスタ', kaishamasters_path
-          %li.list-group-item= link_to '場所マスタ', bashomasters_path
       .col-md-3
         %ul.list-group
+          %li.list-group-item= link_to '場所マスタ', bashomasters_path
           %li.list-group-item= link_to 'JOBマスタ', jobmasters_path
           %li.list-group-item= link_to '所在マスタ', shozais_path
           %li.list-group-item= link_to '役職マスタ', yakushokumasters_path
           %li.list-group-item= link_to 'ジュピター休日', jpt_holiday_msts_path
-          %li.list-group-item= link_to '状態マスタ', joutaimasters_path
       .col-md-3
         %ul.list-group
           %li.list-group-item= link_to '機関マスタ', kikanmsts_path
           %li.list-group-item= link_to '駅マスタ', ekis_path
           %li.list-group-item= link_to '承認者マスタ', shoninshamsts_path
           %li.list-group-item= link_to '分類マスタ', bunruis_path
-          %li.list-group-item= link_to '場所区分マスタ', bashokubunmsts_path
+          %li.list-group-item= link_to '状態マスタ', joutaimasters_path
       .col-md-3
         %ul.list-group
+          %li.list-group-item= link_to '場所区分マスタ', bashokubunmsts_path
           %li.list-group-item= link_to '伝言回答マスタ', dengonkaitous_path
           %li.list-group-item= link_to '伝言用件マスタ', dengonyoukens_path
           %li.list-group-item= link_to '通信制御マスタ', tsushinseigyous_path

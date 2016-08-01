@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801040045) do
+ActiveRecord::Schema.define(version: 20160801092923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -282,9 +282,9 @@ ActiveRecord::Schema.define(version: 20160801040045) do
   end
 
   create_table "担当者マスタ", id: false, force: :cascade do |t|
-    t.string   "担当者コード",              null: false
+    t.string   "担当者コード",                              null: false
     t.string   "担当者名称"
-    t.boolean  "admin"
+    t.boolean  "admin",               default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "avatar_file_name"

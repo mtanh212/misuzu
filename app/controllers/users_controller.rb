@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_user!
   load_and_authorize_resource
   skip_authorize_resource only: [:new, :create]
 
@@ -46,8 +47,9 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_with @user
+    if @user.destroy
+      redirect_to users_path
+    end
   end
 
   def change_pass

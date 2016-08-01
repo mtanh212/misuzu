@@ -9,14 +9,9 @@
 </p>
 
 <p>
-  <strong>パスワード:</strong>
-  <%= @user.パスワード %>
-</p>
-
-<p>
   <strong>アドミン:</strong>
   <%= @user.admin %>
 </p>
 
-<%= link_to '編集', edit_user_path(@user) %> |
+<%= link_to '編集 | ', edit_user_path(@user) if current_user.admin? %>
 <%= link_to '戻る', users_path %>
