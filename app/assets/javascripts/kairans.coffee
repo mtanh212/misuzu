@@ -158,7 +158,6 @@ jQuery ->
       "rowId": '社員番号',
       "initComplete": ( settings ) ->
         api = new $.fn.dataTable.Api( settings )
-#        api.rows(["[id='10002']", "[id='81000']"]).select()
         api.rows(getTaishoList(data.taishosha)).select()
     })
   )

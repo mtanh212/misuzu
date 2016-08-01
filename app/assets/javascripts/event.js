@@ -456,25 +456,6 @@ $(function(){
     } );
 
     //場所選択された行を判断
-    $('#basho_table tbody').on( 'click', 'tr', function () {
-
-        var d = oBashoTable.row(this).data();
-        $('#event_場所コード').val(d[0]);
-        //$('#basho_name').text(d[1]);
-        $('.hint-basho-refer').text(d[1])
-
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-            $(this).removeClass('success');
-        }
-        else {
-            oBashoTable.$('tr.selected').removeClass('selected');
-            oBashoTable.$('tr.success').removeClass('success');
-            $(this).addClass('selected');
-            $(this).addClass('success');
-        }
-
-    } );
 
     //状態選択された行を判断
     $('#joutai_table tbody').on( 'click', 'tr', function () {

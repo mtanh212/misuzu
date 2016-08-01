@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     user = User.find_by 担当者コード:params[:session][:担当者コード]
     if user && (user.authenticate params[:session][:password])
       params[:session][:remember_me] ? remember(user) : forget(user)
-      flash[:success] = t "app.flash.wellcome_to"
+      flash[:notice] = t "app.flash.wellcome_to"
       log_in user
     else
       flash[:danger] = t "app.flash.login_field"

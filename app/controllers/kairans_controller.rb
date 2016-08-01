@@ -1,4 +1,5 @@
 class KairansController < ApplicationController
+  before_action :require_user!
   before_action :set_kairan, only: [:update, :destroy]
 
   respond_to :json
@@ -7,20 +8,18 @@ class KairansController < ApplicationController
 
   def kaitou
     kairan = Kairan.find(params[:id])
-    # @kairan = Kairan.new(発行者: kairan.発行者, 要件: kairan.要件, 開始: kairan.開始, 終了:kairan.終了, 件名: 'Re:'<< kairan.件名, 内容: 'Re:' << kairan.内容)
     @kairan = Kairan.new(発行者: session[:user], 要件: kairan.要件, 開始: kairan.開始, 終了:kairan.終了, 件名: 'Re:'<< kairan.件名, 内容: 'Re:' << kairan.内容)
     @kaitoid = params[:id]
     @kaitoto = kairan.発行者
   end
 
   def kaitou_create
-    # taiShoSha = kairan_params[:発行者]
     taiShoSha = params[:kaitoto]
     kairan_params[:発行者] = session[:user]
     kairan = Kairan.create(kairan_params)
-    Kairanshosai.create(回覧コード:kairan.id, 対象者: taiShoSha)
+    Kairanshosai.create!(回覧コード:kairan.id, 対象者: taiShoSha, 状態: 0)
     kairanShoshai = Kairanshosai.where(回覧コード: params[:kaitoid], 対象者: session[:user]).first!
-    kairanShoshai.update(回答済: true)
+    kairanShoshai.update(状態: 2)
     redirect_to kairans_url
   rescue
   end
@@ -29,7 +28,7 @@ class KairansController < ApplicationController
     strSelected = params[:checked]
     arrSelected = strSelected.split(',') if strSelected
     arrSelected.each do |kairanShoshaiId|
-      Kairanshosai.find(kairanShoshaiId).update(確認: true)
+      Kairanshosai.find(kairanShoshaiId).update(状態: 1)
     end
     flash[:notice] = t "app.flash.kairan_confirm"
     redirect_to kairans_url
@@ -47,7 +46,7 @@ class KairansController < ApplicationController
         arrSelecteds = strSelecteds.split(',') if strSelecteds
         arrSelecteds.each do |kairanShoshaiId|
           kairanshosai = Kairanshosai.find(kairanShoshaiId)
-          kairanshosai.update 確認:true
+          kairanshosai.update 状態: 1
           # shain = Shainmaster.find kairanshosai.対象者
           shain = Shainmaster.find session[:user]
           kairankensu = shain.回覧件数.to_i - 1
@@ -98,7 +97,7 @@ class KairansController < ApplicationController
 
   def create
     # kairan_params[:発行者] = session[:user]
-    kairan_params[:確認] = false
+    kairan_params[:状態] = 0
     @kairan = Kairan.new(kairan_params)
 
     flash[:notice] = t "app.flash.new_success" if @kairan.save

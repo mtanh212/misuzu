@@ -15,7 +15,7 @@ class EventsController < ApplicationController
       where("Date(開始) >= ?",(Date.today - 1.month).to_s(:db)).
       order(開始: :desc)
     @shain = Shainmaster.find(session[:selected_shain])
-    @kairanCount = Kairanshosai.where(対象者: session[:user], 確認: false).count
+    @kairanCount = Kairanshosai.where(対象者: session[:user], 状態: 0).count
     shain = Shainmaster.find(session[:user])
     if shain
       shain.回覧件数 = @kairanCount
