@@ -35,6 +35,7 @@ class ShozokumastersController < ApplicationController
 
   def import
     if params[:file].nil?
+      flash[:alert] = t "app.flash.file_nil"
       redirect_to shozokumasters_path
     else
       Shozokumaster.delete_all

@@ -39,7 +39,7 @@ class JptHolidayMstsController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert]="upload csv file or file corect format please!"
+      flash[:alert] = t "app.flash.file_nil"
       redirect_to jpt_holiday_msts_url_path
     else
       JptHolidayMst.delete_all

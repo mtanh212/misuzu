@@ -46,7 +46,7 @@ class ShainmastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert]="upload csv file or file corect format please!"
+      flash[:alert] = t "app.flash.file_nil"
       redirect_to shainmasters_path
     else
       Shainmaster.delete_all

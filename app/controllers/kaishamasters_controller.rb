@@ -39,7 +39,7 @@ class KaishamastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file.nil"
+      flash[:alert] = t "app.flash.file_nil"
       redirect_to kaishamasters_path
     else
       Kaishamaster.delete_all
