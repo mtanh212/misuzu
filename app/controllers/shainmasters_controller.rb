@@ -44,6 +44,20 @@ class ShainmastersController < ApplicationController
     respond_with @shainmaster, location: shainmasters_url
   end
 
+  def import
+    if params[:file].nil?
+      flash[:alert]="upload csv file or file corect format please!"
+      redirect_to shainmasters_path
+    else
+      Shainmaster.delete_all
+      Shainmaster.reset_pk_sequence
+      Shainmaster.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
+
+  end
+
   private
   def shainmaster_params
     params.require(:shainmaster).permit :社員番号, :連携用社員番号, :氏名,

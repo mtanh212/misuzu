@@ -7,11 +7,20 @@ class Kouteimaster < ActiveRecord::Base
 
   belongs_to :shozokumaster, foreign_key: :所属コード
   has_one :event, foreign_key: [:所属コード, :工程コード]
-  
+
   alias_attribute :shozokucode, :所属コード
   alias_attribute :code, :工程コード
   alias_attribute :name, :工程名
 
   delegate :id, to: :shozokumaster, prefix: true, allow_nil: true
   delegate :name, to: :shozokumaster, prefix: true, allow_nil: true
+
+  def self.import(file)
+
+    # a block that runs through a loop in our CSV data
+    CSV.foreach(file.path, headers: true) do |row|
+      # creates a user for each row in the CSV file
+    Kouteimaster.create! row.to_hash
+    end
+  end
 end

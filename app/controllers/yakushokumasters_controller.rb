@@ -38,7 +38,8 @@ class YakushokumastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = "app.flash.file.nil"
+      flash[:alert] = t "app.flash.file.nil"
+
       redirect_to yakushokumasters_path
     else
       Yakushokumaster.delete_all
@@ -46,8 +47,7 @@ class YakushokumastersController < ApplicationController
       Yakushokumaster.import(params[:file])
       notice = t 'app.flash.import_csv'
       redirect_to :back, notice: notice
-  end
-  
+    end
   end
 
   private

@@ -61,6 +61,22 @@ Jpt::Application.routes.draw do
     collection {post :ajax, :import}
   end
 
+  resources :kouteimasters do
+    collection {post :ajax, :import}
+  end
+
+  resources :shainmasters do
+    collection {post :ajax, :import}
+  end
+
+  resources :yakushokumasters do
+    collection {post :ajax, :import}
+  end
+
+  resources :jpt_holiday_msts do
+    collection {post :ajax, :import}
+  end
+
   resources :jobmasters do
     collection {post :ajax, :import}
   end

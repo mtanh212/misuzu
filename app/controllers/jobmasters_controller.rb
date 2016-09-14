@@ -66,11 +66,16 @@ class JobmastersController < ApplicationController
   end
 
   def import
-    Jobmaster.delete_all
-    Jobmaster.reset_pk_sequence
-    Jobmaster.import(params[:file])
-    notice = t 'app.flash.import_csv'
-    redirect_to :back, notice: notice
+    if params[:file].nil?
+      flash[:alert]="upload csv file or file corect format please!"
+      redirect_to jobmasters_path
+    else
+      Jobmaster.delete_all
+      Jobmaster.reset_pk_sequence
+      Jobmaster.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
   end
 
   private

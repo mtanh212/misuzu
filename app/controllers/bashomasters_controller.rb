@@ -4,7 +4,7 @@ class BashomastersController < ApplicationController
   before_action :set_bashomaster, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
   respond_to :js
-  
+
   def index
     @bashomasters = Bashomaster.all
   end
@@ -50,13 +50,18 @@ class BashomastersController < ApplicationController
   end
 
   def import
-    Bashomaster.delete_all
-    Bashomaster.reset_pk_sequence
-    Bashomaster.import(params[:file])
-    notice = t 'app.flash.import_csv'
-    redirect_to :back, notice: notice
+    if params[:file].nil?
+      flash[:alert]="upload csv file or file corect format please!"
+      redirect_to bashomasters_path
+    else
+      Bashomaster.delete_all
+      Bashomaster.reset_pk_sequence
+      Bashomaster.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
   end
-  
+
   private
 
   def bashomaster_params
@@ -70,5 +75,5 @@ class BashomastersController < ApplicationController
   def set_kaishamst
     @kaishamasters = Kaishamaster.all
   end
-  
+
 end

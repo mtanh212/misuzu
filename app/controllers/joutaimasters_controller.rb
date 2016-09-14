@@ -3,7 +3,7 @@ class JoutaimastersController < ApplicationController
   before_action :set_joutaimaster, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
   respond_to :js
-  
+
   def index
     @joutaimasters = Joutaimaster.all
   end
@@ -25,7 +25,7 @@ class JoutaimastersController < ApplicationController
 
     flash[:notice] = t "app.flash.new_success" if @joutaimaster.save
     respond_with @joutaimaster
-    
+
   end
 
   def update
@@ -37,18 +37,22 @@ class JoutaimastersController < ApplicationController
 
   def destroy
     @joutaimaster.destroy
-    respond_with @joutaimaster, location: joutaimasters_url 
-    
+    respond_with @joutaimaster, location: joutaimasters_url
   end
 
   def import
-    Joutaimaster.delete_all
-    Joutaimaster.reset_pk_sequence
-    Joutaimaster.import(params[:file])
-    notice = t 'app.flash.import_csv'
-    redirect_to :back, notice: notice
+    if params[:file].nil?
+      flash[:alert]="upload csv file or file corect format please!"
+      redirect_to joutaimasters_path
+    else
+      Joutaimaster.delete_all
+      Joutaimaster.reset_pk_sequence
+      Joutaimaster.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
   end
-  
+
   private
 
   def joutaimaster_params

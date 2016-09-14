@@ -20,6 +20,14 @@ class Shainmaster < ActiveRecord::Base
 
   delegate :所在名, to: :shozai, prefix: :shozai, allow_nil: true
 
+  def self.import(file)
+    # a block that runs through a loop in our CSV data
+    CSV.foreach(file.path, headers: true) do |row|
+      # creates a user for each row in the CSV file
+      Shainmaster.create! row.to_hash
+    end
+  end
+
   def events
     super || build_events
   end
