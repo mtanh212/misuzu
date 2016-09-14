@@ -29,7 +29,7 @@
 
 - if can? :update, @kikanmsts
   %h4 CSVでのデータをインポート!
-  = form_tag import_shozokumasters_path,class:'form-inline', multipart: true do
+  = form_tag import_kikanmsts_path,class:'form-inline', multipart: true do
     .form-group
       = label_tag 'selectcsv', nil, class: 'sr-only'
       = file_field_tag :file , class: 'btn btn-default'

@@ -38,11 +38,16 @@ class KikanmstsController < ApplicationController
   end
 
   def import
-    Kikanmst.delete_all
-    Kikanmst.reset_pk_sequence
-    Kikanmst.import(params[:file])
-    notice = t 'app.flash.import_csv'
-    redirect_to :back, notice: notice
+    if params[:file].nil?
+      flash[:alert] = "app.flash.csv.file.nil"
+      redirect_to kikanmsts_path
+    else
+      Kikanmst.delete_all
+      Kikanmst.reset_pk_sequence
+      Kikanmst.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
   end
 
   private

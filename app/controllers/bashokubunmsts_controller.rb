@@ -36,6 +36,19 @@ class BashokubunmstsController < ApplicationController
     respond_with(@bashokubunmst)
   end
 
+  def import
+    if params[:file].nil?
+      flash[:alert] = "app.flash.file.nil"
+      redirect_to bashokubunmsts_path
+    else
+      Bashokubunmst.delete_all
+      Bashokubunmst.reset_pk_sequence
+      Bashokubunmst.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
+  end
+
   private
     def set_bashokubunmst
       @bashokubunmst = Bashokubunmst.find(params[:id])

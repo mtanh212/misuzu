@@ -35,8 +35,6 @@
 <br>
 
 <%= link_to '新規', new_kaishamaster_path %>
-<% if can? :update, @kaishamasters %>
-
 <h4>CSVでのデータをインポート!</h4>
 <%= form_tag import_kaishamasters_path,class:'form-inline', multipart: true do %>
     <div class="form-group">
@@ -47,5 +45,4 @@
       <%= label_tag 'importcsv', nil, class: 'sr-only' %>
       <%= submit_tag "Import CSV" , class: 'btn btn-default' %>
     </div>
-<% end %>
 <% end %>

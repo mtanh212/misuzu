@@ -36,6 +36,19 @@ class DengonyoukensController < ApplicationController
     respond_with(@dengonyouken)
   end
 
+  def import
+    if params[:file].nil?
+      flash[:alert] = "app.flash.file.nil"
+      redirect_to dengonyoukens_path
+    else
+      Dengonyouken.delete_all
+      Dengonyouken.reset_pk_sequence
+      Dengonyouken.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
+  end
+
   private
     def set_dengonyouken
       @dengonyouken = Dengonyouken.find(params[:id])

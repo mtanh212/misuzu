@@ -6,4 +6,9 @@ class Bunrui < ActiveRecord::Base
   validates :分類コード, :分類名, presence: true
 
   has_one :jobmaster, foreign_key: :分類コード
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      Bunrui.create! row.to_hash
+    end
+  end
 end

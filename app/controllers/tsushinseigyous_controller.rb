@@ -36,6 +36,19 @@ class TsushinseigyousController < ApplicationController
     respond_with(@tsushinseigyou)
   end
 
+  def import
+    if params[:file].nil?
+      flash[:alert] = "app.flash.file.nil"
+      redirect_to tsushinseigyous_path
+    else
+      Tsushinseigyou.delete_all
+      Tsushinseigyou.reset_pk_sequence
+      Tsushinseigyou.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
+  end
+
   private
     def set_tsushinseigyou
       @tsushinseigyou = Tsushinseigyou.find(params[:id])
