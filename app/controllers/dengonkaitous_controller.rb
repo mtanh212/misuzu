@@ -38,7 +38,7 @@ class DengonkaitousController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = "app.flash.file.nil"
+      flash[:alert] = t "app.flash.file_nil"
       redirect_to dengonkaitous_path
     else
       Dengonkaitou.delete_all

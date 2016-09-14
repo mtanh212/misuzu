@@ -38,7 +38,7 @@ class TsushinseigyousController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = "app.flash.file.nil"
+      flash[:alert] = t "app.flash.file_nil"
       redirect_to tsushinseigyous_path
     else
       Tsushinseigyou.delete_all

@@ -39,7 +39,7 @@ class EkisController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = "app.flash.file.nil"
+      flash[:alert] = t "app.flash.file_nil"
       redirect_to ekis_path
     else
       Eki.delete_all
