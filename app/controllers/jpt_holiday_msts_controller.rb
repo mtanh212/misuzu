@@ -37,6 +37,19 @@ class JptHolidayMstsController < ApplicationController
     respond_with(@jpt_holiday_mst, location: jpt_holiday_msts_url)
   end
 
+  def import
+    if params[:file].nil?
+      flash[:alert]="upload csv file or file corect format please!"
+      redirect_to jpt_holiday_msts_url_path
+    else
+      JptHolidayMst.delete_all
+      JptHolidayMst.reset_pk_sequence
+      JptHolidayMst.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
+  end
+
   private
     def set_jpt_holiday_mst
       @jpt_holiday_mst = JptHolidayMst.find(params[:id])

@@ -39,12 +39,16 @@ class ShozaisController < ApplicationController
   end
 
   def import
-    Shozai.delete_all
-    Shozai.reset_pk_sequence
-    Shozai.import(params[:file])
-
-    notice = t 'app.flash.import_csv'
-    redirect_to :back, notice: notice
+    if params[:file].nil?
+      flash[:alert]="upload csv file or file corect format please!"
+      redirect_to shozais_path
+    else
+      Shozai.delete_all
+      Shozai.reset_pk_sequence
+      Shozai.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
   end
 
   private

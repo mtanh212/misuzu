@@ -23,7 +23,7 @@ class KouteimastersController < ApplicationController
 
   # GET /kouteimasters/1/edit
   def edit
-    
+
   end
 
   # POST /kouteimasters
@@ -33,7 +33,7 @@ class KouteimastersController < ApplicationController
     flash[:notice] = t "app.flash.new_success" if @kouteimaster.save
     respond_with @kouteimaster
   end
-    
+
 
   # PATCH/PUT /kouteimasters/1
   # PATCH/PUT /kouteimasters/1.json
@@ -48,7 +48,7 @@ class KouteimastersController < ApplicationController
     @kouteimaster.destroy
     respond_with @kouteimaster, location: kouteimasters_url
   end
-  
+
   def ajax
     case params[:id]
       when "kouteimaster_所属コード"
@@ -60,7 +60,20 @@ class KouteimastersController < ApplicationController
         end
     end
   end
-  
+
+  def import
+    if params[:file].nil?
+      flash[:alert]="upload csv file or file corect format please!"
+      redirect_to kouteimasters_path
+    else
+      Kouteimaster.delete_all
+      Kouteimaster.reset_pk_sequence
+      Kouteimaster.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
   def set_kouteimaster
@@ -75,9 +88,9 @@ class KouteimastersController < ApplicationController
   def kouteimaster_params
     params.require(:kouteimaster).permit(:所属コード, :工程コード, :工程名)
   end
-  
+
   def param_valid
       params[:kouteimaster][:所属コード].in?(Shozokumaster.pluck(:所属コード))
   end
-  
+
 end

@@ -8,7 +8,7 @@ class Yakushokumaster < ActiveRecord::Base
   has_many :shainmasters, foreign_key: :役職コード
 
   alias_attribute :id, :役職コード
-  # a class method import, with file passed through as an argument
+
   def self.import(file)
     # a block that runs through a loop in our CSV data
     CSV.foreach(file.path, headers: true) do |row|
