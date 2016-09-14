@@ -63,7 +63,7 @@ class KouteimastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert]="upload csv file or file corect format please!"
+      flash[:alert] = t "app.flash.file_nil"
       redirect_to kouteimasters_path
     else
       Kouteimaster.delete_all

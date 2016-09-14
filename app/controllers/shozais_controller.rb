@@ -40,7 +40,7 @@ class ShozaisController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert]="upload csv file or file corect format please!"
+      flash[:alert] = t "app.flash.file_nil"
       redirect_to shozais_path
     else
       Shozai.delete_all

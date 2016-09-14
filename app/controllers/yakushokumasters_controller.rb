@@ -38,7 +38,7 @@ class YakushokumastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file.nil"
+      flash[:alert] = t "app.flash.file_nil"
 
       redirect_to yakushokumasters_path
     else

@@ -67,7 +67,7 @@ class JobmastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert]="upload csv file or file corect format please!"
+      flash[:alert] = t "app.flash.file_nil"
       redirect_to jobmasters_path
     else
       Jobmaster.delete_all
