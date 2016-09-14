@@ -36,6 +36,19 @@ class DengonkaitousController < ApplicationController
     respond_with(@dengonkaitou)
   end
 
+  def import
+    if params[:file].nil?
+      flash[:alert] = "app.flash.file.nil"
+      redirect_to dengonkaitous_path
+    else
+      Dengonkaitou.delete_all
+      Dengonkaitou.reset_pk_sequence
+      Dengonkaitou.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
+  end
+  
   private
     def set_dengonkaitou
       @dengonkaitou = Dengonkaitou.find(params[:id])

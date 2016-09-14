@@ -7,4 +7,10 @@ class Shoninshamst < ActiveRecord::Base
   validates :申請者, :承認者, presence: true
 
   delegate :title, to: :shainmaster, prefix: :shonin, allow_nil: true
+
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      Shoninshamst.create! row.to_hash
+    end
+  end
 end

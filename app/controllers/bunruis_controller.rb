@@ -36,6 +36,19 @@ class BunruisController < ApplicationController
     respond_with(@bunrui)
   end
 
+  def import
+    if params[:file].nil?
+      flash[:alert] = "app.flash.file.nil"
+      redirect_to bunruis_path
+    else
+      Bunrui.delete_all
+      Bunrui.reset_pk_sequence
+      Bunrui.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
+  end
+
   private
     def set_bunrui
       @bunrui = Bunrui.find(params[:id])

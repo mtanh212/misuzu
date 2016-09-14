@@ -37,6 +37,19 @@ class KairanyokenmstsController < ApplicationController
     respond_with(@kairanyokenmst, location: kairanyokenmsts_url)
   end
 
+  def import
+    if params[:file].nil?
+      flash[:alert] = "app.flash.file.nil"
+      redirect_to kairanyokenmsts_path
+    else
+      Kairanyokenmst.delete_all
+      Kairanyokenmst.reset_pk_sequence
+      Kairanyokenmst.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
+  end
+
   private
     def set_kairanyokenmst
       @kairanyokenmst = Kairanyokenmst.find(params[:id])

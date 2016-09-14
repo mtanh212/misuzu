@@ -4,10 +4,23 @@ Jpt::Application.routes.draw do
     collection {get :shokairan}
     member {get :kaitou, :send_kairan_view}
   end
-  resources :kairanyokenmsts
-  resources :tsushinseigyous
-  resources :dengonyoukens
-  resources :dengonkaitous
+  
+  resources :kairanyokenmsts do
+    collection {post :import}
+  end
+
+  resources :tsushinseigyous do
+    collection {post :import}
+  end
+  
+  resources :dengonyoukens do
+    collection {post :import}
+  end
+    
+  resources :dengonkaitous do
+    collection {post :import}
+  end
+
   resources :dengons
 
   root to: 'main#index'
@@ -15,11 +28,17 @@ Jpt::Application.routes.draw do
   post "login" => "sessions#create"
   delete "logout" => "sessions#destroy"
 
-  resources :bashokubunmsts
+  resources :bashokubunmsts  do
+    collection {post :import}
+  end
 
-  resources :bunruis
+  resources :bunruis do
+    collection {post :import}
+  end
 
-  resources :shoninshamsts
+  resources :shoninshamsts  do
+    collection {post :import}
+  end
 
   resources :ekis do
     collection {post :import}
@@ -54,6 +73,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :yakushokumasters, param: :id do
+    collection {post :ajax, :import}
   end
 
   resources :jpt_holiday_msts do

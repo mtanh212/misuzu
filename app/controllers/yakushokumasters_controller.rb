@@ -36,6 +36,20 @@ class YakushokumastersController < ApplicationController
     respond_with @yakushokumaster, location: yakushokumasters_url
   end
 
+  def import
+    if params[:file].nil?
+      flash[:alert] = "app.flash.file.nil"
+      redirect_to yakushokumasters_path
+    else
+      Yakushokumaster.delete_all
+      Yakushokumaster.reset_pk_sequence
+      Yakushokumaster.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+  end
+  
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_yakushokumaster
