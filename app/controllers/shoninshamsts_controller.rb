@@ -39,7 +39,7 @@ class ShoninshamstsController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = "app.flash.csv.file.nil"
+      flash[:alert] = t "app.flash.file_nil"
       redirect_to shoninshamsts_path
     else
     Shoninshamst.delete_all
