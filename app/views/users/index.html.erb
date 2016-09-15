@@ -16,7 +16,9 @@
       <th>担当者コード</th>
       <th>担当者名称</th>
       <th>アドミン</th>
-      <th colspan="3">アクション</th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -35,4 +37,16 @@
   </tbody>
 </table>
 
-<%= link_to '新規', new_user_path %>
+<% if can? :update, @users %>
+  <h4>CSVでのデータをインポート!</h4>
+  <%= form_tag import_users_path,class:'form-inline', multipart: true do %>
+      <div class="form-group">
+        <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
+        <%= file_field_tag :file , class: 'btn btn-default' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag 'importcsv', nil, class: 'sr-only' %>
+        <%= submit_tag "Import CSV" , class: 'btn btn-default' %>
+      </div>
+  <% end %>
+<% end %>
