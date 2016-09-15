@@ -9,7 +9,7 @@ class Ability
         can :manage, :all
         cannot [:destroy], User, supervisor: true
       elsif user.supervisor? && !user.admin?
-        can :manage, User
+        can [:manage, :import], User
       else
         can :read, :all
         can [:edit, :update], User, 担当者コード: user.担当者コード
