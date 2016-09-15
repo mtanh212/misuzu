@@ -16,4 +16,16 @@ class Yakushokumaster < ActiveRecord::Base
       Yakushokumaster.create! row.to_hash
     end
   end
+
+  def self.to_csv
+    attributes = %w{役職コード 役職名}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |yakushokumaster|
+        csv << attributes.map{ |attr| yakushokumaster.send(attr) }
+      end
+    end
+  end
 end

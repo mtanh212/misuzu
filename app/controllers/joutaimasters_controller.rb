@@ -53,6 +53,14 @@ class JoutaimastersController < ApplicationController
     end
   end
 
+  def export_csv
+    @joutaimasters = Joutaimaster.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @joutaimasters.to_csv, filename: "状態マスタ_#{Date.today}.csv" }
+    end
+  end
   private
 
   def joutaimaster_params

@@ -42,4 +42,16 @@ class Joutaimaster < ActiveRecord::Base
     end
   end
 
+  def self.to_csv
+    attributes = %w{状態コード 状態名 状態区分 勤怠状態名 マーク 色 文字色 WEB使用区分 勤怠使用区分}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |joutaimaster|
+        csv << attributes.map{ |attr| joutaimaster.send(attr) }
+      end
+    end
+  end
+
 end

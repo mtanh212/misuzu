@@ -9,4 +9,16 @@ class Kairanyokenmst < ActiveRecord::Base
       Kairanyokenmst.create! row.to_hash
     end
   end
+
+  def self.to_csv
+    attributes = %w{id 名称 備考}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |kairanyoken|
+        csv << attributes.map{ |attr| kairanyoken.send(attr) }
+      end
+    end
+  end
 end

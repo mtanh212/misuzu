@@ -50,6 +50,15 @@ class KaishamastersController < ApplicationController
     end
   end
 
+  def export_csv
+    @kaishamasters = Kaishamaster.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @kaishamasters.to_csv, filename: "会社マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_kaishamaster
       @kaishamaster = Kaishamaster.find(params[:id])

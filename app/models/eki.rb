@@ -15,4 +15,15 @@ class Eki < ActiveRecord::Base
     end
   end
 
+  def self.to_csv
+    attributes = %w{駅コード 駅名 駅名カナ 選択回数}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |eki|
+        csv << attributes.map{ |attr| eki.send(attr) }
+      end
+    end
+  end
 end

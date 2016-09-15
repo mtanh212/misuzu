@@ -19,4 +19,18 @@ class Kintai < ActiveRecord::Base
       end
     end
   end
+
+  def self.to_csv
+    attributes = %w{id 日付 曜日 曜日 勤務タイプ 実労働時間 普通残業時間 深夜残業時間 普通保守時間
+      深夜保守時間 保守携帯回数 状態1 状態2 状態3 備考 社員番号 入力済 holiday 代休相手日付 代休取得区分
+      出勤時刻 退社時刻 遅刻時間 早退時間}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |kintai|
+        csv << attributes.map{ |attr| kintai.send(attr) }
+      end
+    end
+  end
 end

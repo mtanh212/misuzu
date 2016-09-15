@@ -49,6 +49,15 @@ class BashokubunmstsController < ApplicationController
     end
   end
 
+  def export_csv
+    @bashokubunmsts = Bashokubunmst.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @bashokubunmsts.to_csv, filename: "場所区分マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_bashokubunmst
       @bashokubunmst = Bashokubunmst.find(params[:id])

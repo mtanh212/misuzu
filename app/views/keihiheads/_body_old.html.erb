@@ -35,16 +35,16 @@
     </tr>
     </thead>
     <tbody>
-        <%= f.fields_for :keihibodys do |body| %>
+        <%= f.fields_for :keihibodies do |body| %>
         <%= render 'keihibody_row', f: body %>
     <% end %>
     </tbody>
   </table>
-<%= link_to_add_row "行追加", f, :keihibodys %>
+<%= link_to_add_row "行追加", f, :keihibodies %>
 
 </div>
 
-<%# f.fields_for :keihibodys do |body| %>
+<%# f.fields_for :keihibodies do |body| %>
     <%# render 'keihibody_fields', f: body %>
 <%# end %>
-<%# link_to_add_fields "追加", f, :keihibodys %>
+<%# link_to_add_fields "追加", f, :keihibodies %>

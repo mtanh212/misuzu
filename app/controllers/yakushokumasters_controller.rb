@@ -50,6 +50,15 @@ class YakushokumastersController < ApplicationController
     end
   end
 
+  def export_csv
+    @yakushokumasters = Yakushokumaster.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @yakushokumasters.to_csv, filename: "役職マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_yakushokumaster

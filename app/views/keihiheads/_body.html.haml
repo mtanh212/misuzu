@@ -18,6 +18,6 @@
       %th 交通費
       %th 日当/宿泊
     %tbody
-      = f.simple_fields_for :keihibodys do |body|
+      = f.simple_fields_for :keihibodies do |body|
         = render 'keihibody_row', f: body
-= link_to_add_row "行追加", f, :keihibodys
+= link_to_add_row "行追加", f, :keihibodies

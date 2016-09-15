@@ -10,4 +10,16 @@ class Dengon < ActiveRecord::Base
   delegate :氏名, to: :to_user, prefix: :to_user, allow_nil: true
   delegate :種類名, to: :dengonyouken, prefix: :youken, allow_nil: true
   delegate :種類名, to: :dengonkaitou, prefix: :kaitou, allow_nil: true
+
+  def self.to_csv
+    attributes = %w{id from1 from2 日付 入力者 用件 回答 伝言内容 確認 送信 社員番号}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |dengon|
+        csv << attributes.map{ |attr| dengon.send(attr) }
+      end
+    end
+  end
 end

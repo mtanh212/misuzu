@@ -49,6 +49,15 @@ class DengonyoukensController < ApplicationController
     end
   end
 
+  def export_csv
+    @dengonyoukens = Dengonyouken.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @dengonyoukens.to_csv, filename: "伝言用件マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_dengonyouken
       @dengonyouken = Dengonyouken.find(params[:id])

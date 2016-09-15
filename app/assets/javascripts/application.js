@@ -45,3 +45,7 @@ $(document).on('ready', function() {
     $('.alert').fadeOut('normal');
   }, 3000);
 });
+
+$(document).ready(function() {
+    $('#export_table').DataTable();
+} );

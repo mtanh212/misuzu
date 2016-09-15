@@ -769,4 +769,3 @@ $(function(){
     //$('#calendar-timeline').show();
     //$('.timeline-view').show();
 });
-

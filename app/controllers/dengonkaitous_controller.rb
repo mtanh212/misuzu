@@ -48,7 +48,16 @@ class DengonkaitousController < ApplicationController
       redirect_to :back, notice: notice
     end
   end
-  
+
+  def export_csv
+    @dengonkaitous = Dengonkaitou.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @dengonkaitous.to_csv, filename: "伝言回答マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_dengonkaitou
       @dengonkaitou = Dengonkaitou.find(params[:id])

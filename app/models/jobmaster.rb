@@ -30,6 +30,18 @@ class Jobmaster < ActiveRecord::Base
   # def to_param
   #   id.parameterize
   # end
+  #
+  def self.to_csv
+    attributes = %w{job番号 job名 開始日 終了日 ユーザ番号 ユーザ名 入力社員番号 分類コード 分類名 関連Job番号 備考}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |job|
+        csv << attributes.map{ |attr| job.send(attr) }
+      end
+    end
+  end
 
   def check_input
     errors.add(:終了日, "は開始日以上の値にしてください。") if 開始日.present? && 終了日.present? && 開始日 > 終了日

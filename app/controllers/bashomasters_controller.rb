@@ -62,6 +62,15 @@ class BashomastersController < ApplicationController
     end
   end
 
+  def export_csv
+    @bashomasters = Bashomaster.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @bashomasters.to_csv, filename: "場所マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
 
   def bashomaster_params
