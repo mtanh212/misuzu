@@ -41,11 +41,13 @@ class TsushinseigyousController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to tsushinseigyous_path
     else
-      Tsushinseigyou.delete_all
-      Tsushinseigyou.reset_pk_sequence
-      Tsushinseigyou.import(params[:file])
-      notice = t 'app.flash.import_csv'
-      redirect_to :back, notice: notice
+      Tsushinseigyou.transaction do
+        Tsushinseigyou.delete_all
+        Tsushinseigyou.reset_pk_sequence
+        Tsushinseigyou.import(params[:file])
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
+      end
     end
   end
 

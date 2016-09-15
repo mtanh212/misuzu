@@ -49,11 +49,13 @@ class ShainmastersController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to shainmasters_path
     else
-      Shainmaster.delete_all
-      Shainmaster.reset_pk_sequence
-      Shainmaster.import(params[:file])
-      notice = t 'app.flash.import_csv'
-      redirect_to :back, notice: notice
+      Shainmaster.transaction do
+        Shainmaster.delete_all
+        Shainmaster.reset_pk_sequence
+        Shainmaster.import(params[:file])
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
+      end
     end
   end
 

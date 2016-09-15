@@ -66,11 +66,13 @@ class KouteimastersController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to kouteimasters_path
     else
-      Kouteimaster.delete_all
-      Kouteimaster.reset_pk_sequence
-      Kouteimaster.import(params[:file])
-      notice = t 'app.flash.import_csv'
-      redirect_to :back, notice: notice
+      Kouteimaster.transaction do
+        Kouteimaster.delete_all
+        Kouteimaster.reset_pk_sequence
+        Kouteimaster.import(params[:file])
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
+      end
     end
   end
 

@@ -41,11 +41,13 @@ class DengonkaitousController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to dengonkaitous_path
     else
-      Dengonkaitou.delete_all
-      Dengonkaitou.reset_pk_sequence
-      Dengonkaitou.import(params[:file])
-      notice = t 'app.flash.import_csv'
-      redirect_to :back, notice: notice
+      Dengonkaitou.transaction do
+        Dengonkaitou.delete_all
+        Dengonkaitou.reset_pk_sequence
+        Dengonkaitou.import(params[:file])
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
+      end
     end
   end
 
