@@ -67,4 +67,15 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def self.import(file)
+    # a block that runs through a loop in our CSV data
+    CSV.foreach(file.path, headers: true) do |row|
+      # creates a user for each row in the CSV file
+      @user_info = row.to_hash
+      @user_info["password"] = @user_info["担当者コード"]
+      @user_info["password_confirmation"] = @user_info["担当者コード"]
+      @user = User.create! @user_info
+    end
+  end
 end

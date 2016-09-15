@@ -127,6 +127,7 @@ Jpt::Application.routes.draw do
     collection {get :change_pass}
     collection {post :change_pass}
     collection {get :export_csv}
+    collection {post :import}
   end
 
   resources :yakushokumasters, param: :id do

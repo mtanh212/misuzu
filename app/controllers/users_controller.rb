@@ -88,6 +88,21 @@ class UsersController < ApplicationController
     end
   end
 
+  def import
+    if params[:file].nil?
+      flash[:alert] = t "app.flash.file_nil"
+      redirect_to users_path
+    else
+      User.transaction do
+        User.delete_all
+        User.reset_pk_sequence
+        User.import(params[:file])
+      end
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
+  end
+
   private
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
