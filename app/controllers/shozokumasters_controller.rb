@@ -38,11 +38,13 @@ class ShozokumastersController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to shozokumasters_path
     else
-      Shozokumaster.delete_all
-      Shozokumaster.reset_pk_sequence
-      Shozokumaster.import(params[:file])
-      notice = t 'app.flash.import_csv'
-      redirect_to :back, notice: notice
+      Shozokumaster.transaction do
+        Shozokumaster.delete_all
+        Shozokumaster.reset_pk_sequence
+        Shozokumaster.import(params[:file])
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
+      end
     end
   end
 

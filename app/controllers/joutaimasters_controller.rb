@@ -45,11 +45,13 @@ class JoutaimastersController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to joutaimasters_path
     else
-      Joutaimaster.delete_all
-      Joutaimaster.reset_pk_sequence
-      Joutaimaster.import(params[:file])
-      notice = t 'app.flash.import_csv'
-      redirect_to :back, notice: notice
+      Joutaimaster.transaction do
+        Joutaimaster.delete_all
+        Joutaimaster.reset_pk_sequence
+        Joutaimaster.import(params[:file])
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
+      end
     end
   end
 

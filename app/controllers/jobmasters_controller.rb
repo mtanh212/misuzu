@@ -70,11 +70,13 @@ class JobmastersController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to jobmasters_path
     else
-      Jobmaster.delete_all
-      Jobmaster.reset_pk_sequence
-      Jobmaster.import(params[:file])
-      notice = t 'app.flash.import_csv'
-      redirect_to :back, notice: notice
+      Jobmaster.transaction do
+        Jobmaster.delete_all
+        Jobmaster.reset_pk_sequence
+        Jobmaster.import(params[:file])
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
+      end
     end
   end
 

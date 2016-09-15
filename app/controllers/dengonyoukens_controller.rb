@@ -41,11 +41,13 @@ class DengonyoukensController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to dengonyoukens_path
     else
-      Dengonyouken.delete_all
-      Dengonyouken.reset_pk_sequence
-      Dengonyouken.import(params[:file])
-      notice = t 'app.flash.import_csv'
-      redirect_to :back, notice: notice
+      Dengonyouken.transaction do
+        Dengonyouken.delete_all
+        Dengonyouken.reset_pk_sequence
+        Dengonyouken.import(params[:file])
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
+      end
     end
   end
 

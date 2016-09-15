@@ -42,11 +42,13 @@ class EkisController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to ekis_path
     else
-      Eki.delete_all
-      Eki.reset_pk_sequence
-      Eki.import(params[:file])
-      notice = t 'app.flash.import_csv'
-      redirect_to :back, notice: notice
+      Eki.transaction do
+        Eki.delete_all
+        Eki.reset_pk_sequence
+        Eki.import(params[:file])
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
+      end
     end
   end
 

@@ -42,11 +42,13 @@ class JptHolidayMstsController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to jpt_holiday_msts_url_path
     else
-      JptHolidayMst.delete_all
-      JptHolidayMst.reset_pk_sequence
-      JptHolidayMst.import(params[:file])
-      notice = t 'app.flash.import_csv'
-      redirect_to :back, notice: notice
+      JptHolidayMst.transaction do
+        JptHolidayMst.delete_all
+        JptHolidayMst.reset_pk_sequence
+        JptHolidayMst.import(params[:file])
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
+      end
     end
   end
 

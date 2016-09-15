@@ -42,11 +42,13 @@ class KaishamastersController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to kaishamasters_path
     else
-      Kaishamaster.delete_all
-      Kaishamaster.reset_pk_sequence
-      Kaishamaster.import(params[:file])
-      notice = t 'app.flash.import_csv'
-      redirect_to :back, notice: notice
+      Kairanyokenmst.transaction do
+        Kairanyokenmst.delete_all
+        Kaishamaster.reset_pk_sequence
+        Kaishamaster.import(params[:file])
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
+      end
     end
   end
 
