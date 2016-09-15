@@ -7,9 +7,12 @@ class Ability
       user ||= User.new # guest user (not logged in)
       if user.admin?
         can :manage, :all
+        cannot [:destroy], User, supervisor: true
+      elsif user.supervisor? && !user.admin?
+        can :manage, User
       else
         can :read, :all
-        can :manage, User, 担当者コード: user.担当者コード
+        can [:edit, :update], User, 担当者コード: user.担当者コード
       end
     #
     # The first argument to `can` is the action you are giving the user
