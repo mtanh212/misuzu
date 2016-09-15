@@ -14,7 +14,6 @@ class EmployersController < ApplicationController
   end
 
   def show
-
   end
 
   def create
@@ -48,7 +47,7 @@ class EmployersController < ApplicationController
               format.js { render json: @employer.errors, status: :unprocessable_entity }
               # format.js { render 'show' }
             end
-          end
+        end
       end
     # delete
     elsif !params[:delete].nil?
@@ -60,13 +59,11 @@ class EmployersController < ApplicationController
       			format.json{}
       			format.js{render 'destroy'}
       		end
-        else
-          respond_to do |format|
-            format.js {render 'empty'}
-          end
-        end
+    else
+      respond_to do |format|
+        format.js {render 'empty'}
+      end
     end
-
   end
 
   def update
