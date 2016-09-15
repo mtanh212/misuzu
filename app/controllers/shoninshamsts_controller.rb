@@ -42,12 +42,17 @@ class ShoninshamstsController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to shoninshamsts_path
     else
-      Shoninshamst.transaction do
-        Shoninshamst.delete_all
-        Shoninshamst.reset_pk_sequence
-        Shoninshamst.import(params[:file])
-        notice = t 'app.flash.import_csv'
-        redirect_to :back, notice: notice
+      begin
+        Shoninshamst.transaction do
+          Shoninshamst.delete_all
+          Shoninshamst.reset_pk_sequence
+          Shoninshamst.import(params[:file])
+          notice = t 'app.flash.import_csv'
+          redirect_to :back, notice: notice
+        end
+      rescue
+        flash[:alert] = t "app.flash.file_format_invalid"
+        redirect_to shoninshamsts_path
       end
     end
   end

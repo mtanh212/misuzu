@@ -218,6 +218,7 @@ ja:
       kairan_confirm: チェックされた回覧を確認済み
       wellcome_to: よろこそ！
       file_nil: ファイルが存在していない！
+      file_format_invalid: ファイルのフォマットを正しく選択してください。
 
     login:
       let_login: ログインしてください。

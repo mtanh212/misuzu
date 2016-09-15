@@ -93,13 +93,18 @@ class UsersController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to users_path
     else
-      User.transaction do
-        User.delete_all
-        User.reset_pk_sequence
-        User.import(params[:file])
+      begin
+        User.transaction do
+          User.delete_all
+          User.reset_pk_sequence
+          User.import(params[:file])
+        end
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
+      rescue
+        flash[:alert] = t "app.flash.file_format_invalid"
+        redirect_to users_path
       end
-      notice = t 'app.flash.import_csv'
-      redirect_to :back, notice: notice
     end
   end
 
