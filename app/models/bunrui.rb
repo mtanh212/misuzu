@@ -11,4 +11,16 @@ class Bunrui < ActiveRecord::Base
       Bunrui.create! row.to_hash
     end
   end
+
+  def self.to_csv
+    attributes = %w{分類コード 分類名}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |user|
+        csv << attributes.map{ |attr| user.send(attr) }
+      end
+    end
+  end
 end

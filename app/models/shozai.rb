@@ -23,4 +23,16 @@ class Shozai < ActiveRecord::Base
     end
   end
 
+  def self.to_csv
+    attributes = %w{所在コード 所在名 背景色 文字色}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |shozai|
+        csv << attributes.map{ |attr| shozai.send(attr) }
+      end
+    end
+  end
+
 end

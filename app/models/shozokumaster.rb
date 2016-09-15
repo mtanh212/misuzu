@@ -19,4 +19,15 @@ class Shozokumaster < ActiveRecord::Base
       Shozokumaster.create! row.to_hash
     end
   end
+
+  def self.to_csv
+    attributes = %w{所属コード 所属名}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      all.each do |shozokumaster|
+        csv << attributes.map{ |attr| shozokumaster.send(attr) }
+      end
+    end
+  end
 end

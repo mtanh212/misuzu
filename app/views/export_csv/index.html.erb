@@ -1,0 +1,164 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <!-- <li><a href="#">基準情報</a></li> -->
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li class="active">データをエクスポート</li>
+</ol>
+
+<% @index = 0 %>
+<table id="export_table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>STT</th>
+      <th>ダウンロード</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_担当者マスタ", export_csv_users_path(format: :csv) %></td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_Jobマスタ", export_csv_jobmasters_path(format: :csv) %></td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_経費ヘッド", export_csv_keihiheads_path(format: :csv) %></td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_経費ボディ", export_csv_keihibodies_path(format: :csv) %></td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_イベントマスタ", export_csv_events_path(format: :csv) %></td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_日本の休日",
+        export_csv_jpt_holiday_msts_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_勤怠",
+        export_csv_kintais_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_会社マスタ",
+        export_csv_kaishamasters_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_伝言",
+        export_csv_dengons_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_伝言回答マスタ",
+        export_csv_dengonkaitous_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_伝言用件マスタ",
+        export_csv_dengonyoukens_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_分類マスタ",
+        export_csv_bunruis_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_回覧",
+        export_csv_kairans_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_回覧用件マスタ",
+        export_csv_kairanyokenmsts_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_場所マスタ",
+        export_csv_bashomasters_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_場所区分マスタ",
+        export_csv_bashokubunmsts_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_工程マスタ",
+        export_csv_kouteimasters_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_役職マスタ",
+        export_csv_yakushokumasters_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_所在マスタ",
+        export_csv_shozais_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_所属マスタ",
+        export_csv_shozokumasters_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_承認者マスタ",
+        export_csv_shoninshamsts_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_機関マスタ",
+        export_csv_kikanmsts_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_状態マスタ",
+        export_csv_joutaimasters_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_社員マスタ",
+        export_csv_shainmasters_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_通信制御マスタ",
+        export_csv_tsushinseigyous_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t "export") +"_駅マスタ",
+        export_csv_ekis_path(format: :csv) %>
+      </td>
+    </tr>
+  </tbody>
+</table>

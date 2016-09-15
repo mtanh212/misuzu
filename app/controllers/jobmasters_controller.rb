@@ -78,6 +78,15 @@ class JobmastersController < ApplicationController
     end
   end
 
+  def export_csv
+    @jobs = Jobmaster.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @jobs.to_csv, filename: "jobマスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_jobmaster

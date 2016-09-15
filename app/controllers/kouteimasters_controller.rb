@@ -74,6 +74,15 @@ class KouteimastersController < ApplicationController
     end
   end
 
+  def export_csv
+    @kouteimasters = Kouteimaster.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @kouteimasters.to_csv, filename: "工程マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
   def set_kouteimaster

@@ -50,6 +50,15 @@ class JptHolidayMstsController < ApplicationController
     end
   end
 
+  def export_csv
+    @jpt_holidays = JptHolidayMst.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @jpt_holidays.to_csv, filename: "jpt_holidays_mst_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_jpt_holiday_mst
       @jpt_holiday_mst = JptHolidayMst.find(params[:id])

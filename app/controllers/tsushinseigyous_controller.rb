@@ -49,6 +49,15 @@ class TsushinseigyousController < ApplicationController
     end
   end
 
+  def export_csv
+    @tsushinseigyous = Tsushinseigyou.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @tsushinseigyous.to_csv, filename: "通信制御マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_tsushinseigyou
       @tsushinseigyou = Tsushinseigyou.find(params[:id])

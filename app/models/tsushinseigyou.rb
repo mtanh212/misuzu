@@ -11,4 +11,16 @@ class Tsushinseigyou < ActiveRecord::Base
       Tsushinseigyou.create! row.to_hash
     end
   end
+
+  def self.to_csv
+    attributes = %w{id 社員番号 メール 送信許可区分}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |tsushinseigyou|
+        csv << attributes.map{ |attr| tsushinseigyou.send(attr) }
+      end
+    end
+  end
 end

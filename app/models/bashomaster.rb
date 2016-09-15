@@ -46,7 +46,17 @@ class Bashomaster < ActiveRecord::Base
     #     basho.save
     #   end
     # end
-
   end
 
+  def self.to_csv
+    attributes = %w{場所コード 場所名 場所名カナ SUB 場所区分 会社コード}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |bashomaster|
+        csv << attributes.map{ |attr| bashomaster.send(attr) }
+      end
+    end
+  end
 end

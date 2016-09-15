@@ -20,13 +20,13 @@ class KeihiheadsController < ApplicationController
 
     # shinsheino = Keihihead.order(id: :desc).first.id.to_i + 1 if Keihihead.exists?
     @keihi.id = shinsheino.to_s
-    @keihi.keihibodys.build
+    @keihi.keihibodies.build
 
     respond_with(@keihi)
   end
 
   def edit
-    @keihi.keihibodys.build
+    @keihi.keihibodies.build
   end
 
   def create
@@ -102,6 +102,15 @@ class KeihiheadsController < ApplicationController
     end
   end
 
+  def export_csv
+    @keihiheads = Keihihead.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @keihiheads.to_csv, filename: "経費ヘッド_#{Date.today}.csv" }
+    end
+  end
+
   private
   def set_keihi
     @keihi = Keihihead.find(params[:id])
@@ -119,7 +128,7 @@ class KeihiheadsController < ApplicationController
   def keihi_params
     params.require(:keihihead).permit(:申請番号, :日付, :社員番号, :申請者, :交通費合計, :日当合計, :宿泊費合計, :その他合計,
       :旅費合計, :仮払金, :合計, :支給品, :過不足, :承認kubun, :承認者, :清算予定日, :清算日, :承認済区分,
-      keihibodys_attributes: [:id, :申請番号, :日付, :社員番号, :相手先, :機関名,
+      keihibodies_attributes: [:id, :申請番号, :日付, :社員番号, :相手先, :機関名,
         :発, :着, :発着kubun, :交通費, :日当, :宿泊費, :その他, :JOB,
         :備考, :領収書kubun, :_destroy])
   end

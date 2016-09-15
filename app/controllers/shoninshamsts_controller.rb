@@ -42,12 +42,21 @@ class ShoninshamstsController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to shoninshamsts_path
     else
-    Shoninshamst.delete_all
-    Shoninshamst.reset_pk_sequence
-    Shoninshamst.import(params[:file])
-    notice = t 'app.flash.import_csv'
-    redirect_to :back, notice: notice
+      Shoninshamst.delete_all
+      Shoninshamst.reset_pk_sequence
+      Shoninshamst.import(params[:file])
+      notice = t 'app.flash.import_csv'
+      redirect_to :back, notice: notice
+    end
   end
+
+  def export_csv
+    @shoninshamsts = Shoninshamst.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @shoninshamsts.to_csv, filename: "承認者マスタ_#{Date.today}.csv" }
+    end
   end
 
   private

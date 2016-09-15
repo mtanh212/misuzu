@@ -24,4 +24,16 @@ class Kaishamaster < ActiveRecord::Base
   def to_param
     id.parameterize
   end
+
+  def self.to_csv
+    attributes = %w{会社コード 会社名 備考}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |kaishamaster|
+        csv << attributes.map{ |attr| kaishamaster.send(attr) }
+      end
+    end
+  end
 end

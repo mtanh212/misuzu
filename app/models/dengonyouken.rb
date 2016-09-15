@@ -12,4 +12,16 @@ class Dengonyouken < ActiveRecord::Base
     end
   end
 
+  def self.to_csv
+    attributes = %w{id 種類名 備考}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |dengonyouken|
+        csv << attributes.map{ |attr| dengonyouken.send(attr) }
+      end
+    end
+  end
+
 end

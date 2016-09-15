@@ -20,7 +20,19 @@ class Kouteimaster < ActiveRecord::Base
     # a block that runs through a loop in our CSV data
     CSV.foreach(file.path, headers: true) do |row|
       # creates a user for each row in the CSV file
-    Kouteimaster.create! row.to_hash
+      Kouteimaster.create! row.to_hash
+    end
+  end
+
+  def self.to_csv
+    attributes = %w{所属コード 工程コード 工程名}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |kouteimaster|
+        csv << attributes.map{ |attr| kouteimaster.send(attr) }
+      end
     end
   end
 end

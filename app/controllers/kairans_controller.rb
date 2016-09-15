@@ -116,6 +116,15 @@ class KairansController < ApplicationController
     respond_with(@kairanShoshai, location: kairans_url)
   end
 
+  def export_csv
+    @kairans = Kairan.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @kairans.to_csv, filename: "回覧_#{Date.today}.csv" }
+    end
+  end
+
   private
   def set_kairan
     @kairan = Kairan.find(params[:id])

@@ -46,6 +46,15 @@ class ShozokumastersController < ApplicationController
     end
   end
 
+  def export_csv
+    @shozokumasters = Shozokumaster.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @shozokumasters.to_csv, filename: "所属マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
   def shozokumaster_params
     params.require(:shozokumaster).permit :所属コード, :所属名

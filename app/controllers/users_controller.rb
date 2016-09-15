@@ -79,6 +79,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def export_csv
+    @users = User.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @users.to_csv, filename: "担当者マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params

@@ -50,6 +50,15 @@ class KikanmstsController < ApplicationController
     end
   end
 
+  def export_csv
+    @kikanmsts = Kikanmst.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @kikanmsts.to_csv, filename: "機関マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_kikanmst
       @kikanmst = Kikanmst.find(params[:id])

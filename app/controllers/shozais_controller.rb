@@ -51,6 +51,15 @@ class ShozaisController < ApplicationController
     end
   end
 
+  def export_csv
+    @shozais = Shozai.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @shozais.to_csv, filename: "所在マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_shozai
       @shozai = Shozai.find(params[:id])

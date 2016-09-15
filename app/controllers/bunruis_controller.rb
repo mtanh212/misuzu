@@ -49,6 +49,15 @@ class BunruisController < ApplicationController
     end
   end
 
+  def export_csv
+    @bunruis = Bunrui.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @bunruis.to_csv, filename: "分類マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_bunrui
       @bunrui = Bunrui.find(params[:id])

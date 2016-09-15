@@ -17,4 +17,16 @@ class Bashokubunmst < ActiveRecord::Base
       Bashokubunmst.create! row.to_hash
     end
   end
+
+  def self.to_csv
+    attributes = %w{場所区分コード 場所区分名}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |bashokubunmst|
+        csv << attributes.map{ |attr| bashokubunmst.send(attr) }
+      end
+    end
+  end
 end

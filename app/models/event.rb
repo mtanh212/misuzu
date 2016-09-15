@@ -33,4 +33,16 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def self.to_csv
+    attributes = %w{id  社員番号 開始 終了 状態コード 場所コード 所属コード 工程コード 工数 計上 comment}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |event|
+        csv << attributes.map{ |attr| event.send(attr) }
+      end
+    end
+  end
+
 end

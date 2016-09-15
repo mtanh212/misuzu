@@ -55,7 +55,15 @@ class ShainmastersController < ApplicationController
       notice = t 'app.flash.import_csv'
       redirect_to :back, notice: notice
     end
+  end
 
+  def export_csv
+    @shainmasters = Shainmaster.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @shainmasters.to_csv, filename: "社員マスタ_#{Date.today}.csv" }
+    end
   end
 
   private

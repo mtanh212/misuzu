@@ -69,6 +69,15 @@ class DengonsController < ApplicationController
     respond_with(@dengon)
   end
 
+  def export_csv
+    @dengons = Dengon.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @dengons.to_csv, filename: "伝言_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_dengon
       @dengon = Dengon.find(params[:id])

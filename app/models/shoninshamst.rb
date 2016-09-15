@@ -8,9 +8,22 @@ class Shoninshamst < ActiveRecord::Base
 
   delegate :title, to: :shainmaster, prefix: :shonin, allow_nil: true
 
+
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       Shoninshamst.create! row.to_hash
+    end
+  end
+
+  def self.to_csv
+    attributes = %w{id 申請者 承認者}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |shoninshamst|
+        csv << attributes.map{ |attr| shoninshamst.send(attr) }
+      end
     end
   end
 end

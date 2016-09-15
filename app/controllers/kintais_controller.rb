@@ -119,6 +119,15 @@ class KintaisController < ApplicationController
     respond_with(@kintai, location: kintais_url)
   end
 
+  def export_csv
+    @kintais = Kintai.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @kintais.to_csv, filename: "勤怠_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_kintai
       @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:代休相手日付)

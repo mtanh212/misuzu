@@ -50,6 +50,15 @@ class KairanyokenmstsController < ApplicationController
     end
   end
 
+  def export_csv
+    @kairanyokens = Kairanyokenmst.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @kairanyokens.to_csv, filename: "回覧用件マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_kairanyokenmst
       @kairanyokenmst = Kairanyokenmst.find(params[:id])

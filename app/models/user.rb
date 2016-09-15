@@ -55,4 +55,16 @@ class User < ActiveRecord::Base
       errors.add(:担当者コード, 'は不正な値です。')
     end
   end
+
+  def self.to_csv
+    attributes = %w{担当者コード 担当者名称 admin email}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |user|
+        csv << attributes.map{ |attr| user.send(attr) }
+      end
+    end
+  end
 end

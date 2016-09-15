@@ -50,6 +50,15 @@ class EkisController < ApplicationController
     end
   end
 
+  def export_csv
+    @ekis = Eki.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @ekis.to_csv, filename: "駅マスタ_#{Date.today}.csv" }
+    end
+  end
+
   private
     def set_eki
       @eki = Eki.find(params[:id])

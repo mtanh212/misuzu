@@ -51,7 +51,7 @@ class EmployersController < ApplicationController
           end
       end
     # delete
-    else if !params[:delete].nil?
+    elsif !params[:delete].nil?
       		params[:delete].each do |id,value|
       			Employer.find(id.to_i).destroy
       		end
