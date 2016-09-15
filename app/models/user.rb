@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
   end
 
   def self.to_csv
-    attributes = %w{担当者コード 担当者名称 admin email}
+    attributes = %w{担当者コード 担当者名称 admin email supervisor}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes

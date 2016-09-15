@@ -21,7 +21,8 @@
             %ul.dropdown-menu
               %li= link_to 'ログアウト', logout_path, method: "delete"
               %li= link_to 'プロファイル変更', edit_user_path(current_user)
-              %li= link_to 'データをエクスポート!', export_csv_index_path
+              - if current_user.shainmaster.shozokumaster.所属コード == "3"
+                %li= link_to 'データをエクスポート!', export_csv_index_path
         - else
           %li= link_to 'ログイン', login_path
 
