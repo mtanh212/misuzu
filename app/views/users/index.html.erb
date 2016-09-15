@@ -30,14 +30,14 @@
         <td><%= user.admin %></td>
         <td><%= link_to '詳細', user %></td>
         <td><%= link_to '編集', edit_user_path(user) if
-        current_user.admin? %></td>
-        <td><%= link_to '削除', user, method: :delete, data: { confirm: '削除で宜しですか。'} if current_user.admin? %></td>
+        current_user.admin? || current_user.supervisor? %></td>
+        <td><%= link_to '削除', user, method: :delete, data: { confirm: '削除で宜しですか。'} if current_user.admin? || current_user.supervisor? %></td>
       </tr>
   <% end %>
   </tbody>
 </table>
 
-<% if can? :update, @users %>
+<% if can? :manage, User %>
   <h4>CSVでのデータをインポート!</h4>
   <%= form_tag import_users_path,class:'form-inline', multipart: true do %>
       <div class="form-group">

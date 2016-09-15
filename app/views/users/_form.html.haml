@@ -10,6 +10,6 @@
     = f.file_field :avatar
     = f.label :email, "メイル"
     = f.email_field :email
-    - if current_user && current_user.admin?
+    - if current_user.admin? || current_user.supervisor?
       = f.input :admin, as: :boolean
     = f.button :submit, class: 'btn btn-primary'
