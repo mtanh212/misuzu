@@ -27,12 +27,8 @@ class Bashomaster < ActiveRecord::Base
     # a block that runs through a loop in our CSV data
     CSV.foreach(file.path, headers: true) do |row|
       # creates a user for each row in the CSV file
-      row_hash = row.to_hash
-      kaishamaster = Kaishamaster.find_by(会社コード: row_hash['会社コード'])
-      kaishamaster_id = kaishamaster.id if kaishamaster
-      new_hash = row_hash.merge({'kaishamaster_id': kaishamaster_id})
 
-      Bashomaster.create! new_hash
+      Bashomaster.create! row.to_hash
 
       # basho.kaishamaster = Kaishamaster.find_by(会社コード: row_hash['会社コード'])
       # basho.save
