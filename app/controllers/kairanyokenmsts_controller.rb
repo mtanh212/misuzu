@@ -42,12 +42,17 @@ class KairanyokenmstsController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to kairanyokenmsts_path
     else
-      Kairanyokenmst.transaction do
-        Kairanyokenmst.delete_all
-        Kairanyokenmst.reset_pk_sequence
-        Kairanyokenmst.import(params[:file])
-        notice = t 'app.flash.import_csv'
-        redirect_to :back, notice: notice
+      begin
+        Kairanyokenmst.transaction do
+          Kairanyokenmst.delete_all
+          Kairanyokenmst.reset_pk_sequence
+          Kairanyokenmst.import(params[:file])
+          notice = t 'app.flash.import_csv'
+          redirect_to :back, notice: notice
+        end
+      rescue
+        flash[:alert] = t "app.flash.file_format_invalid"
+        redirect_to kairanyokenmsts_path
       end
     end
   end

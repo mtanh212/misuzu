@@ -43,12 +43,17 @@ class ShozaisController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to shozais_path
     else
-      Shozai.transaction do
-        Shozai.delete_all
-        Shozai.reset_pk_sequence
-        Shozai.import(params[:file])
-        notice = t 'app.flash.import_csv'
-        redirect_to :back, notice: notice
+      begin
+        Shozai.transaction do
+          Shozai.delete_all
+          Shozai.reset_pk_sequence
+          Shozai.import(params[:file])
+          notice = t 'app.flash.import_csv'
+          redirect_to :back, notice: notice
+        end
+      rescue
+        flash[:alert] = t "app.flash.file_format_invalid"
+        redirect_to shozais_path
       end
     end
   end

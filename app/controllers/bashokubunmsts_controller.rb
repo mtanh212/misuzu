@@ -41,12 +41,17 @@ class BashokubunmstsController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to bashokubunmsts_path
     else
-      Bashokubunmst.transaction do
-        Bashokubunmst.delete_all
-        Bashokubunmst.reset_pk_sequence
-        Bashokubunmst.import(params[:file])
-        notice = t 'app.flash.import_csv'
-        redirect_to :back, notice: notice
+      begin
+        Bashokubunmst.transaction do
+          Bashokubunmst.delete_all
+          Bashokubunmst.reset_pk_sequence
+          Bashokubunmst.import(params[:file])
+          notice = t 'app.flash.import_csv'
+          redirect_to :back, notice: notice
+        end
+      rescue
+        flash[:alert] = t "app.flash.file_format_invalid"
+        redirect_to bashokubunmsts_path
       end
     end
   end

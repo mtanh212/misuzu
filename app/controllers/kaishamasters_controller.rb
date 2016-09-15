@@ -42,12 +42,17 @@ class KaishamastersController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to kaishamasters_path
     else
-      Kaishamaster.transaction do
-        Kaishamaster.delete_all
-        Kaishamaster.reset_pk_sequence
-        Kaishamaster.import(params[:file])
-        notice = t 'app.flash.import_csv'
-        redirect_to :back, notice: notice
+      begin
+        Kaishamaster.transaction do
+          Kaishamaster.delete_all
+          Kaishamaster.reset_pk_sequence
+          Kaishamaster.import(params[:file])
+          notice = t 'app.flash.import_csv'
+          redirect_to :back, notice: notice
+        end
+      rescue
+        flash[:alert] = t "app.flash.file_format_invalid"
+        redirect_to kaishamasters_path
       end
     end
   end

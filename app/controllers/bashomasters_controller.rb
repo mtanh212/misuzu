@@ -54,12 +54,17 @@ class BashomastersController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to bashomasters_path
     else
-      Bashomaster.transaction do
-        Bashomaster.delete_all
-        Bashomaster.reset_pk_sequence
-        Bashomaster.import(params[:file])
-        notice = t 'app.flash.import_csv'
-        redirect_to :back, notice: notice
+      begin
+        Bashomaster.transaction do
+          Bashomaster.delete_all
+          Bashomaster.reset_pk_sequence
+          Bashomaster.import(params[:file])
+          notice = t 'app.flash.import_csv'
+          redirect_to :back, notice: notice
+        end
+      rescue
+        flash[:alert] = t "app.flash.file_format_invalid"
+        redirect_to bashomasters_path
       end
     end
   end

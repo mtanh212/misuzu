@@ -41,12 +41,17 @@ class BunruisController < ApplicationController
       flash[:alert] = "app.flash.file.nil"
       redirect_to bunruis_path
     else
-      Bunrui.transaction do
-        Bunrui.delete_all
-        Bunrui.reset_pk_sequence
-        Bunrui.import(params[:file])
-        notice = t 'app.flash.import_csv'
-        redirect_to :back, notice: notice
+      begin
+        Bunrui.transaction do
+          Bunrui.delete_all
+          Bunrui.reset_pk_sequence
+          Bunrui.import(params[:file])
+          notice = t 'app.flash.import_csv'
+          redirect_to :back, notice: notice
+        end
+      rescue
+        flash[:alert] = t "app.flash.file_format_invalid"
+        redirect_to bunruis_path
       end
     end
   end

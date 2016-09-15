@@ -42,12 +42,17 @@ class KikanmstsController < ApplicationController
       flash[:alert] = t "app.flash.file_nil"
       redirect_to kikanmsts_path
     else
-      Kikanmst.transaction do
-        Kikanmst.delete_all
-        Kikanmst.reset_pk_sequence
-        Kikanmst.import(params[:file])
-        notice = t 'app.flash.import_csv'
-        redirect_to :back, notice: notice
+      begin
+        Kikanmst.transaction do
+          Kikanmst.delete_all
+          Kikanmst.reset_pk_sequence
+          Kikanmst.import(params[:file])
+          notice = t 'app.flash.import_csv'
+          redirect_to :back, notice: notice
+        end
+      rescue
+        flash[:alert] = t "app.flash.file_format_invalid"
+        redirect_to kikanmsts_path
       end
     end
   end
