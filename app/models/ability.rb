@@ -10,6 +10,8 @@ class Ability
         cannot [:destroy, :edit, :update], User, supervisor: true
       elsif user.supervisor? && !user.admin?
         can [:manage, :import], User
+        can :read, :all
+        can [:edit, :update], User, 担当者コード: user.担当者コード
       else
         can :read, :all
         can [:edit, :update], User, 担当者コード: user.担当者コード
