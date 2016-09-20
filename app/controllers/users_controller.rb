@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :require_user!
   load_and_authorize_resource
-  skip_authorize_resource only: [:new, :create]
+  # skip_authorize_resource only: [:new, :create]
 
   # GET /users
   # GET /users.json
@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    @shainmasters = Shainmaster.all.has_not_tantousha
   end
 
   # GET /users/1/edit
@@ -25,9 +26,8 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     if @user.save
-      log_in @user
       flash[:notice] = t "app.flash.new_success"
-      respond_with @user, location: login_path
+      redirect_to users_path
     else
       render :new
     end

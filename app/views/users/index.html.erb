@@ -38,6 +38,7 @@
 </table>
 
 <% if can? :manage, User %>
+  <%= link_to "新規" ,new_user_path %>
   <h4>CSVでのデータをインポート!</h4>
   <%= form_tag import_users_path,class:'form-inline', multipart: true do %>
       <div class="form-group">
