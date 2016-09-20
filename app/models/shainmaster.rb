@@ -18,6 +18,9 @@ class Shainmaster < ActiveRecord::Base
   alias_attribute :title, :氏名
   alias_attribute :id, :社員番号
 
+  scope :has_not_tantousha, -> {where "社員番号 not in (select 担当者コード
+    from 担当者マスタ)"}
+
   delegate :所在名, to: :shozai, prefix: :shozai, allow_nil: true
 
   def self.import(file)
