@@ -189,5 +189,6 @@ Jpt::Application.routes.draw do
   namespace :kanris do
     root to: "main#index"
     resources :kintais, only: :index
+    resources :keihiheads, only: :index
   end
 end
