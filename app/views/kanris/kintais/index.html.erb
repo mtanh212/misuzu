@@ -10,7 +10,7 @@
 </ol>
 
 <%= form_for :kintai, url: kanris_kintais_path, html: {class:'form-inline'}, method: :get do |f|%>
-<%= render 'header', f:f %>
+<%= render "kanris/shared/header", f:f %>
 
 <table  id="kintai_table" class="table table-striped table-bordered table-hover" cellspacing="0">
   <thead>
@@ -41,10 +41,13 @@
   </thead>
 
   <tbody>
-  <% unless @kintais.nil? %>
-  <% @kintais.each do |kintai| %>
-    <% add_class = 'warning' if kintai.曜日.in?(['0','6']) || kintai.try(:holiday) == '1'
-      %>
+  <% if  @keihiheads.nil? || @keihiheads.empty? %>
+    <tr  style="text-align: center;">
+      <td colspan="15">データはありません。</td>
+    </tr>
+  <% else %>
+    <% @kintais.each do |kintai| %>
+      <% add_class = 'warning' if kintai.曜日.in?(['0','6']) || kintai.try(:holiday) == '1' %>
       <tr id="kintai-<%= kintai.id %>" class="<%= add_class %>">
         <td><%= kintai.日付 %></td>
         <td><%= kintai.shainmaster.title %></td>
@@ -62,19 +65,11 @@
         <td><%= kintai.保守携帯回数 %></td>
         <td><%= kintai.joutaimaster.try :name %></td>
         <td><%= kintai.備考 %></td>
-        <!--<td><%# link_to '詳細', kintai %></td>-->
-        <!--<td><%# link_to '削除', kintai, method: :delete, data: { confirm: t "app.delete_confirm" } %></td>-->
-
       </tr>
-  <% end %>
-  <%= paginate @kintais %>
-  <% else %>
-    <tr  style="text-align: center;">
-      <td colspan="15">データはありません。</td>
-    </tr>
+    <% end %>
+    <%= paginate @kintais %>
   <% end %>
   </tbody>
 </table>
-
 <% end %>
 
