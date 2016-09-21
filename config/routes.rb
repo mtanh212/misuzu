@@ -1,4 +1,8 @@
 Jpt::Application.routes.draw do
+  get 'kanris/index'
+
+  get 'kanri/index'
+
   resources :kairans do
     collection {post :confirm, :kaitou_create}
     collection {get :shokairan}
@@ -181,4 +185,9 @@ Jpt::Application.routes.draw do
   end
 
   resources :export_csv, only: :index
+
+  namespace :kanris do
+    root to: "main#index"
+    resources :kintais, only: :index
+  end
 end

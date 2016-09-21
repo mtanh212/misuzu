@@ -4,6 +4,8 @@ class Kintai < ActiveRecord::Base
   scope :current_user, ->(member) { where( 社員番号: member)}
 
   belongs_to :joutaimaster, foreign_key: :状態1
+  belongs_to :shainmaster, foreign_key: :社員番号
+  enum 曜日: {日: "0", 月: "1", 火: "2", 水: "3", 木: "4", 金: "5", 土: "6"}
 
   KINMU_TYPE = %w(001 002 003 004 005 006 007 008 009)
 

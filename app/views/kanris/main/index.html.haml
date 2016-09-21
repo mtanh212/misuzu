@@ -1,0 +1,13 @@
+.panel.panel-default
+  .panel-heading
+    %h3.panel-title 管理G メインメニュー
+  .panel-body
+    .row
+      .col-md-3
+        %ul.list-group
+          %li.list-group-item= link_to '勤怠_管理G', kanris_kintais_path
+      .col-md-3
+        %ul.list-group
+          %li.list-group-item
+            = link_to '回覧', kairans_path
+            %span.badge #{@kairanCount}
