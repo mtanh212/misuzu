@@ -51,7 +51,9 @@ gem 'composite_primary_keys'
 gem 'execjs'
 gem 'therubyracer'
 gem 'mail'
-
+gem 'ransack'
+gem "kaminari"
+gem "kaminari-bootstrap", "~> 3.0.1"
 # gem 'enum_help'
 #gem 'debugger'
 

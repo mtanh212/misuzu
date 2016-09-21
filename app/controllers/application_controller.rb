@@ -33,6 +33,12 @@ class ApplicationController < ActionController::Base
   # @todo record not found
   # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   # rescue_from User::NotAuthorized, with: :user_not_authorized
+  def require_kanriG_user!
+    unless current_user.shainmaster.shozokumaster.所属コード == "3"
+      flash[:danger] = t "app.flash.access_denied"
+      redirect_to main_path
+    end
+  end
 
   private
 
