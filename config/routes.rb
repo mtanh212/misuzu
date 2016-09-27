@@ -12,41 +12,28 @@ Jpt::Application.routes.draw do
 
   resources :kairanyokenmsts do
     collection {get :export_csv}
+    collection {post :import}
   end
 
   resources :tsushinseigyous do
     collection {get :export_csv}
+    collection {post :import}
   end
 
   resources :dengonyoukens do
     collection {get :export_csv}
+    collection {post :import}
   end
 
   resources :dengonkaitous do
     collection {get :export_csv}
+    collection {post :import}
   end
 
   resources :dengons do
     collection {get :export_csv}
   end
 
-  resources :kairanyokenmsts do
-    collection {post :import}
-  end
-
-  resources :tsushinseigyous do
-    collection {post :import}
-  end
-
-  resources :dengonyoukens do
-    collection {post :import}
-  end
-
-  resources :dengonkaitous do
-    collection {post :import}
-  end
-
-  resources :dengons
 
   root to: 'main#index'
   get "login" => "sessions#new"
@@ -55,27 +42,17 @@ Jpt::Application.routes.draw do
 
   resources :bashokubunmsts  do
     collection {post :import}
+    collection {get :export_csv}
   end
 
   resources :bunruis do
     collection {post :import}
+    collection {get :export_csv}
   end
 
   resources :shoninshamsts  do
     collection {post :import}
-  end
-
-  resources :bashokubunmsts do
     collection {get :export_csv}
-  end
-
-  resources :bunruis do
-    collection {get :export_csv}
-  end
-
-  resources :shoninshamsts do
-    collection {get :export_csv}
-
   end
 
   resources :ekis do
@@ -104,20 +81,15 @@ Jpt::Application.routes.draw do
     collection {get :export_csv}
   end
 
-  resources :kouteimasters do
-    collection {post :ajax, :import}
-  end
-
   resources :shainmasters do
     collection {post :ajax, :import}
+    collection {get :export_csv}
   end
 
-  resources :yakushokumasters do
-    collection {post :ajax, :import}
-  end
 
   resources :jpt_holiday_msts do
     collection {post :ajax, :import}
+    collection{get :export_csv}
   end
 
   resources :jobmasters do
@@ -136,14 +108,6 @@ Jpt::Application.routes.draw do
 
   resources :yakushokumasters, param: :id do
     collection {post :ajax, :import}
-    collection {get :export_csv}
-  end
-
-  resources :jpt_holiday_msts do
-    collection {get :export_csv}
-  end
-
-  resources :shainmasters do
     collection {get :export_csv}
   end
 
@@ -180,6 +144,7 @@ Jpt::Application.routes.draw do
   constraints(:id => /\w+(,\w+)*/) do
     resources :kouteimasters do
       collection {post :ajax}
+      collection{post :import}
       collection {get :export_csv}
     end
   end

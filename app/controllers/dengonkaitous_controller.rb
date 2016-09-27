@@ -1,4 +1,5 @@
 class DengonkaitousController < ApplicationController
+  before_action :require_user!
   before_action :set_dengonkaitou, only: [:show, :edit, :update, :destroy]
 
   respond_to :html

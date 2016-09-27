@@ -107,7 +107,6 @@ module SessionsHelper
       holiday = '1'
       note = day.holidays(:jp)[0][:name]
     end
-
-    Kintai.create!(日付: day, 曜日: day.wday, 社員番号: session[:user], holiday: holiday, 備考: note)
+    Kintai.create!(日付: day, 曜日: day.wday.to_s, 社員番号: session[:user], holiday: holiday, 備考: note)
   end
 end

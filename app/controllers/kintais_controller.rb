@@ -1,4 +1,5 @@
 class KintaisController < ApplicationController
+  before_action :require_user!
   before_action :set_kintai, only: [:edit, :update, :destroy]
 
   respond_to :json
@@ -43,6 +44,7 @@ class KintaisController < ApplicationController
   end
 
   def show
+    @kintai = Kintai.find_by id: params[:id]
     respond_with(@kintai)
   end
 
@@ -135,9 +137,9 @@ class KintaisController < ApplicationController
 
       kubunlist = []
       case @kintai.曜日
-        when '0','6'
+        when '日','土'
           kubunlist = ['1','5']
-        when '1'..'5'
+        when '月', '火', '水', '木', '金'
           if @kintai.try(:holiday) == '1'
             kubunlist = ['1','5']
           else

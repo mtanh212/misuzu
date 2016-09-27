@@ -1,4 +1,5 @@
 class KikanmstsController < ApplicationController
+  before_action :require_user!
   before_action :set_kikanmst, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 

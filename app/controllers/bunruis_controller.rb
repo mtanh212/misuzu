@@ -1,4 +1,5 @@
 class BunruisController < ApplicationController
+  before_action :require_user!
   before_action :set_bunrui, only: [:show, :edit, :update, :destroy]
 
   respond_to :html

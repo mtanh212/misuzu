@@ -1,4 +1,5 @@
 class KanrisController < ApplicationController
+  before_action :require_user!
   before_action :require_kanriG_user!
   def index
   end
@@ -15,13 +16,5 @@ class KanrisController < ApplicationController
       order(:日付).page(params[:page]).per(10) if params[:date].present?
     @kintais = @kintais.where(社員番号: @user_name).
       order(:日付).page(params[:page]).per(10) if params[:user_name].present?
-  end
-
-  private
-  def require_kanriG_user!
-    unless current_user.shainmaster.shozokumaster.所属コード == "3"
-      flash[:danger] = t "app.flash.access_denied"
-      redirect_to main_path
-    end
   end
 end

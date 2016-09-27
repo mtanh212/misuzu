@@ -1,4 +1,5 @@
 class KeihibodiesController < ApplicationController
+  before_action :require_user!
   def export_csv
     @keihibodies = Keihibody.all
 
