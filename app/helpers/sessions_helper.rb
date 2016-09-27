@@ -5,7 +5,7 @@ module SessionsHelper
     session[:selected_shain] = user.shainmaster.id
     # 現在保留
     # check_shozai()
-    check_kintai_at_day(Date.today)
+    check_kintai_at_day_by_user(user.id, Date.today)
     respond_with user, location: time_line_view_events_url
   end
 
@@ -56,13 +56,14 @@ module SessionsHelper
     session[:forwarding_url] = request.url if request.get?
   end
 
-  def check_kintai_at_day(at_day)
+  def check_kintai_at_day_by_user user_id, at_day
     at_day = Date.today if at_day.nil?
-    kintai = Kintai.find_by 日付: at_day, 社員番号: session[:user]
+    shainmaster = Shainmaster.find_by(id: user_id)
+    kintai = shainmaster.kintais.find_by(日付: at_day)
     return if kintai
     start_date = at_day.beginning_of_month
     end_date = at_day.end_of_month
-    MonthRange.new(start_date..end_date).each {|day| create_kintai(day)}
+    MonthRange.new(start_date..end_date).each {|day| create_kintai(user_id, day)}
   end
 
   def check_shozai
@@ -98,7 +99,7 @@ module SessionsHelper
     end
   end
 
-  def create_kintai(day)
+  def create_kintai user_id, day
     if JptHolidayMst.exists?(event_date: day)
       note = '会社休日'
       holiday = '1'
@@ -107,6 +108,6 @@ module SessionsHelper
       holiday = '1'
       note = day.holidays(:jp)[0][:name]
     end
-    Kintai.create!(日付: day, 曜日: day.wday.to_s, 社員番号: session[:user], holiday: holiday, 備考: note)
+    Kintai.create!(日付: day, 曜日: day.wday.to_s, 社員番号: user_id, holiday: holiday, 備考: note)
   end
 end

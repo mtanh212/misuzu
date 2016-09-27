@@ -15,7 +15,7 @@ class KintaisController < ApplicationController
 
     date = @date_param.to_date
     session[:selected_kintai_date] = date
-    check_kintai_at_day(date)
+    check_kintai_at_day_by_user(current_user.id, date)
 
     case params[:commit]
       when '入力済'
