@@ -1,4 +1,5 @@
 class KairanyokenmstsController < ApplicationController
+  before_action :require_user!
   before_action :set_kairanyokenmst, only: [:show, :edit, :update, :destroy]
 
   respond_to :html

@@ -1,4 +1,5 @@
 class YakushokumastersController < ApplicationController
+  before_action :require_user!
   skip_before_action :verify_authenticity_token
   before_action :set_yakushokumaster, only: [:show, :edit, :update, :destroy]
   respond_to :js

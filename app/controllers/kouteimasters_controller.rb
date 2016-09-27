@@ -1,4 +1,5 @@
 class KouteimastersController < ApplicationController
+  before_action :require_user!
   skip_before_action :verify_authenticity_token
   before_action :set_kouteimaster, only: [:show, :edit, :update, :destroy]
   before_action :set_shozoku, only: [:new, :edit, :create, :update]

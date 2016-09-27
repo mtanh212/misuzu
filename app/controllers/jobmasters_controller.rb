@@ -1,4 +1,5 @@
 class JobmastersController < ApplicationController
+  before_action :require_user!
   before_action :set_jobmaster, only: [:show, :edit, :update, :destroy]
   before_action :set_refer, only: [:new, :edit, :create, :update]
   load_and_authorize_resource
