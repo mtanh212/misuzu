@@ -4,7 +4,7 @@ class KouteimastersController < ApplicationController
   before_action :set_kouteimaster, only: [:show, :edit, :update, :destroy]
   before_action :set_shozoku, only: [:new, :edit, :create, :update]
   respond_to :js
-  load_and_authorize_resource
+  load_and_authorize_resource except: :export_csv
 
   # GET /kouteimasters
   # GET /kouteimasters.json

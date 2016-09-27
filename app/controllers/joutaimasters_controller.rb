@@ -2,7 +2,7 @@ class JoutaimastersController < ApplicationController
   before_action :require_user!
   skip_before_action :verify_authenticity_token
   before_action :set_joutaimaster, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
+  load_and_authorize_resource except: :export_csv
   respond_to :js
 
   def index

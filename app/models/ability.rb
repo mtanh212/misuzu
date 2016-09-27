@@ -12,6 +12,7 @@ class Ability
         can [:manage, :import], User
         can :read, :all
         can [:edit, :update], User, 担当者コード: user.担当者コード
+        can :export, :all
       else
         can :read, :all
         can [:edit, :update], User, 担当者コード: user.担当者コード

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_user!
-  load_and_authorize_resource
+  load_and_authorize_resource except: :export_csv
   # skip_authorize_resource only: [:new, :create]
 
   # GET /users

@@ -1,7 +1,7 @@
 class ShozokumastersController < ApplicationController
   before_action :require_user!
   skip_before_action :verify_authenticity_token
-  load_and_authorize_resource
+  load_and_authorize_resource except: :export_csv
   respond_to :js
 
   def index

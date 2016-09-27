@@ -1,7 +1,7 @@
 class KaishamastersController < ApplicationController
   before_action :require_user!
   before_action :set_kaishamaster, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource
+  load_and_authorize_resource except: :export_csv
 
   respond_to :js
 

@@ -2,7 +2,7 @@ class ShainmastersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :require_user!
   before_action :set_reference, only: [:new, :edit, :create, :update]
-  load_and_authorize_resource
+  load_and_authorize_resource except: :export_csv
   respond_to :js
 
   def index

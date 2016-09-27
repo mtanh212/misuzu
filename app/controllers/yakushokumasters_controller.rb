@@ -3,7 +3,7 @@ class YakushokumastersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_yakushokumaster, only: [:show, :edit, :update, :destroy]
   respond_to :js
-  load_and_authorize_resource
+  load_and_authorize_resource except: :export_csv
 
   def index
     @yakushokumasters = Yakushokumaster.all
