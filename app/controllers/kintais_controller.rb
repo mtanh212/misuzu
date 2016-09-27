@@ -31,7 +31,6 @@ class KintaisController < ApplicationController
     @kintais = Kintai.selected_month(session[:user], date).order(:日付)
 
     finish_flag = Kintai.find_by(社員番号: session[:user], 日付: date.beginning_of_month).try :入力済 || '0'
-
     if finish_flag == '1'
       render :show
     else
