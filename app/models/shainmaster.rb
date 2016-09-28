@@ -22,7 +22,7 @@ class Shainmaster < ActiveRecord::Base
 
   scope :has_not_tantousha, -> {where "社員番号 not in (select 担当者コード
     from 担当者マスタ)"}
-
+  scope :get_kubun, ->{where(区分: true)}
   delegate :所在名, to: :shozai, prefix: :shozai, allow_nil: true
 
   def self.import(file)
