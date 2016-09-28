@@ -9,4 +9,7 @@
     = f.association :yakushokumaster, label_method: :役職名, value_method: :役職コード, label:'役職'
     = f.input :内線電話番号
     = f.input :有給残数
+    - if current_user.admin? || current_user.supervisor?
+      = f.label :区分, '区分(管理Gは社員の勤怠が見えます.)'
+      = f.input :区分, as: :boolean
     = f.button :submit, class: 'btn btn-primary'

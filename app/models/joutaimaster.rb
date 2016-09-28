@@ -8,6 +8,7 @@ class Joutaimaster < ActiveRecord::Base
   validates :状態コード, uniqueness: true
 
   has_many :event, foreign_key: :状態コード
+  has_many :kintais, foreign_key: :状態1
 
   alias_attribute :id, :状態コード
   alias_attribute :name, :状態名
@@ -53,5 +54,4 @@ class Joutaimaster < ActiveRecord::Base
       end
     end
   end
-
 end

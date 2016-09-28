@@ -19,6 +19,10 @@
     <th rowspan="2">社員番号</th>
     <th rowspan="2">社員氏名</th>
     <th colspan="6">就 業 時 間</th>
+    <th rowspan="2">保守携帯回数</th>
+    <th rowspan="2">休暇日数</th>
+    <th rowspan="2">午前半休回数</th>
+    <th rowspan="2">午後半休回数</th>
     <th rowspan="2"></th>
     <!--<th rowspan="2"></th>-->
     <!--<th rowspan="2"></th>-->
@@ -48,6 +52,10 @@
         <td><%= shainmaster.kintais.get_by_mounth(@date).sum :深夜残業時間 %></td>
         <td><%= shainmaster.kintais.get_by_mounth(@date).sum :普通保守時間 %></td>
         <td><%= shainmaster.kintais.get_by_mounth(@date).sum :深夜保守時間 %></td>
+        <td><%= shainmaster.kintais.get_by_mounth(@date).sum :保守携帯回数 %></td>
+        <td><%= shainmaster.kintais.day_off.count %></td>
+        <td><%= shainmaster.kintais.morning_off.count %></td>
+        <td><%= shainmaster.kintais.afternoon_off.count %></td>
         <td><%= link_to "詳細", kanris_kintai_path(shainmaster.id, date: @date) %></td>
       </tr>
     <% end %>

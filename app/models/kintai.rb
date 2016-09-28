@@ -3,6 +3,9 @@ class Kintai < ActiveRecord::Base
   scope :selected_month, ->(member,month) { where( 社員番号:  member, 日付: month.beginning_of_month..month.end_of_month ) }
   scope :current_user, ->(member) { where( 社員番号: member)}
   scope :get_by_mounth, ->(date) { where(日付: date.beginning_of_month..date.end_of_month)}
+  scope :day_off,->{where(状態1: 30)}
+  scope :morning_off,->{where(状態1: 31)}
+  scope :afternoon_off,->{where(状態1: 32)}
 
   belongs_to :joutaimaster, foreign_key: :状態1
   belongs_to :shainmaster, foreign_key: :社員番号

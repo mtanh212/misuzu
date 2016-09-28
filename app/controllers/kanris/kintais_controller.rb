@@ -1,7 +1,7 @@
 class Kanris::KintaisController < ApplicationController
   before_action :require_kanriG_user!
   def index
-    @shainmasters = Shainmaster.all.page(params[:page]).per(10)
+    @shainmasters = Shainmaster.get_kubun.page(params[:page]).per(10)
     if params[:date].present?
       @date = params[:date].to_date
     else
