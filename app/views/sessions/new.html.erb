@@ -4,12 +4,12 @@
 <div class="col-md-4 col-md-offset-4">
 <div class="well">
 
-<%= form_for :session, url: login_path, html:{class: 'form-horizontal'}  do |f| %>
+<%= form_for :session, url: login_path, html:{class: 'form-horizontal'} do |f| %>
   <div class="form-group">
     <div class="field">
       <%= f.label :担当者コード, class: 'col-md-4 control-label' %>
       <div class="col-md-8">
-        <%= f.text_field :担当者コード, class: 'form-control', placeholder: 'ID' %>
+        <%= f.text_field :担当者コード, class: 'form-control', placeholder: 'ID', autocomplete: 'off' %>
       </div>
     </div>
   </div>
@@ -18,17 +18,8 @@
     <div class="field">
       <%= f.label :password, class: 'col-md-4 control-label' %>
       <div class="col-md-8">
-        <%= f.password_field :password, class: 'form-control', placeholder: 'パスワード' %>
+        <%= f.password_field :password, class: 'form-control', placeholder: 'パスワード', autocomplete: 'off' %>
       </div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="field">
-      <%= f.label :remember_me, class: "col-md-8 control-label" do %>
-        <%= f.check_box :remember_me %>
-        <span><%= t :remember_me %></span>
-      <% end %>
     </div>
   </div>
 
