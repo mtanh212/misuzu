@@ -50,6 +50,9 @@ json.shains @shains do |shain|
   json.dengon dengon
   kairan = shain.try(:回覧件数) == '0' ? '' : shain.try(:回覧件数)
   json.kairan kairan
+  comment = ''
+  comment = shain.events.first.comment unless shain.events.first.nil?
+  json.comment comment
   background_color = ''
   background_color = shain.shozai.try :background_color if shain.shozai
   json.background_color background_color
