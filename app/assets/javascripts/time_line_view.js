@@ -85,7 +85,7 @@ $(function(){
                     {
                         labelText: '状態',
                         field: 'joutai',
-                        width: 50,
+                        width: 25,
                         render: function(resources, el) {
                             el.css('background-color', resources.background_color);
                             el.css('color', resources.text_color);
@@ -106,6 +106,17 @@ $(function(){
                         width: 25,
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
+                        }
+
+                    }
+                    ,
+                    {
+                        labelText: 'コメント',
+                        field: 'comment',
+                        width: 60,
+                        render: function(resources, el) {
+                            el.css('background-color', resources.background_color);
+                            el.css('color', resources.text_color);
                         }
 
                     }
