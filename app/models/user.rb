@@ -28,24 +28,6 @@ class User < ActiveRecord::Base
     BCrypt::Password.create string, cost: cost
   end
 
-  def User.new_token
-    SecureRandom.urlsafe_base64
-  end
-
-  def remember
-    self.remember_token = User.new_token
-    update_attributes! remember_digest: User.digest(remember_token)
-  end
-
-  def authenticated? remember_token
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
-  end
-
-  def forget
-    update_attributes! remember_digest: nil
-  end
-
   def check_taken
     if 担当者コード.present? && 担当者コード.in?(User.pluck(:担当者コード))
       errors.add(:担当者コード, 'はすでに存在します。')
