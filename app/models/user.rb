@@ -40,10 +40,8 @@ class User < ActiveRecord::Base
 
   def self.to_csv
     attributes = %w{担当者コード 担当者名称 admin email supervisor}
-
     CSV.generate(headers: true) do |csv|
       csv << attributes
-
       all.each do |user|
         csv << attributes.map{ |attr| user.send(attr) }
       end
@@ -57,7 +55,7 @@ class User < ActiveRecord::Base
       @user_info = row.to_hash
       @user_info["password"] = @user_info["担当者コード"]
       @user_info["password_confirmation"] = @user_info["担当者コード"]
-      @user = User.create! @user_info
+      User.create @user_info
     end
   end
 end

@@ -92,10 +92,16 @@ class UsersController < ApplicationController
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"
       redirect_to users_path
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = t "app.flash.file_format_invalid"
+      redirect_to users_path
+    elsif check_attributes_import(params[:file]) != ""
+      flash[:danger] = check_attributes_import(params[:file]) + t("app.flash.not_attributes")
+      redirect_to users_path
     else
       begin
         User.transaction do
-          User.delete_all
+          User.destroy_all
           User.reset_pk_sequence
           User.import(params[:file])
         end
@@ -118,5 +124,18 @@ class UsersController < ApplicationController
   def user_params_for_update
     params.require(:user).permit :担当者名称, :password, :password_confirmation,
       :avatar, :admin, :有給残数, :email
+  end
+
+  def check_attributes_import file
+    attributes = %w{担当者コード 担当者名称 admin email supervisor}
+    result = ""
+    CSV.foreach(file.path, headers: true) do |row|
+      row.to_hash.each do |key, value|
+        unless key.in? attributes
+          result = result + " " + key
+        end
+      end
+      return result
+    end
   end
 end
