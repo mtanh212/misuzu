@@ -13,11 +13,13 @@ json.events @all_events do |event|
   #   when '連続'
   #     kisha_flag = '　△'
   # end
+  comment = ''
+  comment = event.try(:comment)
   title =''
   title = event.joutaimaster.try(:name) if event.joutaimaster
   # title = event.joutaimaster.try(:name) << kisha_flag if event.joutaimaster
   # title = event.jobmaster.try(:job_name) << kisha_flag if event.joutaimaster
-  json.title title
+  json.title title + ": " +comment
   # start_time = event.try(:joutai_code) == '30' ? event.try(:start_time).to_date : event.try(:start_time)
   # end_time = event.try(:joutai_code) == '30' ? event.try(:end_time).to_date : event.try(:end_time)
 
@@ -50,9 +52,6 @@ json.shains @shains do |shain|
   json.dengon dengon
   kairan = shain.try(:回覧件数) == '0' ? '' : shain.try(:回覧件数)
   json.kairan kairan
-  comment = ''
-  comment = shain.events.first.comment unless shain.events.first.nil?
-  json.comment comment
   background_color = ''
   background_color = shain.shozai.try :background_color if shain.shozai
   json.background_color background_color
