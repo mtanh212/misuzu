@@ -109,17 +109,6 @@ $(function(){
                         }
 
                     }
-                    ,
-                    {
-                        labelText: 'コメント',
-                        field: 'comment',
-                        width: 60,
-                        render: function(resources, el) {
-                            el.css('background-color', resources.background_color);
-                            el.css('color', resources.text_color);
-                        }
-
-                    }
                 ]
                 ,resources: data.shains
             }
