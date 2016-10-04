@@ -219,6 +219,7 @@ ja:
       wellcome_to: よろこそ！
       file_nil: ファイルが存在していない！
       file_format_invalid: ファイルのフォマットを正しく選択してください。
+      not_attributes: " アトリビュートが存在していない！"
 
     login:
       let_login: ログインしてください。
