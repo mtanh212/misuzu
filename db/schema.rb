@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160929024146) do
+ActiveRecord::Schema.define(version: 20161005071536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -325,7 +325,7 @@ ActiveRecord::Schema.define(version: 20160929024146) do
   add_index "状態マスタ", ["状態コード"], name: "index_状態マスタ_on_状態コード", unique: true, using: :btree
 
   create_table "社員マスタ", id: false, force: :cascade do |t|
-    t.string   "社員番号",                      null: false
+    t.string   "社員番号",                       null: false
     t.string   "連携用社員番号"
     t.string   "氏名"
     t.string   "所属コード"
@@ -335,12 +335,13 @@ ActiveRecord::Schema.define(version: 20160929024146) do
     t.string   "伝言件数"
     t.string   "回覧件数"
     t.string   "所在コード"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.decimal  "有給残数"
     t.string   "残業区分"
     t.string   "勤務タイプ"
-    t.boolean  "区分",         default: true
+    t.boolean  "区分",         default: false
+    t.boolean  "タイムライン区分",   default: false
   end
 
   add_index "社員マスタ", ["社員番号"], name: "index_社員マスタ_on_社員番号", unique: true, using: :btree
