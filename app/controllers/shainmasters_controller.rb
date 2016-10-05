@@ -76,12 +76,12 @@ class ShainmastersController < ApplicationController
   private
   def shainmaster_params
     params.require(:shainmaster).permit :社員番号, :連携用社員番号, :氏名,
-      :所属コード, :直間区分, :役職コード, :内線電話番号, :有給残数, :区分
+      :所属コード, :直間区分, :役職コード, :内線電話番号, :有給残数, :区分, :タイムライン区分
   end
 
   def shainmaster_params_for_update
     params.require(:shainmaster).permit :連携用社員番号, :氏名, :所属コード,
-      :直間区分, :役職コード, :内線電話番号, :有給残数, :区分
+      :直間区分, :役職コード, :内線電話番号, :有給残数, :区分, :タイムライン区分
   end
 
   def set_reference
