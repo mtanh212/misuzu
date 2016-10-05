@@ -95,8 +95,8 @@ class UsersController < ApplicationController
     elsif File.extname(params[:file].original_filename) != ".csv"
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to users_path
-    elsif check_attributes_import(params[:file]) != ""
-      flash[:danger] = check_attributes_import(params[:file]) + t("app.flash.not_attributes")
+    elsif (error = check_attributes_import(params[:file])) != ""
+      flash[:danger] = error
       redirect_to users_path
     else
       begin
@@ -129,13 +129,12 @@ class UsersController < ApplicationController
   def check_attributes_import file
     attributes = %w{担当者コード 担当者名称 admin email supervisor}
     result = ""
-    CSV.foreach(file.path, headers: true) do |row|
-      row.to_hash.each do |key, value|
-        unless key.in? attributes
-          result = result + " " + key
-        end
+    row = CSV.parse(File.open(file.path)).first
+    row.each do |a|
+      unless a.in? attributes
+        result = result + " " + a unless a.nil?
       end
-      return result
     end
+    return result + t("app.flash.not_attributes")
   end
 end
