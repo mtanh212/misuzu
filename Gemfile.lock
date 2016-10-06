@@ -79,7 +79,11 @@ GEM
     coffee-script-source (1.10.0)
     composite_primary_keys (8.1.2)
       activerecord (~> 4.2.0)
+    config (1.2.1)
+      activesupport (>= 3.0)
+      deep_merge (~> 1.0, >= 1.0.1)
     debug_inspector (0.0.2)
+    deep_merge (1.0.1)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.6.0)
@@ -266,6 +270,7 @@ DEPENDENCIES
   cancancan (~> 1.10)
   coffee-rails
   composite_primary_keys
+  config
   execjs
   figaro (~> 0.7.0)
   haml-rails

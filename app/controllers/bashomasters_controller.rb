@@ -54,6 +54,12 @@ class BashomastersController < ApplicationController
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"
       redirect_to bashomasters_path
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = t "app.flash.file_format_invalid"
+      redirect_to bashomasters_path
+    elsif (error = check_attributes_import(params[:file], "bashomasters")) != ""
+      flash[:danger] = error
+      redirect_to bashomasters_path
     else
       begin
         Bashomaster.transaction do

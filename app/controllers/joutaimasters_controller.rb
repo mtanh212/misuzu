@@ -45,6 +45,12 @@ class JoutaimastersController < ApplicationController
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"
       redirect_to joutaimasters_path
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = t "app.flash.file_format_invalid"
+      redirect_to joutaimasters_path
+    elsif (error = check_attributes_import(params[:file], "joutaimaster")) != ""
+      flash[:danger] = error
+      redirect_to joutaimasters_path
     else
       begin
         Joutaimaster.transaction do

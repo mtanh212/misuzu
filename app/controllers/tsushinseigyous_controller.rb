@@ -41,6 +41,12 @@ class TsushinseigyousController < ApplicationController
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"
       redirect_to tsushinseigyous_path
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = t "app.flash.file_format_invalid"
+      redirect_to tsushinseigyous_path
+    elsif (error = check_attributes_import(params[:file], "tsushinseigyou")) != ""
+      flash[:danger] = error
+      redirect_to tsushinseigyous_path
     else
       begin
         Tsushinseigyou.transaction do

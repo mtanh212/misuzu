@@ -29,7 +29,7 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
-
+gem 'config'
 # gem 'fullcalendar-rails', '~> 2.4.0.2'
 gem 'pg'
 gem 'activerecord-reset-pk-sequence'

@@ -38,6 +38,12 @@ class ShozokumastersController < ApplicationController
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"
       redirect_to shozokumasters_path
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = t "app.flash.file_format_invalid"
+      redirect_to shozokumasters_path
+    elsif (error = check_attributes_import(params[:file], "shozokumaster")) != ""
+      flash[:danger] = error
+      redirect_to shozokumasters_path
     else
       begin
         Shozokumaster.transaction do

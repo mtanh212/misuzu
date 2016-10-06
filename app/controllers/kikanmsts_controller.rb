@@ -42,6 +42,12 @@ class KikanmstsController < ApplicationController
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"
       redirect_to kikanmsts_path
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = t "app.flash.file_format_invalid"
+      redirect_to kikanmsts_path
+    elsif (error = check_attributes_import(params[:file], "kikanmst")) != ""
+      flash[:danger] = error
+      redirect_to kikanmsts_path
     else
       begin
         Kikanmst.transaction do

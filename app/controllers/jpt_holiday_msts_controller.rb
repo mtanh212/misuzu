@@ -35,13 +35,19 @@ class JptHolidayMstsController < ApplicationController
 
   def destroy
     @jpt_holiday_mst.destroy
-    respond_with(@jpt_holiday_mst, location: jpt_holiday_msts_url)
+    respond_with(@jpt_holiday_mst, location: jpt_holiday_msts_path)
   end
 
   def import
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"
-      redirect_to jpt_holiday_msts_url_path
+      redirect_to jpt_holiday_msts_path
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = t "app.flash.file_format_invalid"
+      redirect_to jpt_holiday_msts_path
+    elsif (error = check_attributes_import(params[:file], "jpt_holiday_msts")) != ""
+      flash[:danger] = error
+      redirect_to jpt_holiday_msts_path
     else
       begin
         JptHolidayMst.transaction do
@@ -53,7 +59,7 @@ class JptHolidayMstsController < ApplicationController
         end
       rescue
         flash[:alert] = t "app.flash.file_format_invalid"
-        redirect_to jpt_holiday_msts_url_path
+        redirect_to jpt_holiday_msts_path
       end
     end
   end
