@@ -95,7 +95,7 @@ class UsersController < ApplicationController
     elsif File.extname(params[:file].original_filename) != ".csv"
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to users_path
-    elsif (error = check_attributes_import(params[:file])) != ""
+    elsif (error = check_attributes_import(params[:file], "user")) != ""
       flash[:danger] = error
       redirect_to users_path
     else
@@ -124,17 +124,5 @@ class UsersController < ApplicationController
   def user_params_for_update
     params.require(:user).permit :担当者名称, :password, :password_confirmation,
       :avatar, :admin, :有給残数, :email
-  end
-
-  def check_attributes_import file
-    attributes = %w{担当者コード 担当者名称 admin email supervisor}
-    result = ""
-    row = CSV.parse(File.open(file.path)).first
-    row.each do |a|
-      unless a.in? attributes
-        result = result + " " + a unless a.nil?
-      end
-    end
-    return result + t("app.flash.not_attributes")
   end
 end

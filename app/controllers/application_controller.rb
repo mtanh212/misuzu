@@ -40,6 +40,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def check_attributes_import file, name
+    attributes = Settings.attributes[name]
+    result = ""
+    row = CSV.parse(File.open(file.path)).first
+    row.each do |a|
+      unless a.in? attributes
+        result = result + " " + a unless a.nil?
+      end
+    end
+    return result + t("app.flash.not_attributes")
+  end
+
   private
 
   # Finds the User with the ID stored in the session with the key

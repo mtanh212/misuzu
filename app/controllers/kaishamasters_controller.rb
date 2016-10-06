@@ -42,6 +42,12 @@ class KaishamastersController < ApplicationController
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"
       redirect_to kaishamasters_path
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = t "app.flash.file_format_invalid"
+      redirect_to kaishamasters_path
+    elsif (error = check_attributes_import(params[:file], "kaishamaster")) != ""
+      flash[:danger] = error
+      redirect_to kaishamasters_path
     else
       begin
         Kaishamaster.transaction do
