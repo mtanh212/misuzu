@@ -62,7 +62,7 @@ class YakushokumastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @yakushokumasters.to_csv, filename: "役職マスタ_#{Date.today}.csv" }
+      format.csv { send_data @yakushokumasters.to_csv, filename: "役職マスタ.csv" }
     end
   end
 

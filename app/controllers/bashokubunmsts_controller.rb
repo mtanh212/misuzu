@@ -62,7 +62,7 @@ class BashokubunmstsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @bashokubunmsts.to_csv, filename: "場所区分マスタ_#{Date.today}.csv" }
+      format.csv { send_data @bashokubunmsts.to_csv, filename: "場所区分マスタ.csv" }
     end
   end
 

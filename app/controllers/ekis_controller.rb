@@ -63,7 +63,7 @@ class EkisController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @ekis.to_csv, filename: "駅マスタ_#{Date.today}.csv" }
+      format.csv { send_data @ekis.to_csv, filename: "駅マスタ.csv" }
     end
   end
 

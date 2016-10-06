@@ -84,7 +84,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @users.to_csv, filename: "担当者マスタ_#{Date.today}.csv" }
+      format.csv { send_data @users.to_csv, filename: "担当者マスタ.csv" }
     end
   end
 

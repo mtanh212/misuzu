@@ -75,7 +75,7 @@ class BashomastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @bashomasters.to_csv, filename: "場所マスタ_#{Date.today}.csv" }
+      format.csv { send_data @bashomasters.to_csv, filename: "場所マスタ.csv" }
     end
   end
 

@@ -62,7 +62,7 @@ class DengonkaitousController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @dengonkaitous.to_csv, filename: "伝言回答マスタ_#{Date.today}.csv" }
+      format.csv { send_data @dengonkaitous.to_csv, filename: "伝言回答マスタ.csv" }
     end
   end
 

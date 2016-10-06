@@ -108,7 +108,7 @@ class KeihiheadsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @keihiheads.to_csv, filename: "経費ヘッド_#{Date.today}.csv" }
+      format.csv { send_data @keihiheads.to_csv, filename: "経費ヘッド.csv" }
     end
   end
 

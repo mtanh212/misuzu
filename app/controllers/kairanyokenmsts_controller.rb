@@ -63,7 +63,7 @@ class KairanyokenmstsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @kairanyokens.to_csv, filename: "回覧用件マスタ_#{Date.today}.csv" }
+      format.csv { send_data @kairanyokens.to_csv, filename: "回覧用件マスタ.csv" }
     end
   end
 
