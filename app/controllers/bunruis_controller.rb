@@ -62,7 +62,7 @@ class BunruisController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @bunruis.to_csv, filename: "分類マスタ_#{Date.today}.csv" }
+      format.csv { send_data @bunruis.to_csv, filename: "分類マスタ.csv" }
     end
   end
 

@@ -200,7 +200,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @events.to_csv, filename: "event_#{Date.today}.csv" }
+      format.csv { send_data @events.to_csv, filename: "イベントマスタ.csv" }
     end
   end
 

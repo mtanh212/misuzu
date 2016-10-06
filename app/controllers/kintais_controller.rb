@@ -125,7 +125,7 @@ class KintaisController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @kintais.to_csv, filename: "勤怠_#{Date.today}.csv" }
+      format.csv { send_data @kintais.to_csv, filename: "勤怠.csv" }
     end
   end
 

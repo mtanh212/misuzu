@@ -91,7 +91,7 @@ class JobmastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @jobs.to_csv, filename: "jobマスタ_#{Date.today}.csv" }
+      format.csv { send_data @jobs.to_csv, filename: "jobマスタ.csv" }
     end
   end
 

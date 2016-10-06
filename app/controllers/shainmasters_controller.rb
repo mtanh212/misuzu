@@ -69,7 +69,7 @@ class ShainmastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @shainmasters.to_csv, filename: "社員マスタ_#{Date.today}.csv" }
+      format.csv { send_data @shainmasters.to_csv, filename: "社員マスタ.csv" }
     end
   end
 

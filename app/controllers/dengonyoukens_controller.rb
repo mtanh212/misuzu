@@ -62,7 +62,7 @@ class DengonyoukensController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @dengonyoukens.to_csv, filename: "伝言用件マスタ_#{Date.today}.csv" }
+      format.csv { send_data @dengonyoukens.to_csv, filename: "伝言用件マスタ.csv" }
     end
   end
 

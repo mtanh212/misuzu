@@ -64,7 +64,7 @@ class ShozaisController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @shozais.to_csv, filename: "所在マスタ_#{Date.today}.csv" }
+      format.csv { send_data @shozais.to_csv, filename: "所在マスタ.csv" }
     end
   end
 

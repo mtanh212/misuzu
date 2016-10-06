@@ -121,7 +121,7 @@ class KairansController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @kairans.to_csv, filename: "回覧_#{Date.today}.csv" }
+      format.csv { send_data @kairans.to_csv, filename: "回覧.csv" }
     end
   end
 
