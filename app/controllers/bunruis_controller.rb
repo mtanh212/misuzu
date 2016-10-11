@@ -44,9 +44,6 @@ class BunruisController < ApplicationController
     elsif File.extname(params[:file].original_filename) != ".csv"
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to bunruis_path
-    elsif (error = check_attributes_import(params[:file], "bunrui")) != ""
-      flash[:danger] = error + t("app.flash.not_attributes")
-      redirect_to bunruis_path
     else
       begin
         Bunrui.transaction do
@@ -56,8 +53,8 @@ class BunruisController < ApplicationController
           notice = t 'app.flash.import_csv'
           redirect_to :back, notice: notice
         end
-      rescue
-        flash[:alert] = t "app.flash.file_format_invalid"
+      rescue => err
+        flash[:danger] = err.to_s
         redirect_to bunruis_path
       end
     end

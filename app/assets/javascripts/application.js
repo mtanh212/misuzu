@@ -43,7 +43,7 @@
 $(document).on('ready', function() {
   setTimeout(function() {
     $('.alert').fadeOut('normal');
-  }, 3000);
+  }, 6000);
 });
 
 $(document).ready(function() {

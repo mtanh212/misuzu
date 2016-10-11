@@ -45,9 +45,6 @@ class KaishamastersController < ApplicationController
     elsif File.extname(params[:file].original_filename) != ".csv"
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to kaishamasters_path
-    elsif (error = check_attributes_import(params[:file], "kaishamaster")) != ""
-      flash[:danger] = error
-      redirect_to kaishamasters_path
     else
       begin
         Kaishamaster.transaction do
@@ -57,8 +54,8 @@ class KaishamastersController < ApplicationController
           notice = t 'app.flash.import_csv'
           redirect_to :back, notice: notice
         end
-      rescue
-        flash[:alert] = t "app.flash.file_format_invalid"
+      rescue => err
+        flash[:danger] = err.to_s
         redirect_to kaishamasters_path
       end
     end

@@ -45,9 +45,6 @@ class EkisController < ApplicationController
     elsif File.extname(params[:file].original_filename) != ".csv"
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to ekis_path
-    elsif (error = check_attributes_import(params[:file], "eki")) != ""
-      flash[:danger] = error + t("app.flash.not_attributes")
-      redirect_to ekis_path
     else
       begin
         Eki.transaction do
@@ -57,8 +54,8 @@ class EkisController < ApplicationController
           notice = t 'app.flash.import_csv'
           redirect_to :back, notice: notice
         end
-      rescue
-        flash[:alert] = t "app.flash.file_format_invalid"
+      rescue => err
+        flash[:danger] = err.to_s
         redirect_to ekis_path
       end
     end

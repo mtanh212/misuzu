@@ -44,9 +44,6 @@ class DengonkaitousController < ApplicationController
     elsif File.extname(params[:file].original_filename) != ".csv"
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to dengonkaitous_path
-    elsif (error = check_attributes_import(params[:file], "dengonkaitou")) != ""
-      flash[:danger] = error + t("app.flash.not_attributes")
-      redirect_to dengonkaitous_path
     else
       begin
         Dengonkaitou.transaction do
@@ -56,8 +53,8 @@ class DengonkaitousController < ApplicationController
           notice = t 'app.flash.import_csv'
           redirect_to :back, notice: notice
         end
-      rescue
-        flash[:alert] = t "app.flash.file_format_invalid"
+      rescue => err
+        flash[:danger] = err.to_s
         redirect_to dengonkaitous_path
       end
     end

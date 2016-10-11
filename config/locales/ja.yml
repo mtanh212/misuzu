@@ -223,4 +223,5 @@ ja:
 
     login:
       let_login: ログインしてください。
+      logged_in: ログインしました。
   export: 輸出
