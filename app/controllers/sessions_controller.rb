@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :check_login, only: [:new, :create]
 
   def new
   end
@@ -17,5 +18,13 @@ class SessionsController < ApplicationController
   def destroy
     log_out if logged_in?
     redirect_to root_path
+  end
+
+  private
+  def check_login
+    if logged_in?
+      flash[:danger] = t "app.login.logged_in"
+      redirect_to main_path
+    end
   end
 end

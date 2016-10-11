@@ -25,7 +25,7 @@
         %span.input-group-btn
           %button.btn.btn-default.refer-joutai
             %span.glyphicon.glyphicon-search
-      = f.input :備考
+      = f.input :備考, as: :text
     .col-sm-2.col-sm-offset-1
       = f.input :実労働時間
       = f.input :遅刻時間, label: '遅刻/早退時間'
@@ -40,6 +40,6 @@
         = render 'kinmu_refer'
   = f.input :代休相手日付, as: :hidden, input_html: { value: '' }
   = f.input :代休取得区分, as: :hidden
-  = f.input :備考, as: :hidden
 = render 'share/joutai_modal'
 = render 'share/daikyu_modal'
+asas
