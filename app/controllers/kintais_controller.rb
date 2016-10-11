@@ -1,13 +1,13 @@
 class KintaisController < ApplicationController
   before_action :require_user!
   before_action :set_kintai, only: [:edit, :update, :destroy]
+  before_action :check_edit_kintai, only: [:edit]
 
   respond_to :json
 
   include UsersHelper
 
   def index
-    byebug
     @date_param = Date.today
     @date_param = params[:search] if params[:search].present?
 
@@ -17,12 +17,9 @@ class KintaisController < ApplicationController
     date = @date_param.to_date
     session[:selected_kintai_date] = date
     check_kintai_at_day_by_user(current_user.id, date)
-    byebug
-
     case params[:commit]
       when '入力済'
         @kintai = Kintai.find_by(日付: date, 社員番号: session[:user])
-        byebug
         @kintai.入力済 = '1' if @kintai
         @kintai.save
       when '入力する'
@@ -30,15 +27,8 @@ class KintaisController < ApplicationController
         @kintai.入力済 = '0' if @kintai
         @kintai.save
     end
-
     @kintais = Kintai.selected_month(session[:user], date).order(:日付)
-    finish_flag = Kintai.find_by(社員番号: session[:user], 日付: date.beginning_of_month).try :入力済 || '0'
-    if finish_flag == '1'
-      @kintai = Kintai.find_by(社員番号: session[:user], 日付: date.beginning_of_month)
-      render :index
-    else
-      render :index
-    end
+    @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
   end
 
   def search
@@ -155,5 +145,14 @@ class KintaisController < ApplicationController
       params.require(:kintai).permit(:日付, :曜日, :勤務タイプ, :出勤時刻, :退社時刻, :保守携帯回数, :状態1, :状態2, :状態3, :備考,
         :実労働時間, :遅刻時間, :早退時間, :普通残業時間, :深夜残業時間, :普通保守時間, :深夜保守時間,
         :holiday, :代休相手日付, :代休取得区分)
+    end
+
+    def check_edit_kintai
+      @kintai_now =Kintai.find_by id: params[:id]
+      @kintai = Kintai.find_by(日付: @kintai_now.日付.beginning_of_month, 社員番号: session[:user])
+      unless @kintai.入力済 == '1'
+        flash[:danger] = t 'app.flash.access_denied'
+        redirect_to kintais_path
+      end
     end
 end
