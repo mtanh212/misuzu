@@ -26,8 +26,7 @@
     <th rowspan="2">保守携帯</th>
     <th rowspan="2">処理区分</th>
     <th rowspan="2">備考</th>
-    <% byebug %>
-    <% if @kintai.入力済 == 0 || @kintai.入力済.nil? %>
+    <% if @kintai.入力済 == '0' || @kintai.入力済.nil? %>
       <th rowspan="2"></th>
     <% end %>
     <!--<th rowspan="2"></th>-->
@@ -64,7 +63,7 @@
         <td><%= kintai.joutaimaster.try :name %></td>
         <td><%= kintai.備考 %></td>
         <!--<td><%# link_to '詳細', kintai %></td>-->
-        <% if @kintai.入力済 == 0 || @kintai.入力済.nil? %>
+        <% if @kintai.入力済 == '0' || @kintai.入力済.nil? %>
           <td><%= link_to '編集', edit_kintai_path(kintai) %></td>
         <% end %>
         <% msg = t "app.delete_confirm" %>

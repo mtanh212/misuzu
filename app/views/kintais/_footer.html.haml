@@ -28,6 +28,10 @@
       -#= check_box_tag 'finish-input'
       -#= label_tag '承認要求'
       -#= button_tag '入力済', name: 'commit', value:'入力済', class: 'btn btn-default'
-      = f.submit :入力済, class: 'btn btn-default'
+      - if @kintai.入力済 == '0' || @kintai.入力済.nil?
+        = f.submit :入力済, class: 'btn btn-default'
+      - else
+        = f.submit :入力する, class: 'btn btn-default'
+
 
     %p.finish-message
