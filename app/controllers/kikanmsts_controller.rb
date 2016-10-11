@@ -45,9 +45,6 @@ class KikanmstsController < ApplicationController
     elsif File.extname(params[:file].original_filename) != ".csv"
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to kikanmsts_path
-    elsif (error = check_attributes_import(params[:file], "kikanmst")) != ""
-      flash[:danger] = error + t("app.flash.not_attributes")
-      redirect_to kikanmsts_path
     else
       begin
         Kikanmst.transaction do
@@ -57,8 +54,8 @@ class KikanmstsController < ApplicationController
           notice = t 'app.flash.import_csv'
           redirect_to :back, notice: notice
         end
-      rescue
-        flash[:alert] = t "app.flash.file_format_invalid"
+      rescue => err
+        flash[:danger] = err.to_s
         redirect_to kikanmsts_path
       end
     end

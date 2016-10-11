@@ -95,9 +95,6 @@ class UsersController < ApplicationController
     elsif File.extname(params[:file].original_filename) != ".csv"
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to users_path
-    elsif (error = check_attributes_import(params[:file], "user")) != ""
-      flash[:danger] = error + t("app.flash.not_attributes")
-      redirect_to users_path
     else
       begin
         User.transaction do
@@ -107,8 +104,8 @@ class UsersController < ApplicationController
         end
         notice = t 'app.flash.import_csv'
         redirect_to :back, notice: notice
-      rescue
-        flash[:alert] = t "app.flash.file_format_invalid"
+      rescue => err
+        flash[:danger] = err.to_s
         redirect_to users_path
       end
     end
