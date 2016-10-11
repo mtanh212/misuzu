@@ -42,7 +42,7 @@ class ShozokumastersController < ApplicationController
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to shozokumasters_path
     elsif (error = check_attributes_import(params[:file], "shozokumaster")) != ""
-      flash[:danger] = error
+      flash[:danger] = error + t("app.flash.not_attributes")
       redirect_to shozokumasters_path
     else
       begin

@@ -74,7 +74,7 @@ class JobmastersController < ApplicationController
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to jobmasters_path
     elsif (error = check_attributes_import(params[:file], "jobmaster")) != ""
-      flash[:danger] = error
+      flash[:danger] = error + t("app.flash.not_attributes")
       redirect_to jobmasters_path
     else
       begin
@@ -86,7 +86,7 @@ class JobmastersController < ApplicationController
           redirect_to :back, notice: notice
         end
       rescue
-        flash[:alert] = t "app.flash.file_format_invalid"
+        # flash[:alert] = t "app.flash.file_format_invalid"
         redirect_to jobmasters_path
       end
     end

@@ -45,7 +45,7 @@ class BashokubunmstsController < ApplicationController
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to bashokubunmsts_path
     elsif (error = check_attributes_import(params[:file], "bashokubunmst")) != ""
-      flash[:danger] = error
+      flash[:danger] = error + t("app.flash.not_attributes")
       redirect_to bashokubunmsts_path
     else
       begin
