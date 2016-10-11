@@ -150,7 +150,7 @@ class KintaisController < ApplicationController
     def check_edit_kintai
       @kintai_now =Kintai.find_by id: params[:id]
       @kintai = Kintai.find_by(日付: @kintai_now.日付.beginning_of_month, 社員番号: session[:user])
-      unless @kintai.入力済 == '1'
+      if @kintai.入力済 == '1'
         flash[:danger] = t 'app.flash.access_denied'
         redirect_to kintais_path
       end
