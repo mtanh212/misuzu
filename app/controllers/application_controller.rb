@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
         result = result + " " + a unless a.nil?
       end
     end
-    return result + t("app.flash.not_attributes")
+    return result
   end
 
   private

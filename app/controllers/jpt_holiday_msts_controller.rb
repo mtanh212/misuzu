@@ -46,7 +46,7 @@ class JptHolidayMstsController < ApplicationController
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to jpt_holiday_msts_path
     elsif (error = check_attributes_import(params[:file], "jpt_holiday_msts")) != ""
-      flash[:danger] = error
+      flash[:danger] = error + t("app.flash.not_attributes")
       redirect_to jpt_holiday_msts_path
     else
       begin

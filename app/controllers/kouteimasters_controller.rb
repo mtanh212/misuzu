@@ -70,7 +70,7 @@ class KouteimastersController < ApplicationController
       flash[:danger] = t "app.flash.file_format_invalid"
       redirect_to kouteimasters_path
     elsif (error = check_attributes_import(params[:file], "kouteimaster")) != ""
-      flash[:danger] = error
+      flash[:danger] = error + t("app.flash.not_attributes")
       redirect_to kouteimasters_path
     else
       begin
