@@ -47,6 +47,7 @@ class KintaisController < ApplicationController
   end
 
   def edit
+    @kintai = Kintai.find_by id: params[:id]
     if @kintai.勤務タイプ.nil?
       @kintai.勤務タイプ = Shainmaster.find(session[:user]).勤務タイプ
       @kintai.実労働時間 = 8
