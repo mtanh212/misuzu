@@ -6,13 +6,13 @@
   <!-- <li><a href="#">基準情報</a></li> -->
   <!-- <li><a href="#">セキュリティ管理</a></li> -->
   <li><%= link_to '管理G', kanris_root_path %></li>
-  <li class="active">勤怠</li>
+  <li class="active">経費</li>
 </ol>
 
-<%= form_for :kintai, url: kanris_keihiheads_path, html: {class:'form-inline'}, method: :get do |f|%>
-<%= render "kanris/shared/header", f:f %>
+<%= form_for :kintai, url: kanris_keihiheads_path, html: {class:'form-inline'}, method: :get do |f| %>
+<%= render "kanris/shared/header_keihi", f: f %>
 
-<table  id="kintai_table" class="table table-striped table-bordered table-hover" cellspacing="0">
+<table  class="table table-bordered table-hover " cellspacing="0" data-sort-name="name" data-sort-order="desc">
   <thead>
   <tr>
     <th rowspan="2">申請番号</th>
@@ -43,10 +43,9 @@
         <td><%= keihihead.清算予定日 %></td>
         <td><%= keihihead.清算日 %></td>
         <td><%= keihihead.承認済区分 %></td>
-
       </tr>
   <% end %>
-  <%= paginate @keihiheads %>
+<%= paginate @keihiheads %>
   <% end %>
   </tbody>
 </table>

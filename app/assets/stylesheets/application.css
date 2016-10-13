@@ -20,3 +20,8 @@
  * require_tree .
  * require_self
 */
+.div_scoll {
+  overflow-x:auto;
+  overflow-y:auto;
+  width: 130px;
+}
