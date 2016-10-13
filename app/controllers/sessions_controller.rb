@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
   private
   def check_login
     if logged_in?
-      flash[:danger] = t "app.login.logged_in"
+      flash[:notice] = t "app.login.logged_in"
       redirect_to main_path
     end
   end
