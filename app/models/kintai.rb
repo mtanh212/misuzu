@@ -14,12 +14,12 @@ class Kintai < ActiveRecord::Base
   KINMU_TYPE = %w(001 002 003 004 005 006 007 008 009)
   validate :check_joutai1
   validate :check_date_input
-  validates :実労働時間, numericality: { greater_than_or_equal_to: 0}
-  validates :遅刻時間, numericality: { greater_than_or_equal_to: 0}
-  validates :普通残業時間, numericality: { greater_than_or_equal_to: 0}
-  validates :深夜残業時間, numericality: { greater_than_or_equal_to: 0}
-  validates :普通保守時間, numericality: { greater_than_or_equal_to: 0}
-  validates :深夜保守時間, numericality: { greater_than_or_equal_to: 0}
+  validates :実労働時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
+  validates :遅刻時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
+  validates :普通残業時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
+  validates :深夜残業時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
+  validates :普通保守時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
+  validates :深夜保守時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
 
   def self.to_csv
     attributes = %w{id 日付 曜日 曜日 勤務タイプ 実労働時間 普通残業時間 深夜残業時間 普通保守時間
@@ -49,7 +49,7 @@ class Kintai < ActiveRecord::Base
 
   def check_joutai1
     if 状態1.present?
-      @joutaimaster = Joutaimaster.find_by 状態コード: :状態1
+      @joutaimaster = Joutaimaster.find_by 状態コード: 状態1
       if @joutaimaster.nil?
         errors.add(:状態1, "状態が存在していない")
       end
