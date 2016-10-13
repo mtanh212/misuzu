@@ -40,11 +40,11 @@ class KintaisController < ApplicationController
     respond_with(@kintai)
   end
 
-  def new
-    @kintai = Kintai.new
-    @kintai.勤務タイプ = Shainmaster.find(session[:user]).勤務タイプ
-    respond_with(@kintai)
-  end
+  # def new
+  #   @kintai = Kintai.new
+  #   @kintai.勤務タイプ = Shainmaster.find(session[:user]).勤務タイプ
+  #   respond_with(@kintai)
+  # end
 
   def edit
     @kintai = Kintai.find_by id: params[:id]
@@ -89,11 +89,11 @@ class KintaisController < ApplicationController
     end
   end
 
-  def create
-    @kintai = Kintai.new(kintai_params)
-    flash[:notice] = t 'app.flash.new_success' if @kintai.save
-    respond_with(@kintai, location: kintais_url)
-  end
+  # def create
+  #   @kintai = Kintai.new(kintai_params)
+  #   flash[:notice] = t 'app.flash.new_success' if @kintai.save
+  #   respond_with(@kintai, location: kintais_url)
+  # end
 
   def update
     if kintai_params[:状態1].in?(['103']) #振出

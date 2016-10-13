@@ -9,9 +9,9 @@
   <li class="active">勤怠</li>
 </ol>
 
-<%= form_for :kintai, url: kanris_kintais_path, html: {class:'form-inline'}, method: :get do |f|%>
+<%= form_for :kintai, url: kanris_kintais_path, html: {class:'form-inline'}, method: :get do |f| %>
 
-<%= render "kanris/shared/header", f:f %>
+<%= render "kanris/shared/header_kintai", f: f %>
 <%= link_to "データをエクスポート" , export_excel_kanris_kintais_path(format: 'xlsx', date: @date) %>
 <hr>
 <table  id="kintai_table" class="table table-bordered table-hover " cellspacing="0" data-sort-name="name" data-sort-order="desc">

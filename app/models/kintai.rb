@@ -12,19 +12,14 @@ class Kintai < ActiveRecord::Base
   enum 曜日: {日: "0", 月: "1", 火: "2", 水: "3", 木: "4", 金: "5", 土: "6"}
 
   KINMU_TYPE = %w(001 002 003 004 005 006 007 008 009)
-
+  validate :check_joutai1
   validate :check_date_input
-
-  def check_date_input
-    if 出勤時刻.present? && 退社時刻.present?
-      if 出勤時刻 > 退社時刻
-        errors.add(:退社時刻, "は出勤時刻以上の値にしてください。")
-      end
-      if ((退社時刻 - 出勤時刻)/1.hour).to_i > 22
-        errors.add(:退社時刻, "は22時間より小さい値にしてください。")
-      end
-    end
-  end
+  validates :実労働時間, numericality: { greater_than_or_equal_to: 0}
+  validates :遅刻時間, numericality: { greater_than_or_equal_to: 0}
+  validates :普通残業時間, numericality: { greater_than_or_equal_to: 0}
+  validates :深夜残業時間, numericality: { greater_than_or_equal_to: 0}
+  validates :普通保守時間, numericality: { greater_than_or_equal_to: 0}
+  validates :深夜保守時間, numericality: { greater_than_or_equal_to: 0}
 
   def self.to_csv
     attributes = %w{id 日付 曜日 曜日 勤務タイプ 実労働時間 普通残業時間 深夜残業時間 普通保守時間
@@ -36,6 +31,27 @@ class Kintai < ActiveRecord::Base
 
       all.each do |kintai|
         csv << attributes.map{ |attr| kintai.send(attr) }
+      end
+    end
+  end
+
+  private
+  def check_date_input
+    if 出勤時刻.present? && 退社時刻.present?
+      if 出勤時刻 > 退社時刻
+        errors.add(:退社時刻, "は出勤時刻以上の値にしてください。")
+      end
+      if ((退社時刻 - 出勤時刻)/1.hour).to_i > 22
+        errors.add(:退社時刻, "は22時間より小さい値にしてください。")
+      end
+    end
+  end
+
+  def check_joutai1
+    if 状態1.present?
+      @joutaimaster = Joutaimaster.find_by 状態コード: :状態1
+      if @joutaimaster.nil?
+        errors.add(:状態1, "状態が存在していない")
       end
     end
   end
