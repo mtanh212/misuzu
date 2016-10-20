@@ -2,7 +2,7 @@ class Keihihead < ActiveRecord::Base
   self.table_name = :keihi_heads
   self.primary_key = :申請番号
 
-  has_many :keihibodies, foreign_key: :申請番号
+  has_many :keihibodies, foreign_key: :申請番号, dependent: :destroy
   belongs_to :shainmaster, foreign_key: :社員番号
 
   accepts_nested_attributes_for :keihibodies,
@@ -18,6 +18,8 @@ class Keihihead < ActiveRecord::Base
   scope :current_member, ->(member) { where( 社員番号: member )}
 
   delegate :氏名, to: :shainmaster, prefix: :shainmaster, allow_nil: true
+  validates :清算予定日, presence: true, length: {minimum: 1}
+  validates :承認者, presence: true, length: {minimum: 1}
 
   def self.to_csv
     attributes = %w{申請番号 日付 社員番号 申請者 交通費合計 日当合計 宿泊費合計
