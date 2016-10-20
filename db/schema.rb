@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020080216) do
+ActiveRecord::Schema.define(version: 20161020102828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -280,6 +280,8 @@ ActiveRecord::Schema.define(version: 20161020080216) do
     t.datetime "updated_at", null: false
     t.integer  "順番"
   end
+
+  add_index "承認者マスタ", ["承認者", "申請者"], name: "index_承認者マスタ_on_承認者_and_申請者", using: :btree
 
   create_table "担当者マスタ", id: false, force: :cascade do |t|
     t.string   "担当者コード",                              null: false

@@ -2,12 +2,15 @@ class Shoninshamst < ActiveRecord::Base
   self.table_name = :承認者マスタ
 
   scope :current_user, ->(member) {where( 承認者: member)}
-  belongs_to :shainmaster, foreign_key: :承認者
+  belongs_to :shouninsha, foreign_key: :承認者, class_name: 'Shainmaster'
+  belongs_to :shinseisha, foreign_key: :申請者, class_name: 'Shainmaster'
+  delegate :氏名, to: :shainmaster, prefix: :shainmaster, allow_nil: true
 
   validates :申請者, :承認者, presence: true
 
   delegate :title, to: :shainmaster, prefix: :shonin, allow_nil: true
-
+  validate :check_shainmaster_equal
+  validates :申請者, uniqueness: { scope: :承認者}
 
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
@@ -24,6 +27,14 @@ class Shoninshamst < ActiveRecord::Base
       all.each do |shoninshamst|
         csv << attributes.map{ |attr| shoninshamst.send(attr) }
       end
+    end
+  end
+
+  private
+  def check_shainmaster_equal
+    if self.申請者 == self.承認者
+      errors.add(:申請者, '同じちゃない')
+      errors.add(:承認者, '同じちゃない')
     end
   end
 end
