@@ -3,6 +3,12 @@ module SessionsHelper
     session[:user] = user.id
     session[:current_user_id] = user.id
     session[:selected_shain] = user.shainmaster.id
+
+    if user.shainmaster.login_time.nil?
+      Shainmaster.update_all login_time: Date.today
+    elsif user.shainmaster.login_time < Date.today
+      Shainmaster.update_all 所在コード: nil, login_time: Date.today
+    end
     # 現在保留
     # check_shozai()
     check_kintai_at_day_by_user(user.id, Date.today)

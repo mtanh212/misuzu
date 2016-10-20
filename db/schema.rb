@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005071536) do
+ActiveRecord::Schema.define(version: 20161020080216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -342,6 +342,7 @@ ActiveRecord::Schema.define(version: 20161005071536) do
     t.string   "勤務タイプ"
     t.boolean  "区分",         default: false
     t.boolean  "タイムライン区分",   default: false
+    t.date     "login_time"
   end
 
   add_index "社員マスタ", ["社員番号"], name: "index_社員マスタ_on_社員番号", unique: true, using: :btree
