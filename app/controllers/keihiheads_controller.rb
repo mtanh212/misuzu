@@ -1,7 +1,7 @@
 class KeihiheadsController < ApplicationController
   before_action :require_user!
   before_action :set_keihi, only: [:show, :edit, :update, :destroy]
-  before_action :set_modal, only: [:new, :edit, :update, :destroy]
+  before_action :set_modal, only: [:new, :edit, :update, :destroy, :create, :update]
   # load_and_authorize_resource
 
   respond_to :js
@@ -59,17 +59,25 @@ class KeihiheadsController < ApplicationController
     @keihi.id = 1
     @keihi.id = Keihihead.pluck(:id).map {|i| i.to_i}.max + 1 if Keihihead.exists?
     @keihi.社員番号 = session[:user]
-    flash[:notice] = t 'app.flash.new_success' if @keihi.save
-    redirect_to keihiheads_url
+    if @keihi.save
+      flash[:notice] = t 'app.flash.new_success'
+      redirect_to keihiheads_url
+    else
+      render :new
+    end
   end
 
   def update
     case params[:commit]
       when '登録する'
         params[:keihihead][:日付] = Date.today if keihi_params[:日付].nil?
-        flash[:notice] = t "app.flash.update_success" if @keihi.update(keihi_params)
+        if @keihi.update(keihi_params)
+          flash[:notice] = t "app.flash.update_success"
         # respond_with(@keihi)
-        redirect_to keihiheads_url
+          redirect_to keihiheads_url
+        else
+          render :edit
+        end
       when '削除する'
         flash[:notice] = t "app.flash.delete_success" if @keihi.destroy
         respond_with @keihi, location: keihiheads_url
