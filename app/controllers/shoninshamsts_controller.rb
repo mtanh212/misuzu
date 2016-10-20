@@ -15,7 +15,7 @@ class ShoninshamstsController < ApplicationController
   end
 
   def new
-    @shoninshamst = Shoninshamst.new
+    # @shoninshamst = Shoninshamst.new
     respond_with(@shoninshamst)
   end
 
@@ -24,8 +24,12 @@ class ShoninshamstsController < ApplicationController
 
   def create
     @shoninshamst = Shoninshamst.new(shoninshamst_params)
-    @shoninshamst.save
-    respond_with(@shoninshamst)
+    if @shoninshamst.save
+      flash[:notice] = t 'app.flash.update_success'
+      respond_with(@shoninshamst)
+    else
+      render :new
+    end
   end
 
   def update
