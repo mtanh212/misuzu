@@ -31,9 +31,7 @@
       = f.input :合計, size:2, class: 'form-control'
       = f.check_box :承認kubun
       = f.label :承認要求
-      = f.label :承認
       = f.input :承認者 do
         = f.text_field_search :承認者,{}, size:2, class_field: 'shonin', class_search: 'shonin-search'
       .editor-datetime
-        = f.label :清算予定日
         = f.input :清算予定日, size:6, class: 'form-control'
