@@ -19,6 +19,11 @@ Jpt::Application.routes.draw do
     collection {post :import}
   end
 
+  resources :kairanshosais do
+    collection {get :export_csv}
+    collection {post :import}
+  end
+
   resources :tsushinseigyous do
     collection {get :export_csv}
     collection {post :import}
