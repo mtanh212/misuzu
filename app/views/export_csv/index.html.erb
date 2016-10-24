@@ -84,6 +84,12 @@
     </tr>
     <tr>
       <td><%= @index+=1 %></td>
+      <td><%= link_to "回覧詳細",
+        export_csv_kairanshosais_path(format: :csv) %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
       <td><%= link_to "回覧用件マスタ",
         export_csv_kairanyokenmsts_path(format: :csv) %>
       </td>
