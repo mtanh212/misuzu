@@ -1,7 +1,7 @@
 class Setsubi < ActiveRecord::Base
 	self.table_name = :設備マスタ
  	self.primary_key = :設備コード
-
+  validates :設備コード, :設備名, presence: true
 
 
  	def self.import(file)transaction
