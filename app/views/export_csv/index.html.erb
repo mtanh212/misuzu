@@ -160,5 +160,11 @@
         export_csv_ekis_path(format: :csv) %>
       </td>
     </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to "設備マスタ",
+        export_csv_setsubis_path(format: :csv) %>
+      </td>
+    </tr>
   </tbody>
 </table>

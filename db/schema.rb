@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020102828) do
+ActiveRecord::Schema.define(version: 20161021034614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -133,6 +133,13 @@ ActiveRecord::Schema.define(version: 20161020102828) do
   create_table "temps", force: :cascade do |t|
     t.date    "date"
     t.boolean "checked"
+  end
+
+  create_table "user_samples", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "会社マスタ", id: false, force: :cascade do |t|
@@ -348,6 +355,14 @@ ActiveRecord::Schema.define(version: 20161020102828) do
   end
 
   add_index "社員マスタ", ["社員番号"], name: "index_社員マスタ_on_社員番号", unique: true, using: :btree
+
+  create_table "設備マスタ", force: :cascade do |t|
+    t.string   "設備コード"
+    t.string   "設備名"
+    t.string   "備考"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "通信制御マスタ", force: :cascade do |t|
     t.string   "社員番号"
