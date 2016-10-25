@@ -1,6 +1,6 @@
 = simple_form_for @shoninshamst do |f|
   .col-sm-2.col-sm-offset-2
-    = f.association :shinseisha, label_method: :氏名, value_method: :社員番号, label:'申請者', :selected => :session
+    = f.association :shinseisha, label_method: :氏名, value_method: :社員番号, label:'申請者'
     = f.association :shouninsha, label_method: :氏名, value_method: :社員番号, label:'承認者', :selected => :session
     = f.input :順番
     = f.button :submit, class: 'btn btn-primary'
