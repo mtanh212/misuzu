@@ -53,6 +53,8 @@ class EventsController < ApplicationController
           redirect_to shonin_search_keihiheads_url
         when '回覧'
           redirect_to kairans_url
+        when '設備予約'
+          redirect_to setsubiyoyakus_url
       end
     end
     # @all_events = Event.where("Date(開始) = ?", Date.today.to_s(:db))
@@ -135,8 +137,9 @@ class EventsController < ApplicationController
       when '承認'
         redirect_to shonin_search_keihiheads_url
       when '回覧'
-        redirect_to ''
-        # redirect_to new_keihihead_url
+        redirect_to kairans_url
+      when '設備予約'
+        redirect_to setsubiyoyakus_url
     end
   end
 

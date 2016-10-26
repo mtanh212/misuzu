@@ -164,6 +164,15 @@ $(function(){
                     }
 
                 }
+                {
+                    labelText: '設備予約',
+                    field: 'setsubiyoyaku',
+                    width: 25,
+                    render: function(resources, el) {
+                        el.css('background-color', '#adadad');
+                    }
+
+                }
                 ]
                 ,resources: data.shains
             }

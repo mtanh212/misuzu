@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161021034614) do
+ActiveRecord::Schema.define(version: 20161025075428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,17 @@ ActiveRecord::Schema.define(version: 20161021034614) do
     t.datetime "退社時刻"
     t.decimal  "遅刻時間"
     t.decimal  "早退時間"
+  end
+
+  create_table "setsubiyoyakus", force: :cascade do |t|
+    t.string   "設備コード"
+    t.string   "社員番号"
+    t.string   "相手先"
+    t.string   "開始"
+    t.string   "終了"
+    t.text     "用件"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "temps", force: :cascade do |t|
@@ -369,6 +380,17 @@ ActiveRecord::Schema.define(version: 20161021034614) do
     t.string   "設備コード"
     t.string   "設備名"
     t.string   "備考"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "設備予約", force: :cascade do |t|
+    t.string   "設備コード"
+    t.string   "開始"
+    t.string   "終了"
+    t.string   "予約者"
+    t.string   "相手先"
+    t.text     "用件"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -3,6 +3,7 @@ class Setsubi < ActiveRecord::Base
  	self.primary_key = :設備コード
   validates :設備コード, :設備名, presence: true
 
+  has_many :setsubiyoyaku, dependent: :destroy, foreign_key: :設備コード
 
  	def self.import(file)transaction
     	CSV.foreach(file.path, headers: true) do |row|

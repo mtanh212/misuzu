@@ -150,6 +150,9 @@ Jpt::Application.routes.draw do
     collection {get :export_csv}
   end
 
+  resources :setsubiyoyakus do
+  end
+
   constraints(:id => /\w+(,\w+)*/) do
     resources :kouteimasters do
       collection {post :ajax}
