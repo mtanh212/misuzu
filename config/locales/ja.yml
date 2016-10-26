@@ -220,6 +220,7 @@ ja:
       file_nil: ファイルが存在していない！
       file_format_invalid: ファイルのフォマットを正しく選択してください。
       not_attributes: " アトリビュートが存在していない！"
+      unsucess: "全部フィールドがエンプティーを入力しないでください！"
 
     login:
       let_login: ログインしてください。
