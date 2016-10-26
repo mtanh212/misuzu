@@ -10,7 +10,7 @@
     = f.input :内線電話番号
     = f.input :有給残数
     - if current_user.admin? || current_user.supervisor?
-      = f.label :区分, '区分(管理Gは社員の勤怠が見えない.)'
+      = f.label :区分, '区分(勤怠管理をしない.)'
       = f.input :区分, as: :boolean
       = f.label :タイムライン区分, 'タイムライン区分(タイムラインに表示したくない.)'
       = f.input :タイムライン区分, as: :boolean
