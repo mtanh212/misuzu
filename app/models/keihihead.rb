@@ -1,7 +1,6 @@
 class Keihihead < ActiveRecord::Base
   self.table_name = :keihi_heads
   self.primary_key = :申請番号
-
   has_many :keihibodies, foreign_key: :申請番号, dependent: :destroy
   belongs_to :shainmaster, foreign_key: :社員番号
 

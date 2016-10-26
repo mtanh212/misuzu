@@ -27,7 +27,7 @@ class KeihiheadsController < ApplicationController
   end
 
   def edit
-    @keihi.keihibodies.build
+    # @keihi.keihibodies.build
   end
 
   def create
@@ -53,7 +53,7 @@ class KeihiheadsController < ApplicationController
     #     # respond_with(@keihi, location: keihis_url)
     #     redirect_to new_keihihead_url
     # end
-
+    
     params[:keihihead][:日付] = Date.today if keihi_params[:日付].blank?
     @keihi = Keihihead.new(keihi_params)
     @keihi.id = 1
@@ -63,6 +63,7 @@ class KeihiheadsController < ApplicationController
       flash[:notice] = t 'app.flash.new_success'
       redirect_to keihiheads_url
     else
+      flash[:danger] = t 'app.flash.unsucess'
       render :new
     end
   end
@@ -73,10 +74,12 @@ class KeihiheadsController < ApplicationController
         params[:keihihead][:日付] = Date.today if keihi_params[:日付].nil?
         if @keihi.update(keihi_params)
           flash[:notice] = t "app.flash.update_success"
-        # respond_with(@keihi)
           redirect_to keihiheads_url
+
         else
+          flash[:danger] = t 'app.flash.unsucess'
           render :edit
+
         end
       when '削除する'
         flash[:notice] = t "app.flash.delete_success" if @keihi.destroy
