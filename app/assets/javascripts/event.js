@@ -163,7 +163,7 @@ $(function(){
                         el.css('background-color', '#adadad');
                     }
 
-                }
+                },
                 {
                     labelText: '設備予約',
                     field: 'setsubiyoyaku',
