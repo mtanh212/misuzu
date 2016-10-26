@@ -8,7 +8,7 @@ class Shoninshamst < ActiveRecord::Base
 
   validates :申請者, :承認者, presence: true
 
-  delegate :title, to: :shainmaster, prefix: :shonin, allow_nil: true
+  delegate :title, to: :shouninsha, prefix: :shonin, allow_nil: true
   validate :check_shainmaster_equal
   validates :申請者, uniqueness: { scope: :承認者}
 
@@ -33,8 +33,8 @@ class Shoninshamst < ActiveRecord::Base
   private
   def check_shainmaster_equal
     if self.申請者 == self.承認者
-      errors.add(:申請者, '同じちゃない')
-      errors.add(:承認者, '同じちゃない')
+      errors.add(:申請者, '申請者と承認者が一緒しています')
+      errors.add(:承認者, '申請者と承認者が一緒しています')
     end
   end
 end

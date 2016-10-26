@@ -11,4 +11,19 @@ class Kairanshosai < ActiveRecord::Base
   # delegate :確認, to: :kairan, allow_nil: true
   enum 状態: [:未確認, :確認済, :回答済]
 
+
+
+
+  def self.to_csv
+    	attributes = %w{回覧コード 対象者 created_at updated_at 状態}
+
+    	CSV.generate(headers: true) do |csv|
+      		csv << attributes
+
+      		all.each do |kairanshosai|
+        		csv << attributes.map{ |attr| kairanshosai.send(attr) }
+      		end
+    	end
+  end
+
 end

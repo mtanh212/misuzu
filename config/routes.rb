@@ -1,4 +1,8 @@
 Jpt::Application.routes.draw do
+  resources :setsubis do
+    collection {post :import}
+    collection {get :export_csv}
+  end
   get 'kanris/index'
 
   get 'kanri/index'
@@ -11,6 +15,11 @@ Jpt::Application.routes.draw do
   end
 
   resources :kairanyokenmsts do
+    collection {get :export_csv}
+    collection {post :import}
+  end
+
+  resources :kairanshosais do
     collection {get :export_csv}
     collection {post :import}
   end

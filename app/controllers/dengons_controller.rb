@@ -39,8 +39,8 @@ class DengonsController < ApplicationController
     @dengon.save
     # respond_with(@dengon)
     update_dengon_counter()
-    mail_to = Tsushinseigyou.find_by!(社員番号: dengon_params[:社員番号]).メール;
-    send_mail(mail_to, dengon_params[:回答], dengon_params[:伝言内容])
+    # mail_to = Tsushinseigyou.find_by!(社員番号: dengon_params[:社員番号]).メール;
+    # send_mail(mail_to, dengon_params[:回答], dengon_params[:伝言内容])
 
   rescue ActiveRecord::RecordNotFound
     flash[:notice] = t "app.flash.mail_to"
@@ -54,8 +54,8 @@ class DengonsController < ApplicationController
     @dengon.update(dengon_params)
     # respond_with(@dengon)
     update_dengon_counter()
-    mail_to = Tsushinseigyou.find_by!(社員番号: dengon_params[:社員番号]).メール;
-    send_mail(mail_to, dengon_params[:回答], dengon_params[:伝言内容])
+    # mail_to = Tsushinseigyou.find_by!(社員番号: dengon_params[:社員番号]).メール;
+    # send_mail(mail_to, dengon_params[:回答], dengon_params[:伝言内容])
 
   rescue ActiveRecord::RecordNotFound
     flash[:notice] = t "app.flash.mail_to"
