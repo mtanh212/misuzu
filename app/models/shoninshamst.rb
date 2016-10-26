@@ -8,7 +8,7 @@ class Shoninshamst < ActiveRecord::Base
 
   validates :申請者, :承認者, presence: true
 
-  delegate :title, to: :shainmaster, prefix: :shonin, allow_nil: true
+  delegate :title, to: :shouninsha, prefix: :shonin, allow_nil: true
   validate :check_shainmaster_equal
   validates :申請者, uniqueness: { scope: :承認者}
 
