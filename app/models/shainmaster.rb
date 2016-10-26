@@ -9,9 +9,16 @@ class Shainmaster < ActiveRecord::Base
 
   has_many :events, dependent: :destroy, foreign_key: :社員番号
   has_one :user, dependent: :destroy, foreign_key: :担当者コード
-  has_one :kairan, dependent: :destroy, foreign_key: :社員番号
+  has_one :kairan, dependent: :destroy, foreign_key: :発行者
   has_one :keihihead, dependent: :destroy, foreign_key: :社員番号
   has_many :kintais, dependent: :destroy, foreign_key: :社員番号
+
+  has_many :send_dengon, class_name: Dengon.name,
+    foreign_key: :入力者, dependent: :destroy
+  has_many :receive_dengon, class_name: Dengon.name,
+    foreign_key: :社員番号, dependent: :destroy
+  has_many :send_dengons, through: :send_dengon, source: :input_user
+  has_many :receive_dengons, through: :receive_dengon, source: :to_user
 
   belongs_to :shozai, foreign_key: :所在コード
   belongs_to :shozokumaster, foreign_key: :所属コード

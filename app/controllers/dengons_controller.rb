@@ -38,7 +38,7 @@ class DengonsController < ApplicationController
     @dengon = Dengon.new(dengon_params)
     @dengon.save
     # respond_with(@dengon)
-    update_dengon_counter()
+    update_dengon_counter dengon_params
     # mail_to = Tsushinseigyou.find_by!(社員番号: dengon_params[:社員番号]).メール;
     # send_mail(mail_to, dengon_params[:回答], dengon_params[:伝言内容])
 
@@ -53,7 +53,7 @@ class DengonsController < ApplicationController
   def update
     @dengon.update(dengon_params)
     # respond_with(@dengon)
-    update_dengon_counter()
+    update_dengon_counter dengon_params
     # mail_to = Tsushinseigyou.find_by!(社員番号: dengon_params[:社員番号]).メール;
     # send_mail(mail_to, dengon_params[:回答], dengon_params[:伝言内容])
 
