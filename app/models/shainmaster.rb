@@ -3,7 +3,7 @@ class Shainmaster < ActiveRecord::Base
   self.primary_key = :社員番号
 
   # default_scope { where("社員番号 is not '#{ENV['admin_user']}'")}
-
+  default_scope { order(序列: :ASC) }
   validates :社員番号,:氏名, :連携用社員番号, presence: true
   validates :社員番号, uniqueness: true
 
@@ -50,7 +50,7 @@ class Shainmaster < ActiveRecord::Base
   end
 
   def self.to_csv
-    attributes = %w{社員番号 連携用社員番号 氏名 所属コード 直間区分 役職コード 内線電話番号 伝言件数 回覧件数 所在コード 有給残数 残業区分 勤務タイプ}
+    attributes = %w{序列 社員番号 連携用社員番号 氏名 所属コード 直間区分 役職コード 内線電話番号 伝言件数 回覧件数 所在コード 有給残数 残業区分 勤務タイプ}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
