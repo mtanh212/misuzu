@@ -17,8 +17,9 @@ class Keihihead < ActiveRecord::Base
   scope :current_member, ->(member) { where( 社員番号: member )}
 
   delegate :氏名, to: :shainmaster, prefix: :shainmaster, allow_nil: true
-  validates :清算予定日, presence: true, length: {minimum: 1}
-  validates :承認者, presence: true, length: {minimum: 1}
+  # validates :清算予定日, presence: true, length: {minimum: 1}
+  # validates :承認者, presence: true, length: {minimum: 1}
+  validate :check_kubun
 
   def self.to_csv
     attributes = %w{申請番号 日付 社員番号 申請者 交通費合計 日当合計 宿泊費合計
@@ -29,6 +30,20 @@ class Keihihead < ActiveRecord::Base
 
       all.each do |keihi_head|
         csv << attributes.map{ |attr| keihi_head.send(attr) }
+      end
+    end
+  end
+
+  private
+  def check_kubun
+    if 承認kubun != "0"
+      if self.承認者.empty? && self.清算予定日.nil?
+        errors.add(:承認者, "承認者を入力してください")
+        errors.add(:清算予定日, "清算予定日を入力してください")
+      elsif self.承認者.empty?
+         errors.add(:承認者, "承認者を入力してください")
+      elsif self.清算予定日.nil?
+        errors.add(:清算予定日, "清算予定日を入力してください")
       end
     end
   end
