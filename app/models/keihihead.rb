@@ -46,4 +46,5 @@ class Keihihead < ActiveRecord::Base
         errors.add(:清算予定日, "清算予定日を入力してください")
       end
     end
+  end
 end
