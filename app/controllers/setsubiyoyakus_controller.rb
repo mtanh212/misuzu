@@ -8,7 +8,7 @@ class SetsubiyoyakusController < ApplicationController
     @setsubiyoyaku = Setsubiyoyaku.all
     if params[:head].present?
       @setsubi_param = params[:head][:setsubicode]
-    end    
+    end
     @setsubiyoyaku = Setsubiyoyaku.where(設備コード: @setsubi_param) if @setsubi_param.present?
     respond_with(@setsubiyoyaku)
   end
@@ -35,16 +35,28 @@ class SetsubiyoyakusController < ApplicationController
   end
 
   def update
-    @kaishamasters = Kaishamaster.all
-    @setsubiyoyaku.update(setsubiyoyaku_params)
-    respond_with(@setsubiyoyaku)
+    # setsubiyoyaku_params['設備コーchanged']=false
+    # setsubiyoyaku_params.add('設備コーchanged'=>'false')
+    # byebug
+    # if @setsubiyoyaku.設備コード == setsubiyoyaku_params.設備コード
+        # setsubiyoyaku_params.add('設備コーchanged'=>'true')
+        # setsubiyoyaku_params['設備コーchanged']=true
+    # end
+    if @setsubiyoyaku.update_attributes(setsubiyoyaku_params)
+      flash[:notice] = t "app.flash.update_success"
+      redirect_to setsubiyoyakus_url
+    else
+      @kaishamasters = Kaishamaster.all
+      render :edit
+      # respond_with(@setsubiyoyaku)
+    end
   end
 
   def destroy
     @setsubiyoyaku.destroy
     respond_with(@setsubiyoyaku)
     end
-  
+
   def ajax
     case params[:focus_field]
       when "setsubiyoyaku_相手先"
