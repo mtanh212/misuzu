@@ -6,7 +6,7 @@
 
 = form_for :setsubiyoyaku, url: setsubiyoyakus_path, html: {class:'form-inline'}, method: :get do |f|
   = render 'header', f:f
-  
+
 %br
 
 %table.setsubiyoyaku-table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
@@ -26,5 +26,8 @@
         %td= setsubiyoyaku.shainmaster.氏名
         %td= setsubiyoyaku.kaishamaster.nil? ? setsubiyoyaku.相手先 : setsubiyoyaku.kaishamaster.会社名
         %td= setsubiyoyaku.用件
+        %td= link_to '編集', edit_setsubiyoyaku_path(setsubiyoyaku)
+        - msg = t 'app.delete_confirm'
+        %td= link_to '削除', setsubiyoyaku, :method => :delete, :data => { :confirm => msg }
 
 = link_to '新規', new_setsubiyoyaku_path

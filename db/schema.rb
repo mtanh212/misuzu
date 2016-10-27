@@ -130,17 +130,6 @@ ActiveRecord::Schema.define(version: 20161025075428) do
     t.decimal  "早退時間"
   end
 
-  create_table "setsubiyoyakus", force: :cascade do |t|
-    t.string   "設備コード"
-    t.string   "社員番号"
-    t.string   "相手先"
-    t.string   "開始"
-    t.string   "終了"
-    t.text     "用件"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "temps", force: :cascade do |t|
     t.date    "date"
     t.boolean "checked"
